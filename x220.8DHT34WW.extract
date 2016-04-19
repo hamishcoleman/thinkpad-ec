@@ -1,0 +1,10 @@
+#!/bin/bash
+#
+# Quick and dirty extracter to get the EC image out of the iso file
+#
+# TODO:
+# - a tool that is portable to Windows
+# - should output dependancy information
+
+dd if=8duj27us.iso bs=$[0x005e2a00] skip=1 | dd bs=196608 count=1
+

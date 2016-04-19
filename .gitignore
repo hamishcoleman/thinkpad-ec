@@ -1,3 +1,5 @@
 
-# We download these, and they are large.  So, dont think about committing them
+# ignore the files that we do not have clear permission to distribute
 *.iso
+*.img
+

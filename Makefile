@@ -18,3 +18,9 @@ install.radare.projects:
 	sha1sum -c $<
 	touch $@
 
+#
+# If we have an extractor for this image, use it
+%.img:  %.extract %.img.sum
+	./$< > $@
+	sha1sum -c $@.sum
+
