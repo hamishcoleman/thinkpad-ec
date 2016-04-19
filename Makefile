@@ -21,6 +21,17 @@ install.radare.projects:
 #
 # If we have an extractor for this image, use it
 %.img:  %.extract %.img.sha1
-	./$< > $@
+	./$< $@
 	sha1sum -c $@.sha1
 
+mec-tools/Makefile:
+	git submodule update --init --remote
+
+mec-tools/mec_encrypt: mec-tools/Makefile
+	make -C mec-tools
+
+#
+# TODO:
+# - most of these dependancies could be automatically calculated
+x220.8DHT34WW.extract: 8duj27us.iso
+x230.G2HT35WW.extract: g2uj23us.iso mec-tools/mec_encrypt

@@ -12,5 +12,9 @@ if [ -z "$OUTPUT" ]; then
     exit 1
 fi
 
-dd if=8duj27us.iso bs=$[0x005e2a00] skip=1 | dd bs=196608 count=1 of="$OUTPUT"
+OUT1="${OUTPUT}.encrypted.orig"
+
+dd if=g2uj23us.iso bs=$[0x01076600] skip=1 | dd bs=196608 count=1 of="$OUT1"
+
+mec-tools/mec_encrypt -d "$OUT1" >"$OUTPUT"
 

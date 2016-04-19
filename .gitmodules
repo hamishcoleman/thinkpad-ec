@@ -1,0 +1,3 @@
+[submodule "mec-tools"]
+	path = mec-tools
+	url = https://github.com/eigenmatt/mec-tools
