@@ -12,7 +12,7 @@ if [ -z "$OUTPUT" ]; then
     exit 1
 fi
 
-OUT1="${OUTPUT}.encrypted"
+OUT1="${OUTPUT}.enc"
 
 dd if=g2uj23us.iso bs=$[0x01076600] skip=1 | dd bs=196608 count=1 of="$OUT1"
 

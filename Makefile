@@ -24,12 +24,13 @@ install.radare.projects:
 	./$< $@
 	sha1sum -c $@.sha1
 
+# keep intermediate files
+.PRECIOUS: %.img.orig
+
 # Generate a working file that we can patch
 %.img: %.img.orig
+	sha1sum -c $<.sha1
 	cp $< $@
-
-# keep intermediate files
-.SECONDARY:
 
 mec-tools/Makefile:
 	git submodule update --init --remote
