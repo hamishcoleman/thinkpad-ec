@@ -13,8 +13,8 @@ install.radare.projects:
 #
 # Download any ISO image that we have a checksum for
 # NOTE: makes an assumption about the Lenovo URL not changing
-%.iso:  %.iso.sha1
-	wget -O $@ https://download.lenovo.com/pccbbs/mobiles/$@
+%.iso.orig:  %.iso.orig.sha1
+	wget -O $@ https://download.lenovo.com/pccbbs/mobiles/$(basename $@)
 	sha1sum -c $<
 	touch $@
 
@@ -41,5 +41,5 @@ mec-tools/mec_encrypt: mec-tools/Makefile
 #
 # TODO:
 # - most of these dependancies could be automatically calculated
-x220.8DHT34WW.extract: 8duj27us.iso
-x230.G2HT35WW.extract: g2uj23us.iso mec-tools/mec_encrypt
+x220.8DHT34WW.extract: 8duj27us.iso.orig
+x230.G2HT35WW.extract: g2uj23us.iso.orig mec-tools/mec_encrypt

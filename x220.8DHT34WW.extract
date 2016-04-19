@@ -6,11 +6,11 @@
 # - a tool that is portable to Windows
 # - should output dependancy information
 
-OUTPUT="$1"
-if [ -z "$OUTPUT" ]; then
+OUT="$1"
+if [ -z "$OUT" ]; then
     echo Need output filename
     exit 1
 fi
 
-dd if=8duj27us.iso bs=$[0x005e2a00] skip=1 | dd bs=196608 count=1 of="$OUTPUT"
+dd if=8duj27us.iso.orig bs=$[0x005e2a00] skip=1 | dd bs=196608 count=1 of="$OUT"
 

@@ -6,15 +6,15 @@
 # - a tool that is portable to Windows
 # - should output dependancy information
 
-OUTPUT="$1"
-if [ -z "$OUTPUT" ]; then
+OUT="$1"
+if [ -z "$OUT" ]; then
     echo Need output filename
     exit 1
 fi
 
-OUT1="${OUTPUT}.enc"
+OUT1="${OUT}.enc"
 
-dd if=g2uj23us.iso bs=$[0x01076600] skip=1 | dd bs=196608 count=1 of="$OUT1"
+dd if=g2uj23us.iso.orig bs=$[0x1076600] skip=1 | dd bs=196608 count=1 of="$OUT1"
 
-mec-tools/mec_encrypt -d "$OUT1" >"$OUTPUT"
+mec-tools/mec_encrypt -d "$OUT1" >"$OUT"
 
