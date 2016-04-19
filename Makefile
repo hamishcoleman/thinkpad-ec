@@ -18,11 +18,18 @@ install.radare.projects:
 	sha1sum -c $<
 	touch $@
 
-#
+# Generate orig images so that we can diff against them later
 # If we have an extractor for this image, use it
-%.img:  %.extract %.img.sha1
+%.img.orig:  %.extract %.img.orig.sha1
 	./$< $@
 	sha1sum -c $@.sha1
+
+# Generate a working file that we can patch
+%.img: %.img.orig
+	cp $< $@
+
+# keep intermediate files
+.SECONDARY:
 
 mec-tools/Makefile:
 	git submodule update --init --remote
