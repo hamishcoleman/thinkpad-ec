@@ -20,7 +20,7 @@ install.radare.projects:
 
 #
 # If we have an extractor for this image, use it
-%.img:  %.extract %.img.sum
+%.img:  %.extract %.img.sha1
 	./$< > $@
-	sha1sum -c $@.sum
+	sha1sum -c $@.sha1
 
