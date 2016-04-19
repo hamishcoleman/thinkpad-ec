@@ -10,3 +10,11 @@ install.radare.projects:
 	mkdir -p ~/.config/radare2/projects/x220.8DHT34WW.d
 	cp -s $(PWD)/radare/x220.8DHT34WW ~/.config/radare2/projects
 
+#
+# Download any ISO image that we have a checksum for
+# NOTE: makes an assumption about the Lenovo URL not changing
+%.iso:  %.iso.sha1
+	wget -O $@ https://download.lenovo.com/pccbbs/mobiles/$@
+	sha1sum -c $<
+	touch $@
+
