@@ -1,0 +1,24 @@
+#!/bin/bash
+#
+# Quick and dirty extracter to get the EC image out of the iso file
+#
+# TODO:
+# - a tool that is portable to Windows
+# - should output dependancy information
+
+INP="$1"
+if [ -z "$INP" ]; then
+    echo Need input filename
+    exit 1
+fi
+shift
+
+OUT="$1"
+if [ -z "$OUT" ]; then
+    echo Need output filename
+    exit 1
+fi
+shift
+
+cd mec-tools && ./mec_repack "../$INP" "../$OUT"
+

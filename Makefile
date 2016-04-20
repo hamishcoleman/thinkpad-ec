@@ -24,6 +24,9 @@ install.radare.projects:
 	./$< $@
 	sha1sum -c $@.sha1
 
+%.img.enc:  %.encrypt %.img
+	./$< $(basename $<).img $@
+
 # keep intermediate files
 .PRECIOUS: %.img.orig
 
@@ -43,3 +46,5 @@ mec-tools/mec_encrypt: mec-tools/Makefile
 # - most of these dependancies could be automatically calculated
 x220.8DHT34WW.extract: 8duj27us.iso.orig
 x230.G2HT35WW.extract: g2uj23us.iso.orig mec-tools/mec_encrypt
+x230.G2HT35WW.encrypt: mec-tools/mec_encrypt
+
