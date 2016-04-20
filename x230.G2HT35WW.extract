@@ -12,7 +12,8 @@ if [ -z "$OUT" ]; then
     exit 1
 fi
 
-OUT1="${OUT}.enc"
+# assume that output filename is blahdyblah.img.orig
+OUT1=$(basename "$OUT" .orig).enc.orig
 
 dd if=g2uj23us.iso.orig bs=$[0x1076600] skip=1 | dd bs=196608 count=1 of="$OUT1"
 
