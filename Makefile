@@ -8,7 +8,9 @@ all:
 #
 install.radare.projects:
 	mkdir -p ~/.config/radare2/projects/x220.8DHT34WW.d
-	cp -s $(PWD)/radare/x220.8DHT34WW ~/.config/radare2/projects
+	cp -fs $(PWD)/radare/x220.8DHT34WW ~/.config/radare2/projects
+	mkdir -p ~/.config/radare2/projects/x230.G2HT35WW.d
+	cp -fs $(PWD)/radare/x230.G2HT35WW ~/.config/radare2/projects
 
 #
 # Download any ISO image that we have a checksum for
