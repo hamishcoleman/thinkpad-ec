@@ -20,5 +20,7 @@ if [ -z "$OUT" ]; then
 fi
 shift
 
+set -x
+
 cd mec-tools && ./mec_repack "../$INP" "../$OUT"
 

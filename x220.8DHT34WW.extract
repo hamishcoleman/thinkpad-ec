@@ -12,5 +12,6 @@ if [ -z "$OUT" ]; then
     exit 1
 fi
 
+set -x
 dd if=8duj27us.iso.orig bs=$[0x005e2a00] skip=1 | dd bs=196608 count=1 of="$OUT"
 
