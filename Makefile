@@ -32,10 +32,17 @@ install.radare.projects:
 # keep intermediate files
 .PRECIOUS: %.img.orig
 
-# Generate a working file that we can patch
+# Generate a working file with any known patches applied
 %.img: %.img.orig
-	sha1sum -c $<.sha1
-	cp $< $@
+	cp --reflink=auto $< $@
+	[ -d $@.d ] && for i in $@.d/*.patch; do ./hexpatch.pl $$i $@; done
+
+%.hex: %
+	hd -v $< >$@
+
+# Generate a patch report
+%.diff: %.hex %.orig.hex
+	-diff -u $(basename $@).orig.hex $(basename $@).hex >$@
 
 mec-tools/Makefile:
 	git submodule update --init --remote

@@ -1,0 +1,24 @@
+This fixes the table of Fn key combos with "more complex" functions.  This
+fixes most of the Fn+F key codes.
+
+Specifically missing is F12, as I was uncertain about the "action" byte to
+be used for it.
+
+Also, with this patch, the Fn+F3 generates a Screen Lock code.
+
+Used the x220 table as a template as the "action" byte values have changed from
+the old firmware
+
+@@ fn_keys @@
+ 00021640  5a 00 00 00 ff ff 00 00  00 00 00 00 9c 8e 01 00  |Z...............|
+ 00021650  a0 8e 01 00 a4 8e 01 00  a8 8e 01 00 ac 8e 01 00  |................|
+ 00021660  98 f4 01 00 b0 8e 01 00  b4 8e 01 00 c0 70 c0 71  |.............p.q|
+-00021670  c0 72 c7 73 e4 78 e5 77  c0 76 c0 00 c0 00 c0 97  |.r.s.x.w.v......|
+-00021680  c0 00 c8 00 c0 02 c0 03  00 00 c6 3d 00 00 00 00  |...........=....|
+-00021690  00 00 c0 00 c0 74 c0 75  00 00 00 00 00 00 00 00  |.....t.u........|
++00021670  c0 72 c7 73 e4 50 e5 51  c0 76 c0 77 c0 78 c0 97  |.r.s.P.Q.v.w.x..|
++00021680  c0 7a c8 00 c0 02 c0 03  00 00 c6 55 00 00 00 00  |.z.........U....|
++00021690  00 00 c0 3d c0 74 c0 75  00 00 00 00 00 00 00 00  |...=.t.u........|
+ 000216a0  c0 a0 00 00 08 00 00 00  4c 16 02 00 1b 00 00 00  |........L.......|
+ 000216b0  6c 16 02 00 00 00 00 0e  00 16 00 1e 00 26 00 25  |l............&.%|
+ 000216c0  00 2e 00 36 00 3d 00 3e  00 46 00 45 00 4e 00 55  |...6.=.>.F.E.N.U|
