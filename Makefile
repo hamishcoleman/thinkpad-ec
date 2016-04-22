@@ -37,6 +37,10 @@ install.radare.projects:
 	cp --reflink=auto $< $@
 	[ -d $@.d ] && for i in $@.d/*.patch; do ./hexpatch.pl $$i $@; done
 
+# if you want to work on more patches, you probably want the pre-patched ver
+%.img.prepatch: %.img.orig
+	cp --reflink=auto $< $(basename $<)
+
 %.hex: %
 	hd -v $< >$@
 

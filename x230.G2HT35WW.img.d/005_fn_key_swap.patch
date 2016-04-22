@@ -1,0 +1,17 @@
+In order to get the right "Screen Lock" keysym from Fn+F2, we can switch the order
+of the F2 and F3 keys in the fn_key table.
+
+After this patch, the Fn+F3 key still does not generate the right keysym.
+
+
+@@ fn_key_swap @@
+ 00021630  6e 00 00 00 fd 06 00 00  64 00 00 00 19 06 00 00  |n.......d.......|
+ 00021640  5a 00 00 00 ff ff 00 00  00 00 00 00 9c 8e 01 00  |Z...............|
+ 00021650  a0 8e 01 00 a4 8e 01 00  a8 8e 01 00 ac 8e 01 00  |................|
+-00021660  98 f4 01 00 b0 8e 01 00  b4 8e 01 00 c0 70 c0 71  |.............p.q|
+-00021670  c0 72 c7 73 e4 50 e5 51  c0 76 c0 77 c0 78 c0 97  |.r.s.P.Q.v.w.x..|
++00021660  98 f4 01 00 b0 8e 01 00  b4 8e 01 00 c0 70 c0 72  |.............p.r|
++00021670  c0 71 c7 73 e4 50 e5 51  c0 76 c0 77 c0 78 c0 97  |.q.s.P.Q.v.w.x..|
+ 00021680  c0 7a c8 00 c0 02 c0 03  00 00 c6 55 00 00 00 00  |.z.........U....|
+ 00021690  00 00 c0 3d c0 74 c0 75  00 00 00 00 00 00 00 00  |...=.t.u........|
+ 000216a0  c0 a0 00 00 08 00 00 00  4c 16 02 00 1b 00 00 00  |........L.......|
