@@ -18,7 +18,7 @@ sub usage() {
     print("patching the right file\n");
     print("\n");
     print("Usage:\n");
-    print("    hexpatch.pl patchfile binaryfile\n");
+    print("    hexpatch.pl binaryfile patchfile [patchfile...]\n");
     print("\n");
     exit(1);
 }
@@ -60,8 +60,9 @@ sub read_patchfile {
     while(<$fh>) {
         # anything before we see a starting at symbol line can be ignored
         if (!$seen_at_symbols) {
-            if (m/^\@\@ .* \@\@$/) {
+            if (m/^\@\@ (.*) \@\@$/) {
                 $seen_at_symbols = 1;
+                $db->{name} = $1;
             }
             next;
         }
@@ -165,18 +166,9 @@ sub apply_patch {
 }
 
 sub main() {
-    my $patchfile = shift @ARGV;
     my $binaryfile = shift @ARGV;
-
-    if (!defined($patchfile) or !defined($binaryfile)) {
+    if (!defined($binaryfile) or !defined($ARGV[0])) {
         usage();
-    }
-
-    my $db = read_patchfile($patchfile);
-
-    if (!defined($db)) {
-        warn("Cannot read $patchfile\n");
-        exit(1);
     }
 
     my $fh = IO::File->new($binaryfile, O_RDWR);
@@ -185,12 +177,26 @@ sub main() {
         exit(1);
     }
 
-    if (!verify_context($db,$fh)) {
-        warn("The binaryfile does not match the context bytes from the patch");
-        exit(1);
-    }
+    print("Attempting to patch $binaryfile\n");
 
-    apply_patch($db,$fh);
+    while ($ARGV[0]) {
+        my $patchfile = shift @ARGV;
+
+        my $db = read_patchfile($patchfile);
+
+        if (!defined($db)) {
+            warn("Cannot read $patchfile\n");
+            exit(1);
+        }
+
+        if (!verify_context($db,$fh)) {
+            warn("The binaryfile does not match the context bytes from $patchfile\n");
+            exit(1);
+        }
+
+        print("Applying ",$patchfile," ",$db->{name},"\n");
+        apply_patch($db,$fh);
+    }
 }
 main();
 

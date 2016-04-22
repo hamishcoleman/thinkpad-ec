@@ -35,7 +35,7 @@ install.radare.projects:
 # Generate a working file with any known patches applied
 %.img: %.img.orig
 	cp --reflink=auto $< $@
-	[ -d $@.d ] && for i in $@.d/*.patch; do ./hexpatch.pl $$i $@; done
+	[ -d $@.d ] && ./hexpatch.pl $@ $@.d/*.patch
 
 # if you want to work on more patches, you probably want the pre-patched ver
 %.img.prepatch: %.img.orig
