@@ -2,7 +2,7 @@ This repository consists of a number of tools and utilities for examining and
 modifying Thinkpad Embedded Controller firmware.
 
 Including:
-*   radare projects with partial disassembly of several thinkpads
+*   radare projects with partial disassembly of several thinkpads EC firmware
 *   scripts for downloading the ISO image and extracting the firmware
 *   script for patching the firmware
 *   documentation on the tables found in the firmware (TODO)
