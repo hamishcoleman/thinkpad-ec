@@ -6,15 +6,16 @@
 # - a tool that is portable to Windows
 # - should output dependancy information
 
+INFOFILE="$1"
+if [ ! -r "$INFOFILE" ]; then
+    echo Need file with source and offset info
+    exit 1
+fi
+shift
+
 OUT="$1"
 if [ -z "$OUT" ]; then
     echo Need output filename
-    exit 1
-fi
-
-INFOFILE="$OUT.offset"
-if [ ! -r "$INFOFILE" ]; then
-    echo Cannot find file with source and offset info
     exit 1
 fi
 
