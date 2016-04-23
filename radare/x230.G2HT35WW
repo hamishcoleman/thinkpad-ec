@@ -499,8 +499,6 @@ f fn_ret.00018eac 2 0x00018eac
 f fn2_set_flag_bit7_0x80022c 2 0x00018eb0 
 f fn2_set_flag_bit0_0x800a30 2 0x00018eb4 
 fs symbols
-f table.00021818 1 0x00021818 
-f table.00021858 1 0x00021858 
 f table.000216b4 1 0x000216b4 
 f table.00021a20 1 0x00021a20 
 f table.0002215c 1 0x0002215c 
@@ -529,7 +527,6 @@ f table.00022e1c 1 0x00022e1c
 f table.00022e2c 1 0x00022e2c 
 f table.00022e3c 1 0x00022e3c 
 f table_live_key_map 1 0x000219e8 
-f table.000214f0 1 0x000214f0 
 f table.00003f64 1 0x00003f64 
 f table.000215b4 1 0x000215b4 
 f table.000215c0 1 0x000215c0 
@@ -557,7 +554,6 @@ f table.000211cc 1 0x000211cc
 f table.000211e4 1 0x000211e4 
 f table.0002121c 1 0x0002121c 
 f table.000214e4 1 0x000214e4 
-f table.000214fc 1 0x000214fc 
 f table.00022b20 1 0x00022b20 
 f table.00022644 1 0x00022644 
 f table.00022628 1 0x00022628 
@@ -941,7 +937,6 @@ f fcn.00020ed0 12 0x00020ed0
 fs symbols
 f table_ptr_keysym_replacements 1 0x000218d0 
 f table_keysym_replacements 1 0x00021898 
-f table.0x000218bc 1 0x000218bc 
 f jump_table.0x0002164c 1 0x0002164c 
 f table.0x00021aa8 1 0x00021aa8 
 f table.0x00003f58 1 0x00003f58 
@@ -1518,12 +1513,12 @@ f table_fn_key_complex 1 0x0002166c
 "e file.loadalign = 0x00000400"
 "e file.loadmethod = fail"
 "e file.location = "
-"e file.md5 = 0f9cb9f8155ac324574a1f4c59227fbd"
+"e file.md5 = 0ec57b1ab57a5c24c7f9e3407f3f4490"
 "e file.nowarn = true"
 "e file.openmany = 1"
 "e file.path = x230.G2HT35WW.img"
 "e file.project = x230.G2HT35WW"
-"e file.sha1 = d70f5434ef316a66a6195651d9e231e84a2464a1"
+"e file.sha1 = 6dce6b562b06a2cb3be41d46119580759fd10187"
 "e file.type = "
 "e fs.view = normal"
 "e graph.font = Courier"
@@ -1537,7 +1532,7 @@ f table_fn_key_complex 1 0x0002166c
 "e graph.title = "
 "e graph.to = 0xffffffffffffffff"
 "e graph.web = false"
-"e hex.cols = 16"
+"e hex.cols = 14"
 "e hex.depth = 5"
 "e hex.flagsz = 0"
 "e hex.onechar = false"
@@ -44713,32 +44708,32 @@ afb+ 0x00020ed0 0x000000d2 4 0x000000e2 0x000000d6 n n
 afb+ 0x00020ed0 0x000000e2 6 0x00000000 0x000000ea n n
 afb+ 0x00020ed0 0x000000d6 4 0x000000da 0xffffffffffffffff n n
 # types
-tk unsigned int                           =                           type 
-tk unsigned char                           =                           type 
-tk unsigned short                           =                           type 
-tk int                           =                           type 
-tk long                           =                           type 
-tk void *                           =                           type 
-tk char                           =                           type 
-tk char *                           =                           type 
-tk const char*                           =                           type 
-tk uint8_t                           =                           type 
-tk uint16_t                           =                           type 
-tk uint32_t                           =                           type 
-tk uint64_t                           =                           type 
-tk type.unsigned int                           =                           i 
-tk type.unsigned char                           =                           b 
-tk type.unsigned short                           =                           w 
-tk type.int                           =                           d 
-tk type.long                           =                           x 
-tk type.void *                           =                           p 
-tk type.char                           =                           b 
-tk type.char *                           =                           *z 
-tk type.const char*                           =                           *z 
-tk type.uint8_t                           =                           b 
-tk type.uint16_t                           =                           w 
-tk type.uint32_t                           =                           d 
-tk type.uint64_t                           =                           q 
+tk unsigned int                            =                            type 
+tk unsigned char                            =                            type 
+tk unsigned short                            =                            type 
+tk int                            =                            type 
+tk long                            =                            type 
+tk void *                            =                            type 
+tk char                            =                            type 
+tk char *                            =                            type 
+tk const char*                            =                            type 
+tk uint8_t                            =                            type 
+tk uint16_t                            =                            type 
+tk uint32_t                            =                            type 
+tk uint64_t                            =                            type 
+tk type.unsigned int                            =                            i 
+tk type.unsigned char                            =                            b 
+tk type.unsigned short                            =                            w 
+tk type.int                            =                            d 
+tk type.long                            =                            x 
+tk type.void *                            =                            p 
+tk type.char                            =                            b 
+tk type.char *                            =                            *z 
+tk type.const char*                            =                            *z 
+tk type.uint8_t                            =                            b 
+tk type.uint16_t                            =                            w 
+tk type.uint32_t                            =                            d 
+tk type.uint64_t                            =                            q 
 # macros
 # seek
-s 0x0001c8aa
+s 0x000217f2
