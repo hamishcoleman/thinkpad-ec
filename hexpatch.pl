@@ -182,6 +182,11 @@ sub main() {
     while ($ARGV[0]) {
         my $patchfile = shift @ARGV;
 
+        if (!-e $patchfile) {
+            warn("Patchfile $patchfile not present, skipping\n");
+            next;
+        }
+
         my $db = read_patchfile($patchfile);
 
         if (!defined($db)) {
