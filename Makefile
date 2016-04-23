@@ -1,3 +1,8 @@
+#
+# Infrastructure to manage patching thinkpad EC firmware
+#
+# Copyright (C) 2016 Hamish Coleman
+#
 
 all:
 	false
