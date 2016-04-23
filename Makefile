@@ -26,6 +26,11 @@ install.radare.projects:
 	./$< $@
 	sha1sum -c $@.sha1
 
+# alternatively, use the generic extractor
+%.img.orig:  xx30.extract %.img.orig.offset %.img.orig.sha1
+	./$< $@
+	sha1sum -c $@.sha1
+
 %.img.enc:  %.encrypt %.img
 	./$< $(basename $<).img $@
 
@@ -35,7 +40,7 @@ install.radare.projects:
 # Generate a working file with any known patches applied
 %.img: %.img.orig
 	cp --reflink=auto $< $@
-	[ -d $@.d ] && ./hexpatch.pl $@ $@.d/*.patch
+	./hexpatch.pl $@ $@.d/*.patch
 
 # if you want to work on more patches, you probably want the pre-patched ver
 %.img.prepatch: %.img.orig
@@ -59,5 +64,4 @@ mec-tools/mec_encrypt: mec-tools/Makefile
 # - most of these dependancies could be automatically calculated
 x220.8DHT34WW.extract: 8duj27us.iso.orig
 x230.G2HT35WW.extract: g2uj23us.iso.orig mec-tools/mec_encrypt
-x230.G2HT35WW.encrypt: mec-tools/mec_encrypt
-
+t430s.G7HT39WW.img.orig.offset: g7uj18us.iso.orig mec-tools/mec_encrypt
