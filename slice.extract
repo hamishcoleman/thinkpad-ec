@@ -24,5 +24,5 @@ read SOURCE OFFSET LENGTH <"$INFOFILE"
 
 set -x
 
-dd if=$SOURCE bs=$[$OFFSET] skip=1 | dd bs=$[$LENGTH] count=1 of="$OUT"
+dd iflag=count_bytes,skip_bytes if=$SOURCE skip=$[$OFFSET] count=$[$LENGTH] of="$OUT"
 
