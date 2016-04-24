@@ -22,11 +22,7 @@ fi
 
 read SOURCE OFFSET LENGTH <"$INFOFILE"
 
-# assume that output filename is blahdyblah.img.orig
-OUT1=$(basename "$OUT" .orig).enc.orig
-
 set -x
 
-dd if=$SOURCE bs=$[$OFFSET] skip=1 | dd bs=$[$LENGTH] count=1 of="$OUT1" 
-mec-tools/mec_encrypt -d "$OUT1" >"$OUT"
+dd if=$SOURCE bs=$[$OFFSET] skip=1 | dd bs=$[$LENGTH] count=1 of="$OUT"
 

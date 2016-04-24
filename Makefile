@@ -34,8 +34,11 @@ install.radare.projects:
 	sha1sum -c $@.sha1
 
 # alternatively, use the generic extractor
-%.img.orig:  xx30.extract %.img.orig.offset %.img.orig.sha1
-	./xx30.extract $@.offset $@
+%.img.enc.orig:  %.img.enc.orig.offset xx30.extract
+	./xx30.extract $< $@
+
+%.img.orig:  %.img.enc.orig %.img.orig.sha1 mec-tools/mec_encrypt
+	mec-tools/mec_encrypt -d $< >$@
 	sha1sum -c $@.sha1
 
 # a generic encryptor
@@ -64,6 +67,7 @@ install.radare.projects:
 # Generate a patch report
 %.diff: %.hex %.orig.hex
 	-diff -u $(basename $@).orig.hex $(basename $@).hex >$@
+	cat $@
 
 mec-tools/Makefile:
 	git submodule update --init --remote
@@ -75,6 +79,6 @@ mec-tools/mec_encrypt: mec-tools/Makefile
 # TODO:
 # - most of these dependancies could be automatically calculated
 x220.8DHT34WW.extract: 8duj27us.iso.orig
-x230.G2HT35WW.img.orig: g2uj23us.iso.orig mec-tools/mec_encrypt
-t430.G1HT35WW.img.orig: g1uj38us.iso.orig mec-tools/mec_encrypt
-t430s.G7HT39WW.img.orig: g7uj18us.iso.orig mec-tools/mec_encrypt
+x230.G2HT35WW.img.enc.orig: g2uj23us.iso.orig
+t430.G1HT35WW.img.enc.orig: g1uj38us.iso.orig
+t430s.G7HT39WW.img.enc.orig: g7uj18us.iso.orig
