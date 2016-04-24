@@ -9,30 +9,29 @@ Including:
 
 Quick Start:
 
+    There are similar make target commands for:
+        x230
+        t430
+        t430s
+
+
     To fetch the firmware from Lenovo, extract, decrypt and patch
-    it, ready for more patching, choose one of:
+    it, ready for more patching:
 
         make x230.G2HT35WW.img
-        make t430s.G7HT39WW.img
 
-    To update the checksums and encrypt the patched firmware, ready to
-    be inserted into the FL2 file, choose one of:
+    To create a new FL2, ready for flashing:
 
-        make x230.G2HT35WW.img.enc
-        make t430s.G7HT39WW.img.enc
+        make x230.G2HT35WW.s01D3000.FL2
 
-    To re-insert the EC firmware into the bios flash file, use a command
-    similar to the following:
+    To update your firmware, copy the FL2 file generated above and
+    the dosflash.exe utility to a DOS boot disk and then use a command
+    similar to:
 
-        dd if=x230.G2HT35WW.img.enc of=\$01D3000.FL2 conv=notrunc bs=4096 seek=1280
-
-    To update your firmware, prepare a DOS boot disk with the FL2 file and
-    the dosflash.exe utility and then use a command similar to:
-
-        dosflash /sd /ipf ec /file $01D3000.FL2
+        dosflash /sd /ipf ec /file s01D3000.FL2
 
 References:
     http://forum.thinkpads.com/viewtopic.php?f=69&t=120776
-    http://www.thinkwiki.org/wiki/Install_Classic_Keyboard_on_xx30_Series_ThinkPads#Experimental_X230_Embedded_Controller_Mod
+    http://www.thinkwiki.org/wiki/Install_Classic_Keyboard_on_xx30_Series_ThinkPads#Re-Flashing_the_Embedded_Controller_2
     http://www.zmatt.net/unlocking-my-lenovo-laptop-part-3/
 
