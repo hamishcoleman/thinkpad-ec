@@ -95,12 +95,14 @@ x230.G2HT35WW.s01D3000.FL2.slice: g2uj23us.iso.orig
 x230t.GCHT25WW.s01DA000.FL2.slice: gcuj24us.iso.orig
 x250.N10HT17W.s01E5000.FL2.slice: n10ur10w.iso.orig
 x260.R02HT29W.s0AR0200.FL2.slice: r02uj46d.iso.orig
+w530.G4HT39WW.s01D5200.FL2.slice: g5uj28us.iso.orig
 
 x220.8DHT34WW.img.enc.slice: x220.8DHT34WW.s01CB000.FL2.orig
 x230.G2HT35WW.img.enc.slice: x230.G2HT35WW.s01D3000.FL2.orig
 x230t.GCHT25WW.img.enc.slice: x230t.GCHT25WW.s01DA000.FL2.orig
 x250.N10HT17W.img.enc.slice: x250.N10HT17W.s01E5000.FL2.orig
 x260.R02HT29W.img.slice: x260.R02HT29W.s0AR0200.FL2.orig
+w530.G4HT39WW.img.enc.slice: w530.G4HT39WW.s01D5200.FL2.orig
 t430.G1HT35WW.img.enc.slice: g1uj38us.iso.orig
 t430s.G7HT39WW.img.enc.slice: g7uj18us.iso.orig
 
