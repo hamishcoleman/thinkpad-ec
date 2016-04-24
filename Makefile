@@ -74,7 +74,10 @@ mec-tools/mec_encrypt: mec-tools/Makefile
 #
 # TODO:
 # - most of these dependancies could be automatically calculated
-x220.8DHT34WW.img.enc.slice: 8duj27us.iso.orig
-x230.G2HT35WW.img.enc.slice: g2uj23us.iso.orig
+x220.8DHT34WW.s01CB000.FL2.slice: 8duj27us.iso.orig
+x230.G2HT35WW.s01D3000.FL2.slice: g2uj23us.iso.orig
+
+x220.8DHT34WW.img.enc.slice: x220.8DHT34WW.s01CB000.FL2.orig
+x230.G2HT35WW.img.enc.slice: x230.G2HT35WW.s01D3000.FL2.orig
 t430.G1HT35WW.img.enc.slice: g1uj38us.iso.orig
 t430s.G7HT39WW.img.enc.slice: g7uj18us.iso.orig
