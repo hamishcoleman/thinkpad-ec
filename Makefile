@@ -46,6 +46,8 @@ install.radare.projects:
 #   just the Xx30 series, these generic rules will need to be reworked
 
 # keep intermediate files
+.PRECIOUS: %.orig
+.PRECIOUS: %.img
 .PRECIOUS: %.img.orig
 
 # Generate a working file with any known patches applied
@@ -81,3 +83,9 @@ x220.8DHT34WW.img.enc.slice: x220.8DHT34WW.s01CB000.FL2.orig
 x230.G2HT35WW.img.enc.slice: x230.G2HT35WW.s01D3000.FL2.orig
 t430.G1HT35WW.img.enc.slice: g1uj38us.iso.orig
 t430s.G7HT39WW.img.enc.slice: g7uj18us.iso.orig
+
+x230.G2HT35WW.s01D3000.FL2: x230.G2HT35WW.img.enc.slice x230.G2HT35WW.img.enc
+
+# Hacky, non generic rule
+x230.G2HT35WW.s01D3000.FL2: x230.G2HT35WW.img.enc
+	./slice.insert $<.slice $< $@

@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Quick and dirty extracter to slice out a section of a binary file
+# Quick and dirty script to insert a slice into a binary file
 # Copyright (C) 2016 Hamish Coleman
 #
 # TODO:
@@ -10,6 +10,13 @@
 INFOFILE="$1"
 if [ ! -r "$INFOFILE" ]; then
     echo Need file with source and offset info
+    exit 1
+fi
+shift
+
+INPUT="$1"
+if [ -z "$INPUT" ]; then
+    echo Need input filename
     exit 1
 fi
 shift
@@ -24,5 +31,6 @@ read SOURCE OFFSET LENGTH <"$INFOFILE"
 
 set -x
 
-dd status=none iflag=count_bytes,skip_bytes if=$SOURCE skip=$[$OFFSET] count=$[$LENGTH] of="$OUT"
+cp --reflink=auto $SOURCE $OUT
+dd status=none if=$INPUT bs=$[$LENGTH] count=1 | dd status=none conv=notrunc bs=$[$OFFSET] seek=1 of="$OUT"
 
