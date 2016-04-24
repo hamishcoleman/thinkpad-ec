@@ -9,11 +9,10 @@ Including:
 
 Quick Start:
 
-    There are similar make target commands for:
-        x230
-        t430
-        t430s
+    There are similar make target commands for several different laptops,
+    this command will produce a list of them:
 
+        make list_images
 
     To fetch the firmware from Lenovo, extract, decrypt and patch
     it, ready for more patching:

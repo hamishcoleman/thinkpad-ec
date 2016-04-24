@@ -5,7 +5,21 @@
 #
 
 all:
-	false
+	cat README
+
+list_images:
+	$(info The following make targets are available to produce firmware images:)
+	$(info )
+	$(info $(basename $(wildcard *.d)))
+	$(info )
+	$(info The following make targets are available to produce FL2 files:)
+	$(info )
+	$(info $(foreach i,$(basename $(basename $(wildcard *.d))),$(basename $(wildcard $(i).*.FL2.slice))))
+	$(info )
+	@true
+
+
+.PHONY: list_images
 
 #
 # Radare didnt seem to let me specify the direcrory to store the project file,
