@@ -27,15 +27,11 @@ install.radare.projects:
 	sha1sum -c $<
 	touch $@
 
-# Generate orig images so that we can diff against them later
-# If we have an extractor for this image, use it
-%.img.orig:  %.extract %.img.orig.sha1
-	./$< $@
-	sha1sum -c $@.sha1
+# Generate all the orig images so that we can diff against them later
 
-# alternatively, use the generic extractor
-%.img.enc.orig:  %.img.enc.orig.offset xx30.extract
-	./xx30.extract $< $@
+# a the generic binary extractor
+%:  %.slice slice.extract
+	./slice.extract $< $@
 
 %.img.orig:  %.img.enc.orig %.img.orig.sha1 mec-tools/mec_encrypt
 	mec-tools/mec_encrypt -d $< >$@
@@ -78,7 +74,7 @@ mec-tools/mec_encrypt: mec-tools/Makefile
 #
 # TODO:
 # - most of these dependancies could be automatically calculated
-x220.8DHT34WW.extract: 8duj27us.iso.orig
+x220.8DHT34WW.img.enc.orig: 8duj27us.iso.orig
 x230.G2HT35WW.img.enc.orig: g2uj23us.iso.orig
 t430.G1HT35WW.img.enc.orig: g1uj38us.iso.orig
 t430s.G7HT39WW.img.enc.orig: g7uj18us.iso.orig

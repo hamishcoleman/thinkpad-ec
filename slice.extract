@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Quick and dirty extracter to get the EC image out of the iso file
+# Quick and dirty extracter to slice out a section of a binary file
 # Copyright (C) 2016 Hamish Coleman
 #
 # TODO:
