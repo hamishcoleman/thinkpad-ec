@@ -30,7 +30,7 @@ install.radare.projects:
 # Generate all the orig images so that we can diff against them later
 
 # a the generic binary extractor
-%:  %.slice slice.extract
+%.orig:  %.orig.slice slice.extract
 	./slice.extract $< $@
 
 %.img.orig:  %.img.enc.orig %.img.orig.sha1 mec-tools/mec_encrypt
