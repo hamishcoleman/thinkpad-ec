@@ -106,8 +106,11 @@ x230t.GCHT25WW.img.enc.slice: x230t.GCHT25WW.s01DA000.FL2.orig
 x250.N10HT17W.img.enc.slice: x250.N10HT17W.s01E5000.FL2.orig
 x260.R02HT29W.img.slice: x260.R02HT29W.s0AR0200.FL2.orig
 
+w530.G4HT39WW.s01D5200.FL2: t430s.G7HT39WW.img.enc.slice w530.G4HT39WW.img.enc
 x230.G2HT35WW.s01D3000.FL2: x230.G2HT35WW.img.enc.slice x230.G2HT35WW.img.enc
 
-# Hacky, non generic rule
+# Hacky, non generic rules
+w530.G4HT39WW.s01D5200.FL2: w530.G4HT39WW.img.enc
+	./slice.insert $<.slice $< $@
 x230.G2HT35WW.s01D3000.FL2: x230.G2HT35WW.img.enc
 	./slice.insert $<.slice $< $@
