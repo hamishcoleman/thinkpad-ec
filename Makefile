@@ -30,7 +30,7 @@ install.radare.projects:
 # Generate all the orig images so that we can diff against them later
 
 # a the generic binary extractor
-%.orig:  %.orig.slice slice.extract
+%.orig:  %.slice slice.extract
 	./slice.extract $< $@
 
 %.img.orig:  %.img.enc.orig %.img.orig.sha1 mec-tools/mec_encrypt
@@ -74,7 +74,7 @@ mec-tools/mec_encrypt: mec-tools/Makefile
 #
 # TODO:
 # - most of these dependancies could be automatically calculated
-x220.8DHT34WW.img.enc.orig: 8duj27us.iso.orig
-x230.G2HT35WW.img.enc.orig: g2uj23us.iso.orig
-t430.G1HT35WW.img.enc.orig: g1uj38us.iso.orig
-t430s.G7HT39WW.img.enc.orig: g7uj18us.iso.orig
+x220.8DHT34WW.img.enc.slice: 8duj27us.iso.orig
+x230.G2HT35WW.img.enc.slice: g2uj23us.iso.orig
+t430.G1HT35WW.img.enc.slice: g1uj38us.iso.orig
+t430s.G7HT39WW.img.enc.slice: g7uj18us.iso.orig
