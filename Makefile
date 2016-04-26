@@ -88,6 +88,8 @@ mec-tools/mec_encrypt: mec-tools/Makefile
 #
 # TODO:
 # - most of these dependancies could be automatically calculated
+dosflash.exe.slice: g2uj23us.iso.orig
+
 w530.G4HT39WW.s01D5200.FL2.slice:  g5uj28us.iso.orig
 x220.8DHT34WW.s01CB000.FL2.slice:  8duj27us.iso.orig
 x230.G2HT35WW.s01D3000.FL2.slice:  g2uj23us.iso.orig
