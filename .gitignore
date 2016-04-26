@@ -8,3 +8,6 @@
 *.img.enc.orig
 *.FL2
 *.FL2.orig
+
+# ignore generated files
+*.bat

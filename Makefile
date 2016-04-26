@@ -16,10 +16,19 @@ list_images:
 	$(info )
 	$(info $(foreach i,$(basename $(basename $(wildcard *.d))),$(basename $(wildcard $(i).*.FL2.slice))))
 	$(info )
+	$(info The following make targets are available to produce ISO images)
+	$(info )
+	$(info g2uj23us.iso)
 	@true
 
+# FIXME - need to automatically generate the iso image target list
 
 .PHONY: list_images
+
+# All the bios update iso images I have checked have had a fat16 filesystem
+# embedded in a dos mbr image as the el-torito ISO payload.  They also all
+# had the same offset to this fat filesystem, so hardcode that offset here.
+FAT_OFFSET := 71680
 
 #
 # Radare didnt seem to let me specify the directory to store the project file,
@@ -67,6 +76,9 @@ install.radare.projects:
 	cp --reflink=auto $< $@
 	./hexpatch.pl $@ $@.d/*.patch
 
+%.iso.bat: %.iso.orig autoexec.bat.template
+	sed -e "s%__FL2%`mdir -/ -b -i $<@@$(FAT_OFFSET) |grep FL2 |cut -d/ -f3-`%" autoexec.bat.template >$@
+
 # if you want to work on more patches, you probably want the pre-patched ver
 %.img.prepatch: %.img.orig
 	cp --reflink=auto $< $(basename $<)
@@ -109,8 +121,14 @@ x260.R02HT29W.img.slice:      x260.R02HT29W.s0AR0200.FL2.orig
 w530.G4HT39WW.s01D5200.FL2:  t430s.G7HT39WW.img.enc.slice w530.G4HT39WW.img.enc
 x230.G2HT35WW.s01D3000.FL2:  x230.G2HT35WW.img.enc.slice x230.G2HT35WW.img.enc
 
+g2uj23us.iso: x230.G2HT35WW.s01D3000.FL2.slice x230.G2HT35WW.s01D3000.FL2
+
 # Hacky, non generic rules
 w530.G4HT39WW.s01D5200.FL2:  w530.G4HT39WW.img.enc
 	./slice.insert $<.slice $< $@
 x230.G2HT35WW.s01D3000.FL2:  x230.G2HT35WW.img.enc
 	./slice.insert $<.slice $< $@
+
+g2uj23us.iso: x230.G2HT35WW.s01D3000.FL2 g2uj23us.iso.bat
+	./slice.insert $<.slice $< $@
+	mcopy -o -i $@@@$(FAT_OFFSET) $@.bat ::AUTOEXEC.BAT

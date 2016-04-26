@@ -1,0 +1,12 @@
+@ECHO OFF
+PROMPT $p$g
+cd c:\flash
+cls
+echo.
+echo.
+echo.
+echo.
+echo This will flash your firmware to support a classic 7-row keyboard
+pause
+dosflash /sd /ipf ec /file __FL2
+

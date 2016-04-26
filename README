@@ -14,6 +14,15 @@ Quick Start:
 
         make list_images
 
+    To fetch the ISO image, patch it and create a new bootable ISO image:
+
+        make g2uj23us.iso
+
+Slightly slower Start:
+
+If you expect to do development work, the following two make targets
+are probably useful:
+
     To fetch the firmware from Lenovo, extract, decrypt and patch
     it, ready for more patching:
 
