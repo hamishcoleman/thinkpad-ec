@@ -22,7 +22,7 @@ list_images:
 .PHONY: list_images
 
 #
-# Radare didnt seem to let me specify the direcrory to store the project file,
+# Radare didnt seem to let me specify the directory to store the project file,
 # so this target hacks around that
 #
 install.radare.projects:
