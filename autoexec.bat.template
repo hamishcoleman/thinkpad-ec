@@ -4,9 +4,18 @@ cd c:\flash
 cls
 echo.
 echo.
-echo.
-echo.
 echo This will flash your firmware to support a classic 7-row keyboard
+echo.
+echo.
+echo.
+echo WARNING: Incorrectly flashing your firmware can damage your laptop.
+echo Ensure this is the right firmware version before attempting to flash
+echo the firmware - there are minimal checks done.
+echo.
+echo This disc will flash the file __FL2
+echo.
+echo This disk is prepared for __DESC
+echo.
 pause
 dosflash /sd /ipf ec /file __FL2
 

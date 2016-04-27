@@ -91,8 +91,8 @@ $(DEPSDIR)/slice.insert.deps:
 	cp --reflink=auto $< $@
 	./hexpatch.pl $@ $@.d/*.patch
 
-%.iso.bat: %.iso.orig autoexec.bat.template
-	sed -e "s%__FL2%`mdir -/ -b -i $<@@$(FAT_OFFSET) |grep FL2 |cut -d/ -f3-`%" autoexec.bat.template >$@
+%.iso.bat: %.iso.orig %.iso.orig.desc autoexec.bat.template
+	sed -e "s%__FL2%`mdir -/ -b -i $<@@$(FAT_OFFSET) |grep FL2 |cut -d/ -f3-`%; s%__DESC%`cat $<.desc`%" autoexec.bat.template >$@
 
 # if you want to work on more patches, you probably want the pre-patched ver
 %.img.prepatch: %.img.orig
