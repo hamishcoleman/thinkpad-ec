@@ -47,10 +47,10 @@ install.radare.projects:
 DEPSDIR := .d
 $(shell mkdir -p $(DEPSDIR))
 -include $(DEPSDIR)/slice.extract.deps
-$(DEPSDIR)/slice.extract.deps:
+$(DEPSDIR)/slice.extract.deps: Makefile
 	for i in *.slice; do read SLICEE other <$$i; echo $$i: $$SLICEE; done >$@
 -include $(DEPSDIR)/slice.insert.deps
-$(DEPSDIR)/slice.insert.deps:
+$(DEPSDIR)/slice.insert.deps: Makefile
 	for i in *.slice; do read SLICEE other <$$i; echo `basename $$SLICEE .orig`: $$i `basename $$i .slice`; done >$@
 
 # FIXME - the slice.deps targets basically do not handle add/del/change of
