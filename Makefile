@@ -8,11 +8,10 @@ all:
 	cat README
 
 list_iso:
-	$(info The following make targets are available to produce patched and
+	$(info The following make targets are available to produce patched and)
 	$(info bootable ISO images)
 	$(info )
-	$(info g2uj23us.iso)
-	@true
+	@for i in *.desc; do echo `basename $$i .orig.desc` - for patching `cat $$i`; done
 
 # FIXME - need to automatically generate the iso image target list
 
