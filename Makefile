@@ -91,6 +91,10 @@ install.radare.projects:
 	-diff -u $(basename $@).orig.hex $(basename $@).hex >$@
 	cat $@
 
+# If we ever want a copy of the dosflash.exe, just get it from the iso image
+%.dosflash.exe.orig: %.iso.orig
+	mcopy -i $^@@$(FAT_OFFSET) ::FLASH/DOSFLASH.EXE $@
+
 mec-tools/Makefile:
 	git submodule update --init --remote
 
