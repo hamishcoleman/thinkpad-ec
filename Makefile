@@ -133,6 +133,8 @@ t430.G1HT35WW.s01D2000.FL2:  t430.G1HT35WW.img.enc
 	./slice.insert $<.slice $< $@
 t430s.G7HT39WW.s01D8000.FL2: t430s.G7HT39WW.img.enc
 	./slice.insert $<.slice $< $@
+t530.G4HT39WW.s01D5100.FL2:  t530.G4HT39WW.img.enc
+	./slice.insert $<.slice $< $@
 w530.G4HT39WW.s01D5200.FL2:  w530.G4HT39WW.img.enc
 	./slice.insert $<.slice $< $@
 x230.G2HT35WW.s01D3000.FL2:  x230.G2HT35WW.img.enc
@@ -145,6 +147,10 @@ g1uj38us.iso: t430.G1HT35WW.s01D2000.FL2 g1uj38us.iso.bat
 	mcopy -o -i $@@@$(FAT_OFFSET) $@.bat ::AUTOEXEC.BAT
 
 g2uj23us.iso: x230.G2HT35WW.s01D3000.FL2 g2uj23us.iso.bat
+	./slice.insert $<.slice $< $@
+	mcopy -o -i $@@@$(FAT_OFFSET) $@.bat ::AUTOEXEC.BAT
+
+g4uj30us.iso: t530.G4HT39WW.s01D5100.FL2 g4uj30us.iso.bat
 	./slice.insert $<.slice $< $@
 	mcopy -o -i $@@@$(FAT_OFFSET) $@.bat ::AUTOEXEC.BAT
 
