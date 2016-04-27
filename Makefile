@@ -131,6 +131,8 @@ mec-tools/mec_encrypt: mec-tools/Makefile
 # Hacky, non generic rules
 t430.G1HT35WW.s01D2000.FL2:  t430.G1HT35WW.img.enc
 	./slice.insert $<.slice $< $@
+t430s.G7HT39WW.s01D8000.FL2: t430s.G7HT39WW.img.enc
+	./slice.insert $<.slice $< $@
 w530.G4HT39WW.s01D5200.FL2:  w530.G4HT39WW.img.enc
 	./slice.insert $<.slice $< $@
 x230.G2HT35WW.s01D3000.FL2:  x230.G2HT35WW.img.enc
@@ -145,5 +147,9 @@ g2uj23us.iso: x230.G2HT35WW.s01D3000.FL2 g2uj23us.iso.bat
 	mcopy -o -i $@@@$(FAT_OFFSET) $@.bat ::AUTOEXEC.BAT
 
 g5uj28us.iso: w530.G4HT39WW.s01D5200.FL2 g5uj28us.iso.bat
+	./slice.insert $<.slice $< $@
+	mcopy -o -i $@@@$(FAT_OFFSET) $@.bat ::AUTOEXEC.BAT
+
+g7uj18us.iso: t430s.G7HT39WW.s01D8000.FL2 g7uj18us.iso.bat
 	./slice.insert $<.slice $< $@
 	mcopy -o -i $@@@$(FAT_OFFSET) $@.bat ::AUTOEXEC.BAT
