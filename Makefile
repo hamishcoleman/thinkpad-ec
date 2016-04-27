@@ -137,3 +137,7 @@ x230.G2HT35WW.s01D3000.FL2:  x230.G2HT35WW.img.enc
 g2uj23us.iso: x230.G2HT35WW.s01D3000.FL2 g2uj23us.iso.bat
 	./slice.insert $<.slice $< $@
 	mcopy -o -i $@@@$(FAT_OFFSET) $@.bat ::AUTOEXEC.BAT
+
+g5uj28us.iso: w530.G4HT39WW.s01D5200.FL2 g5uj28us.iso.bat
+	./slice.insert $<.slice $< $@
+	mcopy -o -i $@@@$(FAT_OFFSET) $@.bat ::AUTOEXEC.BAT
