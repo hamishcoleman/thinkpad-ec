@@ -12,6 +12,7 @@ list_iso:
 	$(info bootable ISO images)
 	$(info )
 	@for i in *.desc; do echo `basename $$i .orig.desc` - for patching `cat $$i`; done
+	@echo
 
 # FIXME - need to automatically generate the iso image target list
 
