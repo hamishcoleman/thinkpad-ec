@@ -1,5 +1,31 @@
-This repository consists of a number of tools and utilities for examining and
-modifying Thinkpad Embedded Controller firmware.
+The main purpose of this software is to patch the EC on xx30 series thinkpads
+to make the classic 7-row keyboards work.
+
+With the patches included here, you can install the classic keyboard
+hardware on many xx30 series laptops and make almost every key work properly.
+The only keys that are not working are Fn+F3 (Battery) and Fn+F12 (Hibernate)
+
+A full writeup of the hardware modifications needed can be found at:
+    http://www.thinkwiki.org/wiki/Install_Classic_Keyboard_on_xx30_Series_ThinkPads
+
+Quick Start:
+------------
+
+    There are separate make target commands for each different laptop,
+    this command will produce a list of them:
+
+        make list_iso
+
+    To fetch the ISO image, patch it and create a new bootable ISO image:
+
+        make g2uj23us.iso
+        # This example will produce a patched x230 image
+
+Other uses:
+-----------
+
+This repository also contains number of tools and utilities for examining
+and modifying Thinkpad Embedded Controller firmware.
 
 Including:
 *   radare projects with partial disassembly of several thinkpads EC firmware
@@ -7,21 +33,15 @@ Including:
 *   script for patching the firmware
 *   documentation on the tables found in the firmware (TODO)
 
-Quick Start:
-
-    There are similar make target commands for several different laptops,
-    this command will produce a list of them:
-
-        make list_images
-
-    To fetch the ISO image, patch it and create a new bootable ISO image:
-
-        make g2uj23us.iso
-
 Slightly slower Start:
+----------------------
 
 If you expect to do development work, the following two make targets
 are probably useful:
+
+    To list the available raw image files and FL2 files:
+
+        make list_iso
 
     To fetch the firmware from Lenovo, extract, decrypt and patch
     it, ready for more patching:
@@ -39,7 +59,8 @@ are probably useful:
         dosflash /sd /ipf ec /file s01D3000.FL2
 
 References:
+-----------
     http://forum.thinkpads.com/viewtopic.php?f=69&t=120776
-    http://www.thinkwiki.org/wiki/Install_Classic_Keyboard_on_xx30_Series_ThinkPads#Re-Flashing_the_Embedded_Controller_2
     http://www.zmatt.net/unlocking-my-lenovo-laptop-part-3/
+    http://plan9.stanleylieber.com/hardware/thinkpad/x230/x230.schematics.pdf
 

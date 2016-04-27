@@ -7,6 +7,15 @@
 all:
 	cat README
 
+list_iso:
+	$(info The following make targets are available to produce patched and
+	$(info bootable ISO images)
+	$(info )
+	$(info g2uj23us.iso)
+	@true
+
+# FIXME - need to automatically generate the iso image target list
+
 list_images:
 	$(info The following make targets are available to produce firmware images:)
 	$(info )
@@ -16,14 +25,9 @@ list_images:
 	$(info )
 	$(info $(foreach i,$(basename $(basename $(wildcard *.d))),$(basename $(wildcard $(i).*.FL2.slice))))
 	$(info )
-	$(info The following make targets are available to produce ISO images)
-	$(info )
-	$(info g2uj23us.iso)
 	@true
 
-# FIXME - need to automatically generate the iso image target list
-
-.PHONY: list_images
+.PHONY: list_iso list_images
 
 # All the bios update iso images I have checked have had a fat16 filesystem
 # embedded in a dos mbr image as the el-torito ISO payload.  They also all
