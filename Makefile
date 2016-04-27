@@ -129,10 +129,16 @@ mec-tools/mec_encrypt: mec-tools/Makefile
 # - add a simple method to autogenerate these non-generic rules
 
 # Hacky, non generic rules
+t430.G1HT35WW.s01D2000.FL2:  t430.G1HT35WW.img.enc
+	./slice.insert $<.slice $< $@
 w530.G4HT39WW.s01D5200.FL2:  w530.G4HT39WW.img.enc
 	./slice.insert $<.slice $< $@
 x230.G2HT35WW.s01D3000.FL2:  x230.G2HT35WW.img.enc
 	./slice.insert $<.slice $< $@
+
+g1uj38us.iso: t430.G1HT35WW.s01D2000.FL2 g1uj38us.iso.bat
+	./slice.insert $<.slice $< $@
+	mcopy -o -i $@@@$(FAT_OFFSET) $@.bat ::AUTOEXEC.BAT
 
 g2uj23us.iso: x230.G2HT35WW.s01D3000.FL2 g2uj23us.iso.bat
 	./slice.insert $<.slice $< $@
