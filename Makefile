@@ -98,6 +98,10 @@ $(DEPSDIR)/slice.insert.deps:
 %.iso.bat: %.iso.orig %.iso.orig.desc autoexec.bat.template
 	sed -e "s%__FL2%`mdir -/ -b -i $<@@$(FAT_OFFSET) |grep FL2 |cut -d/ -f3-`%; s%__DESC%`cat $<.desc`%" autoexec.bat.template >$@
 
+# helper to write the ISO onto a cdrw
+%.iso.blank_burn: %.iso
+	wodim -eject -v speed=40 -tao gracetime=0 blank=fast $<
+
 # if you want to work on more patches, you probably want the pre-patched ver
 %.img.prepatch: %.img.orig
 	cp --reflink=auto $< $(basename $<)
