@@ -40,6 +40,21 @@ install.radare.projects:
 	mkdir -p ~/.config/radare2/projects/x230.G2HT35WW.d
 	cp -fs $(PWD)/radare/x230.G2HT35WW ~/.config/radare2/projects
 
+DEPSDIR := .d
+$(shell mkdir -p $(DEPSDIR))
+-include $(DEPSDIR)/slice.extract.deps
+$(DEPSDIR)/slice.extract.deps:
+	for i in *.slice; do read SLICEE other <$$i; echo $$i: $$SLICEE; done >$@
+-include $(DEPSDIR)/slice.insert.deps
+$(DEPSDIR)/slice.insert.deps:
+	for i in *.slice; do read SLICEE other <$$i; echo `basename $$SLICEE .orig`: $$i `basename $$i .slice`; done >$@
+
+# FIXME - the slice.deps targets basically do not handle add/del/change of
+# the *.slice files.  I dont use any of the regular tricks because I also
+# dont want to download every .iso file as a result of depending on the %.slice
+# file - and I dont want to work around that with makefile magic as that would
+# defeat the purpose of keeping the makefile simple
+
 #
 # Download any ISO image that we have a checksum for
 # NOTE: makes an assumption about the Lenovo URL not changing
@@ -103,29 +118,7 @@ mec-tools/mec_encrypt: mec-tools/Makefile
 
 #
 # TODO:
-# - most of these dependancies could be automatically calculated
-dosflash.exe.slice: g2uj23us.iso.orig
-
-w530.G4HT39WW.s01D5200.FL2.slice:  g5uj28us.iso.orig
-x220.8DHT34WW.s01CB000.FL2.slice:  8duj27us.iso.orig
-x230.G2HT35WW.s01D3000.FL2.slice:  g2uj23us.iso.orig
-x230t.GCHT25WW.s01DA000.FL2.slice: gcuj24us.iso.orig
-x250.N10HT17W.s01E5000.FL2.slice:  n10ur10w.iso.orig
-x260.R02HT29W.s0AR0200.FL2.slice:  r02uj46d.iso.orig
-
-t430.G1HT35WW.img.enc.slice:  g1uj38us.iso.orig
-t430s.G7HT39WW.img.enc.slice: g7uj18us.iso.orig
-w530.G4HT39WW.img.enc.slice:  w530.G4HT39WW.s01D5200.FL2.orig
-x220.8DHT34WW.img.enc.slice:  x220.8DHT34WW.s01CB000.FL2.orig
-x230.G2HT35WW.img.enc.slice:  x230.G2HT35WW.s01D3000.FL2.orig
-x230t.GCHT25WW.img.enc.slice: x230t.GCHT25WW.s01DA000.FL2.orig
-x250.N10HT17W.img.enc.slice:  x250.N10HT17W.s01E5000.FL2.orig
-x260.R02HT29W.img.slice:      x260.R02HT29W.s0AR0200.FL2.orig
-
-w530.G4HT39WW.s01D5200.FL2:  t430s.G7HT39WW.img.enc.slice w530.G4HT39WW.img.enc
-x230.G2HT35WW.s01D3000.FL2:  x230.G2HT35WW.img.enc.slice x230.G2HT35WW.img.enc
-
-g2uj23us.iso: x230.G2HT35WW.s01D3000.FL2.slice x230.G2HT35WW.s01D3000.FL2
+# - add a simple method to autogenerate these non-generic rules
 
 # Hacky, non generic rules
 w530.G4HT39WW.s01D5200.FL2:  w530.G4HT39WW.img.enc
