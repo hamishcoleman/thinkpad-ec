@@ -116,7 +116,7 @@ $(DEPSDIR)/slice.insert.deps: Makefile
 
 # If we ever want a copy of the dosflash.exe, just get it from the iso image
 %.dosflash.exe.orig: %.iso.orig
-	mcopy -i $^@@$(FAT_OFFSET) ::FLASH/DOSFLASH.EXE $@
+	MTOOLS_SKIP_CHECK=1 mcopy -i $^@@$(FAT_OFFSET) ::FLASH/DOSFLASH.EXE $@
 
 mec-tools/Makefile:
 	git submodule update --init --remote
@@ -136,7 +136,7 @@ endef
 # $1 = FL2 filename
 # $2 = ISO image
 define rule_iso
-    $(2): $(1) $(2).bat ; ./slice.insert $(1).slice $(1) $(2) && mcopy -o -i $(2)@@$(FAT_OFFSET) $(2).bat ::AUTOEXEC.BAT
+    $(2): $(1) $(2).bat ; ./slice.insert $(1).slice $(1) $(2) && MTOOLS_SKIP_CHECK=1 mcopy -o -i $(2)@@$(FAT_OFFSET) $(2).bat ::AUTOEXEC.BAT
 endef
 
 #
