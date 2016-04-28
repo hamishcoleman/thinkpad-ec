@@ -124,45 +124,39 @@ mec-tools/Makefile:
 mec-tools/mec_encrypt: mec-tools/Makefile
 	make -C mec-tools
 
+# using function calls to build rules with actions is kind of a hack,
+# which is why these are all on oneline.
+
+# $1 = encoded EC firmware
+# $2 = FL2 filename
+define rule_fl2
+    $(2): $(1) ; ./slice.insert $(1).slice $(1) $(2)
+endef
+
+# $1 = FL2 filename
+# $2 = ISO image
+define rule_iso
+    $(2): $(1) $(2).bat ; ./slice.insert $(1).slice $(1) $(2) && mcopy -o -i $(2)@@$(FAT_OFFSET) $(2).bat ::AUTOEXEC.BAT
+endef
+
 #
 # TODO:
 # - add a simple method to autogenerate these non-generic rules
+# - once that is done, convert the defines back to action bodies, not
+#   rule definitions
 
 # Hacky, non generic rules
-t430.G1HT35WW.s01D2000.FL2:  t430.G1HT35WW.img.enc
-	./slice.insert $<.slice $< $@
-t430s.G7HT39WW.s01D8000.FL2: t430s.G7HT39WW.img.enc
-	./slice.insert $<.slice $< $@
-t530.G4HT39WW.s01D5100.FL2:  t530.G4HT39WW.img.enc
-	./slice.insert $<.slice $< $@
-w530.G4HT39WW.s01D5200.FL2:  w530.G4HT39WW.img.enc
-	./slice.insert $<.slice $< $@
-x230.G2HT35WW.s01D3000.FL2:  x230.G2HT35WW.img.enc
-	./slice.insert $<.slice $< $@
-x230t.GCHT25WW.s01DA000.FL2: x230t.GCHT25WW.img.enc
-	./slice.insert $<.slice $< $@
+$(call rule_fl2,t430.G1HT35WW.img.enc,t430.G1HT35WW.s01D2000.FL2)
+$(call rule_fl2,t430s.G7HT39WW.img.enc,t430s.G7HT39WW.s01D8000.FL2)
+$(call rule_fl2,t530.G4HT39WW.img.enc,t530.G4HT39WW.s01D5100.FL2)
+$(call rule_fl2,w530.G4HT39WW.img.enc,w530.G4HT39WW.s01D5200.FL2)
+$(call rule_fl2,x230.G2HT35WW.img.enc,x230.G2HT35WW.s01D3000.FL2)
+$(call rule_fl2,x230t.GCHT25WW.img.enc,x230t.GCHT25WW.s01DA000.FL2)
 
-g1uj38us.iso: t430.G1HT35WW.s01D2000.FL2 g1uj38us.iso.bat
-	./slice.insert $<.slice $< $@
-	mcopy -o -i $@@@$(FAT_OFFSET) $@.bat ::AUTOEXEC.BAT
-
-g2uj23us.iso: x230.G2HT35WW.s01D3000.FL2 g2uj23us.iso.bat
-	./slice.insert $<.slice $< $@
-	mcopy -o -i $@@@$(FAT_OFFSET) $@.bat ::AUTOEXEC.BAT
-
-g4uj30us.iso: t530.G4HT39WW.s01D5100.FL2 g4uj30us.iso.bat
-	./slice.insert $<.slice $< $@
-	mcopy -o -i $@@@$(FAT_OFFSET) $@.bat ::AUTOEXEC.BAT
-
-g5uj28us.iso: w530.G4HT39WW.s01D5200.FL2 g5uj28us.iso.bat
-	./slice.insert $<.slice $< $@
-	mcopy -o -i $@@@$(FAT_OFFSET) $@.bat ::AUTOEXEC.BAT
-
-g7uj18us.iso: t430s.G7HT39WW.s01D8000.FL2 g7uj18us.iso.bat
-	./slice.insert $<.slice $< $@
-	mcopy -o -i $@@@$(FAT_OFFSET) $@.bat ::AUTOEXEC.BAT
-
-gcuj24us.iso: x230t.GCHT25WW.s01DA000.FL2 gcuj24us.iso.bat
-	./slice.insert $<.slice $< $@
-	mcopy -o -i $@@@$(FAT_OFFSET) $@.bat ::AUTOEXEC.BAT
+$(call rule_iso,t430.G1HT35WW.s01D2000.FL2,g1uj38us.iso)
+$(call rule_iso,x230.G2HT35WW.s01D3000.FL2,g2uj23us.iso)
+$(call rule_iso,t530.G4HT39WW.s01D5100.FL2,g4uj30us.iso)
+$(call rule_iso,w530.G4HT39WW.s01D5200.FL2,g5uj28us.iso)
+$(call rule_iso,t430s.G7HT39WW.s01D8000.FL2,g7uj18us.iso)
+$(call rule_iso,x230t.GCHT25WW.s01DA000.FL2,gcuj24us.iso)
 
