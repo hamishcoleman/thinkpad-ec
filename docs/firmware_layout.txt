@@ -1,0 +1,67 @@
+There are several common structures to the layout of all the firmwares
+that have been examined.
+
+For this description, the firmwares that were examined are:
+*   x220 - Checked the major structures compared to x230
+*   x230 - intense dissassembly, with lesser checks on the rest of the
+    xx30 series confirming the same details
+*   x250 and x260 EC firmware - cursory checks
+
+
+Encryption:
+-----------
+
+Two parts of the firmware are encrypted - the interupt vector table at the
+start of the image and area that has the encryption keys.
+
+See zmatt's blog post[1] for more details.
+
+[1] http://www.zmatt.net/unlocking-my-lenovo-laptop-part-3/
+
+Outer Checksum:
+---------------
+
+The firmware has a simple whole-file checksum at 0x2fffc
+
+Inner Checksums:
+----------------
+
+There is a table of checksum regions located at 0x2154, this table
+contains pairs of start-at/stop-before addresses and is terminated with
+a single 0xffffffff entry.
+
+The firmware uses this table to checksum the whole firmware image, comparing
+the results with the results table.  If there is a failed checksum, the
+firmware will hang.
+
+The results table is located at 0x2048 and is a table of 32-bit checksums.
+
+Stable Addresses:
+-----------------
+These addresses have been seen to be stable in all the checked firmwares.
+
+0x00000:        Interrupt vector table
+0x001ff:        End of first encrypted region
+0x00240:        EC version string
+0x00268:        Copyright notice string
+0x00ff0:        Start of second encrypted region
+0x02048:        List of 32-bit checksum results ("inner checksum")
+0x02154:        List of start/stop address pairs for checksum regions
+0x02fff:        End of second encrypted region
+0x2fffc:        Outer checksum
+
+Notes:
+
+* The x220 firmware starts the copyright string at 0x00264, which
+  might just be because the default variable size on the H8S is 16bits,
+  instead of the 32bit default on the ARC cpu - and that there are two
+  default-sized variables before this string.
+
+* I did not actually try to decrypt the x250 firmware - it is a different
+  layout to the xx30 series, but might use the same decryption process
+
+* The x260 was not encrypted at all, and did not have an outer checksum.
+  However, the firmware file was 90112 bytes longer and the last 256 bytes
+  are suspicious - perhaps they are a MAC for authenticating the firmware.
+
+
