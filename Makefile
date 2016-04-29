@@ -4,12 +4,14 @@
 # Copyright (C) 2016 Hamish Coleman
 #
 
-all:
-	cat README
+all:    list_iso
+	$(info See README file for additional details)
+	$(info )
 
 list_iso:
+	$(info )
 	$(info The following make targets are available to produce patched and)
-	$(info bootable ISO images)
+	$(info bootable ISO images:)
 	$(info )
 	@for i in *.desc; do echo `basename $$i .orig.desc` - for patching `cat $$i`; done
 	@echo
@@ -43,6 +45,8 @@ install.radare.projects:
 	cp -fs $(PWD)/radare/x220.8DHT34WW ~/.config/radare2/projects
 	mkdir -p ~/.config/radare2/projects/x230.G2HT35WW.d
 	cp -fs $(PWD)/radare/x230.G2HT35WW ~/.config/radare2/projects
+	mkdir -p ~/.config/radare2/projects/x260.R02HT29W.d/
+	cp -fs $(PWD)/radare/x260.R02HT29W ~/.config/radare2/projects
 
 DEPSDIR := .d
 $(shell mkdir -p $(DEPSDIR))

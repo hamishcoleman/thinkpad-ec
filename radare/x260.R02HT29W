@@ -1,0 +1,847 @@
+# r2 rdb project file
+# flags
+fs functions
+f fcn.00000000 856 0x00000000 
+f fcn.00027778 12 0x00027778 
+f fcn.000277a8 12 0x000277a8 
+f fcn.000034b0 16 0x000034b0 
+f fcn.00025a40 44 0x00025a40 
+f fcn.000034e4 16 0x000034e4 
+f fcn.000200a8 12 0x000200a8 
+f loc.00027a78 8 0x00027a78 
+f loc.00027ab4 12 0x00027ab4 
+f fcn.000034c0 16 0x000034c0 
+f fcn.000032f8 36 0x000032f8 
+f fcn.00013b04 24 0x00013b04 
+f fcn.00013b1c 24 0x00013b1c 
+f fcn.000034d0 20 0x000034d0 
+f fcn.00002d0c 212 0x00002d0c 
+f fcn.000200b4 96 0x000200b4 
+f fcn.00003294 20 0x00003294 
+f fcn.00020880 48 0x00020880 
+f fcn.00025b30 16 0x00025b30 
+f fcn.00025a6c 32 0x00025a6c 
+f fcn.00025b4c 16 0x00025b4c 
+f fcn.00012e64 4 0x00012e64 
+f fcn.00010a14 48 0x00010a14 
+f fcn.000005f4 9560 0x000005f4 
+f fcn.00000358 232992 0x00000358 
+f fcn.0001357c 196 0x0001357c 
+f fcn.00013520 180232 0x00013520 
+f fcn.00012e68 248 0x00012e68 
+f fcn.00025a8c 516 0x00025a8c 
+f fcn.00010a44 56 0x00010a44 
+f fcn.0000adf0 104 0x0000adf0 
+f fcn.00002b4c 96 0x00002b4c 
+fs *
+f str._C__Copyright_IBM_Corp._2001__2005_All_Rights_Reserved_US_Government_Users_Restricted_Rights___Use__duplication_or_disclosure_restricted_by_GSA_ADP_Schedule_Contract_with_IBM_Corp.__C__Copyright_LENOVO_2005__2014_All_Rights_Reserved__ 234 0x00000268 
+fs *
+f checksum_results_list 1 0x00002048 
+fs *
+f checksum_areas_list 1 0x00002154 
+fs *
+f table.0x0000219c 1 0x0000219c 
+fs *
+f table.0x0000221c 1 0x0000221c 
+fs *
+f table.0x0000229c 1 0x0000229c 
+fs *
+f table.0x0000231c 1 0x0000231c 
+fs *
+f table.0x0000239c 1 0x0000239c 
+fs *
+f str.R02HT29W_ 9 0x00000240 
+# eval
+"e anal.a2f = false"
+"e anal.afterjmp = true"
+"e anal.arch = arc"
+"e anal.autoname = true"
+"e anal.bb_max_size = 1024"
+"e anal.bbs_alignment = 0x10"
+"e anal.bbsplit = true"
+"e anal.calls = false"
+"e anal.cjmpref = false"
+"e anal.cpu = "
+"e anal.depth = 16"
+"e anal.eobjmp = false"
+"e anal.esil = false"
+"e anal.followbrokenfcnsrefs = false"
+"e anal.followdatarefs = false"
+"e anal.from = 0xffffffffffffffff"
+"e anal.gp = 0"
+"e anal.hasnext = false"
+"e anal.jmpabove = true"
+"e anal.jmpref = true"
+"e anal.jmptbl = false"
+"e anal.limits = false"
+"e anal.maxreflines = 0"
+"e anal.noncode = false"
+"e anal.nopskip = true"
+"e anal.prelude = "
+"e anal.ptrdepth = 3"
+"e anal.pushret = false"
+"e anal.recont = false"
+"e anal.searchstringrefs = false"
+"e anal.sleep = 0"
+"e anal.split = true"
+"e anal.strings = false"
+"e anal.to = 0xffffffffffffffff"
+"e anal.trace = false"
+"e asm.arch = arc"
+"e asm.bbline = false"
+"e asm.bits = 16"
+"e asm.bytes = true"
+"e asm.bytespace = false"
+"e asm.calls = false"
+"e asm.cmtcol = 70"
+"e asm.cmtflgrefs = true"
+"e asm.cmtfold = false"
+"e asm.cmtright = true"
+"e asm.comments = true"
+"e asm.cpu = x86"
+"e asm.cycles = false"
+"e asm.cyclespace = false"
+"e asm.decode = false"
+"e asm.demangle = true"
+"e asm.describe = false"
+"e asm.dwarf = true"
+"e asm.emu = false"
+"e asm.emustr = false"
+"e asm.emuwrite = false"
+"e asm.esil = false"
+"e asm.family = false"
+"e asm.fcncalls = true"
+"e asm.fcnlines = true"
+"e asm.features = "
+"e asm.filter = true"
+"e asm.flags = true"
+"e asm.flagsinbytes = false"
+"e asm.flgoff = false"
+"e asm.functions = true"
+"e asm.indent = false"
+"e asm.indentspace = 2"
+"e asm.invhex = false"
+"e asm.jmphints = true"
+"e asm.lbytes = true"
+"e asm.lines = true"
+"e asm.lines.call = false"
+"e asm.lines.ret = false"
+"e asm.linesout = true"
+"e asm.linesright = false"
+"e asm.lineswide = false"
+"e asm.lineswidth = 7"
+"e asm.marks = true"
+"e asm.maxrefs = 5"
+"e asm.middle = false"
+"e asm.midflags = 1"
+"e asm.nbytes = 6"
+"e asm.nodup = false"
+"e asm.offset = true"
+"e asm.os = linux"
+"e asm.parser = x86.pseudo"
+"e asm.pcalign = 0"
+"e asm.pseudo = false"
+"e asm.reloff = false"
+"e asm.relsub = false"
+"e asm.section = false"
+"e asm.section.col = 20"
+"e asm.segoff = false"
+"e asm.size = false"
+"e asm.slow = true"
+"e asm.spacy = false"
+"e asm.stackptr = false"
+"e asm.symbol = false"
+"e asm.symbol.col = 40"
+"e asm.syntax = intel"
+"e asm.tabs = 0"
+"e asm.tabsoff = 0"
+"e asm.tabsonce = false"
+"e asm.trace = false"
+"e asm.tracespace = false"
+"e asm.ucase = false"
+"e asm.vars = true"
+"e asm.varsub = true"
+"e asm.varxs = false"
+"e asm.xrefs = true"
+"e bin.baddr = 0"
+"e bin.classes = true"
+"e bin.demangle = true"
+"e bin.dwarf = true"
+"e bin.filter = true"
+"e bin.force = "
+"e bin.laddr = 0"
+"e bin.lang = "
+"e bin.maxstr = 0"
+"e bin.maxstrbuf = 0x00a00000"
+"e bin.minstr = 0"
+"e bin.prefix = "
+"e bin.rawstr = false"
+"e bin.strfilter = "
+"e bin.strings = true"
+"e bin.strpurge = false"
+"e cfg.bigendian = false"
+"e cfg.debug = false"
+"e cfg.editor = /usr/bin/vi"
+"e cfg.fortunes = true"
+"e cfg.fortunetype = tips,fun"
+"e cfg.hashlimit = 0x00a00000"
+"e cfg.plugins = true"
+"e cfg.prefixdump = dump"
+"e cfg.sandbox = false"
+"e cfg.user = pid19194"
+"e cfg.wseek = false"
+"e cmd.bp = "
+"e cmd.cprompt = "
+"e cmd.depth = 10"
+"e cmd.esil.intr = "
+"e cmd.esil.trap = "
+"e cmd.fcn.delete = "
+"e cmd.fcn.new = "
+"e cmd.fcn.rename = "
+"e cmd.gprompt = "
+"e cmd.graph = !dot -Tgif -oa.gif a.dot;!xdg-open a.gif"
+"e cmd.hit = "
+"e cmd.open = "
+"e cmd.prompt = "
+"e cmd.repeat = true"
+"e cmd.stack = "
+"e cmd.times = "
+"e cmd.visual = "
+"e cmd.vprompt = "
+"e cmd.xterm = xterm -bg black -fg gray -e"
+"e dbg.args = "
+"e dbg.backend = native"
+"e dbg.bep = loader"
+"e dbg.bpinmaps = true"
+"e dbg.bpsize = 1"
+"e dbg.btalgo = fuzzy"
+"e dbg.btdepth = 128"
+"e dbg.clone = false"
+"e dbg.execs = false"
+"e dbg.follow = 64"
+"e dbg.forks = false"
+"e dbg.hwbp = 0"
+"e dbg.libs = "
+"e dbg.profile = "
+"e dbg.shallow_trace = false"
+"e dbg.slow = false"
+"e dbg.status = false"
+"e dbg.swstep = false"
+"e dbg.threads = false"
+"e dbg.trace = false"
+"e dbg.trace.tag = 0"
+"e dbg.unlibs = "
+"e diff.bare = false"
+"e diff.from = 0"
+"e diff.to = 0"
+"e dir.magic = /usr/lib/radare2/0.10.2/magic"
+"e dir.plugins = /usr/lib/radare2/0.10.2/"
+"e dir.projects = ~/.config/radare2/projects"
+"e dir.source = "
+"e dir.types = /usr/include"
+"e esil.debug = false"
+"e esil.exectrap = false"
+"e esil.gotolimit = 0x00001000"
+"e esil.iotrap = true"
+"e esil.prestep = true"
+"e esil.romem = false"
+"e esil.stacksize = 32"
+"e esil.stats = false"
+"e file.analyze = 0"
+"e file.desc = "
+"e file.loadalign = 0x00000400"
+"e file.loadmethod = fail"
+"e file.location = "
+"e file.md5 = e9223bd1cb0fd0c86b3cb845ff877e04"
+"e file.nowarn = true"
+"e file.openmany = 1"
+"e file.path = x260.R02HT29W.img"
+"e file.project = x260.R02HT29W"
+"e file.sha1 = 4d1df2c2ecaa36b4236d22b96f0b534b2d9e22d5"
+"e file.type = "
+"e fs.view = normal"
+"e graph.font = Courier"
+"e graph.from = 0xffffffffffffffff"
+"e graph.gv.edge = "
+"e graph.gv.graph = "
+"e graph.gv.node = "
+"e graph.invscroll = false"
+"e graph.offset = false"
+"e graph.scroll = 5"
+"e graph.title = "
+"e graph.to = 0xffffffffffffffff"
+"e graph.web = false"
+"e hex.cols = 16"
+"e hex.depth = 5"
+"e hex.flagsz = 0"
+"e hex.onechar = false"
+"e hex.pairs = true"
+"e hex.stride = 0"
+"e http.allow = "
+"e http.bind = localhost"
+"e http.browser = xdg-open"
+"e http.cors = false"
+"e http.dietime = 0"
+"e http.dirlist = false"
+"e http.maxsize = 0"
+"e http.port = 9090"
+"e http.referer = "
+"e http.root = /usr/share/radare2/0.10.2/www"
+"e http.sandbox = false"
+"e http.timeout = 3"
+"e http.ui = p"
+"e http.upget = false"
+"e http.upload = false"
+"e http.uproot = /tmp"
+"e http.uri = "
+"e http.verbose = true"
+"e hud.path = "
+"e io.aslr = false"
+"e io.autofd = true"
+"e io.buffer = false"
+"e io.buffer.from = 0"
+"e io.buffer.to = 0"
+"e io.cache = false"
+"e io.enforce = 0"
+"e io.ff = true"
+"e io.raw = false"
+"e io.sectonly = false"
+"e io.va = false"
+"e io.vio = false"
+"e key.S = "
+"e key.f1 = "
+"e key.f10 = "
+"e key.f11 = "
+"e key.f12 = "
+"e key.f2 = dbs $$"
+"e key.f3 = "
+"e key.f4 = "
+"e key.f5 = "
+"e key.f6 = "
+"e key.f7 = ds"
+"e key.f8 = dso"
+"e key.f9 = dc"
+"e key.s = "
+"e lines.abs = false"
+"e lines.from = 0"
+"e lines.to = $s"
+"e magic.depth = 100"
+"e pdb.extract = 1"
+"e pdb.server = http://msdl.microsoft.com/download/symbols"
+"e pdb.user_agent = Microsoft-Symbol-Server/6.11.0001.402"
+"e rap.loop = true"
+"e rop.comments = false"
+"e rop.conditional = false"
+"e rop.len = 5"
+"e rop.nx = false"
+"e rop.subchains = false"
+"e scr.atport = false"
+"e scr.color = true"
+"e scr.colorops = true"
+"e scr.columns = 0"
+"e scr.echo = false"
+"e scr.feedback = 1"
+"e scr.fgets = false"
+"e scr.fix_columns = 0"
+"e scr.fix_rows = 0"
+"e scr.fps = false"
+"e scr.highlight = "
+"e scr.histsave = true"
+"e scr.html = false"
+"e scr.interactive = true"
+"e scr.nkey = flag"
+"e scr.null = false"
+"e scr.pager = "
+"e scr.pipecolor = false"
+"e scr.prompt = true"
+"e scr.promptfile = false"
+"e scr.promptflag = false"
+"e scr.promptsect = false"
+"e scr.randpal = false"
+"e scr.responsive = false"
+"e scr.rgbcolor = true"
+"e scr.rows = 0"
+"e scr.seek = "
+"e scr.tee = "
+"e scr.truecolor = false"
+"e scr.utf8 = true"
+"e scr.wheel = true"
+"e scr.wheelnkey = false"
+"e scr.wheelspeed = 4"
+"e search.align = 0"
+"e search.chunk = 0"
+"e search.contiguous = true"
+"e search.count = 0"
+"e search.distance = 0"
+"e search.esilcombo = 8"
+"e search.flags = true"
+"e search.from = 0xffffffffffffffff"
+"e search.in = file"
+"e search.kwidx = 0"
+"e search.maxhits = 0"
+"e search.overlap = false"
+"e search.prefix = hit"
+"e search.show = true"
+"e search.to = 0xffffffffffffffff"
+"e stack.anotated = false"
+"e stack.bytes = true"
+"e stack.delta = 0"
+"e stack.size = 64"
+"e time.fmt = %Y-%m-%d %H:%M:%S %z"
+"e time.zone = 0"
+"e zoom.byte = h"
+"e zoom.from = 0"
+"e zoom.maxsz = 512"
+"e zoom.to = 286720"
+# sections
+# meta
+Cd 4 @ 0x00002048
+Cd 4 @ 0x0000204c
+Cd 4 @ 0x00002050
+Cd 4 @ 0x00002054
+Cd 4 @ 0x00002058
+Cd 4 @ 0x0000205c
+Cd 4 @ 0x00002060
+Cd 4 @ 0x00002064
+Cd 4 @ 0x00002068
+Cd 4 @ 0x0000206c
+Cd 4 @ 0x00002070
+Cd 4 @ 0x00002074
+Cd 4 @ 0x00002078
+Cd 4 @ 0x0000207c
+Cd 5768 @ 0x000009c0
+Cd 8 @ 0x000000c0
+Cd 8 @ 0x000000c8
+Cd 8 @ 0x000000d0
+Cd 8 @ 0x000000d8
+Cd 8 @ 0x000000e0
+Cd 8 @ 0x000000e8
+Cd 8 @ 0x000000f0
+Cd 8 @ 0x000000f8
+Cd 8 @ 0x00000100
+Cd 8 @ 0x00000108
+Cd 8 @ 0x00000110
+Cd 8 @ 0x00000118
+Cd 8 @ 0x00000120
+Cd 8 @ 0x00000128
+Cd 8 @ 0x00000130
+Cd 8 @ 0x00000138
+Cd 8 @ 0x00000140
+Cd 8 @ 0x00000148
+Cd 8 @ 0x00000150
+Cd 8 @ 0x00000158
+Cd 8 @ 0x00000160
+Cd 8 @ 0x00000168
+Cd 8 @ 0x00000170
+Cd 8 @ 0x00000178
+Cd 8 @ 0x00000180
+Cd 8 @ 0x00000188
+Cd 8 @ 0x00000190
+Cd 8 @ 0x00000198
+Cd 8 @ 0x000001a0
+Cd 8 @ 0x000001a8
+Cd 8 @ 0x000001b0
+Cd 8 @ 0x000001b8
+Cd 8 @ 0x000001c0
+Cd 8 @ 0x000001c8
+Cd 8 @ 0x000001d0
+Cd 8 @ 0x000001d8
+Cd 8 @ 0x000001e0
+Cd 8 @ 0x000001e8
+Cd 8 @ 0x000001f0
+Cd 8 @ 0x000001f8
+Cs 234 @ 0x00000268 # _C__Copyright_IBM_Corp._2001__2005_All_Rights_Reserved_US_Government_Users_Restricted_Rights___Use__duplication_or_disclosure_restricted_by_GSA_ADP_Schedule_Contract_with_IBM_Corp.__C__Copyright_LENOVO_2005__2014_All_Rights_Reserved__
+Cd 2 @ 0x00000352
+Cd 4 @ 0x00000354
+Cd 1 @ 0x00000355
+Cd 2 @ 0x00000356
+Cd 1 @ 0x00000357
+Cd 4 @ 0x00002154
+Cd 4 @ 0x00002158
+Cd 4 @ 0x0000215c
+Cd 4 @ 0x00002160
+Cd 4 @ 0x00002164
+Cd 4 @ 0x00002168
+Cd 4 @ 0x0000216c
+Cd 4 @ 0x00002170
+Cd 4 @ 0x00002174
+Cd 4 @ 0x00002178
+Cd 4 @ 0x0000217c
+Cd 4 @ 0x00002180
+Cd 4 @ 0x00002184
+Cd 4 @ 0x0000219c
+Cd 4 @ 0x000021a0
+Cd 4 @ 0x000021a4
+Cd 4 @ 0x000021a8
+Cd 4 @ 0x000021ac
+Cd 4 @ 0x000021b0
+Cd 4 @ 0x000021b4
+Cd 4 @ 0x000021b8
+Cd 4 @ 0x000021bc
+Cd 4 @ 0x000021c0
+Cd 4 @ 0x000021c4
+Cd 4 @ 0x000021c8
+Cd 4 @ 0x000021cc
+Cd 4 @ 0x000021d0
+Cd 4 @ 0x000021d4
+Cd 4 @ 0x000021d8
+Cd 4 @ 0x000021dc
+Cd 4 @ 0x000021e0
+Cd 4 @ 0x000021e4
+Cd 4 @ 0x000021e8
+Cd 4 @ 0x000021ec
+Cd 4 @ 0x000021f0
+Cd 4 @ 0x000021f4
+Cd 4 @ 0x000021f8
+Cd 4 @ 0x000021fc
+Cd 4 @ 0x00002200
+Cd 4 @ 0x00002204
+Cd 4 @ 0x00002208
+Cd 4 @ 0x0000220c
+Cd 4 @ 0x00002210
+Cd 4 @ 0x00002214
+Cd 4 @ 0x00002218
+Cd 4 @ 0x0000221c
+Cd 4 @ 0x00002220
+Cd 4 @ 0x00002224
+Cd 4 @ 0x00002228
+Cd 4 @ 0x0000222c
+Cd 4 @ 0x00002230
+Cd 4 @ 0x00002234
+Cd 4 @ 0x00002238
+Cd 4 @ 0x0000223c
+Cd 4 @ 0x00002240
+Cd 4 @ 0x00002244
+Cd 4 @ 0x00002248
+Cd 4 @ 0x0000224c
+Cd 4 @ 0x00002250
+Cd 4 @ 0x00002254
+Cd 4 @ 0x00002258
+Cd 4 @ 0x0000225c
+Cd 4 @ 0x00002260
+Cd 4 @ 0x00002264
+Cd 4 @ 0x00002268
+Cd 4 @ 0x0000226c
+Cd 4 @ 0x00002270
+Cd 4 @ 0x00002274
+Cd 4 @ 0x00002278
+Cd 4 @ 0x0000227c
+Cd 4 @ 0x00002280
+Cd 4 @ 0x00002284
+Cd 4 @ 0x00002288
+Cd 4 @ 0x0000228c
+Cd 4 @ 0x00002290
+Cd 4 @ 0x00002294
+Cd 4 @ 0x00002298
+Cd 4 @ 0x0000229c
+Cd 4 @ 0x000022a0
+Cd 4 @ 0x000022a4
+Cd 4 @ 0x000022a8
+Cd 4 @ 0x000022ac
+Cd 4 @ 0x000022b0
+Cd 4 @ 0x000022b4
+Cd 4 @ 0x000022b8
+Cd 4 @ 0x000022bc
+Cd 4 @ 0x000022c0
+Cd 4 @ 0x000022c4
+Cd 4 @ 0x000022c8
+Cd 4 @ 0x000022cc
+Cd 4 @ 0x000022d0
+Cd 4 @ 0x000022d4
+Cd 4 @ 0x000022d8
+Cd 4 @ 0x000022dc
+Cd 4 @ 0x000022e0
+Cd 4 @ 0x000022e4
+Cd 4 @ 0x000022e8
+Cd 4 @ 0x000022ec
+Cd 4 @ 0x000022f0
+Cd 4 @ 0x000022f4
+Cd 4 @ 0x000022f8
+Cd 4 @ 0x000022fc
+Cd 4 @ 0x00002300
+Cd 4 @ 0x00002304
+Cd 4 @ 0x00002308
+Cd 4 @ 0x0000230c
+Cd 4 @ 0x00002310
+Cd 4 @ 0x00002314
+Cd 4 @ 0x00002318
+Cd 4 @ 0x0000231c
+Cd 4 @ 0x00002320
+Cd 4 @ 0x00002324
+Cd 4 @ 0x00002328
+Cd 4 @ 0x0000232c
+Cd 4 @ 0x00002330
+Cd 4 @ 0x00002334
+Cd 4 @ 0x00002338
+Cd 4 @ 0x0000233c
+Cd 4 @ 0x00002340
+Cd 4 @ 0x00002344
+Cd 4 @ 0x00002348
+Cd 4 @ 0x0000234c
+Cd 4 @ 0x00002350
+Cd 4 @ 0x00002354
+Cd 4 @ 0x00002358
+Cd 4 @ 0x0000235c
+Cd 4 @ 0x00002360
+Cd 4 @ 0x00002364
+Cd 4 @ 0x00002368
+Cd 4 @ 0x0000236c
+Cd 4 @ 0x00002370
+Cd 4 @ 0x00002374
+Cd 4 @ 0x00002378
+Cd 4 @ 0x0000237c
+Cd 4 @ 0x00002380
+Cd 4 @ 0x00002384
+Cd 4 @ 0x00002388
+Cd 4 @ 0x0000238c
+Cd 4 @ 0x00002390
+Cd 4 @ 0x00002394
+Cd 4 @ 0x00002398
+Cd 4 @ 0x0000239c
+Cd 4 @ 0x000023a0
+Cd 4 @ 0x000023a4
+Cd 4 @ 0x000023a8
+Cd 4 @ 0x000023ac
+Cd 4 @ 0x000023b0
+Cd 4 @ 0x000023b4
+Cd 4 @ 0x000023b8
+Cd 4 @ 0x000023bc
+Cd 4 @ 0x000023c0
+Cd 4 @ 0x000023c4
+Cd 4 @ 0x000023c8
+Cd 4 @ 0x000023cc
+Cd 4 @ 0x000023d0
+Cd 4 @ 0x000023d4
+Cd 4 @ 0x000023d8
+Cd 4 @ 0x000023dc
+Cd 4 @ 0x000023e0
+Cd 4 @ 0x000023e4
+Cd 4 @ 0x000023e8
+Cd 4 @ 0x000023ec
+Cd 4 @ 0x000023f0
+Cd 4 @ 0x00000264
+Cd 4 @ 0x00000260
+Cd 4 @ 0x0000025c
+Cd 4 @ 0x00000258
+Cd 4 @ 0x00000254
+Cd 4 @ 0x00000250
+Cd 4 @ 0x0000024c
+Cd 4 @ 0x00000248
+Cs 9 @ 0x00000240 # R02HT29W_
+Cd 1 @ 0x00000249
+Cd 2 @ 0x0000024a
+Cd 4 @ 0x0000023c
+Cd 8 @ 0x00000238
+Cd 4 @ 0x00000234
+Cd 8 @ 0x00000230
+Cd 4 @ 0x0000022c
+Cd 4 @ 0x00000228
+Cd 4 @ 0x00000224
+Cd 8 @ 0x00000220
+Cd 4 @ 0x0000021c
+Cd 8 @ 0x00000218
+Cd 4 @ 0x00000214
+Cd 8 @ 0x00000210
+Cd 4 @ 0x0000020c
+Cd 8 @ 0x00000208
+Cd 4 @ 0x00000204
+Cd 8 @ 0x00000200
+Cd 4 @ 0x000001fc
+f fcn.00000000 8 0x00000000
+af+ 0x00000000 8 fcn.00000000 f n
+afb+ 0x00000000 0x00000000 8 0xffffffffffffffff 0xffffffffffffffff n n
+f fcn.00000358 44 0x00000358
+af+ 0x00000358 44 fcn.00000358 f n
+afb+ 0x00000358 0x00000358 24 0xffffffffffffffff 0x00000370 n n
+afb+ 0x00000358 0x00000370 20 0xffffffffffffffff 0xffffffffffffffff n n
+f fcn.000005f4 928 0x000005f4
+af+ 0x000005f4 928 fcn.000005f4 f n
+afb+ 0x000005f4 0x000005f4 40 0xffffffffffffffff 0x0000061c n n
+afb+ 0x000005f4 0x0000061c 28 0xffffffffffffffff 0x00000638 n n
+afb+ 0x000005f4 0x00000638 20 0xffffffffffffffff 0x0000064c n n
+afb+ 0x000005f4 0x0000064c 24 0xffffffffffffffff 0x00000664 n n
+afb+ 0x000005f4 0x00000664 12 0xffffffffffffffff 0x00000670 n n
+afb+ 0x000005f4 0x00000670 24 0xffffffffffffffff 0x00000688 n n
+afb+ 0x000005f4 0x00000688 104 0xffffffffffffffff 0x000006f0 n n
+afb+ 0x000005f4 0x000006f0 24 0xffffffffffffffff 0xffffffffffffffff n n
+f fcn.00000994 44 0x00000994
+af+ 0x00000994 44 fcn.00000994 f n
+afb+ 0x00000994 0x00000994 16 0x000e2204 0x000009a4 n n
+afb+ 0x00000994 0x000009a4 4 0xfffffffffff82a94 0x000009a8 n n
+afb+ 0x00000994 0x000009a8 24 0xffffffffffffffff 0xffffffffffffffff n n
+f fcn.0x00002080 208 0x00002080
+af+ 0x00002080 208 fcn.0x00002080 f n
+f fcn.00002188 16 0x00002188
+af+ 0x00002188 16 fcn.00002188 f n
+afb+ 0x00002188 0x00002188 8 0xffffffffffffffff 0x00002190 n n
+afb+ 0x00002188 0x00002190 8 0xffffffffffffffff 0xffffffffffffffff n n
+f fcn.00002b4c 96 0x00002b4c
+af+ 0x00002b4c 96 fcn.00002b4c f n
+afb+ 0x00002b4c 0x00002b4c 96 0x003b8cc6 0xffffffffffffffff n n
+f fcn.00002d0c 212 0x00002d0c
+af+ 0x00002d0c 212 fcn.00002d0c f n
+afb+ 0x00002d0c 0x00002d0c 24 0xffffffffffffffff 0x00002d24 n n
+afb+ 0x00002d0c 0x00002d24 8 0xffffffffffffffff 0x00002d2c n n
+afb+ 0x00002d0c 0x00002d2c 24 0xffffffffffffffff 0x00002d44 n n
+afb+ 0x00002d0c 0x00002d44 24 0xffffffffffffffff 0x00002d5c n n
+afb+ 0x00002d0c 0x00002d5c 4 0xffffffffffffffff 0x00002d60 n n
+afb+ 0x00002d0c 0x00002d60 28 0xffffffffffffffff 0x00002d7c n n
+afb+ 0x00002d0c 0x00002d7c 24 0xffffffffffffffff 0x00002d94 n n
+afb+ 0x00002d0c 0x00002d94 12 0xffffffffffffffff 0x00002da0 n n
+afb+ 0x00002d0c 0x00002da0 28 0xffffffffffffffff 0x00002dbc n n
+afb+ 0x00002d0c 0x00002dbc 36 0xffffffffffffffff 0xffffffffffffffff n n
+f fcn.00003294 20 0x00003294
+af+ 0x00003294 20 fcn.00003294 f n
+afb+ 0x00003294 0x00003294 12 0x000ed30e 0x000032a0 n n
+afb+ 0x00003294 0x000032a0 8 0x00c1caac 0xffffffffffffffff n n
+f fcn.000032f8 36 0x000032f8
+af+ 0x000032f8 36 fcn.000032f8 f n
+afb+ 0x000032f8 0x000032f8 36 0xffffffffffffffff 0xffffffffffffffff n n
+f fcn.000034b0 16 0x000034b0
+af+ 0x000034b0 16 fcn.000034b0 f n
+afb+ 0x000034b0 0x000034b0 16 0xffffffffffffffff 0xffffffffffffffff n n
+f fcn.000034c0 16 0x000034c0
+af+ 0x000034c0 16 fcn.000034c0 f n
+afb+ 0x000034c0 0x000034c0 16 0xffffffffffffffff 0xffffffffffffffff n n
+f fcn.000034d0 20 0x000034d0
+af+ 0x000034d0 20 fcn.000034d0 f n
+afb+ 0x000034d0 0x000034d0 20 0xffffffffffffffff 0xffffffffffffffff n n
+f fcn.000034e4 16 0x000034e4
+af+ 0x000034e4 16 fcn.000034e4 f n
+afb+ 0x000034e4 0x000034e4 16 0xffffffffffffffff 0xffffffffffffffff n n
+f fcn.0000adf0 104 0x0000adf0
+af+ 0x0000adf0 104 fcn.0000adf0 f n
+afb+ 0x0000adf0 0x0000adf0 80 0x000fd9fe 0x0000ae40 n n
+afb+ 0x0000adf0 0x0000ae40 20 0x00051614 0x0000ae54 n n
+afb+ 0x0000adf0 0x0000ae54 4 0x00565756 0xffffffffffffffff n n
+f fcn.00010a14 48 0x00010a14
+af+ 0x00010a14 48 fcn.00010a14 f n
+afb+ 0x00010a14 0x00010a14 28 0xffffffffffffffff 0x00010a30 n n
+afb+ 0x00010a14 0x00010a30 8 0xffffffffffffffff 0x00010a38 n n
+afb+ 0x00010a14 0x00010a38 8 0xffffffffffffffff 0x00010a40 n n
+afb+ 0x00010a14 0x00010a40 4 0xffffffffffffffff 0xffffffffffffffff n n
+f fcn.00010a44 56 0x00010a44
+af+ 0x00010a44 56 fcn.00010a44 f n
+afb+ 0x00010a44 0x00010a44 24 0xfffffffffff33a5a 0x00010a5c n n
+afb+ 0x00010a44 0x00010a5c 20 0x000f626e 0x00010a70 n n
+afb+ 0x00010a44 0x00010a70 4 0x000d0b60 0x00010a74 n n
+afb+ 0x00010a44 0x00010a74 8 0xffffffffffffffff 0xffffffffffffffff n n
+f fcn.00012e64 4 0x00012e64
+af+ 0x00012e64 4 fcn.00012e64 f n
+afb+ 0x00012e64 0x00012e64 4 0x00012b54 0xffffffffffffffff n n
+afb+ 0x00012e64 0x00012b54 16 0x00012e58 0x00012b64 n n
+afb+ 0x00012e64 0x00012e58 12 0x00012e64 0xffffffffffffffff n n
+afb+ 0x00012e64 0x00012b64 16 0x00012e30 0x00012b74 n n
+afb+ 0x00012e64 0x00012e30 40 0x00012e58 0xffffffffffffffff n n
+afb+ 0x00012e64 0x00012b74 8 0x00210b78 0xffffffffffffffff n n
+f fcn.00012e68 248 0x00012e68
+af+ 0x00012e68 248 fcn.00012e68 f n
+afb+ 0x00012e68 0x00012e68 8 0x00012f54 0x00012e70 n n
+afb+ 0x00012e68 0x00012f54 12 0x000548bc 0xffffffffffffffff n n
+afb+ 0x00012e68 0x00012e70 16 0x00012f4c 0x00012e80 n n
+afb+ 0x00012e68 0x00012f4c 8 0x00012f54 0xffffffffffffffff n n
+afb+ 0x00012e68 0x00012e80 8 0x00210e84 0xffffffffffffffff n n
+f fcn.00013520 180232 0x00013520
+af+ 0x00013520 180232 fcn.00013520 f n
+afb+ 0x00013520 0x00013520 12 0x0003f528 0x0001352c n n
+afb+ 0x00013520 0x0003f528 0 0xffffffffffffffff 0xffffffffffffffff n n
+afb+ 0x00013520 0x0001352c 40 0xfffffffffff94e40 0x00013554 n n
+afb+ 0x00013520 0x00013554 16 0xfffffffffff94e50 0x00013564 n n
+afb+ 0x00013520 0x00013564 48 0x00013598 0xffffffffffffffff n n
+afb+ 0x00013520 0x00013598 32 0x000135e0 0x000135b8 n n
+afb+ 0x00013520 0x000135e0 48 0x00013618 0xffffffffffffffff n n
+afb+ 0x00013520 0x00013618 40 0xffffffffff83968c 0xffffffffffffffff n n
+afb+ 0x00013520 0x000135b8 40 0x000135e0 0xffffffffffffffff n n
+f fcn.0001357c 196 0x0001357c
+af+ 0x0001357c 196 fcn.0001357c f n
+afb+ 0x0001357c 0x0001357c 24 0x00013598 0xffffffffffffffff n n
+afb+ 0x0001357c 0x00013598 32 0x000135e0 0x000135b8 n n
+afb+ 0x0001357c 0x000135e0 48 0x00013618 0xffffffffffffffff n n
+afb+ 0x0001357c 0x00013618 40 0xffffffffff83968c 0xffffffffffffffff n n
+afb+ 0x0001357c 0x000135b8 40 0x000135e0 0xffffffffffffffff n n
+f fcn.00013b04 24 0x00013b04
+af+ 0x00013b04 24 fcn.00013b04 f n
+afb+ 0x00013b04 0x00013b04 24 0xffffffffffffffff 0xffffffffffffffff n n
+f fcn.00013b1c 24 0x00013b1c
+af+ 0x00013b1c 24 fcn.00013b1c f n
+afb+ 0x00013b1c 0x00013b1c 20 0xffffffffffffffff 0x00013b30 n n
+afb+ 0x00013b1c 0x00013b30 4 0xffffffffffffffff 0xffffffffffffffff n n
+f fcn.000200a8 12 0x000200a8
+af+ 0x000200a8 12 fcn.000200a8 f n
+afb+ 0x000200a8 0x000200a8 12 0xffffffffffffffff 0xffffffffffffffff n n
+f fcn.000200b4 96 0x000200b4
+af+ 0x000200b4 96 fcn.000200b4 f n
+afb+ 0x000200b4 0x000200b4 96 0xffffffffffffffff 0xffffffffffffffff n n
+f fcn.00020880 48 0x00020880
+af+ 0x00020880 48 fcn.00020880 f n
+afb+ 0x00020880 0x00020880 48 0xffffffffffb3a92c 0xffffffffffffffff n n
+f fcn.00025a40 44 0x00025a40
+af+ 0x00025a40 44 fcn.00025a40 f n
+afb+ 0x00025a40 0x00009348 52 0xffffffffffffffff 0xffffffffffffffff n n
+afb+ 0x00025a40 0x00025a40 24 0xffffffffffffffff 0x00025a58 n n
+afb+ 0x00025a40 0x00025a58 4 0xffffffffffffffff 0x00025a5c n n
+afb+ 0x00025a40 0x00025a5c 16 0xffffffffffffffff 0xffffffffffffffff n n
+f fcn.00025a6c 32 0x00025a6c
+af+ 0x00025a6c 32 fcn.00025a6c f n
+afb+ 0x00025a6c 0x00025a6c 24 0xffffffffffffffff 0x00025a84 n n
+afb+ 0x00025a6c 0x00025a84 4 0xffffffffffffffff 0x00025a88 n n
+afb+ 0x00025a6c 0x00025a88 4 0x00009348 0xffffffffffffffff n n
+afb+ 0x00025a6c 0x00009348 52 0xffffffffffffffff 0xffffffffffffffff n n
+f fcn.00025a8c 516 0x00025a8c
+af+ 0x00025a8c 516 fcn.00025a8c f n
+afb+ 0x00025a8c 0x00025a8c 24 0x00025c68 0xffffffffffffffff n n
+afb+ 0x00025a8c 0x00025c68 4 0x0006c548 0x00025c6c n n
+afb+ 0x00025a8c 0x00025c6c 4 0xfffffffffffdfeec 0x00025c70 n n
+afb+ 0x00025a8c 0x00025c70 32 0x00027a78 0xffffffffffffffff n n
+f fcn.00025b30 16 0x00025b30
+af+ 0x00025b30 16 fcn.00025b30 f n
+afb+ 0x00025b30 0x00025b30 16 0x001a5b8c 0xffffffffffffffff n n
+f fcn.00025b4c 16 0x00025b4c
+af+ 0x00025b4c 16 fcn.00025b4c f n
+afb+ 0x00025b4c 0x00025b4c 16 0x001a5ba8 0xffffffffffffffff n n
+f fcn.00027778 12 0x00027778
+af+ 0x00027778 12 fcn.00027778 f n
+afb+ 0x00027778 0x00027778 12 0xffffffffffffffff 0xffffffffffffffff n n
+f fcn.000277a8 12 0x000277a8
+af+ 0x000277a8 12 fcn.000277a8 f n
+afb+ 0x000277a8 0x000277a8 12 0xffffffffffffffff 0xffffffffffffffff n n
+f loc.00027a78 8 0x00027a78
+af+ 0x00027a78 8 loc.00027a78 l n
+afb+ 0x00027a78 0x00027a78 8 0xffffffffffffffff 0xffffffffffffffff n n
+f loc.00027ab4 12 0x00027ab4
+af+ 0x00027ab4 12 loc.00027ab4 l n
+afb+ 0x00027ab4 0x00027ab4 12 0xffffffffffffffff 0xffffffffffffffff n n
+# types
+tk unsigned int = type 
+tk unsigned char = type 
+tk unsigned short = type 
+tk short = type 
+tk int = type 
+tk long = type 
+tk long long = type 
+tk void * = type 
+tk char = type 
+tk char * = type 
+tk const char* = type 
+tk uint8_t = type 
+tk uint16_t = type 
+tk uint32_t = type 
+tk uint64_t = type 
+tk type.unsigned int = i 
+tk type.unsigned char = b 
+tk type.unsigned short = w 
+tk type.short = w 
+tk type.int = d 
+tk type.long = x 
+tk type.long long = q 
+tk type.void * = p 
+tk type.char = b 
+tk type.char * = *z 
+tk type.const char* = *z 
+tk type.uint8_t = b 
+tk type.uint16_t = w 
+tk type.uint32_t = d 
+tk type.uint64_t = q 
+# macros
+# seek
+s 0x00000000
