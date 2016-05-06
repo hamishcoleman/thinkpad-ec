@@ -1,14 +1,19 @@
 
-This replicates the first of the two patches that the original mec-tools author
-needed to do to get his aftermarket battery to validate.
+This replicates on the x230 the patches that zmatt needed to do to get his aftermarket
+battery to validate.
 
-There is a second battery validation function, but he does not spell out the
-code around that function - and as I have genuine batteries at the moment, I
-didnt want to go looking for it.
+Completely untested!
 
-See http://www.zmatt.net/unlocking-my-lenovo-laptop-part-3/
-
-@@ battery_validate @@
+@@ -7294,7 +7294,7 @@
+ 0001c7d0  71 17 00 f6 00 80 f8 1e  04 10 f8 16 01 11 42 29  |q.............B)|
+ 0001c7e0  00 02 d8 1e 02 10 d9 1e  42 10 1d ff 42 28 01 02  |........B...B(..|
+ 0001c7f0  da 1e 42 10 db 1e 02 10  c9 70 0a d9 3c da 04 db  |..B......p..<...|
+-0001c800  18 f1 c4 16 01 10 c7 09  5e 80 c7 16 81 10 8c e9  |........^.......|
++0001c800  18 f1 c4 16 01 10 c7 09  5e 80 c7 16 81 10 e0 78  |........^......x|
+ 0001c810  88 e0 ca 21 81 0f 00 00  64 00 f4 0f e1 f1 ca 20  |...!....d...... |
+ 0001c820  c1 03 0d f0 05 8e 01 e0  0f 78 88 e0 4e 02 2a 00  |.........x..N.*.|
+ 0001c830  05 ae 07 d8 c5 03 20 00  04 ae 7f 02 20 00 04 8e  |...... ..... ...|
+@@ -7302,7 +7302,7 @@
  0001c850  43 1c 59 63 58 63 32 89  10 88 00 23 90 00 08 b9  |C.YcXc2....#....|
  0001c860  00 21 04 00 58 63 13 88  59 63 31 89 2f 24 08 01  |.!..Xc..Yc1./$..|
  0001c870  08 b8 38 60 10 78 88 71  de 08 2f f3 f8 16 02 11  |..8`.x.q../.....|
@@ -17,3 +22,18 @@ See http://www.zmatt.net/unlocking-my-lenovo-laptop-part-3/
  0001c890  81 20 08 b8 38 60 12 10  81 20 10 78 13 10 82 20  |. ..8`... .x... |
  0001c8a0  08 b9 59 61 30 79 ea 08  2f f3 f8 16 02 11 0f 08  |..Ya0y../.......|
  0001c8b0  51 00 00 86 45 20 00 0a  0e f0 05 8e 01 e0 0f 78  |Q...E .........x|
+@@ -7318,12 +7318,12 @@
+ 0001c950  b0 d0 21 80 14 6a 58 60  14 79 4a 24 40 74 56 26  |..!..jX`.yJ$@tV&|
+ 0001c960  c2 16 a8 20 c0 01 01 11  80 04 01 1a 12 00 c9 70  |... ...........p|
+ 0001c970  0a d9 27 da bd 04 ef ff  11 db c4 16 00 10 e1 b8  |..'.............|
+-0001c980  25 f3 c7 16 80 10 88 e8  e9 70 86 0e ef f1 8a 21  |%........p.....!|
++0001c980  25 f3 c7 16 80 10 e0 78  e9 70 86 0e ef f1 8a 21  |%......x.p.....!|
+ 0001c990  0f 0a 55 f1 05 8e 01 e0  0f 78 69 08 33 02 05 ae  |..U......xi.3...|
+ 0001c9a0  2e f0 ca 0f ef f1 e9 70  81 e0 11 f5 47 f1 c9 70  |.......p....G..p|
+ 0001c9b0  0b d9 7f 04 ef ff 28 da  08 16 c2 10 8c 22 ff 8f  |......(......"..|
+ 0001c9c0  04 f4 17 00 20 00 95 d1  92 d0 34 6a 59 61 3b 79  |.... .....4jYa;y|
+-0001c9d0  01 80 11 e0 19 61 5e 0f  ef fe 56 26 c0 16 89 e8  |.....a^...V&....|
++0001c9d0  01 80 11 e0 19 61 5e 0f  ef fe 56 26 c0 16 e0 78  |.....a^...V&...x|
+ 0001c9e0  00 86 a4 b8 00 a6 14 d8  0f 02 20 00 04 ae 06 16  |.......... .....|
+ 0001c9f0  c0 10 61 b8 0d 78 0d 08  72 00 06 ae 0e d8 f6 f1  |..a..x..r.......|
+ 0001ca00  00 86 84 b8 f0 f1 a5 ae  05 d8 04 ae c9 70 ac fd  |.............p..|
