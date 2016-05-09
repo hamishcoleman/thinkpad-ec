@@ -1,8 +1,8 @@
 
-This replicates on the x230 the patches that zmatt needed to do to get his aftermarket
-battery to validate.
+This replicates on the x230 the patches that zmatt needed to do to get
+his aftermarket battery to validate.
 
-Completely untested!
+This patch has been tested and is known to work.
 
 @@ -7294,7 +7294,7 @@
  0001c7d0  71 17 00 f6 00 80 f8 1e  04 10 f8 16 01 11 42 29  |q.............B)|
