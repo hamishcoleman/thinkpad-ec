@@ -33,18 +33,18 @@ This software expects to be run under Linux.
 
 5. Show the list of laptops and ISO image names:
 
-    make list_iso
+    make list_laptops
 
    (note that this list might change from time to time if there are new
-   BIOS versoins released)
+   BIOS versions released)
 
-6. Select the correct ISO name for your laptop.  E.G. "g2uj23us.iso" for
+6. Select the correct ISO name for your laptop.  E.G. "patched.x230.iso" for
    the x230 laptop.
 
 7. Create the patched ISO for this laptop (this will download the original
    file from Lenovo and patch it):
 
-    make g2uj23us.iso
+    make patched.x230.iso
 
 8. Use your normal CDROM burning tools to put this image on a blank cd and
    boot it up.  You will be prompted with information about the patch and

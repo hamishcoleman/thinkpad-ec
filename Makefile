@@ -4,9 +4,50 @@
 # Copyright (C) 2016 Hamish Coleman
 #
 
-all:    list_iso
+all:    list_laptops
 	$(info See README file for additional details)
 	$(info )
+
+.PHONY: all
+
+list_laptops:
+	$(info )
+	$(info The following laptop make targets are supported:)
+	$(info )
+	$(info patched.t430.iso  - for patching Thinkpad T430)
+	$(info patched.t430s.iso - for patching Thinkpad T430s)
+	$(info patched.t530.iso  - for patching Thinkpad T530)
+	$(info patched.t530i.iso - for patching Thinkpad T530i)
+	$(info patched.w530.iso  - for patching Thinkpad W430)
+	$(info patched.x230.iso  - for patching Thinkpad X230)
+	$(info patched.x230t.iso - for patching Thinkpad X230t)
+	$(info )
+
+.PHONY: list_laptops
+
+# manually managed list of laptops - update this if the BIOS versions change
+
+patched.t430.iso: g1uj38us.iso
+	mv $< $@
+
+patched.t430s.iso: g7uj18us.iso
+	mv $< $@
+
+patched.t530.iso: g4uj30us.iso
+	mv $< $@
+
+patched.t530i.iso: g4uj30us.iso
+	mv $< $@
+
+patched.w530.iso: g5uj28us.iso
+	mv $< $@
+
+patched.x230.iso: g2uj23us.iso
+	mv $< $@
+
+patched.x230t.iso: gcuj24us.iso
+	mv $< $@
+
 
 list_iso:
 	$(info )
@@ -15,6 +56,8 @@ list_iso:
 	$(info )
 	@for i in *.desc; do echo `basename $$i .orig.desc` - for patching `cat $$i`; done
 	@echo
+
+.PHONY: list_iso
 
 # FIXME - need to automatically generate the iso image target list
 
@@ -29,7 +72,7 @@ list_images:
 	$(info )
 	@true
 
-.PHONY: list_iso list_images
+.PHONY: list_images
 
 # All the bios update iso images I have checked have had a fat16 filesystem
 # embedded in a dos mbr image as the el-torito ISO payload.  They also all
