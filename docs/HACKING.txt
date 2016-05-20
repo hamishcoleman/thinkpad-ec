@@ -49,7 +49,18 @@ probably useful:
     the dosflash.exe utility to a DOS boot disk and then use a command
     similar to:
 
+        
         dosflash /sd /ipf ec /file s01D3000.FL2
+
+    To insert the firmware image back into the bootable cdrom and boot this
+    in an emulator for testing:
+
+        make patched.x230.iso.test
+
+    To extract the DOS disk image from the ISO and test that in the emulator
+    instead:
+
+        make patched.x230.img.test
 
 References:
 -----------
