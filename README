@@ -8,59 +8,59 @@ The only keys that are not working are Fn+F3 (Battery) and Fn+F12 (Hibernate)
 A full writeup of the hardware modifications needed can be found at:
     http://www.thinkwiki.org/wiki/Install_Classic_Keyboard_on_xx30_Series_ThinkPads
 
-Quick Start:
-------------
 
-    There are separate make target commands for each different laptop,
-    this command will produce a list of them:
+Step-by-step instructions:
+--------------------------
 
-        make list_iso
+This software expects to be run under Linux.
 
-    To fetch the ISO image, patch it and create a new bootable ISO image:
+1. Ensure you have the normal packages needed for development work.
+   On debian, this can be done with:
 
-        make g2uj23us.iso
-        # This example will produce a patched x230 image
+    apt-get install build-essential git
 
-Other uses:
------------
+2. Ensure you have the "mtools" package installed:
 
-This repository also contains number of tools and utilities for examining
-and modifying Thinkpad Embedded Controller firmware.
+    apt-get install mtools
 
-Including:
-*   radare projects with partial disassembly of several thinkpads EC firmware
-*   scripts for downloading the ISO image and extracting the firmware
-*   script for patching the firmware
-*   documentation on the tables found in the firmware (TODO)
+3. Clone a copy of this repo on to your computer:
 
-Slightly slower Start:
-----------------------
+    git clone https://github.com/hamishcoleman/thinkpad-ec
 
-If you expect to do development work, the following two make targets
-are probably useful:
+4. Change to the directory created by the clone:
 
-    To list the available raw image files and FL2 files:
+    cd thinkpad-ec
 
-        make list_iso
+5. Show the list of laptops and ISO image names:
 
-    To fetch the firmware from Lenovo, extract, decrypt and patch
-    it, ready for more patching:
+    make list_iso
 
-        make x230.G2HT35WW.img
+   (note that this list might change from time to time if there are new
+   BIOS versoins released)
 
-    To create a new FL2, ready for flashing:
+6. Select the correct ISO name for your laptop.  E.G. "g2uj23us.iso" for
+   the x230 laptop.
 
-        make x230.G2HT35WW.s01D3000.FL2
+7. Create the patched ISO for this laptop (this will download the original
+   file from Lenovo and patch it):
 
-    To update your firmware, copy the FL2 file generated above and
-    the dosflash.exe utility to a DOS boot disk and then use a command
-    similar to:
+    make g2uj23us.iso
 
-        dosflash /sd /ipf ec /file s01D3000.FL2
+8. Use your normal CDROM burning tools to put this image on a blank cd and
+   boot it up.  You will be prompted with information about the patch and
+   asked to confirm your laptop type.  Then it will automatically flash
+   the patched firmware.
 
-References:
------------
-    http://forum.thinkpads.com/viewtopic.php?f=69&t=120776
-    http://www.zmatt.net/unlocking-my-lenovo-laptop-part-3/
-    http://plan9.stanleylieber.com/hardware/thinkpad/x230/x230.schematics.pdf
+
+Notes:
+
+* These thinkpads will boot from a USB cdrom drive, so you do not need one
+  in your laptop for this to work.
+
+* If you do not have a cdrom, or do not want to use it, it is possible to
+  extract an image from the ISO that is suitable for placing on a bootable
+  USB stick (I hope to add this as an automated feature shortly)
+
+* More information for hacking on this can be found in the docs/HACKING.txt
+  file.
 

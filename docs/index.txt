@@ -1,6 +1,9 @@
 A collection of the information discovered about the embedded controllers
 used in the thinkpad laptops.
 
+HACKING.txt
+    -   information on how to use this repository for hacking on the firmware
+
 chips.txt
     -   details on the different ICs used
 

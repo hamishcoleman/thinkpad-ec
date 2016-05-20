@@ -1,0 +1,59 @@
+This repository also contains number of tools and utilities for examining
+and modifying Thinkpad Embedded Controller firmware.
+
+Including:
+*   radare projects with partial disassembly of several thinkpads EC firmware
+*   scripts for downloading the ISO image and extracting the firmware
+*   script for patching the firmware
+*   documentation on the tables found in the firmware (TODO)
+
+Radare:
+-------
+To use the radare projects, first install the project files:
+
+    make install.radare.projects
+
+Then ensure you have the image file(s):
+
+    make x220.8DHT34WW.img x230.G2HT35WW.img x260.R02HT29W.img 
+
+Then start radare with one of these projects:
+
+    radare -p x230.G2HT35WW
+
+Makefile targets:
+-----------------
+
+If you expect to do development work, the following make targets are
+probably useful:
+
+    To list the available raw image files and FL2 files:
+
+        make list_images
+
+    To fetch the firmware from Lenovo, extract, decrypt and patch
+    it, ready for more patching:
+
+        make x230.G2HT35WW.img
+
+    To just get the decrypted firmware file (with the same filename as
+    above), before any patches applied, the pseudo
+
+        make x230.G2HT35WW.img.prepatch
+
+    To create a new FL2, ready for flashing:
+
+        make x230.G2HT35WW.s01D3000.FL2
+
+    To update your firmware, copy the FL2 file generated above and
+    the dosflash.exe utility to a DOS boot disk and then use a command
+    similar to:
+
+        dosflash /sd /ipf ec /file s01D3000.FL2
+
+References:
+-----------
+    http://forum.thinkpads.com/viewtopic.php?f=69&t=120776
+    http://www.zmatt.net/unlocking-my-lenovo-laptop-part-3/
+    http://plan9.stanleylieber.com/hardware/thinkpad/x230/x230.schematics.pdf
+
