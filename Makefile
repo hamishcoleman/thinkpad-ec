@@ -12,15 +12,15 @@ all:    list_laptops
 
 list_laptops:
 	$(info )
-	$(info The following laptop make targets are supported:)
+	$(info The following make targets are the supported usb images:)
 	$(info )
-	$(info patched.t430.iso  - for patching Thinkpad T430)
-	$(info patched.t430s.iso - for patching Thinkpad T430s)
-	$(info patched.t530.iso  - for patching Thinkpad T530)
-	$(info patched.t530i.iso - for patching Thinkpad T530i)
-	$(info patched.w530.iso  - for patching Thinkpad W430)
-	$(info patched.x230.iso  - for patching Thinkpad X230)
-	$(info patched.x230t.iso - for patching Thinkpad X230t)
+	$(info patched.t430.img  - for patching Thinkpad T430)
+	$(info patched.t430s.img - for patching Thinkpad T430s)
+	$(info patched.t530.img  - for patching Thinkpad T530)
+	$(info patched.t530i.img - for patching Thinkpad T530i)
+	$(info patched.w530.img  - for patching Thinkpad W430)
+	$(info patched.x230.img  - for patching Thinkpad X230)
+	$(info patched.x230t.img - for patching Thinkpad X230t)
 	$(info )
 
 .PHONY: list_laptops
@@ -164,6 +164,25 @@ $(DEPSDIR)/slice.insert.deps: Makefile
 # If we ever want a copy of the dosflash.exe, just get it from the iso image
 %.dosflash.exe.orig: %.iso.orig
 	MTOOLS_SKIP_CHECK=1 mcopy -i $^@@$(FAT_OFFSET) ::FLASH/DOSFLASH.EXE $@
+
+## Use the system provided geteltorito script, if there is one
+#GETELTORITO := $(shell if type geteltorito >/dev/null; then echo geteltorito; else echo ./geteltorito; fi)
+
+# use the included geteltorito script always, since we know it does not have
+# the hdd size bug
+GETELTORITO := ./geteltorito
+
+# extract the DOS boot image from an iso (and fix it up so qemu can boot it)
+%.img: %.iso
+	$(GETELTORITO) -o $@ $<
+	./hexpatch.pl $@ fix-hdd-image.patch
+
+# simple testing of images in an emulator
+%.iso.test: %.iso
+	qemu-system-x86_64 -enable-kvm -cdrom $<
+
+%.img.test: %.img
+	qemu-system-x86_64 -enable-kvm -hda $<
 
 mec-tools/Makefile:
 	git submodule update --init --remote

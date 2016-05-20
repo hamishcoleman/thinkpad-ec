@@ -31,35 +31,43 @@ This software expects to be run under Linux.
 
     cd thinkpad-ec
 
-5. Show the list of laptops and ISO image names:
+5. Show the list of laptops and USB image file names:
 
     make list_laptops
 
-   (note that this list might change from time to time if there are new
-   BIOS versions released)
-
-6. Select the correct ISO name for your laptop.  E.G. "patched.x230.iso" for
+6. Select the correct IMG name for your laptop.  E.G. "patched.x230.img" for
    the x230 laptop.
 
-7. Create the patched ISO for this laptop (this will download the original
-   file from Lenovo and patch it):
+7. Make the fully patched iimage for this laptop (this will download
+   the original file from Lenovo and patch it):
 
-    make patched.x230.iso
+    make patched.x230.img
 
-8. Use your normal CDROM burning tools to put this image on a blank cd and
-   boot it up.  You will be prompted with information about the patch and
-   asked to confirm your laptop type.  Then it will automatically flash
-   the patched firmware.
+8. Insert your USB stick and determine what device name it has.
+   This command should help you find the right device:
+
+    lsblk -d -p -o NAME,SIZE,LABEL
+
+9. Write the bootable patched image onto the USB stick device
+
+   WARNING: if you do not have the right device name, you might overwrite
+   your hard drive!
+
+   sudo dd if=patched.x230.img of=/dev/sdb
+
+Your USB stick is now ready to boot and install the patched firmware.
+
+When you boot this, you will be prompted with information about the patch
+and asked to confirm your laptop type.  It will then automatically flash
+the patched firmware.
 
 
 Notes:
 
-* These thinkpads will boot from a USB cdrom drive, so you do not need one
-  internal to your laptop for this to work.
-
-* If you do not have a cdrom, or do not want to use it, it is possible to
-  extract an image from the ISO that is suitable for placing on a bootable
-  USB stick (I hope to add this as an automated feature shortly)
+* You can also create a bootable CDROM image for burning to a disk
+  by asking for a ".iso" file in step 7 above.  Then you can use your
+  normal CDROM burning tools to put this image on a blank cd and boot
+  it up, skipping steps 8 and 9.
 
 * More information for hacking on this can be found in the docs/HACKING.txt
   file.
