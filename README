@@ -55,7 +55,7 @@ This software expects to be run under Linux.
 Notes:
 
 * These thinkpads will boot from a USB cdrom drive, so you do not need one
-  in your laptop for this to work.
+  internal to your laptop for this to work.
 
 * If you do not have a cdrom, or do not want to use it, it is possible to
   extract an image from the ISO that is suitable for placing on a bootable
