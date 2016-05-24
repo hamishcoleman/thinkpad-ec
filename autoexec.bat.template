@@ -12,11 +12,10 @@ echo WARNING: Incorrectly flashing your firmware can damage your laptop.
 echo Ensure this is the right firmware version before attempting to flash
 echo the firmware - there are minimal checks done.
 echo.
-echo This disc will flash the file __FL2
+echo This disc will flash the file __DIR\__FL2
 echo.
 echo This disk is prepared for __DESC
 echo.
 pause
-cd __DIR
-..\dosflash /sd /ipf ec /file __FL2
+dosflash /sd /ipf ec /file __DIR\__FL2
 
