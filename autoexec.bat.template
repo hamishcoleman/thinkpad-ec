@@ -17,5 +17,6 @@ echo.
 echo This disk is prepared for __DESC
 echo.
 pause
+echo on
 dosflash /sd /ipf ec /file __DIR\__FL2
 
