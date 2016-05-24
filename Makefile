@@ -142,8 +142,12 @@ $(DEPSDIR)/slice.insert.deps: Makefile
 	cp --reflink=auto $< $@
 	./hexpatch.pl $@ $@.d/*.patch
 
+# using both __DIR and __FL2 is a hack to get around needing to quote the
+# DOS path separator.  It feels like there should be a beter way if I put
+# my mind to it..
+#
 %.iso.bat: %.iso.orig %.iso.orig.desc autoexec.bat.template
-	sed -e "s%__FL2%`mdir -/ -b -i $<@@$(FAT_OFFSET) |grep FL2 |cut -d/ -f3-`%; s%__DESC%`cat $<.desc`%" autoexec.bat.template >$@
+	sed -e "s%__DIR%`mdir -/ -b -i $<@@$(FAT_OFFSET) |grep FL2 |cut -d/ -f3`%; s%__FL2%`mdir -/ -b -i $<@@$(FAT_OFFSET) |grep FL2 |cut -d/ -f4`%; s%__DESC%`cat $<.desc`%" autoexec.bat.template >$@
 
 # helper to write the ISO onto a cdrw
 %.iso.blank_burn: %.iso
