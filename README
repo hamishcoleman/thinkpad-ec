@@ -19,9 +19,10 @@ This software expects to be run under Linux.
 
     apt-get install build-essential git
 
-2. Ensure you have the "mtools" package installed:
+2. Ensure that a couple of tools and libraries needed by this system are
+   also installed:
 
-    apt-get install mtools
+    apt-get install mtools libssl-dev
 
 3. Clone a copy of this repo on to your computer:
 
