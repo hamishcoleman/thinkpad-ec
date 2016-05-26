@@ -11,3 +11,6 @@
 
 # ignore generated files
 *.bat
+
+# Temp are (should be) just junk
+*.tmp

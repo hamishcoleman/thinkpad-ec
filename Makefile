@@ -95,10 +95,12 @@ DEPSDIR := .d
 $(shell mkdir -p $(DEPSDIR))
 -include $(DEPSDIR)/slice.extract.deps
 $(DEPSDIR)/slice.extract.deps: Makefile
-	for i in *.slice; do read SLICEE other <$$i; echo $$i: $$SLICEE; done >$@
+	for i in *.slice; do read SLICEE other <$$i; echo $$i: $$SLICEE; done >$@.tmp
+	mv $@.tmp $@
 -include $(DEPSDIR)/slice.insert.deps
 $(DEPSDIR)/slice.insert.deps: Makefile
-	for i in *.slice; do read SLICEE other <$$i; echo `basename $$SLICEE .orig`: $$i `basename $$i .slice`; done >$@
+	for i in *.slice; do read SLICEE other <$$i; echo `basename $$SLICEE .orig`: $$i `basename $$i .slice`; done >$@.tmp
+	mv $@.tmp $@
 
 # FIXME - the slice.deps targets basically do not handle add/del/change of
 # the *.slice files.  I dont use any of the regular tricks because I also
@@ -121,7 +123,8 @@ $(DEPSDIR)/slice.insert.deps: Makefile
 	./slice.extract $< $@
 
 %.img.orig:  %.img.enc.orig %.img.orig.sha1 mec-tools/mec_encrypt
-	mec-tools/mec_encrypt -d $< >$@
+	mec-tools/mec_encrypt -d $< >$@.tmp
+	mv $@.tmp $@
 	sha1sum -c $@.sha1
 
 # a generic encryptor
@@ -147,7 +150,8 @@ $(DEPSDIR)/slice.insert.deps: Makefile
 # my mind to it..
 #
 %.iso.bat: %.iso.orig %.iso.orig.desc autoexec.bat.template
-	sed -e "s%__DIR%`mdir -/ -b -i $<@@$(FAT_OFFSET) |grep FL2 |cut -d/ -f3`%; s%__FL2%`mdir -/ -b -i $<@@$(FAT_OFFSET) |grep FL2 |cut -d/ -f4`%; s%__DESC%`cat $<.desc`%" autoexec.bat.template >$@
+	sed -e "s%__DIR%`mdir -/ -b -i $<@@$(FAT_OFFSET) |grep FL2 |cut -d/ -f3`%; s%__FL2%`mdir -/ -b -i $<@@$(FAT_OFFSET) |grep FL2 |cut -d/ -f4`%; s%__DESC%`cat $<.desc`%" autoexec.bat.template >$@.tmp
+	mv $@.tmp $@
 
 # helper to write the ISO onto a cdrw
 %.iso.blank_burn: %.iso
@@ -158,11 +162,13 @@ $(DEPSDIR)/slice.insert.deps: Makefile
 	cp --reflink=auto $< $(basename $<)
 
 %.hex: %
-	hd -v $< >$@
+	hd -v $< >$@.tmp
+	mv $@.tmp $@
 
 # Generate a patch report
 %.diff: %.hex %.orig.hex
-	-diff -u $(basename $@).orig.hex $(basename $@).hex >$@
+	-diff -u $(basename $@).orig.hex $(basename $@).hex >$@.tmp
+	mv $@.tmp $@
 	cat $@
 
 # If we ever want a copy of the dosflash.exe, just get it from the iso image
