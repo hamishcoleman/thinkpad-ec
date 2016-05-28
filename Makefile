@@ -158,7 +158,7 @@ $(DEPSDIR)/slice.insert.deps: Makefile
 # my mind to it..
 #
 %.iso.bat: %.iso.orig %.iso.orig.desc autoexec.bat.template
-	sed -e "s%__DIR%`mdir -/ -b -i $<@@$(FAT_OFFSET) |grep FL2 |cut -d/ -f3`%; s%__FL2%`mdir -/ -b -i $<@@$(FAT_OFFSET) |grep FL2 |cut -d/ -f4`%; s%__DESC%`cat $<.desc`%" autoexec.bat.template >$@.tmp
+	sed -e "s%__DIR%`MTOOLS_SKIP_CHECK=1 mdir -/ -b -i $<@@$(FAT_OFFSET) |grep FL2 |cut -d/ -f3`%; s%__FL2%`MTOOLS_SKIP_CHECK=1 mdir -/ -b -i $<@@$(FAT_OFFSET) |grep FL2 |cut -d/ -f4`%; s%__DESC%`cat $<.desc`%" autoexec.bat.template >$@.tmp
 	mv $@.tmp $@
 
 # helper to write the ISO onto a cdrw
