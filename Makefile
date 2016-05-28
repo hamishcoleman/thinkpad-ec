@@ -25,6 +25,15 @@ list_laptops:
 
 .PHONY: list_laptops
 
+# Remove all the usual junk
+clean:
+	rm -f patched.*.iso patched.*.img *.FL2 *.FL2.orig *.img.enc \
+            *.img.enc.orig *.img.orig
+
+# Also remove the large downloaded iso images and any EC firmwares
+really_clean: clean
+	rm -f *.iso.orig *.img
+
 # manually managed list of laptops - update this if the BIOS versions change
 
 patched.t430.iso: g1uj38us.iso
