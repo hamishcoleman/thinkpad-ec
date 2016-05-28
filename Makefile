@@ -28,7 +28,7 @@ list_laptops:
 # Remove all the usual junk
 clean:
 	rm -f patched.*.iso patched.*.img *.FL2 *.FL2.orig *.img.enc \
-            *.img.enc.orig *.img.orig
+            *.img.enc.orig *.img.orig *.bat
 
 # Also remove the large downloaded iso images and any EC firmwares
 really_clean: clean
