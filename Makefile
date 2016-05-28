@@ -123,8 +123,7 @@ $(DEPSDIR)/slice.insert.deps: Makefile
 	./slice.extract $< $@
 
 %.img.orig:  %.img.enc.orig %.img.orig.sha1 mec-tools/mec_encrypt
-	mec-tools/mec_encrypt -d $< >$@.tmp
-	mv $@.tmp $@
+	mec-tools/mec_encrypt -d $< $@
 	sha1sum -c $@.sha1
 
 # a generic encryptor
