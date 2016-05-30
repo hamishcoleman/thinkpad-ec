@@ -35,6 +35,11 @@ ThinkPad xx30 series:
     (source: physical inspection, reverse engineering the EC firmware
     and the schematics - http://plan9.stanleylieber.com/hardware/thinkpad/x230/x230.schematics.pdf)
 
+    This chip has a JTAG programming port, so it is possible to read and
+    write the firmware with an external programmer, which might help in
+    the case of a bricked system.
+    (see discussion: http://notebook1.ru/forma1/viewtopic.php?f=70&t=109179)
+
 Thinkpad x250:
 --------------
     An ARCompact instruction set CPU, so probably a MEC1619
