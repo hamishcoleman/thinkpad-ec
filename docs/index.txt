@@ -7,6 +7,9 @@ HACKING.txt
 chips.txt
     -   details on the different ICs used
 
+firmware_flashing.txt
+    -   outline of how we think the flashing process works
+
 firmware_layout.txt
     -   outline of the major components seen in the firmware
 
