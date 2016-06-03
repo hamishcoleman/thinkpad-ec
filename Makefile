@@ -15,13 +15,14 @@ list_laptops:
 	$(info The following make targets are the supported usb images:)
 	$(info )
 	$(info patched.t430.img  - for patching Thinkpad T430)
-	$(info patched.t430.257.img  - for patching Thinkpad T430 BIOS 2.57)
 	$(info patched.t430s.img - for patching Thinkpad T430s)
 	$(info patched.t530.img  - for patching Thinkpad T530)
 	$(info patched.t530i.img - for patching Thinkpad T530i)
 	$(info patched.w530.img  - for patching Thinkpad W430)
 	$(info patched.x230.img  - for patching Thinkpad X230)
 	$(info patched.x230t.img - for patching Thinkpad X230t)
+	$(info )
+	$(info patched.t430.257.img  - for patching Thinkpad T430 BIOS 2.57 - no keyboard patch)
 	$(info )
 
 .PHONY: list_laptops
