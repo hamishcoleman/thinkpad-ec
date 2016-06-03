@@ -15,6 +15,7 @@ list_laptops:
 	$(info The following make targets are the supported usb images:)
 	$(info )
 	$(info patched.t430.img  - for patching Thinkpad T430)
+	$(info patched.t430.257.img  - for patching Thinkpad T430 BIOS 2.57)
 	$(info patched.t430s.img - for patching Thinkpad T430s)
 	$(info patched.t530.img  - for patching Thinkpad T530)
 	$(info patched.t530i.img - for patching Thinkpad T530i)
@@ -37,6 +38,9 @@ really_clean: clean
 # manually managed list of laptops - update this if the BIOS versions change
 
 patched.t430.iso: g1uj38us.iso
+	mv $< $@
+
+patched.t430.257.iso: g1uj25us.iso
 	mv $< $@
 
 patched.t430s.iso: g7uj18us.iso
@@ -237,6 +241,7 @@ endef
 
 # Hacky, non generic rules
 $(call rule_fl2,t430.G1HT35WW.img.enc,t430.G1HT35WW.s01D2000.FL2)
+$(call rule_fl2,t430.G1HT34WW.img.enc,t430.G1HT34WW.s01D2000.FL2)
 $(call rule_fl2,t430s.G7HT39WW.img.enc,t430s.G7HT39WW.s01D8000.FL2)
 $(call rule_fl2,t530.G4HT39WW.img.enc,t530.G4HT39WW.s01D5100.FL2)
 $(call rule_fl2,w530.G4HT39WW.img.enc,w530.G4HT39WW.s01D5200.FL2)
@@ -244,6 +249,7 @@ $(call rule_fl2,x230.G2HT35WW.img.enc,x230.G2HT35WW.s01D3000.FL2)
 $(call rule_fl2,x230t.GCHT25WW.img.enc,x230t.GCHT25WW.s01DA000.FL2)
 
 $(call rule_iso,t430.G1HT35WW.s01D2000.FL2,g1uj38us.iso)
+$(call rule_iso,t430.G1HT34WW.s01D2000.FL2,g1uj25us.iso)
 $(call rule_iso,x230.G2HT35WW.s01D3000.FL2,g2uj23us.iso)
 $(call rule_iso,t530.G4HT39WW.s01D5100.FL2,g4uj30us.iso)
 $(call rule_iso,w530.G4HT39WW.s01D5200.FL2,g5uj28us.iso)
