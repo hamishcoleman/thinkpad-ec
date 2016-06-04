@@ -170,6 +170,7 @@ $(DEPSDIR)/slice.insert.deps: Makefile
 %.iso.bat: %.iso.orig %.iso.orig.desc autoexec.bat.template
 	sed -e "s%__DIR%`mdir -/ -b -i $<@@$(FAT_OFFSET) |grep FL2 |cut -d/ -f3`%; s%__FL2%`mdir -/ -b -i $<@@$(FAT_OFFSET) |grep FL2 |cut -d/ -f4`%; s%__DESC%`cat $<.desc`%" autoexec.bat.template >$@.tmp
 	mv $@.tmp $@
+	touch -d @1 $@
 
 # helper to write the ISO onto a cdrw
 %.iso.blank_burn: %.iso
@@ -191,7 +192,7 @@ $(DEPSDIR)/slice.insert.deps: Makefile
 
 # If we ever want a copy of the dosflash.exe, just get it from the iso image
 %.dosflash.exe.orig: %.iso.orig
-	mcopy -i $^@@$(FAT_OFFSET) ::FLASH/DOSFLASH.EXE $@
+	mcopy -m -i $^@@$(FAT_OFFSET) ::FLASH/DOSFLASH.EXE $@
 
 ## Use the system provided geteltorito script, if there is one
 #GETELTORITO := $(shell if type geteltorito >/dev/null; then echo geteltorito; else echo ./geteltorito; fi)
@@ -231,7 +232,7 @@ endef
 # $1 = FL2 filename
 # $2 = ISO image
 define rule_iso
-    $(2): $(1) $(2).bat ; ./slice.insert $(1).slice $(1) $(2) && mcopy -o -i $(2)@@$(FAT_OFFSET) $(2).bat ::AUTOEXEC.BAT
+    $(2): $(1) $(2).bat ; ./slice.insert $(1).slice $(1) $(2) && mcopy -m -o -i $(2)@@$(FAT_OFFSET) $(2).bat ::AUTOEXEC.BAT
 endef
 
 #
