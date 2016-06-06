@@ -12,7 +12,10 @@ A full writeup of the hardware modifications needed can be found at:
 Step-by-step instructions:
 --------------------------
 
-This software expects to be run under Linux.
+This software expects to be run under Linux.  For best results, ensure you
+have updated your BIOS to a recent version before starting.  If there is too
+large a difference between the BIOS and EC versions then the flash process
+will not complete.
 
 1. Ensure you have the normal packages needed for development work.
    On debian, this can be done with:
