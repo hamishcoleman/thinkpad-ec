@@ -10,6 +10,9 @@ all:    list_laptops
 
 .PHONY: all
 
+GITVERSION = $(shell git describe --dirty --abbrev=6 ) ($(shell date +%Y%m%d))
+BUILDINFO = $(GITVERSION) $(MAKECMDGOALS)
+
 list_laptops:
 	$(info )
 	$(info The following make targets are the supported usb images:)
@@ -168,7 +171,7 @@ $(DEPSDIR)/slice.insert.deps: Makefile
 # my mind to it..
 #
 %.iso.bat: %.iso.orig %.iso.orig.desc autoexec.bat.template
-	sed -e "s%__DIR%`mdir -/ -b -i $<@@$(FAT_OFFSET) |grep FL2 |cut -d/ -f3`%; s%__FL2%`mdir -/ -b -i $<@@$(FAT_OFFSET) |grep FL2 |cut -d/ -f4`%; s%__DESC%`cat $<.desc`%" autoexec.bat.template >$@.tmp
+	sed -e "s%__DIR%`mdir -/ -b -i $<@@$(FAT_OFFSET) |grep FL2 |cut -d/ -f3`%; s%__FL2%`mdir -/ -b -i $<@@$(FAT_OFFSET) |grep FL2 |cut -d/ -f4`%; s%__DESC%`cat $<.desc`%; s/__BUILDINFO/$(BUILDINFO)/" autoexec.bat.template >$@.tmp
 	mv $@.tmp $@
 	touch -d @1 $@
 

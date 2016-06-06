@@ -5,7 +5,7 @@ cls
 echo.
 echo.
 echo This will flash your firmware to support a classic 7-row keyboard
-echo.
+echo Buildinfo: __BUILDINFO
 echo.
 echo.
 echo WARNING: Incorrectly flashing your firmware can damage your laptop.
