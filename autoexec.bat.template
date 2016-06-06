@@ -5,7 +5,6 @@ cls
 echo.
 echo.
 echo This will flash your firmware to support a classic 7-row keyboard
-echo Buildinfo: __BUILDINFO
 echo.
 echo.
 echo WARNING: Incorrectly flashing your firmware can damage your laptop.
@@ -15,6 +14,9 @@ echo.
 echo This disc will flash the file __DIR\__FL2
 echo.
 echo This disk is prepared for __DESC
+echo.
+echo Buildinfo: __BUILDINFO
+echo Built: __BUILT
 echo.
 pause
 echo on

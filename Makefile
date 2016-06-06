@@ -235,7 +235,7 @@ endef
 # $1 = FL2 filename
 # $2 = ISO image
 define rule_iso
-    $(2): $(1) $(2).bat ; ./slice.insert $(1).slice $(1) $(2) && mcopy -m -o -i $(2)@@$(FAT_OFFSET) $(2).bat ::AUTOEXEC.BAT
+    $(2): $(1) $(2).bat ; ./slice.insert $(1).slice $(1) $(2) && sed -i "s/__BUILT/`sha1sum $(1)`/" $(2).bat && mcopy -m -o -i $(2)@@$(FAT_OFFSET) $(2).bat ::AUTOEXEC.BAT
 endef
 
 #
