@@ -43,27 +43,59 @@ really_clean: clean
 
 patched.t430.iso: g1uj38us.iso
 	mv $< $@
+	@echo
+	@echo
+	@echo Your build has completed with the following details:
+	@grep Buil $<.bat
 
 patched.t430.257.iso: g1uj25us.iso
 	mv $< $@
+	@echo
+	@echo
+	@echo Your build has completed with the following details:
+	@grep Buil $<.bat
 
 patched.t430s.iso: g7uj18us.iso
 	mv $< $@
+	@echo
+	@echo
+	@echo Your build has completed with the following details:
+	@grep Buil $<.bat
 
 patched.t530.iso: g4uj30us.iso
 	mv $< $@
+	@echo
+	@echo
+	@echo Your build has completed with the following details:
+	@grep Buil $<.bat
 
 patched.t530i.iso: g4uj30us.iso
 	mv $< $@
+	@echo
+	@echo
+	@echo Your build has completed with the following details:
+	@grep Buil $<.bat
 
 patched.w530.iso: g5uj28us.iso
 	mv $< $@
+	@echo
+	@echo
+	@echo Your build has completed with the following details:
+	@grep Buil $<.bat
 
 patched.x230.iso: g2uj23us.iso
 	mv $< $@
+	@echo
+	@echo
+	@echo Your build has completed with the following details:
+	@grep Buil $<.bat
 
 patched.x230t.iso: gcuj24us.iso
 	mv $< $@
+	@echo
+	@echo
+	@echo Your build has completed with the following details:
+	@grep Buil $<.bat
 
 
 list_iso:
