@@ -42,60 +42,28 @@ really_clean: clean
 # manually managed list of laptops - update this if the BIOS versions change
 
 patched.t430.iso: g1uj38us.iso
-	mv $< $@
-	@echo
-	@echo
-	@echo Your build has completed with the following details:
-	@grep Buil $<.bat
+	$(call patched_iso,$<,$@)
 
 patched.t430.257.iso: g1uj25us.iso
-	mv $< $@
-	@echo
-	@echo
-	@echo Your build has completed with the following details:
-	@grep Buil $<.bat
+	$(call patched_iso,$<,$@)
 
 patched.t430s.iso: g7uj18us.iso
-	mv $< $@
-	@echo
-	@echo
-	@echo Your build has completed with the following details:
-	@grep Buil $<.bat
+	$(call patched_iso,$<,$@)
 
 patched.t530.iso: g4uj30us.iso
-	mv $< $@
-	@echo
-	@echo
-	@echo Your build has completed with the following details:
-	@grep Buil $<.bat
+	$(call patched_iso,$<,$@)
 
 patched.t530i.iso: g4uj30us.iso
-	mv $< $@
-	@echo
-	@echo
-	@echo Your build has completed with the following details:
-	@grep Buil $<.bat
+	$(call patched_iso,$<,$@)
 
 patched.w530.iso: g5uj28us.iso
-	mv $< $@
-	@echo
-	@echo
-	@echo Your build has completed with the following details:
-	@grep Buil $<.bat
+	$(call patched_iso,$<,$@)
 
 patched.x230.iso: g2uj23us.iso
-	mv $< $@
-	@echo
-	@echo
-	@echo Your build has completed with the following details:
-	@grep Buil $<.bat
+	$(call patched_iso,$<,$@)
 
 patched.x230t.iso: gcuj24us.iso
-	mv $< $@
-	@echo
-	@echo
-	@echo Your build has completed with the following details:
-	@grep Buil $<.bat
+	$(call patched_iso,$<,$@)
 
 
 list_iso:
@@ -240,6 +208,23 @@ GETELTORITO := ./geteltorito
 %.img: %.iso
 	$(GETELTORITO) -o $@ $<
 	./hexpatch.pl $@ fix-hdd-image.patch
+	$(call build_info,$<.bat)
+
+# $1 is the lenovo named iso
+# $2 is the nicely named iso
+define patched_iso
+	mv $1 $2
+	mv $1.bat $2.bat
+	$(call build_info,$2.bat)
+endef
+
+# $1 is the bat file
+define build_info
+	@echo
+	@echo
+	@echo Your build has completed with the following details:
+	@grep Buil $1
+endef
 
 # simple testing of images in an emulator
 %.iso.test: %.iso
