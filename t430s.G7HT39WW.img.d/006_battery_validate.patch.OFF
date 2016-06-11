@@ -2,8 +2,8 @@
 This replicates on the t430s the patches that zmatt needed to do to get
 his aftermarket battery to validate.
 
-Completely untested!
-(however, the x230 patch created the same way as this is known to work)
+Tested and known to work.
+
 
 @@ -7182,14 +7182,14 @@
  0001c0d0  04 10 fa 16 01 11 42 29  00 02 d8 1e 02 10 d9 1e  |......B)........|
