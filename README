@@ -1,5 +1,6 @@
 The main purpose of this software is to patch the EC on xx30 series thinkpads
-to make the classic 7-row keyboards work.
+to make the classic 7-row keyboards work.  There are also patches included (but
+disabled by default) to disable the authentic battery validation check.
 
 With the patches included here, you can install the classic keyboard
 hardware on many xx30 series laptops and make almost every key work properly.
@@ -50,7 +51,7 @@ will not complete.
 8. Insert your USB stick and determine what device name it has.
    This command should help you find the right device:
 
-    lsblk -d -p -o NAME,SIZE,LABEL
+    lsblk -d -o NAME,SIZE,LABEL
 
 9. Write the bootable patched image onto the USB stick device
 
