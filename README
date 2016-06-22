@@ -62,6 +62,9 @@ will not complete.
 
 Your USB stick is now ready to boot and install the patched firmware.
 
+Ensure your BIOS has been configured to boot from "Legacy" and not "UEFI"
+before trying to boot.
+
 When you boot this, you will be prompted with information about the patch
 and asked to confirm your laptop type.  It will then automatically flash
 the patched firmware.
