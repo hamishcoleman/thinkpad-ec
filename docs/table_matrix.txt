@@ -18,7 +18,10 @@ with the second half of each row being unused (except for one anomaly)
 This corresponds to the physical hardware, which uses 16 "drive" lines
 and 8 "sense" lines - with one extra row, probably for some software keys.
 
-             0  1  2  3  4  5  6  7
+The hardware "drive" line forms the row number and the "sense" line forms
+the column number.
+
+             0  1  2  3  4  5  6  7    0    1    2    3    4    5    6    7
 
 matrix[ 0]: 01 02 11 10 1f 6e 2e 83   `    1    Q    TAB  A    Esc  Z    ??
 matrix[ 1]: 70 03 12 1e 20 2d 2f 00   F1   2    W    CpLk S    (|)  X
@@ -52,7 +55,8 @@ with updating the live/dead key table.
 
     (source: x230 EC firmware version 8DHT34WW, offset 0x218d8)
 
-             0  1  2  3  4  5  6  7
+             0  1  2  3  4  5  6  7    0    1    2    3    4    5    6    7
+
 matrix[ 0]: 01 02 11 10 1f 6e 2e 83   `    1    Q    TAB  A    Esc  Z    ??
 matrix[ 1]: 70 03 12 1e 20 2d 2f 00   F1   2    W    CpLk S    (|)  X
 matrix[ 2]: 71 04 13 72 21 73 30 00   F2   3    E    F3   D    F4   C
@@ -74,14 +78,20 @@ matrix[15][15] = 0x96                 ??
 matrix[16]:   00 9d 00 9e 9f 4a 3a 9c      WinR?     Pwr? Slp? Wak? CtlL Menu
 matrix[16][8] 7d 7e 00 00 00 00 00 00 ScLk Paus
 
-ThinkPad x230 live/dead table:
-------------------------------
+ThinkPad x230 live/dead bitmap:
+-------------------------------
 
 Again, this table is shared with all of the xx30 series laptops.  There is
 a similar table in the x220 EC firmware, but with a different endianess (as
 a result of the different embedded controller used in the x220)
 
-TODO: add description
+The live/dead bitmap is an array of 16 words, each word being 16 bits long.
+Each detected keypress is looked up in this array - the "drive" line is used
+as the index into the array and the "sense" line is the bit number in that
+word.  If the bit at that location is set, then the keypress is considered
+a "live" key and the value from the matrix table is used as the embedded
+controller scancode of the key pressed (Note that this scancode is internal
+to the EC - it is not the same as the BIOS scancode)
 
     (source: x230 EC firmware version 8DHT34WW, offset 0x219e8)
 
