@@ -13,3 +13,6 @@ firmware_flashing.txt
 firmware_layout.txt
     -   outline of the major components seen in the firmware
 
+table_matrix.txt
+    -   description of the keyboard matrix table (and the associated
+        live/dead bitmap)

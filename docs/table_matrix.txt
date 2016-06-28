@@ -1,0 +1,87 @@
+The basic design of the thinkpad keyboard is one of a 16 column matrix
+with 8 rows.  While this layout is not specifically related to the
+physical layout of the actual keys, some of it is dictated by that layout.
+
+The mapping of logical-row+column into a EC scancode is done with a
+table in the EC firmware.  This table is largely the same between all
+the models investigated and served as the basis of the classic keyboard
+modification.
+
+
+
+ThinkPad x220 matrix:
+---------------------
+
+This table is arranged in a array of bytes that is 16 columns by 17 rows,
+with the second half of each row being unused (except for one anomaly)
+
+This corresponds to the physical hardware, which uses 16 "drive" lines
+and 8 "sense" lines - with one extra row, probably for some software keys.
+
+             0  1  2  3  4  5  6  7
+
+matrix[ 0]: 01 02 11 10 1f 6e 2e 83   `    1    Q    TAB  A    Esc  Z    ??
+matrix[ 1]: 70 03 12 1e 20 2d 2f 00   F1   2    W    CpLk S    (|)  X
+matrix[ 2]: 71 04 13 72 21 73 30 00   F2   3    E    F3   D    F4   C
+matrix[ 3]: 06 05 14 15 22 23 31 32   5    4    R    T    F    G    V    B
+matrix[ 4]: 07 08 17 16 25 24 34 33   6    7    U    Y    J    H    M    N
+matrix[ 5]: 0d 09 18 1c 26 75 35 38   =    8    I    ]    K    F6   ,    (/)
+matrix[ 6]: 77 0a 19 76 27 84 36 85   F8   9    O    F7   L    ??   .    ??
+matrix[ 7]: 0c 0b 1a 1b 28 29 2a 37   -    0    P    [    ;    '    (#)  ?
+matrix[ 8]: 78 79 0e 0f 1d 74 2b 3d   F9   F10  ??   BS   \    F5   Ent  Spc
+matrix[ 9]: 4b 7b 00 9b 00 00 00 59   Ins  F12       WinL                Rgt
+matrix[10]: 4c 7a 9a 99 98 97 a0 54   Del  F11  Vol+ Vol- Mute IBM  Mic  Down
+matrix[11]: 55 56 00 00 9c 00 89 8a   PgUp PgDn           Menu      PgBk PgFd
+matrix[12]: 50 51 00 00 00 53 7e 4f   Home End                 Up   Paus Left
+matrix[13]: 00 7c 7d 00 00 3c 00 3e        PrSc ScLk           AltL      AltR
+matrix[14]: 00 00 00 2c 00 00 39 00                  SftL           SftR     
+matrix[15]: 3a 00 00 00 00 00 40 00   CtlL                          CtlR
+ 
+matrix[15][15] = 0x96                 ??
+matrix[16]: 00 9d 00 9e 9f 4a 3a 00        WinR?     Pwr? Slp? Wak? CtlL
+
+    (source: x220 EC firmware version 8DHT34WW, offset 0x1f080)
+
+ThinkPad x230 matrix:
+---------------------
+
+The x230 uses the same basic table layout as the x220 and shares its
+contents with all of the xx30 series laptops.  The basic classic keyboard
+fix was made by updating the x230 table to look like the x220, combined
+with updating the live/dead key table.
+
+    (source: x230 EC firmware version 8DHT34WW, offset 0x218d8)
+
+             0  1  2  3  4  5  6  7
+matrix[ 0]: 01 02 11 10 1f 6e 2e 83   `    1    Q    TAB  A    Esc  Z    ??
+matrix[ 1]: 70 03 12 1e 20 2d 2f 00   F1   2    W    CpLk S    (|)  X
+matrix[ 2]: 71 04 13 72 21 73 30 00   F2   3    E    F3   D    F4   C
+matrix[ 3]: 06 05 14 15 22 23 31 32   5    4    R    T    F    G    V    B
+matrix[ 4]: 07 08 17 16 25 24 34 33   6    7    U    Y    J    H    M    N
+matrix[ 5]: 0d 09 18 1c 26 75 35 38   =    8    I    ]    K    F6   ,    (/)
+matrix[ 6]: 77 0a 19 76 27 84 36 85   F8   9    O    F7   L    ??   .    ??
+matrix[ 7]: 0c 0b 1a 1b 28 29 2a 37   -    0    P    [    ;    '    (#)  ?
+matrix[ 8]: 78 79 0e 0f 1d 74 2b 3d   F9   F10  ??   BS   \    F5   Ent  Spc
+matrix[ 9]: 00 7b 00 9b 00 00 00 59        F12       WinL                Rgt
+matrix[10]: 50 7a 9a 99 98 97 a0 54   Home F11  Vol+ Vol- Mute IBM  Mic  Down
+matrix[11]: 4c 4b 00 00 7c 00 55 56   Del  Ins            PrSc      PgUp PgDn
+matrix[12]: 00 51 00 00 00 53 00 4f        End                 Up        Left
+matrix[13]: 00 00 00 00 00 3c 00 3e                            AltL      AltR
+matrix[14]: 00 00 00 2c 00 00 39 00                  SftL           SftR
+matrix[15]: 3a 00 00 00 00 00 40 00   CtlL                          CtlR
+
+matrix[15][15] = 0x96                 ??
+matrix[16]:   00 9d 00 9e 9f 4a 3a 9c      WinR?     Pwr? Slp? Wak? CtlL Menu
+matrix[16][8] 7d 7e 00 00 00 00 00 00 ScLk Paus
+
+ThinkPad x230 live/dead table:
+------------------------------
+
+Again, this table is shared with all of the xx30 series laptops.  There is
+a similar table in the x220 EC firmware, but with a different endianess (as
+a result of the different embedded controller used in the x220)
+
+TODO: add description
+
+    (source: x230 EC firmware version 8DHT34WW, offset 0x219e8)
+
