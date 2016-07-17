@@ -69,7 +69,6 @@ When you boot this, you will be prompted with information about the patch
 and asked to confirm your laptop type.  It will then automatically flash
 the patched firmware.
 
-
 Notes:
 
 * You can also create a bootable CDROM image for burning to a disk
@@ -79,4 +78,13 @@ Notes:
 
 * More information for hacking on this can be found in the docs/HACKING.txt
   file.
+
+* If you normally use UEFI boot, there has been at least one case where
+  the EC does not get flashed until the BIOS is switched back into UEFI
+  mode - after which the EC was automatically flashed on the next reboot.
+
+* To enable the battery patch, look at the "*.OFF" files in the
+  subdirectories and rename the right one to remove the ".OFF".  Ensure
+  you start with a completely clean build ("make really_clean") to get
+  the new patch applied.
 
