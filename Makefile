@@ -30,14 +30,15 @@ list_laptops:
 
 .PHONY: list_laptops
 
-# Remove all the usual junk
+# Remove all the usual junk (including any patched firmware images)
 clean:
 	rm -f patched.*.iso patched.*.img *.FL2 *.FL2.orig *.img.enc \
-            *.img.enc.orig *.img.orig *.bat
+            *.img.enc.orig *.img.orig *.bat \
+            *.img
 
-# Also remove the large downloaded iso images and any EC firmwares
+# Also remove the large downloaded iso images
 really_clean: clean
-	rm -f *.iso.orig *.img
+	rm -f *.iso.orig
 
 # manually managed list of laptops - update this if the BIOS versions change
 
