@@ -80,7 +80,7 @@ matrix[16][8] 7d 7e 00 00 00 00 00 00 ScLk Paus
 
 Unknown key codes: 0x0e 0x83 0x84 0x85 0x96
 
-    (source: x230 EC firmware version 8DHT34WW, offset 0x218d8)
+    (source: x230 EC firmware version G2HT35WW, offset 0x218d8)
 
 ThinkPad x230 live/dead bitmap:
 -------------------------------
@@ -97,5 +97,5 @@ a "live" key and the value from the matrix table is used as the embedded
 controller scancode of the key pressed (Note that this scancode is internal
 to the EC - it is not the same as the BIOS scancode)
 
-    (source: x230 EC firmware version 8DHT34WW, offset 0x219e8)
+    (source: x230 EC firmware version G2HT35WW, offset 0x219e8)
 
