@@ -43,6 +43,8 @@ matrix[15]: 3a 00 00 00 00 00 40 00   CtlL                          CtlR
 matrix[15][15] = 0x96                 ??
 matrix[16]: 00 9d 00 9e 9f 4a 3a 00        WinR?     Pwr? Slp? Wak? CtlL
 
+Unknown key codes: 0x0e 0x83 0x84 0x85 0x96
+
     (source: x220 EC firmware version 8DHT34WW, offset 0x1f080)
 
 ThinkPad x230 matrix:
@@ -52,8 +54,6 @@ The x230 uses the same basic table layout as the x220 and shares its
 contents with all of the xx30 series laptops.  The basic classic keyboard
 fix was made by updating the x230 table to look like the x220, combined
 with updating the live/dead key table.
-
-    (source: x230 EC firmware version 8DHT34WW, offset 0x218d8)
 
              0  1  2  3  4  5  6  7    0    1    2    3    4    5    6    7
 
@@ -77,6 +77,10 @@ matrix[15]: 3a 00 00 00 00 00 40 00   CtlL                          CtlR
 matrix[15][15] = 0x96                 ??
 matrix[16]:   00 9d 00 9e 9f 4a 3a 9c      WinR?     Pwr? Slp? Wak? CtlL Menu
 matrix[16][8] 7d 7e 00 00 00 00 00 00 ScLk Paus
+
+Unknown key codes: 0x0e 0x83 0x84 0x85 0x96
+
+    (source: x230 EC firmware version 8DHT34WW, offset 0x218d8)
 
 ThinkPad x230 live/dead bitmap:
 -------------------------------
