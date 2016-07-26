@@ -1,0 +1,72 @@
+
+The EC firmware has at leat two tables that control the Fn+key combinations.
+There is some evidence that there is a third table, but the table itself has
+not been found.
+
+Simple Key Replacements table:
+------------------------------
+
+This table is a simple array of key replacement entries - if Fn is held
+down at the same time as the keycode from the first byte, then the
+keycode from the second byte is substituted (with possible modifier
+keys from the third byte)
+
+This structure of this table was identical in both the x220 and x230
+firmware, just the contents differed.  The classic keyboard patch simply
+patched the exact values from the x220 firmware into place.
+
+    ; this three byte entry is repeated as needed
+    db  ORIG_key
+    db  NEW_key
+    db  modifiers ; only 0x01 for Alt_L and 0x02 for Ctrl_L were seen
+
+    (source: x220 EC firmware version 8DHT34WW, offset 0x1f05e)
+    (source: x230 EC firmware version G2HT35WW, offset 0x21898)
+
+The address of this table and the number of entries contained in it are
+located in a pointer object. 
+
+    ; x220 simple replacement table ptr
+    org 0x1f058
+    dw  11      ; number of entries
+    dd  0x1f05e ; address of simple replacement table
+    
+    (source: x220 EC firmware version 8DHT34WW, offset 0x1f058)
+
+    ; x230 simple replacement table ptr
+    org 0x218d0
+    dd  11      ; number of entries
+    dd  0x21898 ; address of simple replacement table
+
+    (source: x230 EC firmware version G2HT35WW, offset 0x218d0)
+
+
+Complex Key Handling Table:
+---------------------------
+
+I call this table complex only because it appears to call special handler
+functions for the key replacements.  The actual difference is probably
+that the "simple" replacements are still generating normal key-presses and
+this "complex" table is generating ACPI events.
+
+    TODO
+
+    (source: x220 EC firmware version 8DHT34WW, offset 0x1ee36)
+    (source: x230 EC firmware version G2HT35WW, offset 0x2166c)
+
+Similar to the previous table, the address of this table and the number of
+entries is located in a pointer object:
+
+    org 0x216a4
+    dd  8       ; number of entries in the jump table
+    dd  0x2164c ; pointer to a list of function pointers
+    dd  0x1b    ; number of entries in the complex replacement table
+    dd  0x2166c ; pointer to the comples replacement table.
+
+Since this pointer object also contains a pointer to a jump table, I have
+assumed that the various codes in the replacement table end up indicating
+the specific function used to handle that keypress.
+
+    (source: x230 EC firmware version G2HT35WW, offset 0x2166c)
+
+
