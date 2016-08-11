@@ -208,7 +208,7 @@ GETELTORITO := ./geteltorito
 # extract the DOS boot image from an iso (and fix it up so qemu can boot it)
 %.img: %.iso
 	$(GETELTORITO) -o $@ $<
-	./hexpatch.pl $@ fix-hdd-image-$(shell stat -c %s $@).patch
+	./hexpatch.pl $@ fix-hdd-image-`stat -c %s $@`.patch
 	$(call build_info,$<.bat)
 
 # $1 is the lenovo named iso
