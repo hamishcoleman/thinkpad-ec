@@ -18,42 +18,37 @@ have updated your BIOS to a recent version before starting.  If there is too
 large a difference between the BIOS and EC versions then the flash process
 will not complete.
 
-1. Ensure you have the normal packages needed for development work.
+1. Ensure you have installed the prerequisite packages
    On debian, this can be done with:
 
-    apt-get install build-essential git
+    apt-get install build-essential git mtools libssl-dev
 
-2. Ensure that a couple of tools and libraries needed by this system are
-   also installed:
-
-    apt-get install mtools libssl-dev
-
-3. Clone a copy of this repo on to your computer:
+2. Clone a copy of this repo on to your computer:
 
     git clone https://github.com/hamishcoleman/thinkpad-ec
 
-4. Change to the directory created by the clone:
+3. Change to the directory created by the clone:
 
     cd thinkpad-ec
 
-5. Show the list of laptops and USB image file names:
+4. Show the list of laptops and USB image file names:
 
     make list_laptops
 
-6. Select the correct IMG name for your laptop.  E.G. "patched.x230.img" for
+5. Select the correct IMG name for your laptop.  E.G. "patched.x230.img" for
    the x230 laptop.
 
-7. Make the fully patched iimage for this laptop (this will download
+6. Make the fully patched iimage for this laptop (this will download
    the original file from Lenovo and patch it):
 
     make patched.x230.img
 
-8. Insert your USB stick and determine what device name it has.
+7. Insert your USB stick and determine what device name it has.
    This command should help you find the right device:
 
     lsblk -d -o NAME,SIZE,LABEL
 
-9. Write the bootable patched image onto the USB stick device
+8. Write the bootable patched image onto the USB stick device
 
    WARNING: if you do not have the right device name, you might overwrite
    your hard drive!
@@ -72,9 +67,9 @@ the patched firmware.
 Notes:
 
 * You can also create a bootable CDROM image for burning to a disk
-  by asking for a ".iso" file in step 7 above.  Then you can use your
-  normal CDROM burning tools to put this image on a blank cd and boot
-  it up, skipping steps 8 and 9.
+  by asking for a ".iso" file instead of the ".img" in step 7 above.
+  Then you can use your normal CDROM burning tools to put this image on
+  a blank cd and boot it up, skipping steps 8 and 9.
 
 * More information for hacking on this can be found in the docs/HACKING.txt
   file.
@@ -84,7 +79,11 @@ Notes:
   mode - after which the EC was automatically flashed on the next reboot.
 
 * To enable the battery patch, look at the "*.OFF" files in the
-  subdirectories and rename the right one to remove the ".OFF".  Ensure
-  you start with a completely clean build ("make really_clean") to get
-  the new patch applied.
+  subdirectories and rename the right one to remove the ".OFF".
+  Ensure you start with a clean build ("make clean") to get the new
+  patch applied.
 
+* To make an installer that reverts any EC changes, rename all the "*.patch"
+  files in the subdirectory for your laptop so that they have "*.OFF"
+  appended to them.  Ensure you start with a clean build ("make clean")
+  Then build with the normal instructions.
