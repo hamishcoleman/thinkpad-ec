@@ -6,9 +6,11 @@ With the patches included here, you can install the classic keyboard
 hardware on many xx30 series laptops and make almost every key work properly.
 The only keys that are not working are Fn+F3 (Battery) and Fn+F12 (Hibernate)
 
-A full writeup of the hardware modifications needed can be found at:
+* A full writeup of the hardware modifications needed can be found at:
     http://www.thinkwiki.org/wiki/Install_Classic_Keyboard_on_xx30_Series_ThinkPads
 
+* More information for hacking on this can be found in the docs/HACKING.txt
+  file.
 
 Step-by-step instructions:
 --------------------------
@@ -57,26 +59,13 @@ will not complete.
 
 Your USB stick is now ready to boot and install the patched firmware.
 
-Ensure your BIOS has been configured to boot from "Legacy" and not "UEFI"
-before trying to boot.
-
-When you boot this, you will be prompted with information about the patch
-and asked to confirm your laptop type.  It will then automatically flash
-the patched firmware.
-
 Notes:
+------
 
 * You can also create a bootable CDROM image for burning to a disk
   by asking for a ".iso" file instead of the ".img" in step 7 above.
   Then you can use your normal CDROM burning tools to put this image on
   a blank cd and boot it up, skipping steps 8 and 9.
-
-* More information for hacking on this can be found in the docs/HACKING.txt
-  file.
-
-* If you normally use UEFI boot, there has been at least one case where
-  the EC does not get flashed until the BIOS is switched back into UEFI
-  mode - after which the EC was automatically flashed on the next reboot.
 
 * To enable the battery patch, look at the "*.OFF" files in the
   subdirectories and rename the right one to remove the ".OFF".
@@ -87,3 +76,28 @@ Notes:
   files in the subdirectory for your laptop so that they have "*.OFF"
   appended to them.  Ensure you start with a clean build ("make clean")
   Then build with the normal instructions.
+
+
+Booting the stick and flashing the firmware:
+--------------------------------------------
+
+While flashing the firmware is as simple as booting the USB stick
+created above, there are a couple of steps that can help the process.
+This is more a list of issues that the community has discovered as the
+patch was applied in different circumstances than a hard and fast set
+of requirements.
+
+* The firmware flash process generally requires you to have a charged
+  battery plugged in to the laptop before it will complete.
+
+* Ensure your BIOS has been configured to boot from "Legacy" and not
+  "UEFI" before trying to boot.
+
+* If you do normally use UEFI boot, there has been at least one case where
+  the EC does not get flashed until the BIOS is switched back into UEFI
+  mode - after which the EC was automatically flashed on the next reboot.
+
+* When you boot the stick, you will be shown information about the patch,
+  including which laptop type it was built for.  It pauses at this point
+  for you to confirm that you wish to proceed.  It will then automatically
+  flash the patched firmware.
