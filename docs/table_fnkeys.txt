@@ -11,6 +11,9 @@ down at the same time as the keycode from the first byte, then the
 keycode from the second byte is substituted (with possible modifier
 keys from the third byte)
 
+The table is big enough to hold 11 key replacements, and in the standard
+firmare all but one of these are already used.
+
 This structure of this table was identical in both the x220 and x230
 firmware, just the contents differed.  The classic keyboard patch simply
 patched the exact values from the x220 firmware into place.
@@ -61,7 +64,7 @@ entries is located in a pointer object:
     dd  8       ; number of entries in the jump table
     dd  0x2164c ; pointer to a list of function pointers
     dd  0x1b    ; number of entries in the complex replacement table
-    dd  0x2166c ; pointer to the comples replacement table.
+    dd  0x2166c ; pointer to the complex replacement table.
 
 Since this pointer object also contains a pointer to a jump table, I have
 assumed that the various codes in the replacement table end up indicating
