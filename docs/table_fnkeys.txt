@@ -52,10 +52,32 @@ functions for the key replacements.  The actual difference is probably
 that the "simple" replacements are still generating normal key-presses and
 this "complex" table is generating ACPI events.
 
-    TODO
+The size of this table is big enough for 27 keys to be described and in the
+standard x230 firmware, there are 14 entries that are clearly used and three
+entries that may be used for something.
+
+    ; this two byte entry is repeated as needed
+    db  magic_code
+    db  key
 
     (source: x220 EC firmware version 8DHT34WW, offset 0x1ee36)
     (source: x230 EC firmware version G2HT35WW, offset 0x2166c)
+
+The magic_code appears to specify which handler to call and the key is the
+key pressed to match this entry.
+
+The following magic_codes have been seen in the firmware tables.  Due to the
+risk of bricking the laptop, no experimentation on what other codes do has
+been done.
+
+    x220        x230    Action
+    ----        ----    ------
+    0x03        0xc0    Function handled by OS, sends a modified keypress
+    0x3b        0xc7    Sleep
+    0x27        0xe4    Brightness+
+    0x2f        0xe5    Brightness-
+    0x43        na      Hibernate
+    0x33        0xc6    ThinkLight
 
 Similar to the previous table, the address of this table and the number of
 entries is located in a pointer object:
