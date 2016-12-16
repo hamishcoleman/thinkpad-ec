@@ -195,12 +195,54 @@ table211e4:
 table2121c:
     dd 7 ; size
     dd table211e4
-table21224:
-    ib 0x0002123c-0x00021224
-table2123c:
-    ib 0x00021254-0x0002123c
-table21254:
-    ib 0x000212cc-0x00021254
-table212cc:
-    ib 0x00021304-0x000212cc
-
+table.00021224:
+    ib 0x0002123c - 0x00021224
+table.0002123c:
+    ib 0x00021254 - 0x0002123c
+table.00021254:
+    ib 0x000212cc - 0x00021254
+table.000212cc:
+    ib 0x00021304 - 0x000212cc
+table.00021304:
+    ib 0x0002131c - 0x00021304
+table.0002131c:
+    ib 0x0002133c - 0x0002131c
+table.0002133c:
+    ib 0x0002135c - 0x0002133c
+table.0002135c:
+    ib 0x00021374 - 0x0002135c
+table.00021374:
+    ib 0x000213d4 - 0x00021374
+table.000213d4:
+    ib 0x0002140c - 0x000213d4
+table.0002140c:
+    ib 0x0002141c - 0x0002140c
+table.0002141c:
+    ib 0x00021434 - 0x0002141c
+table.00021434:
+    ib 0x0002145c - 0x00021434
+table.0002145c:
+    ib 0x00021494 - 0x0002145c
+table.00021494:
+    ib 0x000214a4 - 0x00021494
+table.000214a4:
+    dd table.0002123c
+    dd table.00021254
+    dd table.000212cc
+    dd table.00021304
+    dd table.0002131c
+    dd table.00021304
+    dd table.0002133c
+    dd table.0002135c
+    dd table.00021374
+    dd table.000213d4
+    dd table.00021494
+    dd table.0002140c
+    dd table.0002141c
+    dd table.00021434
+    dd table.0002145c
+    dd table.000213d4
+table.000214e4:
+    dd 0x10     ; size of second table
+    dd table.00021224
+    dd table.000214a4
