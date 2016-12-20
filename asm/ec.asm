@@ -306,6 +306,7 @@ table_ptr_numpad_stuff:
     dd 0x40     ; size of both numpad tables
     dd table_numpad2
     dd table_numpad1
+; FIXME - this could be part of the previous table...?!?
 table_ptr_keysym_replacements:
     dd 0xb
     dd table_keysym_replacements
