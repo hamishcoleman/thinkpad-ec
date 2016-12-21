@@ -1,0 +1,270 @@
+#!/usr/bin/env perl
+use warnings;
+use strict;
+#
+#
+#
+
+package Symbols;
+use warnings;
+use strict;
+
+sub new($) {
+    my ($class) = @_;
+    my $self = {};
+    bless $self, $class;
+
+    return $self;
+}
+
+sub add {
+    my $self = shift;
+    my $addr = shift;
+    my $name = shift;
+
+    die("bad add $addr $name") if (!defined($name) or !defined($addr));
+    $self->{a2n}{$addr} = $name;
+    return $self;
+}
+
+sub lookup_addr {
+    my $self = shift;
+    my $addr = shift;
+
+    return $self->{a2n}{$addr};
+}
+
+sub all_addrs {
+    my $self = shift;
+    return sort keys(%{$self->{a2n}});
+}
+
+1;
+
+package main;
+
+my $debug = 0;
+
+use IO::File;
+
+use Data::Dumper;
+$Data::Dumper::Indent = 1;
+$Data::Dumper::Sortkeys = 1;
+$Data::Dumper::Quotekeys = 0;
+
+sub load_memory {
+    my $db = shift;
+    my ($phys_addr, $size, $filename, $file_offset, $flags) = @_;
+
+    my $region;
+    $region->{phys_addr}   = $phys_addr;
+    $region->{size}        = $size;
+    $region->{filename}    = $filename;
+    $region->{file_offset} = $file_offset;
+    $region->{flags}       = $flags;
+
+    push @{$db->{region}}, $region;
+
+    if ($flags & 2) {
+        # anonymous memory has no file backing
+        return;
+    }
+
+    my $fh = IO::File->new($filename, O_RDONLY);
+    if (!defined($fh)) {
+        warn("Could not open $filename\n");
+        exit(1);
+    }
+    $region->{fh} = $fh;
+}
+
+sub load_configfile {
+    my $db = shift;
+    my $filename = shift;
+
+    my $fh = IO::File->new($filename, O_RDONLY);
+    if (!defined($fh)) {
+        warn("Could not open $filename\n");
+        exit(1);
+    }
+
+    while(<$fh>) {
+        chomp; s/\r//g;
+
+        # remove whitespace
+        s/^\s+//;
+
+        # remove comment lines
+        s/^[#].*//;
+
+        if (m/^include\s+(\S+)/) {
+            load_configfile($db,$1);
+        } elsif (m/^load_memory\s+/) {
+            my @a = split(/\s+/,$_);
+            load_memory(
+                $db,
+                eval "$a[1]", eval "$a[2]", $a[3], eval "$a[4]", $a[5]
+            );
+        } elsif (m/^datazone\s+/) {
+            my @a = split(/\s+/,$_);
+            $db->{zone}{start} = eval "$a[1]";
+            $db->{zone}{end} = eval "$a[2]";
+        } elsif (m/^symbol\s+/) {
+            my @a = split(/\s+/,$_);
+            $db->{symbols}->add(eval "$a[1]", $a[2]);
+        }
+    }
+}
+
+sub memr_read {
+    my $db = shift;
+    my $phys_addr = shift;
+    my $size = shift;
+
+    my $region;
+    # find the correct region
+    for my $r (@{$db->{region}}) {
+        if ($phys_addr >= $r->{phys_addr} && $phys_addr <= $r->{phys_addr}+$r->{size}) {
+            $region = $r;
+            last;
+        }
+    }
+
+    if (!defined($region)) {
+        printf("unhandled address 0x%08x(0x%x)\n",$phys_addr,$size);
+        return undef;
+    }
+
+    my $offset = $phys_addr - $region->{phys_addr};
+    $offset += $region->{file_offset};
+
+    if ($debug) {
+        printf("0x%08x(%x) = 0x%08x (%s)\n",
+            $phys_addr,$size,
+            $offset,
+            $region->{filename},
+        );
+    }
+
+    if ($region->{flags} & 2) {
+        # anonymous memory
+        return chr(0)x$size;
+    }
+
+    $region->{fh}->seek($offset,SEEK_SET);
+    my $buf;
+    $region->{fh}->read($buf,$size);
+
+    return $buf;
+}
+
+sub validate_pointer {
+    my $db = shift;
+    my $val = shift;
+
+    if (!$val & 0x3) {
+        return undef;
+    }
+
+    if ($val < $db->{zone}{start}) {
+        return undef;
+    }
+
+    if ($val > $db->{zone}{end}) {
+        return undef;
+    }
+
+    return $val;
+}
+
+sub find_pointers {
+    my $db = shift;
+
+    my $i = $db->{zone}{start};
+    while ($i < $db->{zone}{end}) {
+        my $buf = memr_read($db,$i,4);
+        my $val = unpack("V",$buf);
+        if (validate_pointer($db,$val)) {
+            $db->{symbols}->add($val,"table2_".$val);
+
+            $db->{p}{src}{$i} = $val;
+        }
+        $i+=4;
+    }
+}
+
+sub glom_objects {
+    my $db = shift;
+    my @addrs = $db->{symbols}->all_addrs();
+
+    my @srcs = sort keys(%{$db->{p}{src}});
+
+    while (@addrs) {
+        my $addr = shift @addrs;
+        my $object;
+        $object->{addr} = $addr;
+
+        my $next_addr = $addrs[0];
+        my $size;
+        if (!defined($next_addr)) {
+            $next_addr = $addr;
+            $size = 0;
+        } else {
+            $size = $next_addr - $addr;
+        }
+        $object->{size} = $size;
+
+        # ungh, this nested loop is costly
+        for my $src (@srcs) {
+            if ($src >= $addr && $src < $next_addr) {
+                $object->{p}{$src} = $db->{p}{src}{$src};
+            }
+        }
+
+        $db->{p}{obj}{$addr} = $object;
+    }
+}
+
+sub output_dot {
+    my $db = shift;
+
+    print "digraph structs {\n";
+    for my $addr (sort keys(%{$db->{p}{obj}})) {
+        my $object = $db->{p}{obj}{$addr};
+        my $name = $db->{symbols}->lookup_addr($addr) || 'table1_'.$addr;
+        printf(" %s; // %i\n",$name, $object->{size});
+
+        for my $src (sort keys(%{$object->{p}})) {
+            my $port = ($src - $addr)/4;
+            my $dst = $object->{p}{$src};
+            my $dstname = $db->{symbols}->lookup_addr($dst) || 'table1_'.$addr;
+            printf(" %s:p%i -> %s;\n",$name,$port,$dstname);
+        }
+        printf("\n");
+    }
+    print "}\n";
+}
+
+sub main() {
+    my $configfile = shift @ARGV;
+    if (!defined($configfile)) {
+        die('need configfile');
+    }
+
+    my $db = {};
+    $db->{symbols} = Symbols->new();
+
+    load_configfile($db,$configfile);
+    $db->{symbols}->add($db->{zone}{start},"_start");
+
+    find_pointers($db);
+    glom_objects($db);
+
+    if (@ARGV) {
+        print Dumper($db);
+    }
+
+    output_dot($db);
+}
+main();
+
