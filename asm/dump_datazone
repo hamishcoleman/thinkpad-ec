@@ -23,7 +23,11 @@ sub add {
     my $name = shift;
 
     die("bad add $addr $name") if (!defined($name) or !defined($addr));
-    $self->{a2n}{$addr} = $name;
+
+    # dont overwrite an existing name
+    if (!defined($self->{a2n}{$addr})) {
+        $self->{a2n}{$addr} = $name;
+    }
     return $self;
 }
 
@@ -37,6 +41,17 @@ sub lookup_addr {
 sub all_addrs {
     my $self = shift;
     return sort keys(%{$self->{a2n}});
+}
+
+sub addr2str {
+    my $self = shift;
+    my $addr = shift;
+
+    my $name = $self->lookup_addr($addr);
+    if (!defined($name)) {
+        $name = sprintf("sym_%08x",$addr);
+    }
+    return $name;
 }
 
 1;
@@ -109,9 +124,11 @@ sub load_configfile {
             my @a = split(/\s+/,$_);
             $db->{zone}{start} = eval "$a[1]";
             $db->{zone}{end} = eval "$a[2]";
-        } elsif (m/^symbol\s+/) {
-            my @a = split(/\s+/,$_);
-            $db->{symbols}->add(eval "$a[1]", $a[2]);
+        } elsif (m/^f\W+/) {
+            my @a = split(/\W+/,$_);
+            # 0 1              2 3
+            # f table.00021510 1 0x00021510
+            $db->{symbols}->add(eval "$a[3]", $a[1]);
         }
     }
 }
@@ -185,7 +202,7 @@ sub find_pointers {
         my $buf = memr_read($db,$i,4);
         my $val = unpack("V",$buf);
         if (validate_pointer($db,$val)) {
-            $db->{symbols}->add($val,"table2_".$val);
+            $db->{symbols}->add($val,sprintf("ptr_%08x",$val));
 
             $db->{p}{src}{$i} = $val;
         }
@@ -231,13 +248,13 @@ sub output_dot {
     print "digraph structs {\n";
     for my $addr (sort keys(%{$db->{p}{obj}})) {
         my $object = $db->{p}{obj}{$addr};
-        my $name = $db->{symbols}->lookup_addr($addr) || 'table1_'.$addr;
+        my $name = $db->{symbols}->addr2str($addr);
         printf(" %s; // %i\n",$name, $object->{size});
 
         for my $src (sort keys(%{$object->{p}})) {
             my $port = ($src - $addr)/4;
             my $dst = $object->{p}{$src};
-            my $dstname = $db->{symbols}->lookup_addr($dst) || 'table1_'.$addr;
+            my $dstname = $db->{symbols}->addr2str($dst);
             printf(" %s:p%i -> %s;\n",$name,$port,$dstname);
         }
         printf("\n");
