@@ -109,8 +109,8 @@ export MTOOLS_SKIP_CHECK=1
 install.radare.projects:
 	mkdir -p ~/.config/radare2/projects/x220.8DHT34WW.d
 	cp -fs $(PWD)/radare/x220.8DHT34WW ~/.config/radare2/projects
-	mkdir -p ~/.config/radare2/projects/x230.G2HT35WW.d
-	cp -fs $(PWD)/radare/x230.G2HT35WW ~/.config/radare2/projects
+	mkdir -p ~/.config/radare2/projects/x230.G2HT35WW
+	cp -fs $(PWD)/radare/x230.G2HT35WW ~/.config/radare2/projects/x230.G2HT35WW/rc
 	mkdir -p ~/.config/radare2/projects/x260.R02HT29W.d/
 	cp -fs $(PWD)/radare/x260.R02HT29W ~/.config/radare2/projects
 
