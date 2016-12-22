@@ -22,7 +22,7 @@ sub add {
     my $addr = shift;
     my $name = shift;
 
-    die("bad add $addr $name") if (!defined($name) or !defined($addr));
+    die("bad symbol add $addr $name") if (!defined($name) or !defined($addr));
 
     # dont overwrite an existing name
     if (!defined($self->{a2n}{$addr})) {
@@ -56,20 +56,30 @@ sub addr2str {
 
 1;
 
-package main;
-
-my $debug = 0;
+package MemRegions;
+use warnings;
+use strict;
 
 use IO::File;
 
-use Data::Dumper;
-$Data::Dumper::Indent = 1;
-$Data::Dumper::Sortkeys = 1;
-$Data::Dumper::Quotekeys = 0;
+my $debug = 0;
 
-sub load_memory {
-    my $db = shift;
+sub new($) {
+    my ($class) = @_;
+    my $self = {};
+    bless $self, $class;
+
+    return $self;
+}
+
+sub add {
+    my $self = shift;
     my ($phys_addr, $size, $filename, $file_offset, $flags) = @_;
+
+    die("bad MemRegion add") if (
+        !defined($phys_addr) || !defined($size) ||
+        !defined($filename) || !defined($file_offset)
+    );
 
     my $region;
     $region->{phys_addr}   = $phys_addr;
@@ -78,7 +88,7 @@ sub load_memory {
     $region->{file_offset} = $file_offset;
     $region->{flags}       = $flags;
 
-    push @{$db->{region}}, $region;
+    push @{$self->{region}}, $region;
 
     if ($flags & 2) {
         # anonymous memory has no file backing
@@ -93,60 +103,28 @@ sub load_memory {
     $region->{fh} = $fh;
 }
 
-sub load_configfile {
-    my $db = shift;
-    my $filename = shift;
-
-    my $fh = IO::File->new($filename, O_RDONLY);
-    if (!defined($fh)) {
-        warn("Could not open $filename\n");
-        exit(1);
-    }
-
-    while(<$fh>) {
-        chomp; s/\r//g;
-
-        # remove whitespace
-        s/^\s+//;
-
-        # remove comment lines
-        s/^[#].*//;
-
-        if (m/^include\s+(\S+)/) {
-            load_configfile($db,$1);
-        } elsif (m/^load_memory\s+/) {
-            my @a = split(/\s+/,$_);
-            load_memory(
-                $db,
-                eval "$a[1]", eval "$a[2]", $a[3], eval "$a[4]", $a[5]
-            );
-        } elsif (m/^datazone\s+/) {
-            my @a = split(/\s+/,$_);
-            $db->{zone}{start} = eval "$a[1]";
-            $db->{zone}{end} = eval "$a[2]";
-        } elsif (m/^f\W+/) {
-            my @a = split(/\W+/,$_);
-            # 0 1              2 3
-            # f table.00021510 1 0x00021510
-            $db->{symbols}->add(eval "$a[3]", $a[1]);
-        }
-    }
-}
-
-sub memr_read {
-    my $db = shift;
+sub _addr2region {
+    my $self = shift;
     my $phys_addr = shift;
     my $size = shift;
 
     my $region;
     # find the correct region
-    for my $r (@{$db->{region}}) {
+    for my $r (@{$self->{region}}) {
         if ($phys_addr >= $r->{phys_addr} && $phys_addr <= $r->{phys_addr}+$r->{size}) {
             $region = $r;
             last;
         }
     }
+    return $region;
+}
 
+sub read {
+    my $self = shift;
+    my $phys_addr = shift;
+    my $size = shift;
+
+    my $region = $self->_addr2region($phys_addr,$size);
     if (!defined($region)) {
         printf("unhandled address 0x%08x(0x%x)\n",$phys_addr,$size);
         return undef;
@@ -175,19 +153,65 @@ sub memr_read {
     return $buf;
 }
 
+1;
+
+package main;
+use IO::File;
+
+use Data::Dumper;
+$Data::Dumper::Indent = 1;
+$Data::Dumper::Sortkeys = 1;
+$Data::Dumper::Quotekeys = 0;
+
+sub load_configfile {
+    my $db = shift;
+    my $filename = shift;
+
+    my $fh = IO::File->new($filename, O_RDONLY);
+    if (!defined($fh)) {
+        warn("Could not open $filename\n");
+        exit(1);
+    }
+
+    while(<$fh>) {
+        chomp; s/\r//g;
+
+        # remove whitespace
+        s/^\s+//;
+
+        # remove comment lines
+        s/^[#].*//;
+
+        if (m/^include\s+(\S+)/) {
+            load_configfile($db,$1);
+        } elsif (m/^load_memory\s+/) {
+            my @a = split(/\s+/,$_);
+            $db->{regions}->add(
+                eval "$a[1]", eval "$a[2]", $a[3], eval "$a[4]", $a[5]
+            );
+        } elsif (m/^datazone\s+/) {
+            my @a = split(/\s+/,$_);
+            $db->{zone}{start} = eval "$a[1]";
+            $db->{zone}{end} = eval "$a[2]";
+        } elsif (m/^f\W+/) {
+            my @a = split(/\W+/,$_);
+            # 0 1              2 3
+            # f table.00021510 1 0x00021510
+            $db->{symbols}->add(eval "$a[3]", $a[1]);
+        }
+    }
+}
+
 sub validate_pointer {
     my $db = shift;
     my $val = shift;
 
+    # Check it is aligned to 32bits
     if (!$val & 0x3) {
         return undef;
     }
 
-    if ($val < $db->{zone}{start}) {
-        return undef;
-    }
-
-    if ($val > $db->{zone}{end}) {
+    if (!defined($db->{regions}->_addr2region($val,4))) {
         return undef;
     }
 
@@ -199,7 +223,7 @@ sub find_pointers {
 
     my $i = $db->{zone}{start};
     while ($i < $db->{zone}{end}) {
-        my $buf = memr_read($db,$i,4);
+        my $buf = $db->{regions}->read($i,4);
         my $val = unpack("V",$buf);
         if (validate_pointer($db,$val)) {
             $db->{symbols}->add($val,sprintf("ptr_%08x",$val));
@@ -236,7 +260,7 @@ sub glom_objects {
                 $object->{p}{$offset} = $db->{p}{src}{$addr};
                 $object->{d}{$offset} = undef;
             } else {
-                $object->{d}{$offset} = unpack("V",memr_read($db,$addr,4));
+                $object->{d}{$offset} = unpack("V",$db->{regions}->read($addr,4));
             }
             $addr += 4;
             $offset += 4;
@@ -289,6 +313,7 @@ sub main() {
 
     my $db = {};
     $db->{symbols} = Symbols->new();
+    $db->{regions} = MemRegions->new();
 
     load_configfile($db,$configfile);
     $db->{symbols}->add($db->{zone}{start},"_start");
