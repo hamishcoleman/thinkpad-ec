@@ -153,6 +153,26 @@ sub read {
     return $buf;
 }
 
+sub all_baseaddr {
+    my $self = shift;
+    my @starts;
+    for my $r (@{$self->{region}}) {
+        push @starts, $r->{phys_addr};
+    }
+    return @starts;
+}
+
+sub region_size {
+    my $self = shift;
+    my $phys_addr = shift;
+
+    my $region = $self->_addr2region($phys_addr,4);
+    if (!defined($region)) {
+        return undef;
+    }
+    return $region->{size};
+}
+
 1;
 
 package main;
@@ -189,10 +209,6 @@ sub load_configfile {
             $db->{regions}->add(
                 eval "$a[1]", eval "$a[2]", $a[3], eval "$a[4]", $a[5]
             );
-        } elsif (m/^datazone\s+/) {
-            my @a = split(/\s+/,$_);
-            $db->{zone}{start} = eval "$a[1]";
-            $db->{zone}{end} = eval "$a[2]";
         } elsif (m/^f\W+/) {
             my @a = split(/\W+/,$_);
             # 0 1              2 3
@@ -221,16 +237,20 @@ sub validate_pointer {
 sub find_pointers {
     my $db = shift;
 
-    my $i = $db->{zone}{start};
-    while ($i < $db->{zone}{end}) {
-        my $buf = $db->{regions}->read($i,4);
-        my $val = unpack("V",$buf);
-        if (validate_pointer($db,$val)) {
-            $db->{symbols}->add($val,sprintf("ptr_%08x",$val));
+    for my $start ($db->{regions}->all_baseaddr()) {
+        my $end = $start + $db->{regions}->region_size($start);
 
-            $db->{p}{src}{$i} = $val;
+        my $i = $start;
+        while ($i < $end) {
+            my $buf = $db->{regions}->read($i,4);
+            my $val = unpack("V",$buf);
+            if (validate_pointer($db,$val)) {
+                $db->{symbols}->add($val,sprintf("ptr_%08x",$val));
+
+                $db->{p}{src}{$i} = $val;
+            }
+            $i+=4;
         }
-        $i+=4;
     }
 }
 
