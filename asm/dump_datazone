@@ -245,6 +245,7 @@ sub find_pointers {
         my $i = $start;
         while ($i < $end) {
             my $buf = $db->{regions}->read($i,4);
+            die ("bad addr $i") if (!defined($buf));
             my $val = unpack("V",$buf);
             if (validate_pointer($db,$val)) {
                 $db->{symbols}->add($val,sprintf("ptr_%08x",$val));
