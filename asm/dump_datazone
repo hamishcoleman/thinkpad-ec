@@ -240,6 +240,8 @@ sub find_pointers {
     for my $start ($db->{regions}->all_baseaddr()) {
         my $end = $start + $db->{regions}->region_size($start);
 
+        $db->{symbols}->add($start,sprintf("region_%08x",$start));
+
         my $i = $start;
         while ($i < $end) {
             my $buf = $db->{regions}->read($i,4);
@@ -336,7 +338,6 @@ sub main() {
     $db->{regions} = MemRegions->new();
 
     load_configfile($db,$configfile);
-    $db->{symbols}->add($db->{zone}{start},"_start");
 
     find_pointers($db);
     glom_objects($db);
