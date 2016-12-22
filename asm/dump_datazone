@@ -173,6 +173,17 @@ sub region_size {
     return $region->{size};
 }
 
+sub region_base {
+    my $self = shift;
+    my $phys_addr = shift;
+
+    my $region = $self->_addr2region($phys_addr,4);
+    if (!defined($region)) {
+        return undef;
+    }
+    return $region->{phys_addr};
+}
+
 1;
 
 package main;
@@ -268,13 +279,28 @@ sub glom_objects {
         $db->{p}{obj}{$addr} = $object;
 
         my $next_addr = $addrs[0];
-        my $size;
+        $object->{_}{next_addr} = $next_addr;
         if (!defined($next_addr)) {
             $next_addr = $addr;
-            $size = 0;
-        } else {
-            $size = $next_addr - $addr;
         }
+
+        my $region_base =  $db->{regions}->region_base($addr);
+        $object->{_}{region_base} = $region_base;
+        # if we know nothing, then we cannot glom anything
+        if (!defined($region_base)) {
+            $object->{size} = "-1";
+            next;
+        }
+
+        my $region_end = $region_base + $db->{regions}->region_size($addr);
+        $object->{_}{region_end} = $region_end;
+        if ($next_addr > $region_end) {
+            $next_addr = $region_end;
+        }
+
+        $object->{_}{glom_end} = $next_addr;
+
+        my $size = $next_addr - $addr;
         $object->{size} = $size;
 
         my $offset = 0;
