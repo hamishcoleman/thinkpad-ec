@@ -312,7 +312,13 @@ sub output_dot {
                 # this is a pointer
                 my $dst = $object->{p}{$offset};
                 my $dstname = $db->{symbols}->addr2str($dst);
-                printf(" %s:p%i -> %s:p;\n",$name,$offset,$dstname);
+                if ($dst != $addr) {
+                    # dont draw a self reference arrow
+                    printf(" %s:p%i -> %s:p;\n",$name,$offset,$dstname);
+                } else {
+                    # but highlight it
+                    $dstname .= "**";
+                }
                 push @ports, sprintf("<p%i>%s",$offset,$dstname);
             } else {
                 push @ports, sprintf("<p%i>0x%08x",$offset,$val);
