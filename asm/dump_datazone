@@ -309,7 +309,8 @@ sub glom_objects {
                 $object->{p}{$offset} = $db->{p}{src}{$addr};
                 $object->{d}{$offset} = undef;
             } else {
-                $object->{d}{$offset} = unpack("V",$db->{regions}->read($addr,4));
+                my $val = unpack("V",$db->{regions}->read($addr,4));
+                $object->{d}{$offset} = $val;
             }
             $addr += 4;
             $offset += 4;
@@ -347,7 +348,11 @@ sub output_dot {
                 }
                 push @ports, sprintf("<p%i>%s",$offset,$dstname);
             } else {
-                push @ports, sprintf("<p%i>0x%08x",$offset,$val);
+                my $valname = $db->{symbols}->lookup_addr($val);
+                if (!defined($valname)) {
+                    $valname = sprintf("0x%08x",$val);
+                }
+                push @ports, sprintf("<p%i>%s",$offset,$valname);
             }
         }
         printf(" %s [label=\"%s\"]; // %i\n",
