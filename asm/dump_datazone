@@ -214,12 +214,11 @@ sub glom_objects {
     my $db = shift;
     my @addrs = $db->{symbols}->all_addrs();
 
-    my @srcs = sort keys(%{$db->{p}{src}});
-
     while (@addrs) {
         my $addr = shift @addrs;
         my $object;
         $object->{addr} = $addr;
+        $db->{p}{obj}{$addr} = $object;
 
         my $next_addr = $addrs[0];
         my $size;
@@ -231,14 +230,18 @@ sub glom_objects {
         }
         $object->{size} = $size;
 
-        # ungh, this nested loop is costly
-        for my $src (@srcs) {
-            if ($src >= $addr && $src < $next_addr) {
-                $object->{p}{$src} = $db->{p}{src}{$src};
+        my $offset = 0;
+        while ($addr < $next_addr) {
+            if (defined($db->{p}{src}{$addr})) {
+                $object->{p}{$offset} = $db->{p}{src}{$addr};
+                $object->{d}{$offset} = undef;
+            } else {
+                $object->{d}{$offset} = unpack("V",memr_read($db,$addr,4));
             }
+            $addr += 4;
+            $offset += 4;
         }
 
-        $db->{p}{obj}{$addr} = $object;
     }
 }
 
@@ -246,17 +249,33 @@ sub output_dot {
     my $db = shift;
 
     print "digraph structs {\n";
+    print " rankdir=LR;\n";
+    print " node [shape=record];\n";
+    print "\n";
+
     for my $addr (sort keys(%{$db->{p}{obj}})) {
         my $object = $db->{p}{obj}{$addr};
         my $name = $db->{symbols}->addr2str($addr);
-        printf(" %s; // %i\n",$name, $object->{size});
 
-        for my $src (sort keys(%{$object->{p}})) {
-            my $port = ($src - $addr)/4;
-            my $dst = $object->{p}{$src};
-            my $dstname = $db->{symbols}->addr2str($dst);
-            printf(" %s:p%i -> %s;\n",$name,$port,$dstname);
+        my @ports;
+        push @ports,"<p>$name:";
+        for my $offset (sort {$a <=> $b} keys(%{$object->{d}})) {
+            my $val = $object->{d}{$offset};
+            if (!defined($val)) {
+                # this is a pointer
+                my $dst = $object->{p}{$offset};
+                my $dstname = $db->{symbols}->addr2str($dst);
+                printf(" %s:p%i -> %s:p;\n",$name,$offset,$dstname);
+                push @ports, sprintf("<p%i>%s",$offset,$dstname);
+            } else {
+                push @ports, sprintf("<p%i>0x%08x",$offset,$val);
+            }
         }
+        printf(" %s [label=\"%s\"]; // %i\n",
+            $name,
+            join("|",@ports),
+            $object->{size}
+        );
         printf("\n");
     }
     print "}\n";
