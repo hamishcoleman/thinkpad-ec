@@ -40,7 +40,7 @@ sub lookup_addr {
 
 sub all_addrs {
     my $self = shift;
-    return sort keys(%{$self->{a2n}});
+    return sort {$a <=> $b} keys(%{$self->{a2n}});
 }
 
 sub addr2str {
@@ -326,7 +326,7 @@ sub output_dot {
     print " node [shape=record];\n";
     print "\n";
 
-    for my $addr (sort keys(%{$db->{p}{obj}})) {
+    for my $addr (sort {$a <=> $b} keys(%{$db->{p}{obj}})) {
         my $object = $db->{p}{obj}{$addr};
         my $name = $db->{symbols}->addr2str($addr);
 
