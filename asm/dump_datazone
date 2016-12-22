@@ -355,6 +355,18 @@ sub output_dot {
                 push @ports, sprintf("<p%i>%s",$offset,$valname);
             }
         }
+
+        # what is the maximum number of rows per object?
+        # FIXME - expose this variable on the commandline
+        my $want_rows = 1;
+
+        if ($want_rows < 2) {
+            @ports = $ports[0];
+        } elsif (scalar(@ports) > $want_rows) {
+            @ports = @ports[0..$want_rows-2];
+            push @ports, sprintf("...size=0x%x",$object->{size});
+        }
+
         printf(" %s [label=\"%s\"]; // %i\n",
             $name,
             join("|",@ports),
