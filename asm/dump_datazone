@@ -153,6 +153,48 @@ sub read {
     return $buf;
 }
 
+sub read_word {
+    my $self = shift;
+    my $phys_addr = shift;
+    my $size = shift;
+
+    my $formatstr;
+    if ($self->{endian} eq 'little') {
+        if ($size == 2) {
+            $formatstr = 'v';
+        } elsif ($size == 4) {
+            $formatstr = 'V';
+        } else {
+            ...;
+        }
+    } else {
+        # must be 'big'
+        if ($size == 2) {
+            $formatstr = 'n';
+        } elsif ($size == 4) {
+            $formatstr = 'N';
+        } else {
+            ...;
+        }
+    }
+
+    my $buf = $self->read($phys_addr,$size);
+    return undef if (length($buf) != $size);
+
+    return unpack($formatstr,$buf);
+}
+
+sub set_endian {
+    my $self = shift;
+    my $endian = shift;
+
+    if ($endian eq 'little' || $endian eq 'big') {
+        $self->{endian} = $endian;
+    } else {
+        die ("bad endianness");
+    }
+}
+
 sub all_baseaddr {
     my $self = shift;
     my @starts;
@@ -261,9 +303,7 @@ sub find_pointers {
 
         my $i = $start;
         while (($i+$db->{sizes}{ptr}) <= $end ) {
-            my $buf = $db->{regions}->read($i,$db->{sizes}{ptr});
-            die ("bad addr $i") if (!defined($buf));
-            my $val = unpack("V",$buf);
+            my $val = $db->{regions}->read_word($i,$db->{sizes}{ptr});
             if (validate_pointer($db,$val)) {
                 $db->{symbols}->add($val,sprintf("ptr_%08x",$val));
 
@@ -323,7 +363,7 @@ sub glom_objects {
                 $addr += $db->{sizes}{ptr};
                 $offset += $db->{sizes}{ptr};
             } else {
-                my $val = unpack("V",$db->{regions}->read($addr,$db->{sizes}{word}));
+                my $val = $db->{regions}->read_word($addr,$db->{sizes}{word});
                 $object->{d}{$offset} = $val;
                 $addr += $db->{sizes}{word};
                 $offset += $db->{sizes}{word};
@@ -403,11 +443,14 @@ sub main() {
     $db->{sizes}{align} = 4;
     $db->{sizes}{word} = 4;
     $db->{sizes}{ptr} = 4;
+    $db->{sizes}{endian} = "little";
 
     $db->{symbols} = Symbols->new();
     $db->{regions} = MemRegions->new();
 
     load_configfile($db,$configfile);
+
+    $db->{regions}->set_endian($db->{sizes}{endian});
 
     find_pointers($db);
     glom_objects($db);
