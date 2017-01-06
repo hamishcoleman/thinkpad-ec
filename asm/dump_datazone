@@ -238,9 +238,9 @@ sub validate_pointer {
     my $db = shift;
     my $val = shift;
 
-    # Check it is aligned to 32bits
-    # FIXME - compare against db->{sizes}{align}, not hardcoded
-    if (!$val & 0x3) {
+    # Check it is correctly aligned
+    # FIXME - this only works for binary values of alignment
+    if (($val & ($db->{sizes}{align}-1)) != 0) {
         return undef;
     }
 
