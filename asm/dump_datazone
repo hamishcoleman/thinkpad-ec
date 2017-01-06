@@ -227,6 +227,9 @@ sub load_configfile {
             # 0 1              2 3
             # f table.00021510 1 0x00021510
             $db->{symbols}->add(eval "$a[3]", $a[1]);
+        } elsif (m/^sizes align\W+/) {
+            my @a = split(/\W+/,$_);
+            $db->{sizes}{align} = $a[2];
         }
     }
 }
@@ -236,12 +239,12 @@ sub validate_pointer {
     my $val = shift;
 
     # Check it is aligned to 32bits
+    # FIXME - compare against db->{sizes}{align}, not hardcoded
     if (!$val & 0x3) {
         return undef;
     }
 
-    my $size_ptr = 4;
-    if (!defined($db->{regions}->_addr2region($val,$size_ptr))) {
+    if (!defined($db->{regions}->_addr2region($val,$db->{sizes}{ptr}))) {
         return undef;
     }
 
@@ -258,8 +261,7 @@ sub find_pointers {
 
         my $i = $start;
         while ($i < $end) {
-            my $size_ptr = 4;
-            my $buf = $db->{regions}->read($i,$size_ptr);
+            my $buf = $db->{regions}->read($i,$db->{sizes}{ptr});
             die ("bad addr $i") if (!defined($buf));
             my $val = unpack("V",$buf);
             if (validate_pointer($db,$val)) {
@@ -267,10 +269,9 @@ sub find_pointers {
 
                 $db->{p}{src}{$i} = $val;
 
-                $i += $size_ptr;
+                $i += $db->{sizes}{ptr};
             } else {
-                my $align = 4; # FIXME - make this configurable
-                $i += $align;
+                $i += $db->{sizes}{align};
             }
         }
     }
@@ -313,19 +314,20 @@ sub glom_objects {
 
         my $offset = 0;
         while ($addr < $next_addr) {
-            # TODO - handle sizeof(int) != sizeof(ptr) and the addr offsets
+            # TODO - handle sizeof(word) != sizeof(ptr) and the addr offsets
             # this will cause..
 
-            my $size_int = 4;
             if (defined($db->{p}{src}{$addr})) {
                 $object->{p}{$offset} = $db->{p}{src}{$addr};
                 $object->{d}{$offset} = undef;
+                $addr += $db->{sizes}{ptr};
+                $offset += $db->{sizes}{ptr};
             } else {
-                my $val = unpack("V",$db->{regions}->read($addr,$size_int));
+                my $val = unpack("V",$db->{regions}->read($addr,$db->{sizes}{word}));
                 $object->{d}{$offset} = $val;
+                $addr += $db->{sizes}{word};
+                $offset += $db->{sizes}{word};
             }
-            $addr += $size_int;
-            $offset += $size_int;
         }
 
     }
@@ -396,6 +398,12 @@ sub main() {
     }
 
     my $db = {};
+
+    # Default config values
+    $db->{sizes}{align} = 4;
+    $db->{sizes}{word} = 4;
+    $db->{sizes}{ptr} = 4;
+
     $db->{symbols} = Symbols->new();
     $db->{regions} = MemRegions->new();
 
