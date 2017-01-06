@@ -166,7 +166,8 @@ sub region_size {
     my $self = shift;
     my $phys_addr = shift;
 
-    my $region = $self->_addr2region($phys_addr,4);
+    my $size = 1; # a fake size
+    my $region = $self->_addr2region($phys_addr,$size);
     if (!defined($region)) {
         return undef;
     }
@@ -177,7 +178,8 @@ sub region_base {
     my $self = shift;
     my $phys_addr = shift;
 
-    my $region = $self->_addr2region($phys_addr,4);
+    my $size = 1; # a fake size
+    my $region = $self->_addr2region($phys_addr,$size);
     if (!defined($region)) {
         return undef;
     }
@@ -238,7 +240,8 @@ sub validate_pointer {
         return undef;
     }
 
-    if (!defined($db->{regions}->_addr2region($val,4))) {
+    my $size_ptr = 4;
+    if (!defined($db->{regions}->_addr2region($val,$size_ptr))) {
         return undef;
     }
 
@@ -255,15 +258,20 @@ sub find_pointers {
 
         my $i = $start;
         while ($i < $end) {
-            my $buf = $db->{regions}->read($i,4);
+            my $size_ptr = 4;
+            my $buf = $db->{regions}->read($i,$size_ptr);
             die ("bad addr $i") if (!defined($buf));
             my $val = unpack("V",$buf);
             if (validate_pointer($db,$val)) {
                 $db->{symbols}->add($val,sprintf("ptr_%08x",$val));
 
                 $db->{p}{src}{$i} = $val;
+
+                $i += $size_ptr;
+            } else {
+                my $align = 4; # FIXME - make this configurable
+                $i += $align;
             }
-            $i+=4;
         }
     }
 }
@@ -305,15 +313,19 @@ sub glom_objects {
 
         my $offset = 0;
         while ($addr < $next_addr) {
+            # TODO - handle sizeof(int) != sizeof(ptr) and the addr offsets
+            # this will cause..
+
+            my $size_int = 4;
             if (defined($db->{p}{src}{$addr})) {
                 $object->{p}{$offset} = $db->{p}{src}{$addr};
                 $object->{d}{$offset} = undef;
             } else {
-                my $val = unpack("V",$db->{regions}->read($addr,4));
+                my $val = unpack("V",$db->{regions}->read($addr,$size_int));
                 $object->{d}{$offset} = $val;
             }
-            $addr += 4;
-            $offset += 4;
+            $addr += $size_int;
+            $offset += $size_int;
         }
 
     }
