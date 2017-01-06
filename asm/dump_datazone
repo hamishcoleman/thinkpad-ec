@@ -227,9 +227,9 @@ sub load_configfile {
             # 0 1              2 3
             # f table.00021510 1 0x00021510
             $db->{symbols}->add(eval "$a[3]", $a[1]);
-        } elsif (m/^sizes align\W+/) {
+        } elsif (m/^sizes\W+/) {
             my @a = split(/\W+/,$_);
-            $db->{sizes}{align} = $a[2];
+            $db->{sizes}{$a[1]} = $a[2];
         }
     }
 }
