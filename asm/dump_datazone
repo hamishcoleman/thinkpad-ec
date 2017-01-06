@@ -260,7 +260,7 @@ sub find_pointers {
         $db->{symbols}->add($start,sprintf("region_%08x",$start));
 
         my $i = $start;
-        while ($i < $end) {
+        while (($i+$db->{sizes}{ptr}) <= $end ) {
             my $buf = $db->{regions}->read($i,$db->{sizes}{ptr});
             die ("bad addr $i") if (!defined($buf));
             my $val = unpack("V",$buf);
