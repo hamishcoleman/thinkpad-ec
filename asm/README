@@ -1,0 +1,16 @@
+This directory contains a couple of experiments aimed at making a simpler
+patch experience.
+
+One option is to use "nasm" and have the relevant structures that need
+patching all expanded as 'easier' to edit assembly declarations.
+
+This should allow a path to making the patches on Windows (nasm is easily
+available for Windows).  The assembly code would serve as a better
+documentation for the structures that are being edited.  This, in turn,
+would allow more people to try to change things.
+
+Part of this work is a tool to automatically dump the structures from a
+binary firmware.  Currently, this just outputs a graphviz chart showing
+the relationships, in the future it could output a template nasm file.
+
+
