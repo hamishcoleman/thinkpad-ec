@@ -1,8 +1,6 @@
 
 %define orig_bin "x230.G2HT35WW.img"
 
-%include "ec_keysym.mac"
-
 ; include orig_bin from $ for size $1
 %macro ib 1
     incbin orig_bin,$,%1
@@ -283,8 +281,11 @@ table.000215c4:
 jump_table.0x0002164c:
     ib 0x0002166c - 0x0002164c
 table_fn_key_complex:
-    ; FIXME - add in the definitions
-    ib 0x000216a4 - 0x0002166c
+    %include "ec_key_combo2_x230_patched.mac"
+
+    ; padding
+    align 4, db 0
+
 table_ptr_fn_key_complex_stuff:
     dd 8        ; jump table size
     dd jump_table.0x0002164c
@@ -301,6 +302,9 @@ table_numpad2:
     ib 0x00021898 - 0x00021858
 table_keysym_replacements:
     %include "ec_key_combo1_x220.mac"
+
+    ; padding
+    align 4, db 0
 
 table_ptr_numpad_stuff:
     dd 0xb2     ; size of next table

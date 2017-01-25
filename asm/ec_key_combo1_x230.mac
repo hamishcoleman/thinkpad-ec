@@ -4,6 +4,8 @@
 
 ; Values are for the original x230 keyboard
 
+%include "ec_keysym.mac"
+
     ;  Fn+THIS  replaced with           shift state?
     db KEY_F10, KEY_PREVIOUSSONG,       0
     db KEY_F11, KEY_PLAYPAUSE,          0
@@ -16,5 +18,4 @@
     db 0x9e,0x9e,0      ; FIXME
     db 0x9f,0x9f,0      ; FIXME
     db 0x4a,0x4a,0      ; FIXME
-    db 0,0,0
 

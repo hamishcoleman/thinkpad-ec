@@ -1,0 +1,15 @@
+;
+; This is a list of definitions
+;
+
+%ifndef EC_FN_ACTION
+%define EC_FN_ACTION
+
+%define ACT_0           0xc0 ; I am assuming this is refering to another table
+%define ACT_THINKLIGHT  0xc6
+%define ACT_SLEEP       0xc7    
+
+%define ACT_BRIGHT_UP   0xe4
+%define ACT_BRIGHT_DN   0xe5
+
+%endif

@@ -1,0 +1,37 @@
+;
+; This is the "complex" Fn+key replacement table
+;
+
+; Values are for the x220 keyboard installed in a x230 motherboard
+
+%include "ec_keysym.mac"
+%include "ec_fn_action_x230.mac"
+
+    ;  action   keysym
+    db ACT_0,   KEY_F1          ; nothing
+    db ACT_0,   KEY_F3          ; Lock
+    db ACT_0,   KEY_F2          ; nothing
+    db ACT_SLEEP,       KEY_F4  ; Sleep
+    db ACT_BRIGHT_UP,   KEY_HOME
+    db ACT_BRIGHT_DN,   KEY_END
+    db ACT_0,   KEY_F7
+    db ACT_0,   KEY_F8
+    db ACT_0,   KEY_F9
+    db ACT_0,   KEY_PROG1       ; Thinkvantage button
+    db ACT_0,   KEY_F11
+    db 0xc8,    0               ; FIXME
+    db ACT_0,   KEY_1
+    db ACT_0,   KEY_2
+    db 0,0
+    db ACT_THINKLIGHT,  KEY_PAGEUP
+    db 0,0
+    db 0,0
+    db 0,0
+    db ACT_0,   KEY_SPACE
+    db ACT_0,   KEY_F5          ; Wifi Switch
+    db ACT_0,   KEY_F6          ; Camera Switch
+    db 0,0
+    db 0,0
+    db 0,0
+    db 0,0
+    db ACT_0,   KEY_MICMUTE

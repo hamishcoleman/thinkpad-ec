@@ -4,6 +4,8 @@
 
 ; Values are for the original x220 keyboard
 
+%include "ec_keysym.mac"
+
     ;  Fn+THIS          replaced with   shift state?
     db KEY_PRINT,       KEY_SYSRQ,      1
     db KEY_SCROLLLOCK,  KEY_NUMLOCK,    0
@@ -16,4 +18,3 @@
     db 0x9e,0x9e,0      ; FIXME
     db 0x9f,0x9f,0      ; FIXME
     db 0x4a,0x4a,0      ; FIXME
-    db 0,0,0
