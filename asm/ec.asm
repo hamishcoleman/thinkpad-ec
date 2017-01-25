@@ -302,12 +302,10 @@ table.000216b4:
     ib 0x00021818 - 0x000216b4
 
 table_numpad1:
-    ; FIXME - add in the definitions
-    ib 0x00021858 - 0x00021818
+    %include "ec_key_numpad1.mac"
 
 table_numpad2:
-    ; FIXME - add in the definitions
-    ib 0x00021898 - 0x00021858
+    %include "ec_key_numpad2.mac"
 
 table_fn_combo1:
     %include "ec_key_combo1_x220.mac"

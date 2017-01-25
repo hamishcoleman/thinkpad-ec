@@ -1,0 +1,14 @@
+;
+; The virtual numberpad.
+;
+
+    times 8 db 0
+    db KEY_KP7, KEY_KP8, KEY_KP9, KEY_KPSLASH
+    times 11 db 0
+    db KEY_KP4, KEY_KP5, KEY_KP6, KEY_KPASTERISK, KEY_KPENTER
+    times 9 db 0
+    db KEY_KP1, KEY_KP2, KEY_KP3, KEY_KPMINUS
+    times 11 db 0
+    db KEY_KP0, 0, KEY_KPDOT, KEY_KPPLUS
+    times 8 db 0
+
