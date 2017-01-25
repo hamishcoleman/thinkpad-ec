@@ -1,0 +1,64 @@
+;
+; The keyboard matrix to keysym table
+;
+
+; The values are for the x230 keyboard
+
+%include "ec_keysym.mac"
+
+; TODO
+; - there are a number of keysyms that I dont know what they are.
+
+    db KEY_GRAVE, KEY_1, KEY_Q, KEY_TAB, KEY_A, KEY_ESC, KEY_Z, 0x83
+    times 8 db 0
+
+    db KEY_F1, KEY_2, KEY_W, KEY_CAPSLOCK, KEY_S, 0x2d, KEY_X, 0
+    times 8 db 0
+
+    db KEY_F2, KEY_3, KEY_E, KEY_F3, KEY_D, KEY_F4, KEY_C, 0
+    times 8 db 0
+
+    db KEY_5, KEY_4, KEY_R, KEY_T, KEY_F, KEY_G, KEY_V, KEY_B
+    times 8 db 0
+
+    db KEY_6, KEY_7, KEY_U, KEY_Y, KEY_J, KEY_H, KEY_M, KEY_N
+    times 8 db 0
+
+    db KEY_EQUAL, KEY_8, KEY_I, KEY_RIGHTBRACE, KEY_K, KEY_F6, KEY_COMMA, 0x38
+    times 8 db 0
+
+    db KEY_F8, KEY_9, KEY_O, KEY_F7, KEY_L, 0x84, KEY_DOT, 0x85
+    times 8 db 0
+
+    db KEY_MINUS, KEY_0, KEY_P, KEY_LEFTBRACE, KEY_SEMICOLON, KEY_APOSTROPHE
+    db 0x2a, KEY_QUESTION
+    times 8 db 0
+
+    db KEY_F9, KEY_F10, 0x0e, KEY_BACKSPACE, KEY_BACKSLASH, KEY_F5, KEY_ENTER
+    db KEY_SPACE
+    times 8 db 0
+
+    db 0, KEY_F12, 0, KEY_LEFTMETA, 0,0,0, KEY_RIGHT
+    times 8 db 0
+
+    db KEY_HOME, KEY_F11, KEY_VOLUMEUP, KEY_VOLUMEDOWN, KEY_MUTE, KEY_PROG1
+    db KEY_MICMUTE, KEY_DOWN
+    times 8 db 0
+
+    db KEY_DELETE, KEY_INSERT, 0,0, KEY_PRINT, 0, KEY_PAGEUP, KEY_PAGEDOWN
+    times 8 db 0
+
+    db 0, KEY_END, 0,0,0, KEY_UP, 0, KEY_LEFT
+    times 8 db 0
+
+    db 0, 0, 0, 0,0, KEY_LEFTALT, 0, KEY_RIGHTALT
+    times 8 db 0
+
+    db 0,0,0, KEY_LEFTSHIFT, 0,0, KEY_RIGHTSHIFT, 0
+    times 8 db 0
+
+    db KEY_LEFTCTRL, 0,0,0,0,0, KEY_RIGHTCTRL, 0
+
+    db 0,0,0,0,0,0,0, 0x96
+    db 0, 0x9d, 0, 0x9e, 0x9f, KEY_WAKEUP, KEY_LEFTCTRL, KEY_RIGHTMETA
+    db KEY_SCROLLLOCK, KEY_PAUSE, 0,0,0,0,0,0

@@ -330,8 +330,7 @@ table_replacements:
     dd table_fn_combo1
 
 table_matrix:
-    ; FIXME - add in the definitions
-    ib 0x000219e8 - 0x000218d8
+    %include "ec_key_matrix_x230.mac"
 table_matrix_size equ ($ - table_matrix)
 
 table_livekeys_map:

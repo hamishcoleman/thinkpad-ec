@@ -2,6 +2,8 @@
 ; The virtual numberpad.
 ;
 
+%include "ec_keysym.mac"
+
     times 8 db 0
     db KEY_KP7, KEY_KP8, KEY_KP9, KEY_KPSLASH
     times 11 db 0
