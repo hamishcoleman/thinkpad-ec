@@ -272,6 +272,9 @@ sub load_configfile {
         } elsif (m/^sizes\W+/) {
             my @a = split(/\W+/,$_);
             $db->{sizes}{$a[1]} = $a[2];
+        } elsif (m/^option\W+/) {
+            my @a = split(/\W+/,$_);
+            $db->{option}{$a[1]} = $a[2];
         }
     }
 }
@@ -411,8 +414,7 @@ sub output_dot {
         }
 
         # what is the maximum number of rows per object?
-        # FIXME - expose this variable on the commandline
-        my $want_rows = 1;
+        my $want_rows = $db->{option}{want_rows};
 
         if ($want_rows < 2) {
             @ports = $ports[0];
@@ -444,6 +446,7 @@ sub main() {
     $db->{sizes}{word} = 4;
     $db->{sizes}{ptr} = 4;
     $db->{sizes}{endian} = "little";
+    $db->{option}{want_rows} = 1;
 
     $db->{symbols} = Symbols->new();
     $db->{regions} = MemRegions->new();
