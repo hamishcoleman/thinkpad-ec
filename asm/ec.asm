@@ -283,48 +283,56 @@ table.000215bc:
     dd table.000215b4
 table.000215c4:
     ib 0x0002164c - 0x000215c4
+
 jump_table.0x0002164c:
     ib 0x0002166c - 0x0002164c
+jump_table.0x0002164c_size equ ($ - jump_table.0x0002164c) /4
+
 table_fn_key_complex:
     %include "ec_key_combo2_x230_patched.mac"
+table_fn_key_complex_size equ ($ - table_fn_key_complex) /2
 
     ; padding
     align 4, db 0
 
 table_list_complex_keys:
-    dd 8        ; jump table size
+    dd jump_table.0x0002164c_size
     dd jump_table.0x0002164c
-    dd 0x1b     ; complex table size
+    dd table_fn_key_complex_size
     dd table_fn_key_complex
 
 table.000216b4:
     ; FIXME - is this something to do with keysym mapping?
     ib 0x00021818 - 0x000216b4
+table.000216b4_size equ ($ - table.000216b4) /2
 
 table_numpad1:
     %include "ec_key_numpad1.mac"
+table_numpad_size equ ($ - table_numpad1)
 
 table_numpad2:
     %include "ec_key_numpad2.mac"
 
 table_fn_combo1:
     %include "ec_key_combo1_x220.mac"
+table_fn_combo1_size equ ($ - table_fn_combo1) /3
 
     ; padding
     align 4, db 0
 
 table_replacements:
-    dd 0xb2     ; size of next table
+    dd table.000216b4_size
     dd table.000216b4
-    dd 0x40     ; size of both numpad tables
+    dd table_numpad_size     ; size of both numpad tables
     dd table_numpad2
     dd table_numpad1
-    dd 0xb
+    dd table_fn_combo1_size
     dd table_fn_combo1
 
 table_matrix:
     ; FIXME - add in the definitions
     ib 0x000219e8 - 0x000218d8
+table_matrix_size equ ($ - table_matrix)
 
 table_livekeys_map:
     ; FIXME - add in the definitions
@@ -334,7 +342,7 @@ table.00021a0c:
     ib 0x00021a10 - 0x00021a0c
 
 table_list_matrix:
-    dd 0x110
+    dd table_matrix_size
     dd table_matrix
     dd table_livekeys_map
     dd table.00021a0c
