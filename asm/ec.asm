@@ -1,6 +1,8 @@
 
 %define orig_bin "x230.G2HT35WW.img"
 
+%include "ec_keysym.mac"
+
 ; include orig_bin from $ for size $1
 %macro ib 1
     incbin orig_bin,$,%1
@@ -298,8 +300,8 @@ table_numpad2:
     ; FIXME - add in the definitions
     ib 0x00021898 - 0x00021858
 table_keysym_replacements:
-    ; FIXME - add in the definitions
-    ib 0x000218bc - 0x00021898
+    %include "ec_key_combo1_x220.mac"
+
 table_ptr_numpad_stuff:
     dd 0xb2     ; size of next table
     dd table.000216b4

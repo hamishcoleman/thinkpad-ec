@@ -1,0 +1,20 @@
+;
+; This is the "simple" Fn+key replacement table
+;
+
+; Values are for the original x230 keyboard
+
+    ;  Fn+THIS  replaced with           shift state?
+    db KEY_F10, KEY_PREVIOUSSONG,       0
+    db KEY_F11, KEY_PLAYPAUSE,          0
+    db KEY_F12, KEY_NEXTSONG,           0
+    db KEY_B,   KEY_BREAK,              2
+    db KEY_S,   KEY_SYSRQ,              1
+    db KEY_K,   KEY_SCROLLLOCK,         0
+    db KEY_P,   KEY_PAUSE,              0
+    db 0,0,0
+    db 0x9e,0x9e,0      ; FIXME
+    db 0x9f,0x9f,0      ; FIXME
+    db 0x4a,0x4a,0      ; FIXME
+    db 0,0,0
+

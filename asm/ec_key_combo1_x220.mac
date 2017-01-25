@@ -1,0 +1,19 @@
+;
+; This is the "simple" Fn+key replacement table
+;
+
+; Values are for the original x220 keyboard
+
+    ;  Fn+THIS          replaced with   shift state?
+    db KEY_PRINT,       KEY_SYSRQ,      1
+    db KEY_SCROLLLOCK,  KEY_NUMLOCK,    0
+    db KEY_PAUSE,       KEY_BREAK,      2
+    db KEY_LEFT,        KEY_PREVIOUSSONG, 0
+    db KEY_UP,          KEY_STOPCD,     0
+    db KEY_DOWN,        KEY_PLAYPAUSE,  0
+    db KEY_RIGHT,       KEY_NEXTSONG,   0
+    db 0,0,0
+    db 0x9e,0x9e,0      ; FIXME
+    db 0x9f,0x9f,0      ; FIXME
+    db 0x4a,0x4a,0      ; FIXME
+    db 0,0,0
