@@ -289,7 +289,7 @@ jump_table.0x0002164c:
 jump_table.0x0002164c_size equ ($ - jump_table.0x0002164c) /4
 
 table_fn_key_complex:
-    %include "ec_key_combo2_x230_patched.mac"
+    %include "ec_key_combo2_x230.mac"
 table_fn_key_complex_size equ ($ - table_fn_key_complex) /2
 
     ; padding
@@ -314,7 +314,7 @@ table_numpad2:
     %include "ec_key_numpad2.mac"
 
 table_fn_combo1:
-    %include "ec_key_combo1_x220.mac"
+    %include "ec_key_combo1_x230.mac"
 table_fn_combo1_size equ ($ - table_fn_combo1) /3
 
     ; padding
