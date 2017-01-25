@@ -142,8 +142,8 @@
 %define KEY_VOLUMEDOWN		0x99
 %define KEY_VOLUMEUP		0x9a
 %define KEY_LEFTMETA		0x9b
-%define KEY_RIGHTMETA		0x9c
-; unknwon 0x9d - Rwin?
+%define KEY_MENU		0x9c
+%define KEY_RIGHTMETA           0x9d    ; based on evidence, but not proven
 ; unknown 0x9e - Power?
 ; unknown 0x9f - Sleep?
 %define KEY_MICMUTE		0xa0
