@@ -589,3 +589,8 @@ table.00021f60:
 table.00021f70:
     dd 2        ; size
     dd table.00021f60
+
+; TODO
+; I've added the entire remainder of the firmware here as one big blob,
+; but to match the above, it should have the tables defined
+    ib 0x30000 - 0x21f78
