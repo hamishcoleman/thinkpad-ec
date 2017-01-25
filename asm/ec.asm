@@ -246,27 +246,32 @@ table.000214e4:
     dd 0x10     ; size of second table
     dd table.00021224
     dd table.000214a4
+
 table_delayTab1:
     ib 0x000214fc - 0x000214f0
-table_ptr_delayTab1:
+
+table_list_delayTab1:
     dd 6        ; size of table
     dd table_delayTab1
+
 table.0x00021504:
     dd 0x38
     dd 0x102
     dd table.00003f64
+
 table.00021510:
     dd table.00021e48
     dd table.00021f70
     dd table.000211bc
     dd table.0002121c
     dd table.000214e4
-    dd table_ptr_delayTab1
-    dd table_ptr_fn_key_complex_stuff
-    dd table_ptr_numpad_stuff
-    dd table_ptr_keysym_stuff
+    dd table_list_delayTab1
+    dd table_list_complex_keys
+    dd table_replacements
+    dd table_list_matrix
     dd table.00021aa8
     dd table.00021e68
+
 table.0002153c:
     ib 0x00021574 - 0x0002153c
 table.00021574:
@@ -286,49 +291,56 @@ table_fn_key_complex:
     ; padding
     align 4, db 0
 
-table_ptr_fn_key_complex_stuff:
+table_list_complex_keys:
     dd 8        ; jump table size
     dd jump_table.0x0002164c
     dd 0x1b     ; complex table size
     dd table_fn_key_complex
+
 table.000216b4:
     ; FIXME - is this something to do with keysym mapping?
     ib 0x00021818 - 0x000216b4
+
 table_numpad1:
     ; FIXME - add in the definitions
     ib 0x00021858 - 0x00021818
+
 table_numpad2:
     ; FIXME - add in the definitions
     ib 0x00021898 - 0x00021858
-table_keysym_replacements:
+
+table_fn_combo1:
     %include "ec_key_combo1_x220.mac"
 
     ; padding
     align 4, db 0
 
-table_ptr_numpad_stuff:
+table_replacements:
     dd 0xb2     ; size of next table
     dd table.000216b4
     dd 0x40     ; size of both numpad tables
     dd table_numpad2
     dd table_numpad1
-; FIXME - this could be part of the previous table...?!?
-table_ptr_keysym_replacements:
     dd 0xb
-    dd table_keysym_replacements
-table_keysym:
+    dd table_fn_combo1
+
+table_matrix:
     ; FIXME - add in the definitions
     ib 0x000219e8 - 0x000218d8
-table_live_key_map:
+
+table_livekeys_map:
     ; FIXME - add in the definitions
     ib 0x00021a0c - 0x000219e8
+
 table.00021a0c:
     ib 0x00021a10 - 0x00021a0c
-table_ptr_keysym_stuff:
+
+table_list_matrix:
     dd 0x110
-    dd table_keysym
-    dd table_live_key_map
+    dd table_matrix
+    dd table_livekeys_map
     dd table.00021a0c
+
 table.00021a20:
     ib 0x00021aa8 - 0x00021a20
 table.00021aa8:
