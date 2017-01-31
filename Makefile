@@ -114,6 +114,47 @@ install.radare.projects:
 	mkdir -p ~/.config/radare2/projects/x260.R02HT29W.d/
 	cp -fs $(PWD)/radare/x260.R02HT29W ~/.config/radare2/projects
 
+#
+# These enable and disable targets change which patches are configured to be
+# applied
+
+PATCHES_KEYBOARD := 001_keysym.patch 002_dead_keys.patch \
+    003_keysym_replacements.patch 004_fn_keys.patch 005_fn_key_swap.patch
+
+patch_enable_battery:
+	$(call patch_enable,006_battery_validate.patch)
+
+patch_disable_battery:
+	$(call patch_disable,006_battery_validate.patch)
+
+patch_enable_keyboard:
+	for j in $(PATCHES_KEYBOARD); do \
+	 $(call patch_enable,$$j); \
+	done
+
+patch_disable_keyboard:
+	for j in $(PATCHES_KEYBOARD); do \
+	 $(call patch_disable,$$j); \
+	done
+
+# $1 is the old patch name
+# $2 is the new patch name
+define patch_mv
+	for i in *.img.d; do \
+	 mv $$i/$1 $$i/$2; \
+	done
+endef
+
+# $1 is the patch name
+define patch_enable
+	$(call patch_mv,$1.OFF,$1)
+endef
+
+# $1 is the patch name
+define patch_disable
+	$(call patch_mv,$1,$1.OFF)
+endef
+
 DEPSDIR := .d
 $(shell mkdir -p $(DEPSDIR))
 -include $(DEPSDIR)/slice.extract.deps
