@@ -6,6 +6,11 @@ With the patches included here, you can install the classic keyboard
 hardware on many xx30 series laptops and make almost every key work properly.
 The only keys that are not working are Fn+F3 (Battery) and Fn+F12 (Hibernate)
 
+Unfortunately, it turns out that not all xx30 series thinkpads have the same
+BIOS and EC arrangement - some do not have a "FL2" file in the BIOS update
+image and thus the location of the EC to patch is missing.  This is known to
+be the case with at least the L530.
+
 * A full writeup of the hardware modifications needed can be found at:
     http://www.thinkwiki.org/wiki/Install_Classic_Keyboard_on_xx30_Series_ThinkPads
 
