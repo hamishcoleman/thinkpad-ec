@@ -71,7 +71,7 @@ Notes:
 ------
 
 * You can also create a bootable CDROM image for burning to a disk
-  by asking for a ".iso" file instead of the ".img" in step 7 above.
+  by asking for a ".iso" file instead of the ".img" in step 6 above.
   Then you can use your normal CDROM burning tools to put this image on
   a blank cd and boot it up, skipping steps 7 and 8.
 
