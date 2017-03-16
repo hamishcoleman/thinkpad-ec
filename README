@@ -48,7 +48,7 @@ will not complete.
 5. Select the correct IMG name for your laptop.  E.G. "patched.x230.img" for
    the x230 laptop.
 
-6. Make the fully patched iimage for this laptop (this will download
+6. Make the fully patched image for this laptop (this will download
    the original file from Lenovo and patch it):
 
     make patched.x230.img
@@ -77,7 +77,7 @@ Notes:
 
 * To include the battery validation patch or to make a build that
   reverts any EC changes, read the docs/CONFIG.txt and follow
-  the configuration instructions in it.
+  the configuration instructions in it before running step 6.
 
 
 Booting the stick and flashing the firmware:
