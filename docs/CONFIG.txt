@@ -12,10 +12,10 @@ There are several makefile targets that exist to help you configure which
 patches are enabled.  Choose one or more of the following commands to
 configure as you want:
 
-    make patch_enable_battery clean
-    make patch_disable_battery clean
-    make patch_enable_keyboard clean
-    make patch_disable_keyboard clean
+    make patch_enable_battery clean     # Uses the battery validate patch
+    make patch_disable_battery clean    # Turns off the battery validate patch
+    make patch_enable_keyboard clean    # Uses the keyboard patches
+    make patch_disable_keyboard clean   # Turns off the keyboard patches
 
 Behind the scenes
 -----------------
