@@ -55,16 +55,19 @@ will not complete.
     make patched.x230.img
 
 7. Insert your USB stick and determine what device name it has.
-   This command should help you find the right device:
+   (Note: chose a USB stick with nothing important on it, it will
+   be erased in the next step) This command should help you find the
+   right device:
 
     lsblk -d -o NAME,SIZE,LABEL
 
-8. Write the bootable patched image onto the USB stick device
+8. Write the bootable patched image onto the USB stick device (replace
+   the "sdx" in this command with the correct name for your usb stick)
 
    WARNING: if you do not have the right device name, you might overwrite
    your hard drive!
 
-   sudo dd if=patched.x230.img of=/dev/sdb
+   sudo dd if=patched.x230.img of=/dev/sdx
 
 Your USB stick is now ready to boot and install the patched firmware.
 
