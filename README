@@ -45,11 +45,12 @@ will not complete.
 
     make list_laptops
 
-5. Select the correct IMG name for your laptop.  E.G. "patched.x230.img" for
-   the x230 laptop.
+5. Choose your laptop model name from the list shown.
+   E.G. "patched.x230.img" for a x230 laptop.
 
-6. Make the fully patched image for this laptop (this will download
-   the original file from Lenovo and patch it):
+6. Using the name chosen in the previous step, make the fully
+   patched image for this laptop (this will download the original
+   file from Lenovo and patch it):
 
     make patched.x230.img
 
