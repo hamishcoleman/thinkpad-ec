@@ -60,7 +60,7 @@ patched.t530i.iso: g4uj30us.iso
 patched.w530.iso: g5uj28us.iso
 	$(call patched_iso,$<,$@)
 
-patched.x230.iso: g2uj23us.iso
+patched.x230.iso: g2uj25us.iso
 	$(call patched_iso,$<,$@)
 
 patched.x230t.iso: gcuj24us.iso
@@ -314,7 +314,7 @@ $(call rule_fl2,x230t.GCHT25WW.img.enc,x230t.GCHT25WW.s01DA000.FL2)
 
 $(call rule_iso,t430.G1HT35WW.s01D2000.FL2,g1uj38us.iso)
 $(call rule_iso,t430.G1HT34WW.s01D2000.FL2,g1uj25us.iso)
-$(call rule_iso,x230.G2HT35WW.s01D3000.FL2,g2uj23us.iso)
+$(call rule_iso,x230.G2HT35WW.s01D3000.FL2,g2uj25us.iso)
 $(call rule_iso,t530.G4HT39WW.s01D5100.FL2,g4uj30us.iso)
 $(call rule_iso,w530.G4HT39WW.s01D5200.FL2,g5uj28us.iso)
 $(call rule_iso,t430s.G7HT39WW.s01D8000.FL2,g7uj19us.iso)
