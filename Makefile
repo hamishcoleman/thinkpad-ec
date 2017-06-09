@@ -21,7 +21,7 @@ list_laptops:
 	$(info patched.t430s.img - for patching Thinkpad T430s)
 	$(info patched.t530.img  - for patching Thinkpad T530)
 	$(info patched.t530i.img - for patching Thinkpad T530i)
-	$(info patched.w530.img  - for patching Thinkpad W430)
+	$(info patched.w530.img  - for patching Thinkpad W530)
 	$(info patched.x230.img  - for patching Thinkpad X230)
 	$(info patched.x230t.img - for patching Thinkpad X230t)
 	$(info )
