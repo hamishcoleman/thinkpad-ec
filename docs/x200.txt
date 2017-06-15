@@ -1,0 +1,7 @@
+The flasher tool differs slightly for the tested versions:
+
+* 6duj41uc.iso does allow downgrades.
+* 6duj47uc.iso does not allow downgrades (BIOS version installed must be lower than 3.21).
+* 6duj47uc.iso does not allow downgrades (BIOS version installed must be lower than 3.22).
+
+Refer to https://libreboot.org/docs/hardware/x200.html for details.

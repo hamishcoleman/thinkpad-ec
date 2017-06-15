@@ -21,5 +21,4 @@ echo Built: __BUILT
 echo.
 pause
 echo on
-dosflash /sd /ipf ec /file __DIR\__FL2
-
+command.com

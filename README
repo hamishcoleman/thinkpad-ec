@@ -1,6 +1,10 @@
 The main purpose of this software is to patch the EC on xx30 series thinkpads
-to make the classic 7-row keyboards work.  There are also patches included (but
-disabled by default) to disable the authentic battery validation check.
+to make the classic 7-row keyboards work.  Furthermore, the following patches
+are available for some thinkpad models:
+
+* Turning off the authentic battery validation check.
+  The battery patches are disabled by default, but are easy to enable.
+* Swap Fn and CtlL keys so that the physical layout becomes CtlL, Fn (how it should be).
 
 With the patches included here, you can install the classic keyboard
 hardware on many xx30 series laptops and make almost every key work properly.
@@ -107,3 +111,6 @@ of requirements.
   including which laptop type it was built for.  It pauses at this point
   for you to confirm that you wish to proceed.  It will then automatically
   flash the patched firmware.
+
+* Don’t touch the laptop until the update is done. Don’t plug in or
+  remove anything! It might brick the laptop!

@@ -42,7 +42,8 @@ These addresses have been seen to be stable in all the checked firmwares.
 
 0x00000:        Interrupt vector table
 0x001ff:        End of first encrypted region
-0x00240:        EC version string
+0x00228:        Two byte numeric EC version
+0x00240:        Alphanumeric EC version string
 0x00268:        Copyright notice string
 0x00ff0:        Start of second encrypted region
 0x02048:        List of 32-bit checksum results ("inner checksum")
@@ -52,7 +53,7 @@ These addresses have been seen to be stable in all the checked firmwares.
 
 Notes:
 
-* The x220 firmware starts the copyright string at 0x00264, which
+* The x200 and x220 firmware starts the copyright string at 0x00264, which
   might just be because the default variable size on the H8S is 16bits,
   instead of the 32bit default on the ARC cpu - and that there are two
   default-sized variables before this string.

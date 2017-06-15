@@ -1,0 +1,55 @@
+Swap Fn and CtlL keys so that the physical layout becomes CtlL, Fn (how it should be).
+The BIOS setup did not expose a configuration option to set it in the EC.
+Also, the EC firmware of the xx00 series did not support this yet which I know
+because coreboot is able swaps the keys by setting a bit in the EC RAM. Using
+the unmodified 1.07 (7XHT25WW) did not swap the keys.
+
+A guy named middleton was kind enough to binary patch various EC firmware
+builds without going into much detail how he did it.
+
+This patch exactly matches the one from middleton. All credits go to middleton.
+It has been tried to reverse engineer the patch by middleton (reversing the
+reverser so to speak). Refer to ../docs/HACKING.txt and fire up radare2 for details.
+
+Ref: http://forum.notebookreview.com/threads/fn-ctrl-swap-on-all-lenovo-laptops-solved.474396/
+Ref: https://notabug.org/libreboot/libreboot/issues/146
+
+@@ -1057,7 +1057,7 @@
+ 000065a0  00 ff d5 13 5e 00 66 cc  f0 14 00 00 00 00 1a 00  |....^.f.........|
+ 000065b0  46 f8 7e 16 73 50 47 08  79 00 00 01 5e 00 0c 10  |F.~.sPG.y...^...|
+ 000065c0  7e 16 73 70 47 04 5a 00  66 76 7e 16 73 60 47 7c  |~.spG.Z.fv~.s`G||
+-000065d0  7e 16 77 50 7e 16 75 40  45 70 21 bb 17 01 6a 29  |~.wP~.u@Ep!...j)|
++000065d0  7e 16 77 50 7e 16 75 40  45 70 5e 01 b6 70 6a 29  |~.wP~.u@Ep^..pj)|
+ 000065e0  00 ff d5 0f 1c 19 46 54  6a 29 00 ff d5 10 0a 09  |......FTj)......|
+ 000065f0  6a a9 00 ff d5 10 6a 20  00 ff d5 12 1c 09 45 3a  |j.....j ......E:|
+ 00006600  6a 28 00 ff d5 13 f0 00  79 08 00 00 78 00 6a 29  |j(......y...x.j)|
+@@ -1070,7 +1070,7 @@
+ 00006670  77 50 7f 16 67 40 f0 0d  55 52 7e 16 77 50 7f 16  |wP..g@..UR~.wP..|
+ 00006680  67 d0 01 00 6d 72 01 00  6d 71 04 80 6a 18 fd 44  |g...mr..mq..j..D|
+ 00006690  70 00 01 00 6d 70 56 70  6a 28 00 ff d5 13 f0 00  |p...mpVpj(......|
+-000066a0  79 08 00 00 78 00 6a 29  00 ff da 70 21 bb 17 01  |y...x.j)...p!...|
++000066a0  79 08 00 00 78 00 6a 29  00 ff da 70 5e 01 b6 70  |y...x.j)...p^..p|
+ 000066b0  1c 91 47 14 7f 16 70 60  6a a1 00 ff d5 0f f0 00  |..G...p`j.......|
+ 000066c0  6a a0 00 ff d5 10 40 02  55 3a 54 70 7a 01 00 00  |j.....@.U:Tpz...|
+ 000066d0  66 e4 10 00 08 09 91 00  44 02 0b 59 69 10 30 b0  |f.......D..Yi.0.|
+@@ -2223,7 +2223,7 @@
+ 0000ae90  7f 26 72 10 6a 18 fe 54  72 10 54 70 7f 90 72 50  |.&r.j..Tr.Tp..rP|
+ 0000aea0  7f 26 70 00 7f 91 72 50  56 70 6a 18 fe 55 72 10  |.&p...rPVpj..Ur.|
+ 0000aeb0  7f 26 70 10 56 70 7e 26  73 50 46 04 7e 26 73 30  |.&p.Vp~&sPF.~&s0|
+-0000aec0  54 70 7e c1 77 a0 67 08  6a 10 fe 0c 77 90 67 18  |Tp~.w.g.j...w.g.|
++0000aec0  54 70 7e 16 77 00 67 08  6a 10 fe 0c 77 90 67 18  |Tp~.w.g.j...w.g.|
+ 0000aed0  6a 10 fe 4b 77 00 67 28  7e c1 77 90 67 38 7e c1  |j..Kw.g(~.w.g8~.|
+ 0000aee0  77 80 67 48 7e bd 77 a0  67 58 6a 10 fe 4e 77 b0  |w.gH~.w.gXj..Nw.|
+ 0000aef0  67 78 6a 10 fe 0c 77 80  67 00 6a 10 fe 47 77 90  |gxj...w.g.j..Gw.|
+@@ -6417,6 +6417,10 @@
+ 0001b640  00 00 00 00 00 00 e5 ae  00 00 4b 70 00 00 e5 b4  |..........Kp....|
+ 0001b650  00 01 4a 7a ff ff ff ff  ff ff ff ff ff ff ff ff  |..Jz............|
+ 0001b660  ff ff ff ff ff ff ff ff  ff ff ff ff ff ff ff ff  |................|
+-0001b670  ff ff ff ff ff ff ff ff  ff ff ff ff ff ff ff ff  |................|
+-0001b680  ff ff ff ff ff ff ff ff  ff ff ff ff ff ff ff ff  |................|
+-0001b690  ff ff ff ff ff ff ff ff  ff ff ff ff ff ff ff ff  |................|
+-0001b6a0  ff ff ff ff ff ff ff ff  ff ff ff ff ff ff ff ff  |................|
++0001b670  21 bb 17 01 01 00 6d f0  6a 28 00 ff d5 13 a8 0f  |!.....m.j(......|
++0001b680  46 0c 77 01 7f 16 67 00  7e c1 77 a0 67 01 01 00  |F.w...g.~.w.g...|
++0001b690  6d 70 54 70 ff ff ff ff  ff ff ff ff ff ff ff ff  |mpTp............|
++0001b6a0  ff ff ff ff ff ff ff ff  ff ff ff ff ff ff ff ff  |................|

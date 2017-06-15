@@ -12,6 +12,7 @@
 
 # ignore generated files
 *.bat
+*.diff
 .d
 
 # Temp are (should be) just junk

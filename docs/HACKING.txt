@@ -15,7 +15,7 @@ To use the radare projects, first install the project files:
 
 Then ensure you have the image file(s):
 
-    make x220.8DHT34WW.img x230.G2HT35WW.img x260.R02HT29W.img
+    make x200.7XHT24WW.img x220.8DHT34WW.img x230.G2HT35WW.img x260.R02HT29W.img
 
 Then start radare with one of these projects:
 
