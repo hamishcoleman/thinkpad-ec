@@ -2,7 +2,7 @@ Much of this is educated guesswork from the observed steps, but it might
 provide a starting point for further investigation.  Some of it could also
 be just plain wrong.  
 
-My current undetstanding on how the EC flash process (as opposed to
+My current understanding on how the EC flash process (as opposed to
 the BIOS one) works are as follows:
 
     1) dosflash loads firmware and does some validations
@@ -21,4 +21,3 @@ the BIOS one) works are as follows:
        it sends itself a reset signal and reboots into the new EC firmware.
     9) The BIOS gets confirmation from the EC that it is back up and running
        and allows the boot sequence to continue.
-

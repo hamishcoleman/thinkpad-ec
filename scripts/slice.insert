@@ -5,7 +5,7 @@
 #
 # TODO:
 # - a tool that is portable to Windows
-# - should output dependancy information
+# - should output dependency information
 
 INFOFILE="$1"
 if [ ! -r "$INFOFILE" ]; then

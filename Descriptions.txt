@@ -46,7 +46,7 @@ x230t.GCHT25WW.s01DA000.FL2.orig 854d2b6a75060b9c8257cffc72f101e0b98e205b x230t 
 x250.N10HT17W.s01E5000.FL2.orig  0732e80cddd0efcca9ba72dcfbdd0110d3c29dae x250 EC 1.16 Flash File (unpatched)
 x260.R02HT29W.s0AR0200.FL2.orig  35a9b0d623fea82a440aae816a91da2cb18f6801 x260 EC 1.11 Flash File (unpatched)
 
-# The actual firmware extracted from the firmware file
+# The actual EC firmware extracted from the BIOS firmware file
 t430.G1HT34WW.img.orig     d3fde28cbdcb628da23ff30ee6c4a57d976700bf t430 EC 1.12 (decrypted)
 t430.G1HT35WW.img.orig     08ab64a0e61865781466fb2bfd97210fe0651bc8 t430 EC 1.13 (decrypted)
 t430s.G7HT39WW.img.orig    6e68545a76b42d534c8a4b24a63bf7bece996522 t430s EC 1.15 (decrypted)

@@ -12,8 +12,8 @@ modification.
 ThinkPad x220 matrix:
 ---------------------
 
-This table is arranged in a array of bytes that is 16 columns by 17 rows,
-with the second half of each row being unused (except for one anomaly)
+This table is arranged in an array of bytes that is 16 columns by 17 rows,
+with the second half of each row being unused (except for one anomaly).
 
 This corresponds to the physical hardware, which uses 16 "drive" lines
 and 8 "sense" lines - with one extra row, probably for some software keys.
@@ -37,9 +37,9 @@ matrix[10]: 4c 7a 9a 99 98 97 a0 54   Del  F11  Vol+ Vol- Mute IBM  Mic  Down
 matrix[11]: 55 56 00 00 9c 00 89 8a   PgUp PgDn           Menu      PgBk PgFd
 matrix[12]: 50 51 00 00 00 53 7e 4f   Home End                 Up   Paus Left
 matrix[13]: 00 7c 7d 00 00 3c 00 3e        PrSc ScLk           AltL      AltR
-matrix[14]: 00 00 00 2c 00 00 39 00                  SftL           SftR     
+matrix[14]: 00 00 00 2c 00 00 39 00                  SftL           SftR
 matrix[15]: 3a 00 00 00 00 00 40 00   CtlL                          CtlR
- 
+
 matrix[15][15] = 0x96                 ??
 matrix[16]: 00 9d 00 9e 9f 4a 3a 00        WinR?     Pwr? Slp? Wak? CtlL
 
@@ -98,4 +98,3 @@ controller scancode of the key pressed (Note that this scancode is internal
 to the EC - it is not the same as the BIOS scancode)
 
     (source: x230 EC firmware version G2HT35WW, offset 0x219e8)
-
