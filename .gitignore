@@ -3,6 +3,7 @@
 *.iso
 *.iso.orig
 *.txt.orig
+*.iso*.extract
 *.img
 *.img.orig
 *.img.enc
