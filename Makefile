@@ -69,11 +69,9 @@ patched.x230t.iso: gcuj24us.iso
 
 list_iso:
 	$(info )
-	$(info The following make targets are available to produce patched and)
-	$(info bootable ISO images:)
+	$(info This list was a duplicate of the list_laptops list - please refer to that)
 	$(info )
-	@for i in *.desc; do echo `basename $$i .orig.desc` - for patching `cat $$i`; done
-	@echo
+	@false
 
 .PHONY: list_iso
 
