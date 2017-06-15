@@ -1,0 +1,53 @@
+#
+# This file contains the text descriptions of the various iso, FL2, decrypted
+# EC files
+#
+# It is intended mostly for informational use, but is also used to add a
+# description line into the generated output
+#
+# The format is a filename followed by whitespace and the rest of the line is
+# free-form english
+
+# The iso images downloadable from Lenovo
+8duj27us.iso.orig x220 BIOS 1.42 (8DET72WW) EC 1.24 (8DHT34WW)
+g1uj25us.iso.orig t430 BIOS 2.57 (G1ET97WW) EC 1.12 (G1HT34WW)
+g1uj40us.iso.orig t430 BIOS 2.72 (G1ETB2WW) EC 1.13 (G1HT35WW)
+g2uj25us.iso.orig x230 BIOS 2.68 (G2ETA8WW) EC 1.14 (G2HT35WW)
+g4uj30us.iso.orig t530 and t530i BIOS 2.66 (G4ETA6WW) EC 1.13 (G4HT39WW)
+g4uj32us.iso.orig t530 and t530i BIOS 2.68 (G4ETA8WW) EC 1.13 (G4HT39WW)
+g5uj28us.iso.orig w530 BIOS 2.65 (G5ETA5WW) EC 1.13 (G4HT39WW)
+g5uj30us.iso.orig w530 BIOS 2.67 (G5ETA7WW) EC 1.13 (G4HT39WW)
+g7uj18us.iso.orig t430s BIOS 2.64 (G7ETA4WW) EC 1.15 (G7HT39WW)
+g7uj19us.iso.orig t430s BIOS 2.65 (G7ETA5WW) EC 1.15 (G7HT39WW)
+g7uj21us.iso.orig t430s BIOS 2.67 (G7ETA7WW) EC 1.15 (G7HT39WW)
+gcuj24us.iso.orig x230t BIOS 2.64 (GCETA4WW) EC 1.14 (GCHT25WW)
+gcuj25us.iso.orig x230t BIOS 2.65 (GCETA5WW) EC 1.14 (GCHT25WW)
+gcuj26us.iso.orig x230t BIOS 2.66 (GCETA6WW) EC 1.14 (GCHT25WW)
+n10ur10w.iso.orig x250 BIOS 1.21 (N10ET42W) EC 1.16 (N10HT17W)
+r02uj46d.iso.orig x260 BIOS 1.19 (R02ET46W) EC 1.11 (R02HT29W)
+r0iuj09wd.iso.orig x270 BIOS 1.16 (R0IET38W) EC 1.12 (R0IHT30W)
+
+# The firmware files from inside the ISO images
+t430.G1HT34WW.s01D2000.FL2.orig t430 EC 1.12 Flash File (unpatched)
+t430.G1HT35WW.s01D2000.FL2.orig t430 EC 1.13 Flash File (unpatched)
+t430s.G7HT39WW.s01D8000.FL2.orig t430s EC 1.15 Flash File (unpatched)
+t530.G4HT39WW.s01D5100.FL2.orig t530 EC 1.13 Flash File (unpatched)
+w530.G4HT39WW.s01D5200.FL2.orig w530 EC 1.13 Flash File (unpatched)
+x220.8DHT34WW.s01CB000.FL2.orig x220 EC 1.24 Flash File (unpatched)
+x230.G2HT35WW.s01D3000.FL2.orig x230 EC 1.14 Flash File (unpatched)
+x230t.GCHT25WW.s01DA000.FL2.orig x230t EC 1.14 Flash File (unpatched)
+x250.N10HT17W.s01E5000.FL2.orig x250 EC 1.16 Flash File (unpatched)
+x260.R02HT29W.s0AR0200.FL2.orig x260 EC 1.11 Flash File (unpatched)
+
+# The actual firmware extracted from the firmware file
+t430.G1HT34WW.img.orig t430 EC 1.12 (decrypted)
+t430.G1HT35WW.img.orig t430 EC 1.13 (decrypted)
+t430s.G7HT39WW.img.orig t430s EC 1.15 (decrypted)
+t530.G4HT39WW.img.orig t530 EC 1.13 (decrypted)
+w530.G4HT39WW.img.orig w530 EC 1.13 (decrypted)
+x220.8DHT34WW.img.enc.orig x220 EC 1.24 (encrypted)
+x230.G2HT35WW.img.orig x230 EC 1.14 (decrypted)
+x230t.GCHT25WW.img.orig x230t EC 1.14 (decrypted)
+x250.N10HT17W.img.enc.orig x250 EC 1.16 (encrypted)
+x260.R02HT29W.img.orig x260 EC 1.11 (not encrypted)
+

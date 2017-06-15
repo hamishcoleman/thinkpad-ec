@@ -210,8 +210,8 @@ $(DEPSDIR)/slice.insert.deps: Makefile
 # DOS path separator.  It feels like there should be a beter way if I put
 # my mind to it..
 #
-%.iso.bat: %.iso.orig %.iso.orig.desc autoexec.bat.template
-	sed -e "s%__DIR%`mdir -/ -b -i $<@@$(FAT_OFFSET) |grep FL2 |cut -d/ -f3`%; s%__FL2%`mdir -/ -b -i $<@@$(FAT_OFFSET) |grep FL2 |cut -d/ -f4`%; s%__DESC%`cat $<.desc`%; s/__BUILDINFO/$(BUILDINFO)/" autoexec.bat.template >$@.tmp
+%.iso.bat: %.iso.orig descriptions.txt autoexec.bat.template
+	sed -e "s%__DIR%`mdir -/ -b -i $<@@$(FAT_OFFSET) |grep FL2 |cut -d/ -f3`%; s%__FL2%`mdir -/ -b -i $<@@$(FAT_OFFSET) |grep FL2 |cut -d/ -f4`%; s%__DESC%`grep $< descriptions.txt |cut -d" " -f2-`%; s/__BUILDINFO/$(BUILDINFO)/" autoexec.bat.template >$@.tmp
 	mv $@.tmp $@
 	touch -d @1 $@
 
