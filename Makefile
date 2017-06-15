@@ -42,7 +42,7 @@ really_clean: clean
 
 # manually managed list of laptops - update this if the BIOS versions change
 
-patched.t430.iso: g1uj38us.iso
+patched.t430.iso: g1uj40us.iso
 	$(call patched_iso,$<,$@)
 
 patched.t430.257.iso: g1uj25us.iso
@@ -312,7 +312,7 @@ $(call rule_fl2,w530.G4HT39WW.img.enc,w530.G4HT39WW.s01D5200.FL2)
 $(call rule_fl2,x230.G2HT35WW.img.enc,x230.G2HT35WW.s01D3000.FL2)
 $(call rule_fl2,x230t.GCHT25WW.img.enc,x230t.GCHT25WW.s01DA000.FL2)
 
-$(call rule_iso,t430.G1HT35WW.s01D2000.FL2,g1uj38us.iso)
+$(call rule_iso,t430.G1HT35WW.s01D2000.FL2,g1uj40us.iso)
 $(call rule_iso,t430.G1HT34WW.s01D2000.FL2,g1uj25us.iso)
 $(call rule_iso,x230.G2HT35WW.s01D3000.FL2,g2uj25us.iso)
 $(call rule_iso,t530.G4HT39WW.s01D5100.FL2,g4uj30us.iso)
