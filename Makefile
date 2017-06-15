@@ -10,6 +10,8 @@ all:    list_laptops
 
 .PHONY: all
 
+QEMU_OPTIONS ?= -enable-kvm
+
 GITVERSION = $(shell git describe --dirty --abbrev=6 ) ($(shell date +%Y%m%d))
 BUILDINFO = $(GITVERSION) $(MAKECMDGOALS)
 
@@ -269,10 +271,10 @@ endef
 
 # simple testing of images in an emulator
 %.iso.test: %.iso
-	qemu-system-x86_64 -enable-kvm -cdrom $<
+	qemu-system-x86_64 $(QEMU_OPTIONS) -cdrom $<
 
 %.img.test: %.img
-	qemu-system-x86_64 -enable-kvm -hda $<
+	qemu-system-x86_64 $(QEMU_OPTIONS) -hda $<
 
 mec-tools/Makefile:
 	git submodule update --init --remote
