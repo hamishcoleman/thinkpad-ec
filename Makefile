@@ -36,9 +36,9 @@ clean:
             *.img.enc.orig *.img.orig *.bat \
             *.img
 
-# Also remove the large downloaded iso images
+# Also remove large iso images and readme files, both downloaded from remote servers.
 really_clean: clean
-	rm -f *.iso.orig
+	rm -f *.iso.orig *.iso.orig.txt
 
 # manually managed list of laptops - update this if the BIOS versions change
 
@@ -178,6 +178,12 @@ $(DEPSDIR)/slice.insert.deps: Makefile
 	wget -O $@ https://download.lenovo.com/pccbbs/mobiles/$(basename $@)
 	scripts/checksum --rm_on_fail $@
 	touch $@
+
+# Download any README text file released alongside to ISO images.
+# Useful for looking up firmware versions and the changelog.
+# NOTE: Makes an assumption about the Lenovo URL not changing.
+%.iso.orig.txt:
+	wget -O $@ https://download.lenovo.com/pccbbs/mobiles/$(subst .iso.orig,,$@)
 
 # Generate all the orig images so that we can diff against them later
 

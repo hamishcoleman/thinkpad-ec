@@ -2,6 +2,7 @@
 # ignore the files that we do not have clear permission to distribute
 *.iso
 *.iso.orig
+*.iso.orig.txt
 *.img
 *.img.orig
 *.img.enc
