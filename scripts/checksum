@@ -6,7 +6,7 @@
 # FIXME
 # - the description file is expected to be in the current dir
 
-DESCRIPTIONS=descriptions.txt
+DESCRIPTIONS=Descriptions.txt
 
 if [ "$1" == "--rm_on_fail" ]; then
     RM_ON_FAIL=yes
