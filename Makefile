@@ -170,6 +170,9 @@ $(DEPSDIR)/slice.insert.deps: Makefile
 # file - and I dont want to work around that with makefile magic as that would
 # defeat the purpose of keeping the makefile simple
 
+# TODO - the scripts/describe output depends on Descriptions.txt -
+# could parse that file and create some deps
+
 #
 # Download any ISO image that we have a checksum for
 # NOTE: makes an assumption about the Lenovo URL not changing
@@ -212,7 +215,7 @@ $(DEPSDIR)/slice.insert.deps: Makefile
 # DOS path separator.  It feels like there should be a beter way if I put
 # my mind to it..
 #
-%.iso.bat: %.iso.orig descriptions.txt autoexec.bat.template
+%.iso.bat: %.iso.orig autoexec.bat.template
 	sed -e "s%__DIR%`mdir -/ -b -i $<@@$(FAT_OFFSET) |grep FL2 |cut -d/ -f3`%; s%__FL2%`mdir -/ -b -i $<@@$(FAT_OFFSET) |grep FL2 |cut -d/ -f4`%; s%__DESC%`scripts/describe $<`%; s/__BUILDINFO/$(BUILDINFO)/" autoexec.bat.template >$@.tmp
 	mv $@.tmp $@
 	touch -d @1 $@
