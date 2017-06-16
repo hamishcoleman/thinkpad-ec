@@ -397,7 +397,7 @@ f hit6_2 4 0x00025c7a
 "e file.md5 = f2d97bc8d42061315c527207bad5ffa8"
 "e file.nowarn = true"
 "e file.openmany = 1"
-"e file.path = x220.8DHT34WW.img"
+"e file.path = x220.8DHT34WW.img.enc.orig"
 "e file.project = x220.8DHT34WW"
 "e file.sha1 = d3c3db9352f8e3b5decc69abe08e725958f2284f"
 "e file.type = "
