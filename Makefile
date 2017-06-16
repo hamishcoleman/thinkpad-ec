@@ -288,12 +288,14 @@ mec-tools/mec_encrypt: mec-tools/Makefile
 # using function calls to build rules with actions is kind of a hack,
 # which is why these are all on oneline.
 
+# Insert the new firmware into the FL2 file
 # $1 = encoded EC firmware
 # $2 = FL2 filename
-define rule_fl2
+define rule_fl2_patch
     $(2): $(1) ; ./scripts/slice.insert $(1).slice $(1) $(2)
 endef
 
+# Create a new ISO image with patches applied
 # $1 = FL2 filename
 # $2 = ISO image
 define rule_iso
@@ -307,13 +309,13 @@ endef
 #   rule definitions
 
 # Hacky, non generic rules
-$(call rule_fl2,t430.G1HT35WW.img.enc,t430.G1HT35WW.s01D2000.FL2)
-$(call rule_fl2,t430.G1HT34WW.img.enc,t430.G1HT34WW.s01D2000.FL2)
-$(call rule_fl2,t430s.G7HT39WW.img.enc,t430s.G7HT39WW.s01D8000.FL2)
-$(call rule_fl2,t530.G4HT39WW.img.enc,t530.G4HT39WW.s01D5100.FL2)
-$(call rule_fl2,w530.G4HT39WW.img.enc,w530.G4HT39WW.s01D5200.FL2)
-$(call rule_fl2,x230.G2HT35WW.img.enc,x230.G2HT35WW.s01D3000.FL2)
-$(call rule_fl2,x230t.GCHT25WW.img.enc,x230t.GCHT25WW.s01DA000.FL2)
+$(call rule_fl2_patch,t430.G1HT35WW.img.enc,t430.G1HT35WW.s01D2000.FL2)
+$(call rule_fl2_patch,t430.G1HT34WW.img.enc,t430.G1HT34WW.s01D2000.FL2)
+$(call rule_fl2_patch,t430s.G7HT39WW.img.enc,t430s.G7HT39WW.s01D8000.FL2)
+$(call rule_fl2_patch,t530.G4HT39WW.img.enc,t530.G4HT39WW.s01D5100.FL2)
+$(call rule_fl2_patch,w530.G4HT39WW.img.enc,w530.G4HT39WW.s01D5200.FL2)
+$(call rule_fl2_patch,x230.G2HT35WW.img.enc,x230.G2HT35WW.s01D3000.FL2)
+$(call rule_fl2_patch,x230t.GCHT25WW.img.enc,x230t.GCHT25WW.s01DA000.FL2)
 
 $(call rule_iso,t430.G1HT35WW.s01D2000.FL2,g1uj40us.iso)
 $(call rule_iso,t430.G1HT34WW.s01D2000.FL2,g1uj25us.iso)
