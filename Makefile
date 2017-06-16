@@ -174,7 +174,8 @@ $(DEPSDIR)/slice.insert.deps: Makefile
 # Download any ISO image that we have a checksum for
 # NOTE: makes an assumption about the Lenovo URL not changing
 %.iso.orig:
-	$(info Downloading $(shell scripts/describe $@))
+	@echo -n "Downloading "
+	@scripts/describe $@
 	wget -O $@ https://download.lenovo.com/pccbbs/mobiles/$(basename $@)
 	scripts/checksum --rm_on_fail $@
 	touch $@
