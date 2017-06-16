@@ -181,16 +181,16 @@ $(DEPSDIR)/slice.insert.deps: Makefile
 # Generate all the orig images so that we can diff against them later
 
 # a the generic binary extractor
-%.orig:  %.slice slice.extract
-	./slice.extract $< $@
+%.orig:  %.slice scripts/slice.extract
+	./scripts/slice.extract $< $@
 
 %.img.orig:  %.img.enc.orig %.img.orig.sha1 mec-tools/mec_encrypt
 	mec-tools/mec_encrypt -d $< $@
 	sha1sum -c $@.sha1
 
 # a generic encryptor
-%.img.enc:  %.img xx30.encrypt
-	./xx30.encrypt $< $@
+%.img.enc:  %.img scripts/xx30.encrypt
+	./scripts/xx30.encrypt $< $@
 
 # TODO
 # - if we ever get generic extraction or encryption for more than
@@ -204,7 +204,7 @@ $(DEPSDIR)/slice.insert.deps: Makefile
 # Generate a working file with any known patches applied
 %.img: %.img.orig
 	cp --reflink=auto $< $@
-	./hexpatch.pl $@ $@.d/*.patch
+	./scripts/hexpatch.pl $@ $@.d/*.patch
 
 # using both __DIR and __FL2 is a hack to get around needing to quote the
 # DOS path separator.  It feels like there should be a beter way if I put
@@ -242,12 +242,12 @@ $(DEPSDIR)/slice.insert.deps: Makefile
 
 # use the included geteltorito script always, since we know it does not have
 # the hdd size bug
-GETELTORITO := ./geteltorito
+GETELTORITO := ./scripts/geteltorito
 
 # extract the DOS boot image from an iso (and fix it up so qemu can boot it)
 %.img: %.iso
 	$(GETELTORITO) -o $@ $<
-	./hexpatch.pl $@ fix-hdd-image-`stat -c %s $@`.patch
+	./scripts/hexpatch.pl $@ fix-hdd-image-`stat -c %s $@`.patch
 	$(call build_info,$<.bat)
 
 # $1 is the lenovo named iso
@@ -286,13 +286,13 @@ mec-tools/mec_encrypt: mec-tools/Makefile
 # $1 = encoded EC firmware
 # $2 = FL2 filename
 define rule_fl2
-    $(2): $(1) ; ./slice.insert $(1).slice $(1) $(2)
+    $(2): $(1) ; ./scripts/slice.insert $(1).slice $(1) $(2)
 endef
 
 # $1 = FL2 filename
 # $2 = ISO image
 define rule_iso
-    $(2): $(1) $(2).bat ; ./slice.insert $(1).slice $(1) $(2) && sed -i "s/__BUILT/`sha1sum $(1)`/" $(2).bat && mcopy -m -o -i $(2)@@$(FAT_OFFSET) $(2).bat ::AUTOEXEC.BAT && mdel -i $(2)@@$(FAT_OFFSET) ::EFI/Boot/BootX64.efi
+    $(2): $(1) $(2).bat ; ./scripts/slice.insert $(1).slice $(1) $(2) && sed -i "s/__BUILT/`sha1sum $(1)`/" $(2).bat && mcopy -m -o -i $(2)@@$(FAT_OFFSET) $(2).bat ::AUTOEXEC.BAT && mdel -i $(2)@@$(FAT_OFFSET) ::EFI/Boot/BootX64.efi
 endef
 
 #
