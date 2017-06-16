@@ -309,6 +309,10 @@ endef
 # define two targets with one define..
 # $1 = FL2 filename basename
 # $2 = ISO image basename
+#
+# TODO - checking the checksum here is probably too strict - it adds
+# more barriers to downloading some random bios ISO and starting to port
+# the code to it.
 define rule_fl2_extract
     $(1).orig: $(2).orig ; ./scripts/copyFL2 from_iso $(2).orig $(1).orig && ./scripts/checksum --rm_on_fail $(2).orig
 endef

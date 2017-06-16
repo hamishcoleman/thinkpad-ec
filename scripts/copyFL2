@@ -6,7 +6,9 @@
 # All the bios update iso images I have checked have had a fat16 filesystem
 # embedded in a dos mbr image as the el-torito ISO payload.  They also all
 # had the same offset to this fat filesystem, so hardcode that offset here.
-# TODO - one day, this offset will be wrong.  Deal with that..
+# The offset value is bytes in decimal.
+# TODO - one day, this offset will be wrong.  (geteltorito could be taught
+# to output the starting sector it found as a starting point)
 FAT_OFFSET=71680
 
 DIR="$1"
