@@ -174,6 +174,7 @@ $(DEPSDIR)/slice.insert.deps: Makefile
 # Download any ISO image that we have a checksum for
 # NOTE: makes an assumption about the Lenovo URL not changing
 %.iso.orig:  %.iso.orig.sha1
+	$(info Downloading $(shell scripts/describe $@))
 	wget -O $@ https://download.lenovo.com/pccbbs/mobiles/$(basename $@)
 	sha1sum -c $<
 	touch $@
@@ -211,7 +212,7 @@ $(DEPSDIR)/slice.insert.deps: Makefile
 # my mind to it..
 #
 %.iso.bat: %.iso.orig descriptions.txt autoexec.bat.template
-	sed -e "s%__DIR%`mdir -/ -b -i $<@@$(FAT_OFFSET) |grep FL2 |cut -d/ -f3`%; s%__FL2%`mdir -/ -b -i $<@@$(FAT_OFFSET) |grep FL2 |cut -d/ -f4`%; s%__DESC%`grep $< descriptions.txt |cut -d" " -f2-`%; s/__BUILDINFO/$(BUILDINFO)/" autoexec.bat.template >$@.tmp
+	sed -e "s%__DIR%`mdir -/ -b -i $<@@$(FAT_OFFSET) |grep FL2 |cut -d/ -f3`%; s%__FL2%`mdir -/ -b -i $<@@$(FAT_OFFSET) |grep FL2 |cut -d/ -f4`%; s%__DESC%`scripts/describe $<`%; s/__BUILDINFO/$(BUILDINFO)/" autoexec.bat.template >$@.tmp
 	mv $@.tmp $@
 	touch -d @1 $@
 
