@@ -324,16 +324,16 @@ endef
 #   rule definitions
 
 # Hacky, non generic rules
-$(call rule_fl2_patch,t430.G1HT35WW.img.enc,t430.G1HT35WW.s01D2000.FL2)
 $(call rule_fl2_patch,t430.G1HT34WW.img.enc,t430.G1HT34WW.s01D2000.FL2)
+$(call rule_fl2_patch,t430.G1HT35WW.img.enc,t430.G1HT35WW.s01D2000.FL2)
 $(call rule_fl2_patch,t430s.G7HT39WW.img.enc,t430s.G7HT39WW.s01D8000.FL2)
 $(call rule_fl2_patch,t530.G4HT39WW.img.enc,t530.G4HT39WW.s01D5100.FL2)
 $(call rule_fl2_patch,w530.G4HT39WW.img.enc,w530.G4HT39WW.s01D5200.FL2)
 $(call rule_fl2_patch,x230.G2HT35WW.img.enc,x230.G2HT35WW.s01D3000.FL2)
 $(call rule_fl2_patch,x230t.GCHT25WW.img.enc,x230t.GCHT25WW.s01DA000.FL2)
 
-$(call rule_iso,t430.G1HT35WW.s01D2000.FL2,g1uj40us.iso)
 $(call rule_iso,t430.G1HT34WW.s01D2000.FL2,g1uj25us.iso)
+$(call rule_iso,t430.G1HT35WW.s01D2000.FL2,g1uj40us.iso)
 $(call rule_iso,x230.G2HT35WW.s01D3000.FL2,g2uj25us.iso)
 $(call rule_iso,t530.G4HT39WW.s01D5100.FL2,g4uj30us.iso)
 $(call rule_iso,w530.G4HT39WW.s01D5200.FL2,g5uj28us.iso)
