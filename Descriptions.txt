@@ -36,13 +36,13 @@ r0iuj09wd.iso.orig 21b3abf69b9ee7ecf12fe0880564312122b1ff75 x270 BIOS 1.16 (R0IE
 
 # The firmware files from inside the ISO images
 t430.G1HT34WW.s01D2000.FL2.orig  FIXME                                    t430 EC 1.12 Flash File (unpatched)
-t430.G1HT35WW.s01D2000.FL2.orig  FIXME                                    t430 EC 1.13 Flash File (unpatched)
-t430s.G7HT39WW.s01D8000.FL2.orig FIXME                                    t430s EC 1.15 Flash File (unpatched)
-t530.G4HT39WW.s01D5100.FL2.orig  FIXME                                    t530 EC 1.13 Flash File (unpatched)
-w530.G4HT39WW.s01D5200.FL2.orig  FIXME                                    w530 EC 1.13 Flash File (unpatched)
+t430.G1HT35WW.s01D2000.FL2.orig  617a85d1a4df92ef1171369d6c8a168b8e864e87 t430 EC 1.13 Flash File (unpatched)
+t430s.G7HT39WW.s01D8000.FL2.orig c0b5b12c3ad63c6acc752cbf77f05f43df7d2502 t430s EC 1.15 Flash File (unpatched)
+t530.G4HT39WW.s01D5100.FL2.orig  071099bcad69b0f54448ab93b4edd0f7ed214d8a t530 EC 1.13 Flash File (unpatched)
+w530.G4HT39WW.s01D5200.FL2.orig  071099bcad69b0f54448ab93b4edd0f7ed214d8a w530 EC 1.13 Flash File (unpatched)
 x220.8DHT34WW.s01CB000.FL2.orig  770588d03c2dcccc833ef911f6247519cfbd6701 x220 EC 1.24 Flash File (unpatched)
 x230.G2HT35WW.s01D3000.FL2.orig  55d419655d849334feb535c51a62795153e6af7f x230 EC 1.14 Flash File (unpatched)
-x230t.GCHT25WW.s01DA000.FL2.orig FIXME                                    x230t EC 1.14 Flash File (unpatched)
+x230t.GCHT25WW.s01DA000.FL2.orig 854d2b6a75060b9c8257cffc72f101e0b98e205b x230t EC 1.14 Flash File (unpatched)
 x250.N10HT17W.s01E5000.FL2.orig  0732e80cddd0efcca9ba72dcfbdd0110d3c29dae x250 EC 1.16 Flash File (unpatched)
 x260.R02HT29W.s0AR0200.FL2.orig  35a9b0d623fea82a440aae816a91da2cb18f6801 x260 EC 1.11 Flash File (unpatched)
 
@@ -57,4 +57,3 @@ x230.G2HT35WW.img.orig     d70f5434ef316a66a6195651d9e231e84a2464a1 x230 EC 1.14
 x230t.GCHT25WW.img.orig    d9db308756a6a82ff83ee8e3eae930b5ff550e28 x230t EC 1.14 (decrypted)
 x250.N10HT17W.img.enc.orig FIXME                                    x250 EC 1.16 (encrypted)
 x260.R02HT29W.img.orig     FIXME                                    x260 EC 1.11 (not encrypted)
-

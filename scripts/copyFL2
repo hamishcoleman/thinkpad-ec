@@ -1,0 +1,61 @@
+#!/bin/sh
+#
+# Deal with copying the FL2 file from and to the ISO image
+#
+
+# All the bios update iso images I have checked have had a fat16 filesystem
+# embedded in a dos mbr image as the el-torito ISO payload.  They also all
+# had the same offset to this fat filesystem, so hardcode that offset here.
+# TODO - one day, this offset will be wrong.  Deal with that..
+FAT_OFFSET=71680
+
+DIR="$1"
+case "$DIR" in
+    from_iso) ;;
+    to_iso)   ;;
+    *)
+        echo direction is either from_iso or to_iso
+        exit 1
+        ;;
+esac
+shift
+
+ISO="$1"
+if [ ! -e "$ISO" ]; then
+    echo iso file must exist
+    exit 1
+fi
+shift
+
+FILENAME="$1"
+if [ -z "$FILENAME" ]; then
+    echo need filename
+    exit 1
+fi
+shift
+
+FL2=$(mdir -i "$ISO"@@"$FAT_OFFSET" -/ -b |grep FL2)
+if [ -z "$FL2" ]; then
+    echo "Error: could not find any FL2 files in $ISO"
+    exit 1
+fi
+if [ $(echo "$FL2" |wc -w) -ne 1 ]; then
+    echo "Error: $ISO has more than one FL2 file:"
+    echo "$FL2"
+    exit 1
+fi
+
+from_iso() {
+    mcopy -i "$ISO"@@"$FAT_OFFSET" "$FL2" "$FILENAME"
+}
+
+to_iso() {
+    if [ ! -f "$FILENAME" ]; then
+        echo "Error: $FILENAME must exist"
+        exit 1
+    fi
+    mcopy -m -o -i "$ISO"@@"$FAT_OFFSET" "$FILENAME" "$FL2"
+}
+
+$DIR
+
