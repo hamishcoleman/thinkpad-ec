@@ -173,10 +173,10 @@ $(DEPSDIR)/slice.insert.deps: Makefile
 #
 # Download any ISO image that we have a checksum for
 # NOTE: makes an assumption about the Lenovo URL not changing
-%.iso.orig:  %.iso.orig.sha1
+%.iso.orig:
 	$(info Downloading $(shell scripts/describe $@))
 	wget -O $@ https://download.lenovo.com/pccbbs/mobiles/$(basename $@)
-	sha1sum -c $<
+	scripts/checksum --rm_on_fail $@
 	touch $@
 
 # Generate all the orig images so that we can diff against them later
@@ -185,9 +185,9 @@ $(DEPSDIR)/slice.insert.deps: Makefile
 %.orig:  %.slice scripts/slice.extract
 	./scripts/slice.extract $< $@
 
-%.img.orig:  %.img.enc.orig %.img.orig.sha1 mec-tools/mec_encrypt
+%.img.orig:  %.img.enc.orig mec-tools/mec_encrypt
 	mec-tools/mec_encrypt -d $< $@
-	sha1sum -c $@.sha1
+	scripts/checksum --rm_on_fail $@
 
 # a generic encryptor
 %.img.enc:  %.img scripts/xx30.encrypt

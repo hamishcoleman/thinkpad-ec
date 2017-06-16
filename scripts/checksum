@@ -1,0 +1,48 @@
+#!/bin/bash
+#
+# Look up the given filename in the description file and confirm that
+# the checksum matches
+#
+# FIXME
+# - the description file is expected to be in the current dir
+
+DESCRIPTIONS=descriptions.txt
+
+if [ "$1" == "--rm_on_fail" ]; then
+    RM_ON_FAIL=yes
+    shift
+fi
+
+FILE="$1"
+if [ -z "$1" ]; then
+    echo need filename
+    exit 1
+fi
+
+LINE=$(egrep "^$FILE " "$DESCRIPTIONS")
+
+if [ $? -ne 0 ]; then
+    echo "Unknown file $FILE"
+    exit 1
+fi
+
+if [ ! -e "$FILE" ]; then
+    echo "File $FILE does not exist"
+    exit 1
+fi
+
+EXPECT=$(echo "$LINE" | awk -- '{print $2}')
+GOT=$(sha1sum "$FILE" | cut -d" " -f1)
+
+if [ "$EXPECT" != "$GOT" ]; then
+    echo "File $FILE failed checksum check"
+
+    if [ "$RM_ON_FAIL" ]; then
+        rm $FILE
+    fi
+
+    exit 1
+fi
+
+exit 0
+
