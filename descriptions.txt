@@ -52,7 +52,7 @@ t430.G1HT35WW.img.orig     08ab64a0e61865781466fb2bfd97210fe0651bc8 t430 EC 1.13
 t430s.G7HT39WW.img.orig    6e68545a76b42d534c8a4b24a63bf7bece996522 t430s EC 1.15 (decrypted)
 t530.G4HT39WW.img.orig     85257101482d8ec7a70d860e176a5fff805fd572 t530 EC 1.13 (decrypted)
 w530.G4HT39WW.img.orig     85257101482d8ec7a70d860e176a5fff805fd572 w530 EC 1.13 (decrypted)
-x220.8DHT34WW.img.enc.orig 5dccc0284991ef5144e2b9a114249edb77fa0b28 x220 EC 1.24 (encrypted)
+x220.8DHT34WW.img.orig     ccdff63b5a14dda714e2a1ca14803f15ee0befde x220 EC 1.24 (encrypted)
 x230.G2HT35WW.img.orig     d70f5434ef316a66a6195651d9e231e84a2464a1 x230 EC 1.14 (decrypted)
 x230t.GCHT25WW.img.orig    d9db308756a6a82ff83ee8e3eae930b5ff550e28 x230t EC 1.14 (decrypted)
 x250.N10HT17W.img.enc.orig FIXME                                    x250 EC 1.16 (encrypted)
