@@ -32,11 +32,14 @@ list_laptops:
 
 .PHONY: list_laptops
 
+DEPSDIR := .d
+
 # Remove all the usual junk (including any patched firmware images)
 clean:
 	rm -f patched.*.iso patched.*.img *.FL2 *.FL2.orig *.img.enc \
             *.img.enc.orig *.img.orig *.bat \
             *.img
+	rm -rf "$(DEPSDIR)"
 
 # Also remove the large downloaded iso images
 really_clean: clean
@@ -155,7 +158,6 @@ define patch_disable
 	$(call patch_mv,$1,$1.OFF)
 endef
 
-DEPSDIR := .d
 $(shell mkdir -p $(DEPSDIR))
 -include $(DEPSDIR)/slice.extract.deps
 $(DEPSDIR)/slice.extract.deps: Makefile
