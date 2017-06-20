@@ -13,6 +13,7 @@
 # english description.
 
 # The iso images downloadable from Lenovo
+# (these checksums are those found on the Lenovo site)
 8duj27us.iso.orig  856a1a3efee305d335df10932b54aa478f818677 x220 BIOS 1.42 (8DET72WW) EC 1.24 (8DHT34WW)
 g1uj25us.iso.orig  759e27829c13d591b097cbda2f34843265ef8813 t430 BIOS 2.57 (G1ET97WW) EC 1.12 (G1HT34WW)
 g1uj38us.iso.orig  50a2c12ca5ed37ec80c0dbcb4d53f2b49b165d17 t430 BIOS 2.70 (G1ETB0WW) EC 1.13 (G1HT35WW)
