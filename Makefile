@@ -139,7 +139,7 @@ patch_disable_keyboard:
 # $2 is the new patch name
 define patch_mv
 	for i in *.img.d; do \
-	 mv $$i/$1 $$i/$2; \
+	 if [ -e $$i/$1 ]; then mv $$i/$1 $$i/$2; fi; \
 	done
 endef
 
