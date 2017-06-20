@@ -1,5 +1,5 @@
 
-The EC firmware has at leat two tables that control the Fn+key combinations.
+The EC firmware has at least two tables that control the Fn+key combinations.
 There is some evidence that there is a third table, but the table itself has
 not been found.
 
@@ -12,7 +12,7 @@ keycode from the second byte is substituted (with possible modifier
 keys from the third byte)
 
 The table is big enough to hold 11 key replacements, and in the standard
-firmare all but one of these are already used.
+firmware all but one of these are already used.
 
 This structure of this table was identical in both the x220 and x230
 firmware, just the contents differed.  The classic keyboard patch simply
@@ -27,13 +27,13 @@ patched the exact values from the x220 firmware into place.
     (source: x230 EC firmware version G2HT35WW, offset 0x21898)
 
 The address of this table and the number of entries contained in it are
-located in a pointer object. 
+located in a pointer object.
 
     ; x220 simple replacement table ptr
     org 0x1f058
     dw  11      ; number of entries
     dd  0x1f05e ; address of simple replacement table
-    
+
     (source: x220 EC firmware version 8DHT34WW, offset 0x1f058)
 
     ; x230 simple replacement table ptr

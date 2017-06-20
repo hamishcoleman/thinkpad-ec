@@ -15,7 +15,7 @@ To use the radare projects, first install the project files:
 
 Then ensure you have the image file(s):
 
-    make x220.8DHT34WW.img x230.G2HT35WW.img x260.R02HT29W.img 
+    make x220.8DHT34WW.img x230.G2HT35WW.img x260.R02HT29W.img
 
 Then start radare with one of these projects:
 
@@ -52,7 +52,7 @@ probably useful:
     the dosflash.exe utility to a DOS boot disk and then use a command
     similar to:
 
-        
+
         dosflash /sd /ipf ec /file s01D3000.FL2
 
     To insert the firmware image back into the bootable cdrom and boot this
@@ -70,4 +70,3 @@ References:
     http://forum.thinkpads.com/viewtopic.php?f=69&t=120776
     http://www.zmatt.net/unlocking-my-lenovo-laptop-part-3/
     http://plan9.stanleylieber.com/hardware/thinkpad/x230/x230.schematics.pdf
-

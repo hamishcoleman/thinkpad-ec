@@ -3,7 +3,7 @@ that have been examined.
 
 For this description, the firmwares that were examined are:
 *   x220 - Checked the major structures compared to x230
-*   x230 - intense dissassembly, with lesser checks on the rest of the
+*   x230 - intense disassembly, with lesser checks on the rest of the
     xx30 series confirming the same details
 *   x250 and x260 EC firmware - cursory checks
 
@@ -11,7 +11,7 @@ For this description, the firmwares that were examined are:
 Encryption:
 -----------
 
-Two parts of the firmware are encrypted - the interupt vector table at the
+Two parts of the firmware are encrypted - the interrupt vector table at the
 start of the image and area that has the encryption keys.
 
 See zmatt's blog post[1] for more details.

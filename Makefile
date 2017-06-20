@@ -187,7 +187,7 @@ $(DEPSDIR)/slice.insert.deps: Makefile
 
 # Generate all the orig images so that we can diff against them later
 
-# a the generic binary extractor
+# A generic binary extractor
 %.orig:  %.slice scripts/slice.extract
 	./scripts/slice.extract $< $@
 
@@ -202,7 +202,7 @@ $(DEPSDIR)/slice.insert.deps: Makefile
 	mec-tools/mec_csum_boot -c $@
 
 
-# a generic encryptor
+# A generic encryptor
 %.img.enc:  %.img scripts/xx30.encrypt
 	./scripts/xx30.encrypt $< $@
 
@@ -222,7 +222,7 @@ $(DEPSDIR)/slice.insert.deps: Makefile
 # FIXME - want --rm_on_fail semantics here
 
 # using both __DIR and __FL2 is a hack to get around needing to quote the
-# DOS path separator.  It feels like there should be a beter way if I put
+# DOS path separator.  It feels like there should be a better way if I put
 # my mind to it..
 #
 %.iso.bat: %.iso.orig autoexec.bat.template
