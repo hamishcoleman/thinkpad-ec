@@ -191,9 +191,16 @@ $(DEPSDIR)/slice.insert.deps: Makefile
 %.orig:  %.slice scripts/slice.extract
 	./scripts/slice.extract $< $@
 
+# TODO - checking the checksum here is probably too strict - it adds
+# more barriers to downloading some random bios ISO and starting to port
+# the code to it.
+# FIXME - wrap the mec-tools with something that gives --rm_on_fail semantics
 %.img.orig:  %.img.enc.orig mec-tools/mec_encrypt
 	mec-tools/mec_encrypt -d $< $@
 	scripts/checksum --rm_on_fail $@
+	mec-tools/mec_csum_flasher -c $@
+	mec-tools/mec_csum_boot -c $@
+
 
 # a generic encryptor
 %.img.enc:  %.img scripts/xx30.encrypt
@@ -212,6 +219,7 @@ $(DEPSDIR)/slice.insert.deps: Makefile
 %.img: %.img.orig
 	cp --reflink=auto $< $@
 	./scripts/hexpatch.pl $@ $@.d/*.patch
+# FIXME - want --rm_on_fail semantics here
 
 # using both __DIR and __FL2 is a hack to get around needing to quote the
 # DOS path separator.  It feels like there should be a beter way if I put
