@@ -218,8 +218,7 @@ $(DEPSDIR)/slice.insert.deps: Makefile
 # Generate a working file with any known patches applied
 %.img: %.img.orig
 	cp --reflink=auto $< $@
-	./scripts/hexpatch.pl $@ $@.d/*.patch
-# FIXME - want --rm_on_fail semantics here
+	./scripts/hexpatch.pl --rm_on_fail $@ $@.d/*.patch
 
 # using both __DIR and __FL2 is a hack to get around needing to quote the
 # DOS path separator.  It feels like there should be a better way if I put
@@ -262,7 +261,7 @@ GETELTORITO := ./scripts/geteltorito
 # extract the DOS boot image from an iso (and fix it up so qemu can boot it)
 %.img: %.iso
 	$(GETELTORITO) -o $@ $<
-	./scripts/hexpatch.pl $@ fix-hdd-image-`stat -c %s $@`.patch
+	./scripts/hexpatch.pl --rm_on_fail $@ fix-hdd-image-`stat -c %s $@`.patch
 	$(call build_info,$<.bat)
 
 # $1 is the lenovo named iso

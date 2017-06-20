@@ -20,7 +20,7 @@ sub usage() {
     print("patching the right file\n");
     print("\n");
     print("Usage:\n");
-    print("    hexpatch.pl binaryfile patchfile [patchfile...]\n");
+    print("    hexpatch.pl [--rm_on_fail] binaryfile patchfile [patchfile...]\n");
     print("\n");
     exit(1);
 }
@@ -167,7 +167,21 @@ sub apply_patch {
     }
 }
 
+sub rm_on_fail {
+    my ($bool, $filename) = @_;
+
+    if ($bool) {
+        unlink($filename);
+    }
+}
+
 sub main() {
+    my $rm_on_fail;
+    if (defined($ARGV[0]) && $ARGV[0] eq "--rm_on_fail") {
+        $rm_on_fail=1;
+        shift @ARGV;
+    }
+
     my $binaryfile = shift @ARGV;
     if (!defined($binaryfile) or !defined($ARGV[0])) {
         usage();
@@ -193,11 +207,13 @@ sub main() {
 
         if (!defined($db)) {
             warn("Cannot read $patchfile\n");
+            rm_on_fail($rm_on_fail,$binaryfile);
             exit(1);
         }
 
         if (!verify_context($db,$fh)) {
             warn("The binaryfile does not match the context bytes from $patchfile\n");
+            rm_on_fail($rm_on_fail,$binaryfile);
             exit(1);
         }
 
