@@ -27,7 +27,10 @@ Makefile targets:
 If you expect to do development work, the following make targets are
 probably useful:
 
-    To list the available raw image files and FL2 files:
+    To list the available raw image files and FL2 files, check the
+    Descriptions.txt file for the list of known image names.  You
+    can also get a list of the "*.img.d" directories that contain
+    patches with this make command:
 
         make list_images
 
@@ -37,7 +40,7 @@ probably useful:
         make x230.G2HT35WW.img
 
     To just get the decrypted firmware file (with the same filename as
-    above), before any patches applied, the pseudo
+    above), before any patches applied:
 
         make x230.G2HT35WW.img.prepatch
 

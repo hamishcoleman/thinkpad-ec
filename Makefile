@@ -84,9 +84,7 @@ list_images:
 	$(info )
 	$(info $(basename $(wildcard *.d)))
 	$(info )
-	$(info The following make targets are available to produce FL2 files:)
-	$(info )
-	$(info $(foreach i,$(basename $(basename $(wildcard *.d))),$(basename $(wildcard $(i).*.FL2.slice))))
+	$(info Check the Descriptions.txt for the names of the known FL2 files)
 	$(info )
 	@true
 
