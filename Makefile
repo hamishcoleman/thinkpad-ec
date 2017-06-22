@@ -183,7 +183,8 @@ $(DEPSDIR)/slice.insert.deps: Makefile
 # Useful for looking up firmware versions and the changelog.
 # NOTE: Makes an assumption about the Lenovo URL not changing.
 %.iso.orig.txt:
-	perl -e 'die "Was expecting a 8 charactar filename prefix as used by Lenovo." if length("$(subst .iso.orig,,$@)") != (8 + 4)'
+	@echo -n "Downloading release notes for "
+	@scripts/describe $(subst .txt,,$@)
 	wget -O $@ https://download.lenovo.com/pccbbs/mobiles/$(subst .iso.orig,,$@)
 
 # Generate all the orig images so that we can diff against them later
