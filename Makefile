@@ -41,7 +41,7 @@ clean:
             *.img.enc.orig *.img.orig *.bat \
             *.img \
             *.txt.orig
-	rm -rf "$(DEPSDIR)"
+	rm -rf $(DEPSDIR)
 
 # Also remove the large iso images downloaded from remote servers.
 really_clean: clean
