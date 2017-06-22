@@ -34,14 +34,16 @@ list_laptops:
 
 DEPSDIR := .d
 
-# Remove all the usual junk (including any patched firmware images)
+# Remove all the locally generated junk (including any patched firmware
+# images) and any small downloads
 clean:
 	rm -f patched.*.iso patched.*.img *.FL2 *.FL2.orig *.img.enc \
             *.img.enc.orig *.img.orig *.bat \
-            *.img
+            *.img \
+            *.txt.orig
 	rm -rf "$(DEPSDIR)"
 
-# Also remove the large downloaded iso images
+# Also remove the large iso images downloaded from remote servers.
 really_clean: clean
 	rm -f *.iso.orig
 
@@ -184,6 +186,23 @@ $(DEPSDIR)/slice.insert.deps: Makefile
 	wget -O $@ https://download.lenovo.com/pccbbs/mobiles/$(basename $@)
 	scripts/checksum --rm_on_fail $@
 	touch $@
+
+# Download any README text file released alongside to ISO images.
+# Useful for looking up firmware versions and the changelog.
+# Note that Lenovo produces two sets of release notes: *uc.txt and
+# *.us.txt - the "us" ones contain instructions for using the .exe
+# version of the bios update tool instead of the instructions for
+# bootable cdrom image, but other than that they /should/ be identical
+%uc.txt.orig:
+	@echo -n "Downloading release notes for "
+	@scripts/describe $(subst uc.txt,us.iso,$@)
+	wget -O $@ https://download.lenovo.com/pccbbs/mobiles/$(basename $@)
+
+# For newer systems they have used names that match for the iso and the txt
+%.txt.orig:
+	@echo -n "Downloading release notes for "
+	@scripts/describe $(subst .txt.,.iso.,$@)
+	wget -O $@ https://download.lenovo.com/pccbbs/mobiles/$(basename $@)
 
 # Generate all the orig images so that we can diff against them later
 
