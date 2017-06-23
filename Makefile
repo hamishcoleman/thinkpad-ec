@@ -33,15 +33,16 @@ list_laptops:
 .PHONY: list_laptops
 
 DEPSDIR := .d
+$(shell mkdir -p $(DEPSDIR))
 
 # Remove all the locally generated junk (including any patched firmware
 # images) and any small downloads
 clean:
-	rm -f patched.*.iso patched.*.img *.FL2 *.FL2.orig *.img.enc \
+	rm -f $(CLEAN_FILES) \
+            patched.*.iso patched.*.img *.FL2 *.FL2.orig *.img.enc \
             *.img.enc.orig *.img.orig *.bat \
             *.img \
             *.txt.orig
-	rm -rf $(DEPSDIR)
 
 # Also remove the large iso images downloaded from remote servers.
 really_clean: clean
@@ -158,12 +159,14 @@ define patch_disable
 	$(call patch_mv,$1,$1.OFF)
 endef
 
-$(shell mkdir -p $(DEPSDIR))
 -include $(DEPSDIR)/slice.extract.deps
+CLEAN_FILES += $(DEPSDIR)/slice.extract.deps
 $(DEPSDIR)/slice.extract.deps: Makefile
 	for i in *.slice; do read SLICEE other <$$i; echo $$i: $$SLICEE; done >$@.tmp
 	mv $@.tmp $@
+
 -include $(DEPSDIR)/slice.insert.deps
+CLEAN_FILES += $(DEPSDIR)/slice.insert.deps
 $(DEPSDIR)/slice.insert.deps: Makefile
 	for i in *.slice; do read SLICEE other <$$i; echo `basename $$SLICEE .orig`: $$i `basename $$i .slice`; done >$@.tmp
 	mv $@.tmp $@
