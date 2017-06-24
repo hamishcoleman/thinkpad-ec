@@ -286,9 +286,9 @@ MOUNT_OPTIONS ?= loop,ro
 
 # Extract the "embedded" fat file system from a given iso.
 %.iso.extract: %.iso
-	mcopy -ms -i $^@@$(FAT_OFFSET) :: $@
+	mcopy -s -i $^@@$(FAT_OFFSET) :: $@
 %.iso.orig.extract: %.iso.orig
-	mcopy -ms -i $^@@$(FAT_OFFSET) :: $@
+	mcopy -s -i $^@@$(FAT_OFFSET) :: $@
 
 ## Use the system provided geteltorito script, if there is one
 #GETELTORITO := $(shell if type geteltorito >/dev/null; then echo geteltorito; else echo ./geteltorito; fi)
