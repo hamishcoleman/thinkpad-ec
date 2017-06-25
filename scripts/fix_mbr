@@ -1,0 +1,231 @@
+#!/usr/bin/env perl
+use warnings;
+use strict;
+#
+# The Lenovo BIOS update ISO images contain an embedded hard drive image,
+# complete with a paritition table.
+#
+# Qemu does not support disk images with more than 16 heads, but the lenovo
+# disk image is created with 64 heads.  Since the MBR they used does not use
+# LBA to access the disk, this confuses it and causes it to fail.
+#
+
+use Data::Dumper;
+$Data::Dumper::Indent = 1;
+$Data::Dumper::Sortkeys = 1;
+$Data::Dumper::Quotekeys = 0;
+
+use IO::File;
+
+sub mbr_get {
+    my $imagefile = shift;
+
+    my $fh = IO::File->new($imagefile,"r");
+    if (!defined($fh)) {
+        die("Could not open $imagefile: $!");
+    }
+
+    my $buf;
+    my $count = $fh->sysread($buf,512);
+    die("bad read") if ($count != 512);
+    return $buf;
+}
+
+sub mbr_put {
+    my $imagefile = shift;
+    my $buf = shift;
+
+    die("bad buf len") if (length($buf) != 512);
+
+    my $fh = IO::File->new($imagefile,"r+");
+    if (!defined($fh)) {
+        die("Could not open $imagefile: $!");
+    }
+
+    my $count = $fh->syswrite($buf,512);
+    die("bad write") if ($count != 512);
+}
+
+sub mbr_part_unpack {
+    my $part = shift;
+    my $result = {};
+
+    $result->{_input} = unpack('H*', $part);
+
+    my @fields = qw(
+        flag
+        start_head
+        start_cysec
+        start_cyl
+        type
+        end_head
+        end_cysec
+        end_cyl
+        sector_offset
+        sector_total
+    );
+    my @values = unpack("CCCCCCCCVV",$part);
+    map { $result->{$fields[$_]} = $values[$_] } (0..scalar(@fields)-1);
+
+    $result->{start_cyl} |= ($result->{start_cysec} & 0xc0) <<2;
+    $result->{start_sec} = $result->{start_cysec} & 0x3f;
+    delete $result->{start_cysec};
+
+    $result->{end_cyl} |= ($result->{end_cysec} & 0xc0) <<2;
+    $result->{end_sec} = $result->{end_cysec} & 0x3f;
+    delete $result->{end_cysec};
+
+    return $result;
+}
+
+sub mbr_part_pack {
+    my $part = shift;
+
+    # check sanity
+    die("start cyl too big") if ($part->{start_cyl} > 1023);
+    die("start sec too big") if ($part->{start_sec} > 0x3f);
+
+    die("end cyl too big") if ($part->{end_cyl} > 1023);
+    die("end sec too big") if ($part->{end_sec} > 0x3f);
+
+    # TODO - bit munge things
+    if ($part->{start_cyl} > 0xff) {
+        ...
+    }
+    if ($part->{end_cyl} > 0xff) {
+        ...
+    }
+
+    $part->{start_cysec} = $part->{start_sec};
+    $part->{end_cysec} = $part->{end_sec};
+
+    my @fields = qw(
+        flag
+        start_head
+        start_cysec
+        start_cyl
+        type
+        end_head
+        end_cysec
+        end_cyl
+        sector_offset
+        sector_total
+    );
+    my @values;
+    for my $field (@fields) {
+        push @values, $part->{$field};
+    }
+    my $result = pack("CCCCCCCCVV",@values);
+    $part->{_output} = unpack('H*', $result);
+    return $result;
+}
+
+sub mbr_unpack {
+    my $mbr = shift;
+    my $result = {};
+
+    $result->{_input} = unpack('H*', $mbr);
+
+    my @fields = qw(
+        bootstrap
+        diskid
+        partitions
+        signature
+    );
+    my @values = unpack("a436a10a64S",$mbr);
+    map { $result->{$fields[$_]} = $values[$_] } (0..scalar(@fields)-1);
+
+    my @partitions;
+    for my $part (unpack("(a16)*",$result->{partitions})) {
+        push @partitions, mbr_part_unpack($part);
+    }
+    $result->{partitions} = \@partitions;
+
+    return $result;
+}
+
+sub mbr_pack {
+    my $mbr = shift;
+
+    $mbr->{_partitions} = $mbr->{partitions};
+    my @partitions;
+    for my $part (@{$mbr->{partitions}}) {
+        push @partitions, mbr_part_pack($part);
+    }
+    $mbr->{partitions} = pack("(a16)*", @partitions);
+
+    my @fields = qw(
+        bootstrap
+        diskid
+        partitions
+        signature
+    );
+    my @values;
+    for my $field (@fields) {
+        push @values, $mbr->{$field};
+    }
+    my $result = pack("a436a10a64S",@values);
+    $mbr->{_output} = unpack('H*', $result);
+    return $result;
+}
+
+# This function does the actual work of this script
+#
+sub fixup_part {
+    my $part = shift;
+
+    # dont touch it if the partition is not broken
+    return undef if ($part->{end_head} < 0x10);
+
+    # convert from zero-based index to the total count
+    $part->{end_head}++;
+    $part->{end_cyl}++;
+
+    my $total_sec1 = $part->{end_sec} * $part->{end_head} * $part->{end_cyl};
+
+    # Reduce the number of heads and increase the number of cylinders
+    while ($part->{end_head} >0x10) {
+        $part->{end_head} = int($part->{end_head}/2);
+        $part->{end_cyl} *= 2; 
+    }
+
+    my $total_sec2 = $part->{end_sec} * $part->{end_head} * $part->{end_cyl};
+
+    # Ensure we have at least as many total sectors as before the fixup
+    while ($total_sec2 < $total_sec1) {
+        $part->{end_cyl}++;
+        $total_sec2 = $part->{end_sec} * $part->{end_head} * $part->{end_cyl};
+    }
+
+    # convert from total count back to zero-based index
+    $part->{end_head}--;
+    $part->{end_cyl}--;
+
+    return 1;
+}
+
+sub main() {
+    if (!defined($ARGV[0])) {
+        die("Need image filename");
+    }
+    my $imagefile = $ARGV[0];
+
+    my $buf = mbr_get($imagefile);
+    my $mbr = mbr_unpack($buf);
+
+    for my $part (@{$mbr->{partitions}}) {
+        fixup_part($part);
+    }
+
+    $buf = mbr_pack($mbr);
+
+    if (defined($ARGV[1]) && $ARGV[1] eq 'debug') {
+        print(Dumper($mbr));
+    } else {
+        mbr_put($imagefile,$buf);
+    }
+}
+unless (caller) {
+    # only run main if we are called as a CLI tool
+    main();
+}
