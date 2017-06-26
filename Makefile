@@ -48,8 +48,8 @@ $(shell mkdir -p $(DEPSDIR))
 # images) and any small downloads
 clean:
 	rm -f $(CLEAN_FILES) \
-            patched.*.iso patched.*.img *.FL2 *.FL2.orig *.img.enc *.img.csum_ok \
-            *.img.enc.orig *.img.csum_ok.orig *.img.orig *.bat \
+            patched.*.iso patched.*.img *.FL2 *.FL2.orig *.img.enc \
+            *.img.enc.orig *.img.orig *.bat \
             *.img \
             *.txt.orig
 
@@ -254,12 +254,6 @@ $(DEPSDIR)/slice.insert.deps: Makefile
 %.img.enc:  %.img scripts/xx30.encrypt
 	./scripts/xx30.encrypt $< $@
 
-# A generic outer checksum fixer
-%.img.csum_ok: %.img mec-tools/mec_csum_outer
-	cp --reflink=auto $< $@
-	./mec-tools/mec_csum_outer -f $@
-	./mec-tools/mec_csum_outer -c $@
-
 # TODO
 # - if we ever get generic extraction or encryption for more than
 #   just the Xx30 series, these generic rules will need to be reworked
@@ -273,6 +267,8 @@ $(DEPSDIR)/slice.insert.deps: Makefile
 %.img: %.img.orig
 	cp --reflink=auto $< $@
 	./scripts/hexpatch.pl --rm_on_fail $@ $@.d/*.patch
+	./mec-tools/mec_csum_outer -f $@
+	./mec-tools/mec_csum_outer -c $@ || (rm $@; exit 1)
 
 # using both __DIR and __FL2 is a hack to get around needing to quote the
 # DOS path separator.  It feels like there should be a better way if I put
@@ -404,9 +400,9 @@ $(call rule_fl2_patch,t430.G1HT35WW.img.enc,t430.G1HT35WW.s01D2000.FL2)
 $(call rule_fl2_patch,t430s.G7HT39WW.img.enc,t430s.G7HT39WW.s01D8000.FL2)
 $(call rule_fl2_patch,t530.G4HT39WW.img.enc,t530.G4HT39WW.s01D5100.FL2)
 $(call rule_fl2_patch,w530.G4HT39WW.img.enc,w530.G4HT39WW.s01D5200.FL2)
-$(call rule_fl2_patch,x200.7XHT22WW.img.csum_ok,x200.7XHT22WW.s01B9x00.FL2)
-$(call rule_fl2_patch,x200.7XHT24WW.img.csum_ok,x200.7XHT24WW.s01B9x00.FL2)
-$(call rule_fl2_patch,x200.7XHT25WW.img.csum_ok,x200.7XHT25WW.s01B9x00.FL2)
+$(call rule_fl2_patch,x200.7XHT22WW.img,x200.7XHT22WW.s01B9x00.FL2)
+$(call rule_fl2_patch,x200.7XHT24WW.img,x200.7XHT24WW.s01B9x00.FL2)
+$(call rule_fl2_patch,x200.7XHT25WW.img,x200.7XHT25WW.s01B9x00.FL2)
 $(call rule_fl2_patch,x230.G2HT35WW.img.enc,x230.G2HT35WW.s01D3000.FL2)
 $(call rule_fl2_patch,x230t.GCHT25WW.img.enc,x230t.GCHT25WW.s01DA000.FL2)
 
