@@ -6,7 +6,9 @@
 # FIXME
 # - the description file is expected to be in the current dir
 
-DESCRIPTIONS=Descriptions.txt
+set -o nounset -o pipefail -o errexit
+
+DESCRIPTIONS='Descriptions.txt'
 
 if [ "$1" == "--rm_on_fail" ]; then
     RM_ON_FAIL=yes
@@ -15,19 +17,19 @@ fi
 
 FILE="$1"
 if [ -z "$1" ]; then
-    echo need filename
+    echo "Need filename" 2>&1
     exit 1
 fi
 
 LINE=$(egrep "^$FILE " "$DESCRIPTIONS")
 
 if [ $? -ne 0 ]; then
-    echo "Unknown file $FILE"
+    echo "Unknown file $FILE" 2>&1
     exit 1
 fi
 
 if [ ! -e "$FILE" ]; then
-    echo "File $FILE does not exist"
+    echo "File $FILE does not exist" 2>&1
     exit 1
 fi
 
@@ -35,10 +37,10 @@ EXPECT=$(echo "$LINE" | awk -- '{print $2}')
 GOT=$(sha1sum "$FILE" | cut -d" " -f1)
 
 if [ "$EXPECT" != "$GOT" ]; then
-    echo "File $FILE failed checksum check"
+    echo "File $FILE failed checksum check" 2>&1
 
     if [ "$RM_ON_FAIL" ]; then
-        rm $FILE
+        rm "$FILE"
     fi
 
     exit 1
