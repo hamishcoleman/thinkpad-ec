@@ -47,7 +47,8 @@ will not complete.
 
 4. Show the list of laptops and USB image file names:
 
-    make list_laptops
+    make list_laptops  # Show only the most current supported BIOS and EC firmware.
+    make list_laptops_all_versions  # Show all versions for which patches exist.
 
 5. Choose your laptop model name from the list shown.
    E.G. "patched.x230.img" for a x230 laptop.

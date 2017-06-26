@@ -28,12 +28,18 @@ list_laptops:
 	$(info patched.x230t.img - for patching Thinkpad X230t)
 	$(info )
 	$(info patched.t430.257.112.img - for patching Thinkpad T430 BIOS 2.57/EC 1.12 - no keyboard patch)
-	$(info patched.x200.314.106.img - for patching Thinkpad x200 and x200s BIOS 3.14/EC 1.06 - only Fn Ctrl swap (middleton))
-	$(info patched.x200.322.106.img - for patching Thinkpad x200 and x200s BIOS 3.22/EC 1.06 - only Fn Ctrl swap (middleton))
 	$(info patched.x200.img - for patching Thinkpad x200 and x200s BIOS 3.22/EC 1.07 - only Fn Ctrl swap (ported middleton))
 	$(info )
 
 .PHONY: list_laptops
+
+list_laptops_all_versions: list_laptops
+	$(info Patches for older versions which might still be useful:)
+	$(info patched.x200.314.106.img - for patching Thinkpad x200 and x200s BIOS 3.14/EC 1.06 - only Fn Ctrl swap (middleton))
+	$(info patched.x200.322.106.img - for patching Thinkpad x200 and x200s BIOS 3.22/EC 1.06 - only Fn Ctrl swap (middleton))
+	$(info )
+
+.PHONY: list_laptops_all_versions
 
 DEPSDIR := .d
 $(shell mkdir -p $(DEPSDIR))
