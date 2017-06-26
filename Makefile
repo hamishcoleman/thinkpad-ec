@@ -50,7 +50,7 @@ clean:
 	rm -f $(CLEAN_FILES) \
             patched.*.iso patched.*.img *.FL2 *.FL2.orig *.img.enc \
             *.img.enc.orig *.img.orig *.bat \
-            *.img \
+            *.img *.img.diff \
             *.txt.orig \
 	    .mec-tools_build_ok
 	$(MAKE) -C mec-tools/ clean
