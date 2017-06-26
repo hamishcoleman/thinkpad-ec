@@ -51,7 +51,9 @@ clean:
             patched.*.iso patched.*.img *.FL2 *.FL2.orig *.img.enc \
             *.img.enc.orig *.img.orig *.bat \
             *.img \
-            *.txt.orig
+            *.txt.orig \
+	    .mec-tools_build_ok
+	$(MAKE) -C mec-tools/ clean
 
 # Also remove the large iso images downloaded from remote servers.
 really_clean: clean
@@ -243,7 +245,7 @@ $(DEPSDIR)/slice.insert.deps: Makefile
 # more barriers to downloading some random bios ISO and starting to port
 # the code to it.
 # FIXME - wrap the mec-tools with something that gives --rm_on_fail semantics
-%.img.orig:  %.img.enc.orig mec-tools/mec_encrypt
+%.img.orig:  %.img.enc.orig .mec-tools_build_ok
 	mec-tools/mec_encrypt -d $< $@
 	scripts/checksum --rm_on_fail $@
 	mec-tools/mec_csum_flasher -c $@
@@ -264,7 +266,7 @@ $(DEPSDIR)/slice.insert.deps: Makefile
 .PRECIOUS: %.img.orig
 
 # Generate a working file with any known patches applied
-%.img: %.img.orig
+%.img: %.img.orig .mec-tools_build_ok
 	cp --reflink=auto $< $@
 	./scripts/hexpatch.pl --rm_on_fail $@ $@.d/*.patch
 	./mec-tools/mec_csum_outer -f $@
@@ -350,13 +352,10 @@ endef
 mec-tools/Makefile:
 	git submodule update --init --remote
 
-mec-tools/mec_encrypt: mec-tools/Makefile
+.mec-tools_build_ok: mec-tools/Makefile
 	git submodule update
 	make -C mec-tools
-
-mec-tools/mec_csum_outer: mec-tools/Makefile
-	git submodule update
-	make -C mec-tools
+	touch $@
 
 # using function calls to build rules with actions is kind of a hack,
 # which is why these are all on oneline.
