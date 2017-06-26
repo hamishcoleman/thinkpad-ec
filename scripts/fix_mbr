@@ -3,11 +3,12 @@ use warnings;
 use strict;
 #
 # The Lenovo BIOS update ISO images contain an embedded hard drive image,
-# complete with a paritition table.
+# complete with a partition table.
 #
 # Qemu does not support disk images with more than 16 heads, but the lenovo
 # disk image is created with 64 heads.  Since the MBR they used does not use
-# LBA to access the disk, this confuses it and causes it to fail.
+# LBA to access the disk, the mismatch between the Qemu reported disk data
+# and what is in the partition confuses the MBR and causes the boot to fail.
 #
 
 use Data::Dumper;
