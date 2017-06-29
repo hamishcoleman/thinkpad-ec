@@ -43,6 +43,7 @@ clean:
             *.img.enc.orig *.img.orig *.bat \
             *.img \
             *.txt.orig
+	rm -rf *.iso.extract *.iso.orig.extract
 
 # Also remove the large iso images downloaded from remote servers.
 really_clean: clean
@@ -99,6 +100,7 @@ list_images:
 # All the bios update iso images I have checked have had a fat16 filesystem
 # embedded in a dos mbr image as the el-torito ISO payload.  They also all
 # had the same offset to this fat filesystem, so hardcode that offset here.
+# The offset value is bytes in decimal.
 FAT_OFFSET := 71680
 
 # Some versions of mtools need this flag set to allow them to work with the
@@ -272,6 +274,12 @@ $(DEPSDIR)/slice.insert.deps: Makefile
 # If we ever want a copy of the dosflash.exe, just get it from the iso image
 %.dosflash.exe.orig: %.iso.orig
 	mcopy -m -i $^@@$(FAT_OFFSET) ::FLASH/DOSFLASH.EXE $@
+
+# Extract the "embedded" fat file system from a given iso.
+%.iso.extract: %.iso
+	mcopy -s -i $^@@$(FAT_OFFSET) :: $@
+%.iso.orig.extract: %.iso.orig
+	mcopy -s -i $^@@$(FAT_OFFSET) :: $@
 
 ## Use the system provided geteltorito script, if there is one
 #GETELTORITO := $(shell if type geteltorito >/dev/null; then echo geteltorito; else echo ./geteltorito; fi)

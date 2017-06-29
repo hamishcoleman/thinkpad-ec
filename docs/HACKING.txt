@@ -21,8 +21,8 @@ Then start radare with one of these projects:
 
     radare -p x230.G2HT35WW
 
-Makefile targets:
------------------
+Makefile targets for patching:
+------------------------------
 
 If you expect to do development work, the following make targets are
 probably useful:
@@ -64,6 +64,42 @@ probably useful:
     instead:
 
         make patched.x230.img.test
+
+Extracting the ISO images:
+--------------------------
+
+While examining a new ISO image, it is often useful to extract its
+entire contents.  Due to the way these images are constructed, it is
+not straight forward to get the data out.
+
+The Lenovo ISO image is a iso9660 filesystem image with /no/ files
+in it!  There is a El-Torrito standard boot descriptor in this image,
+and it defines a hard drive image for booting.  This hard drive image
+is a DOS MBR partitioned disk, with one partition.  The partition is a
+FAT16 filesystem, containing the actual files used in the BIOS update.
+
+To access the FAT16 filesystem, the byte offset of the filesystem
+is calculated (via a process of unwrapping and decoding each layers
+described above).  So far, every ISO image file from Lenovo that has been
+checked has used the same offset, so this has been hardcoded in the
+Makefile as the "FAT_OFFSET" variable.
+
+To extract the files for examination, a make target is available which
+can be used on any *.iso.orig or *.iso file.  e.g:
+
+    make g2uj25us.iso.orig.extract
+    make patched.x230.iso.extract
+
+In the case where a file needs to be modified inside the image, it is
+highly recommended to use the mtools "mcopy" utility to copy files back
+into the image - this is the safest method and does not require any
+elevated priviledges or run the risks of mounting foreign filesystems.
+
+If you find you do need to directly mount the filesystem, the following
+command can be used as a starting point:
+
+    sudo mount -o loop,offset=$FAT_OFFSET $ISOFILE $MNTPNT
+
 
 References:
 -----------
