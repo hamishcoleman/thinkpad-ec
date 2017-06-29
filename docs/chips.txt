@@ -11,6 +11,14 @@ ThinkPad T4x/p and R5x/p:
     Renesas H8S/2161BV
     (source: http://forum.thinkpads.com/viewtopic.php?t=20958)
 
+ThinkPad x200:
+--------------
+    Renesas H8S/2116V
+    "F2116BG20V  H8S/2116V" (physically printed on the chip)
+    "H8S/2116BG20V" (referred to by the Wistron Mocha-1 Block Diagram; 07226-1-Final; Project Code: 91.47Q01.001; PCB(Raw Card): 48.47Q01.001; dated 2008-05-08)
+
+    (source: physical inspection, reverse engineering the EC firmware and the schematics)
+
 ThinkPad x220:
 --------------
     Renesas H8S R4F2113NFT-1-GP
