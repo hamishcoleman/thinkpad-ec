@@ -31,6 +31,6 @@ read SOURCE OFFSET LENGTH <"$INFOFILE"
 
 set -x
 
-cp --reflink=auto $SOURCE $OUT
-dd status=none if=$INPUT bs=$[$LENGTH] count=1 | dd status=none conv=notrunc bs=$[$OFFSET] seek=1 of="$OUT"
+cp --reflink=auto "$SOURCE" "$OUT"
+dd status=none if="$INPUT" bs="$((LENGTH))" count=1 | dd status=none conv=notrunc bs="$((OFFSET))" seek=1 of="$OUT"
 
