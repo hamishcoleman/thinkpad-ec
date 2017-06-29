@@ -344,6 +344,8 @@ endef
 define rule_iso
     $(3): $(1) $(3).bat ; cp --reflink=auto $(3).orig $(3) && ./scripts/copyFL2 to_iso $(3) $(1) $(2) && sed -i "s/__BUILT/`sha1sum $(1)`/" $(3).bat && mcopy -m -o -i $(3)@@$(FAT_OFFSET) $(3).bat ::AUTOEXEC.BAT && mdel -i $(3)@@$(FAT_OFFSET) ::EFI/Boot/BootX64.efi
 endef
+# TODO - remove any FL1 files from the image, ensuring it can never
+# accidentally be used for BIOS updates
 
 # Extract the FL2 file from an ISO image
 # Note that the parameters here are essentially the same as rule_iso, but you cannot
