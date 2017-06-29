@@ -14,6 +14,10 @@
 
 # The iso images downloadable from Lenovo
 # (these checksums are those found on the Lenovo site)
+6duj37uc.iso.orig  0ac15607379ac71ed041181ab1987b123cb2884d x200 and x200s BIOS 3.10 (7XET60WW) EC 1.04 (7XHT22WW)
+6duj41uc.iso.orig  016b85296694340cc1b70c956e6fdd775b14d261 x200 and x200s BIOS 3.14 (7XET64WW) EC 1.06 (7XHT24WW)
+6duj47uc.iso.orig  06a23e319e1028bd7b4ea8358b2335d5e2eb2e64 x200 and x200s BIOS 3.22 (7XET72WW) EC 1.06 (7XHT24WW)
+6duj48us.iso.orig  461fe63039eb3849ff025d4bcb89b86a3607bf95 x200 and x200s BIOS 3.22 (7XET72WW) EC 1.07 (7XHT25WW)
 8duj27us.iso.orig  856a1a3efee305d335df10932b54aa478f818677 x220 BIOS 1.42 (8DET72WW) EC 1.24 (8DHT34WW)
 8muj19us.iso.orig  ccbb450d9beaefa8b4c7e9ac559ae8503f8df5db x1, x1 hybrid BIOS 1.71 (8MET71WW) EC 2.02 (8MHT79WW)
 g1uj25us.iso.orig  759e27829c13d591b097cbda2f34843265ef8813 t430 BIOS 2.57 (G1ET97WW) EC 1.12 (G1HT34WW)

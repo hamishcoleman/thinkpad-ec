@@ -27,10 +27,19 @@ list_laptops:
 	$(info patched.x230.img  - for patching Thinkpad X230)
 	$(info patched.x230t.img - for patching Thinkpad X230t)
 	$(info )
-	$(info patched.t430.257.img  - for patching Thinkpad T430 BIOS 2.57 - no keyboard patch)
+	$(info patched.t430.257.112.img - for patching Thinkpad T430 BIOS 2.57/EC 1.12 - no keyboard patch)
+	$(info patched.x200.img - for patching Thinkpad x200 and x200s BIOS 3.22/EC 1.07 - only Fn Ctrl swap (ported middleton))
 	$(info )
 
 .PHONY: list_laptops
+
+list_laptops_all_versions: list_laptops
+	$(info Patches for older versions which might still be useful:)
+	$(info patched.x200.314.106.img - for patching Thinkpad x200 and x200s BIOS 3.14/EC 1.06 - only Fn Ctrl swap (middleton))
+	$(info patched.x200.322.106.img - for patching Thinkpad x200 and x200s BIOS 3.22/EC 1.06 - only Fn Ctrl swap (middleton))
+	$(info )
+
+.PHONY: list_laptops_all_versions
 
 DEPSDIR := .d
 $(shell mkdir -p $(DEPSDIR))
@@ -41,8 +50,10 @@ clean:
 	rm -f $(CLEAN_FILES) \
             patched.*.iso patched.*.img *.FL2 *.FL2.orig *.img.enc \
             *.img.enc.orig *.img.orig *.bat \
-            *.img \
-            *.txt.orig
+            *.img *.img.diff \
+            *.txt.orig \
+	    .mec-tools_build_ok
+	$(MAKE) -C mec-tools/ clean
 
 # Also remove the large iso images downloaded from remote servers.
 really_clean: clean
@@ -53,7 +64,7 @@ really_clean: clean
 patched.t430.iso: g1uj40us.iso
 	$(call patched_iso,$<,$@)
 
-patched.t430.257.iso: g1uj25us.iso
+patched.t430.257.112.iso: g1uj25us.iso
 	$(call patched_iso,$<,$@)
 
 patched.t430s.iso: g7uj19us.iso
@@ -66,6 +77,15 @@ patched.t530i.iso: g4uj30us.iso
 	$(call patched_iso,$<,$@)
 
 patched.w530.iso: g5uj28us.iso
+	$(call patched_iso,$<,$@)
+
+patched.x200.314.106.iso: 6duj41uc.iso
+	$(call patched_iso,$<,$@)
+
+patched.x200.322.106.iso: 6duj47uc.iso
+	$(call patched_iso,$<,$@)
+
+patched.x200.iso: 6duj48us.iso
 	$(call patched_iso,$<,$@)
 
 patched.x230.iso: g2uj25us.iso
@@ -99,7 +119,7 @@ list_images:
 # All the bios update iso images I have checked have had a fat16 filesystem
 # embedded in a dos mbr image as the el-torito ISO payload.  They also all
 # had the same offset to this fat filesystem, so hardcode that offset here.
-FAT_OFFSET := 71680
+export FAT_OFFSET := 71680
 
 # Some versions of mtools need this flag set to allow them to work with the
 # dosfs images used by Lenovo - from my tests, it may be that Debian has
@@ -111,6 +131,8 @@ export MTOOLS_SKIP_CHECK=1
 # so this target hacks around that
 #
 install.radare.projects:
+	mkdir -p ~/.config/radare2/projects/x200.7XHT24WW
+	cp -fs $(PWD)/radare/x200.7XHT24WW ~/.config/radare2/projects/x200.7XHT24WW/rc
 	mkdir -p ~/.config/radare2/projects/x220.8DHT34WW.d
 	cp -fs $(PWD)/radare/x220.8DHT34WW ~/.config/radare2/projects
 	mkdir -p ~/.config/radare2/projects/x230.G2HT35WW
@@ -140,6 +162,12 @@ patch_disable_keyboard:
 	for j in $(PATCHES_KEYBOARD); do \
 	 $(call patch_disable,$$j); \
 	done
+
+patch_enable_fn_ctrl_swap:
+	$(call patch_enable,008_fn_ctrl_swap.patch)
+
+patch_disable_fn_ctrl_swap:
+	$(call patch_disable,008_fn_ctrl_swap.patch)
 
 # $1 is the old patch name
 # $2 is the new patch name
@@ -217,7 +245,7 @@ $(DEPSDIR)/slice.insert.deps: Makefile
 # more barriers to downloading some random bios ISO and starting to port
 # the code to it.
 # FIXME - wrap the mec-tools with something that gives --rm_on_fail semantics
-%.img.orig:  %.img.enc.orig mec-tools/mec_encrypt
+%.img.orig:  %.img.enc.orig .mec-tools_build_ok
 	mec-tools/mec_encrypt -d $< $@
 	scripts/checksum --rm_on_fail $@
 	mec-tools/mec_csum_flasher -c $@
@@ -238,16 +266,23 @@ $(DEPSDIR)/slice.insert.deps: Makefile
 .PRECIOUS: %.img.orig
 
 # Generate a working file with any known patches applied
-%.img: %.img.orig
+%.img: %.img.orig .mec-tools_build_ok
 	cp --reflink=auto $< $@
 	./scripts/hexpatch.pl --rm_on_fail $@ $@.d/*.patch
+	./mec-tools/mec_csum_outer -f $@
+	./mec-tools/mec_csum_outer -c $@ || (rm $@; exit 1)
 
 # using both __DIR and __FL2 is a hack to get around needing to quote the
 # DOS path separator.  It feels like there should be a better way if I put
 # my mind to it..
 #
 %.iso.bat: %.iso.orig autoexec.bat.template
-	sed -e "s%__DIR%`mdir -/ -b -i $<@@$(FAT_OFFSET) |grep FL2 |cut -d/ -f3`%; s%__FL2%`mdir -/ -b -i $<@@$(FAT_OFFSET) |grep FL2 |cut -d/ -f4`%; s%__DESC%`scripts/describe $<`%; s/__BUILDINFO/$(BUILDINFO)/" autoexec.bat.template >$@.tmp
+	if echo '$@' | grep '^6duj4' -q; then \
+	 cp --reflink=auto autoexec.bat.command_com.template $@.tmp; \
+	else \
+	 cp --reflink=auto autoexec.bat.template $@.tmp; \
+	fi
+	sed -e "s%__DIR%`mdir -/ -b -i $<@@$(FAT_OFFSET) |grep FL2 |cut -d/ -f3 | head -n 1`%; s%__FL2%`mdir -/ -b -i $<@@$(FAT_OFFSET) |grep FL2 |cut -d/ -f4 | head -n 1`%; s%__DESC%`scripts/describe $<`%; s/__BUILDINFO/$(BUILDINFO)/" --in-place $@.tmp
 	mv $@.tmp $@
 	touch -d @1 $@
 
@@ -313,38 +348,39 @@ endef
 mec-tools/Makefile:
 	git submodule update --init --remote
 
-mec-tools/mec_encrypt: mec-tools/Makefile
+.mec-tools_build_ok: mec-tools/Makefile
 	git submodule update
 	make -C mec-tools
+	touch $@
 
 # using function calls to build rules with actions is kind of a hack,
 # which is why these are all on oneline.
 
 # Insert the new firmware into the FL2 file
-# $1 = encoded EC firmware
+# $1 = repacked (csums fixed and optionally re-encrypted) EC firmware
 # $2 = FL2 filename
 define rule_fl2_patch
-    $(2): $(1) ; ./scripts/slice.insert $(1).slice $(1) $(2)
+    $(2): $(1) ./scripts/slice.insert ; ./scripts/slice.insert $(1).slice $(1) $(2)
 endef
 
 # Create a new ISO image with patches applied
 # $1 = FL2 filename
 # $2 = ISO image
 define rule_iso
-    $(2): $(1) $(2).bat ; cp --reflink=auto $(2).orig $(2) && ./scripts/copyFL2 to_iso $(2) $(1) && sed -i "s/__BUILT/`sha1sum $(1)`/" $(2).bat && mcopy -m -o -i $(2)@@$(FAT_OFFSET) $(2).bat ::AUTOEXEC.BAT && mdel -i $(2)@@$(FAT_OFFSET) ::EFI/Boot/BootX64.efi
+    $(2): $(1) $(2).bat ./scripts/copyFL2 ; cp --reflink=auto $(2).orig $(2) && ./scripts/copyFL2 to_iso $(2) $(1) && sed -i "s/__BUILT/`sha1sum $(1)`/" $(2).bat && mcopy -m -o -i $(2)@@$(FAT_OFFSET) $(2).bat ::AUTOEXEC.BAT && if mdir -/ -b -i $(2)@@71680 |grep BootX64.efi -q; then mdel -i $(2)@@$(FAT_OFFSET) ::EFI/Boot/BootX64.efi; fi
 endef
 
 # Extract the FL2 file from an ISO image
 # Note that the parameters here are essentially the same as rule_iso, but you cannot
 # define two targets with one define..
-# $1 = FL2 filename basename
+# $1 = FL2 file basename
 # $2 = ISO image basename
 #
 # TODO - checking the checksum here is probably too strict - it adds
 # more barriers to downloading some random bios ISO and starting to port
 # the code to it.
 define rule_fl2_extract
-    $(1).orig: $(2).orig ; ./scripts/copyFL2 from_iso $(2).orig $(1).orig && ./scripts/checksum --rm_on_fail $(2).orig
+    $(1).orig: $(2).orig ./scripts/copyFL2 ; ./scripts/copyFL2 from_iso $(2).orig $(1).orig && ./scripts/checksum --rm_on_fail $(2).orig
 endef
 
 #
@@ -359,11 +395,18 @@ $(call rule_fl2_patch,t430.G1HT35WW.img.enc,t430.G1HT35WW.s01D2000.FL2)
 $(call rule_fl2_patch,t430s.G7HT39WW.img.enc,t430s.G7HT39WW.s01D8000.FL2)
 $(call rule_fl2_patch,t530.G4HT39WW.img.enc,t530.G4HT39WW.s01D5100.FL2)
 $(call rule_fl2_patch,w530.G4HT39WW.img.enc,w530.G4HT39WW.s01D5200.FL2)
+$(call rule_fl2_patch,x200.7XHT22WW.img,x200.7XHT22WW.s01B9x00.FL2)
+$(call rule_fl2_patch,x200.7XHT24WW.img,x200.7XHT24WW.s01B9x00.FL2)
+$(call rule_fl2_patch,x200.7XHT25WW.img,x200.7XHT25WW.s01B9x00.FL2)
 $(call rule_fl2_patch,x230.G2HT35WW.img.enc,x230.G2HT35WW.s01D3000.FL2)
 $(call rule_fl2_patch,x230t.GCHT25WW.img.enc,x230t.GCHT25WW.s01DA000.FL2)
 
 $(call rule_iso,t430.G1HT34WW.s01D2000.FL2,g1uj25us.iso)
 $(call rule_iso,t430.G1HT35WW.s01D2000.FL2,g1uj40us.iso)
+$(call rule_iso,x200.7XHT22WW.s01B9x00.FL2,6duj37uc.iso)
+$(call rule_iso,x200.7XHT24WW.s01B9x00.FL2,6duj41uc.iso)
+$(call rule_iso,x200.7XHT24WW.s01B9x00.FL2,6duj47uc.iso)
+$(call rule_iso,x200.7XHT25WW.s01B9x00.FL2,6duj48us.iso)
 $(call rule_iso,x230.G2HT35WW.s01D3000.FL2,g2uj25us.iso)
 $(call rule_iso,t530.G4HT39WW.s01D5100.FL2,g4uj30us.iso)
 $(call rule_iso,w530.G4HT39WW.s01D5200.FL2,g5uj28us.iso)
@@ -372,6 +415,9 @@ $(call rule_iso,x230t.GCHT25WW.s01DA000.FL2,gcuj24us.iso)
 
 $(call rule_fl2_extract,t430.G1HT35WW.s01D2000.FL2,g1uj40us.iso)
 $(call rule_fl2_extract,t430.G1HT34WW.s01D2000.FL2,g1uj25us.iso)
+$(call rule_fl2_extract,x200.7XHT22WW.s01B9x00.FL2,6duj37uc.iso)
+$(call rule_fl2_extract,x200.7XHT24WW.s01B9x00.FL2,6duj47uc.iso)
+$(call rule_fl2_extract,x200.7XHT25WW.s01B9x00.FL2,6duj48us.iso)
 $(call rule_fl2_extract,x230.G2HT35WW.s01D3000.FL2,g2uj25us.iso)
 $(call rule_fl2_extract,t530.G4HT39WW.s01D5100.FL2,g4uj30us.iso)
 $(call rule_fl2_extract,w530.G4HT39WW.s01D5200.FL2,g5uj28us.iso)

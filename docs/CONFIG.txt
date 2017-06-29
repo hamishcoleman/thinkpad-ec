@@ -1,9 +1,16 @@
 Configuring which patches are used
 ----------------------------------
 
-This repository has two sets of patches - one set for the keyboard
-changes and one for turning off the battery validation.  The battery
-patches are disabled by default, but are easy to enable.
+This repository has contains the following sets of patches for various ThinkPad models:
+
+* Patch to use the classical IBM keyboard instead of the newer Lenovo chiclet keyboard.
+* Turning off the authentic battery validation check.
+  The battery patches are disabled by default, but are easy to enable.
+* Swap Fn and CtlL keys so that the physical layout becomes CtlL, Fn (how it should be).
+  For older Thinkpad models like the xx00 series the EC can not be configured
+  to swap Fn and Ctrl. This setting would usually be exposed in the BIOS setup
+  or in nvram when using coreboot.
+  Enabled by default for models where this can not be configured.
 
 Any combination of the two sets of patches can be enabled or disabled
 (even including a version with no patches at all - to revert all changes)
@@ -12,10 +19,12 @@ There are several makefile targets that exist to help you configure which
 patches are enabled.  Choose one or more of the following commands to
 configure as you want:
 
-    make patch_enable_battery clean     # Uses the battery validate patch
-    make patch_disable_battery clean    # Turns off the battery validate patch
-    make patch_enable_keyboard clean    # Uses the keyboard patches
-    make patch_disable_keyboard clean   # Turns off the keyboard patches
+    make patch_enable_battery clean       # Uses the battery validate patch
+    make patch_disable_battery clean      # Turns off the battery validate patch
+    make patch_enable_keyboard clean      # Uses the keyboard patches
+    make patch_disable_keyboard clean     # Turns off the keyboard patches
+    make patch_enable_fn_ctrl_swap clean  # Uses the Fn and CtlL key swap patch
+    make patch_disable_fn_ctrl_swap clean # Turns off the Fn and CtlL key swap patch
 
 Behind the scenes
 -----------------

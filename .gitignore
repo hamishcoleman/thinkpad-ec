@@ -12,7 +12,9 @@
 
 # ignore generated files
 *.bat
+*.diff
 .d
+.mec-tools_build_ok
 
 # Temp are (should be) just junk
 *.tmp
