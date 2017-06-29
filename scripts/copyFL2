@@ -29,26 +29,35 @@ if [ ! -e "$ISO" ]; then
 fi
 shift
 
+# The "external" filename - used in the linux filesystem
 FILENAME="$1"
 if [ -z "$FILENAME" ]; then
-    echo need filename
+    echo need linux filename
     exit 1
 fi
 shift
 
-FL2=$(mdir -i "$ISO"@@"$FAT_OFFSET" -/ -b |grep FL2)
-if [ -z "$FL2" ]; then
-    echo "Error: could not find any FL2 files in $ISO"
+# The "internal" filename pattern to match - used in the BIOS update image
+INTPATTERN="$1"
+if [ -z "$INTPATTERN" ]; then
+    echo need to specify the pattern to match the internal filenames with
     exit 1
 fi
-if [ $(echo "$FL2" |wc -w) -ne 1 ]; then
-    echo "Error: $ISO has more than one FL2 file:"
-    echo "$FL2"
+
+
+MATCH=$(mdir -i "$ISO"@@"$FAT_OFFSET" -/ -b |grep "$INTPATTERN")
+if [ -z "$MATCH" ]; then
+    echo "Error: could not find any files in $ISO matching $INTPATTERN"
+    exit 1
+fi
+if [ $(echo "$MATCH" |wc -w) -ne 1 ]; then
+    echo "Error: $ISO has more than one matching file:"
+    echo "$MATCH"
     exit 1
 fi
 
 from_iso() {
-    mcopy -i "$ISO"@@"$FAT_OFFSET" "$FL2" "$FILENAME"
+    mcopy -i "$ISO"@@"$FAT_OFFSET" "$MATCH" "$FILENAME"
 }
 
 to_iso() {
@@ -56,7 +65,7 @@ to_iso() {
         echo "Error: $FILENAME must exist"
         exit 1
     fi
-    mcopy -m -o -i "$ISO"@@"$FAT_OFFSET" "$FILENAME" "$FL2"
+    mcopy -m -o -i "$ISO"@@"$FAT_OFFSET" "$FILENAME" "$MATCH"
 }
 
 $DIR

@@ -336,23 +336,25 @@ define rule_fl2_patch
 endef
 
 # Create a new ISO image with patches applied
-# $1 = FL2 filename
-# $2 = ISO image
+# $1 = FL2 linux filename
+# $2 = pattern to match FL2 file in ISO image
+# $3 = ISO image
 define rule_iso
-    $(2): $(1) $(2).bat ; cp --reflink=auto $(2).orig $(2) && ./scripts/copyFL2 to_iso $(2) $(1) && sed -i "s/__BUILT/`sha1sum $(1)`/" $(2).bat && mcopy -m -o -i $(2)@@$(FAT_OFFSET) $(2).bat ::AUTOEXEC.BAT && mdel -i $(2)@@$(FAT_OFFSET) ::EFI/Boot/BootX64.efi
+    $(3): $(1) $(3).bat ; cp --reflink=auto $(3).orig $(3) && ./scripts/copyFL2 to_iso $(3) $(1) $(2) && sed -i "s/__BUILT/`sha1sum $(1)`/" $(3).bat && mcopy -m -o -i $(3)@@$(FAT_OFFSET) $(3).bat ::AUTOEXEC.BAT && mdel -i $(3)@@$(FAT_OFFSET) ::EFI/Boot/BootX64.efi
 endef
 
 # Extract the FL2 file from an ISO image
 # Note that the parameters here are essentially the same as rule_iso, but you cannot
 # define two targets with one define..
-# $1 = FL2 filename basename
-# $2 = ISO image basename
+# $1 = FL2 linux filename basename
+# $2 = pattern to match FL2 file in ISO image
+# $3 = ISO image basename
 #
 # TODO - checking the checksum here is probably too strict - it adds
 # more barriers to downloading some random bios ISO and starting to port
 # the code to it.
 define rule_fl2_extract
-    $(1).orig: $(2).orig ; ./scripts/copyFL2 from_iso $(2).orig $(1).orig && ./scripts/checksum --rm_on_fail $(2).orig
+    $(1).orig: $(3).orig ; ./scripts/copyFL2 from_iso $(3).orig $(1).orig $(2) && ./scripts/checksum --rm_on_fail $(3).orig
 endef
 
 #
@@ -370,18 +372,18 @@ $(call rule_fl2_patch,w530.G4HT39WW.img.enc,w530.G4HT39WW.s01D5200.FL2)
 $(call rule_fl2_patch,x230.G2HT35WW.img.enc,x230.G2HT35WW.s01D3000.FL2)
 $(call rule_fl2_patch,x230t.GCHT25WW.img.enc,x230t.GCHT25WW.s01DA000.FL2)
 
-$(call rule_iso,t430.G1HT34WW.s01D2000.FL2,g1uj25us.iso)
-$(call rule_iso,t430.G1HT35WW.s01D2000.FL2,g1uj40us.iso)
-$(call rule_iso,x230.G2HT35WW.s01D3000.FL2,g2uj25us.iso)
-$(call rule_iso,t530.G4HT39WW.s01D5100.FL2,g4uj30us.iso)
-$(call rule_iso,w530.G4HT39WW.s01D5200.FL2,g5uj28us.iso)
-$(call rule_iso,t430s.G7HT39WW.s01D8000.FL2,g7uj19us.iso)
-$(call rule_iso,x230t.GCHT25WW.s01DA000.FL2,gcuj24us.iso)
+$(call rule_iso,t430.G1HT34WW.s01D2000.FL2,01D2000.FL2,g1uj25us.iso)
+$(call rule_iso,t430.G1HT35WW.s01D2000.FL2,01D2000.FL2,g1uj40us.iso)
+$(call rule_iso,x230.G2HT35WW.s01D3000.FL2,01D3000.FL2,g2uj25us.iso)
+$(call rule_iso,t530.G4HT39WW.s01D5100.FL2,01D5100.FL2,g4uj30us.iso)
+$(call rule_iso,w530.G4HT39WW.s01D5200.FL2,01D5200.FL2,g5uj28us.iso)
+$(call rule_iso,t430s.G7HT39WW.s01D8000.FL2,01D8000.FL2,g7uj19us.iso)
+$(call rule_iso,x230t.GCHT25WW.s01DA000.FL2,01DA000.FL2,gcuj24us.iso)
 
-$(call rule_fl2_extract,t430.G1HT35WW.s01D2000.FL2,g1uj40us.iso)
-$(call rule_fl2_extract,t430.G1HT34WW.s01D2000.FL2,g1uj25us.iso)
-$(call rule_fl2_extract,x230.G2HT35WW.s01D3000.FL2,g2uj25us.iso)
-$(call rule_fl2_extract,t530.G4HT39WW.s01D5100.FL2,g4uj30us.iso)
-$(call rule_fl2_extract,w530.G4HT39WW.s01D5200.FL2,g5uj28us.iso)
-$(call rule_fl2_extract,t430s.G7HT39WW.s01D8000.FL2,g7uj19us.iso)
-$(call rule_fl2_extract,x230t.GCHT25WW.s01DA000.FL2,gcuj24us.iso)
+$(call rule_fl2_extract,t430.G1HT35WW.s01D2000.FL2,01D2000.FL2,g1uj40us.iso)
+$(call rule_fl2_extract,t430.G1HT34WW.s01D2000.FL2,01D2000.FL2,g1uj25us.iso)
+$(call rule_fl2_extract,x230.G2HT35WW.s01D3000.FL2,01D3000.FL2,g2uj25us.iso)
+$(call rule_fl2_extract,t530.G4HT39WW.s01D5100.FL2,01D5100.FL2,g4uj30us.iso)
+$(call rule_fl2_extract,w530.G4HT39WW.s01D5200.FL2,01D5200.FL2,g5uj28us.iso)
+$(call rule_fl2_extract,t430s.G7HT39WW.s01D8000.FL2,01D8000.FL2,g7uj19us.iso)
+$(call rule_fl2_extract,x230t.GCHT25WW.s01DA000.FL2,01DA000.FL2,gcuj24us.iso)
