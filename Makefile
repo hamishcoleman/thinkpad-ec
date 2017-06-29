@@ -275,15 +275,6 @@ $(DEPSDIR)/slice.insert.deps: Makefile
 %.dosflash.exe.orig: %.iso.orig
 	mcopy -m -i $^@@$(FAT_OFFSET) ::FLASH/DOSFLASH.EXE $@
 
-MOUNT_POINT ?= /mnt
-MOUNT_OPTIONS ?= loop,ro
-
-# Mount the "embedded" fat file system from a given iso.
-%.iso.mount: %.iso
-	sudo mount -o $(MOUNT_OPTIONS),offset=$(FAT_OFFSET) $< $(MOUNT_POINT)
-%.iso.orig.mount: %.iso.orig
-	sudo mount -o $(MOUNT_OPTIONS),offset=$(FAT_OFFSET) $< $(MOUNT_POINT)
-
 # Extract the "embedded" fat file system from a given iso.
 %.iso.extract: %.iso
 	mcopy -s -i $^@@$(FAT_OFFSET) :: $@
