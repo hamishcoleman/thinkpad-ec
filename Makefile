@@ -198,9 +198,11 @@ $(DEPSDIR)/slice.insert.deps: Makefile
 # *.us.txt - the "us" ones contain instructions for using the .exe
 # version of the bios update tool instead of the instructions for
 # bootable cdrom image, but other than that they /should/ be identical
-%uc.txt.orig:
+# NOTE: we download the one with the same name as the ISO, even if that is
+# wrong (it removes a bunch of edge cases)
+%.txt.orig:
 	@echo -n "Downloading release notes for "
-	@scripts/describe $(subst uc.txt,us.iso,$@)
+	@scripts/describe $(subst .txt,.iso,$@)
 	wget -O $@ https://download.lenovo.com/pccbbs/mobiles/$(basename $@)
 
 # For newer systems they have used names that match for the iso and the txt
