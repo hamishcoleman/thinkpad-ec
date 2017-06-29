@@ -331,7 +331,6 @@ $(call rule_fl2_patch,t530.G4HT39WW.img.enc,t530.G4HT39WW.s01D5100.FL2)
 $(call rule_fl2_patch,w530.G4HT39WW.img.enc,w530.G4HT39WW.s01D5200.FL2)
 $(call rule_fl2_patch,x230.G2HT35WW.img.enc,x230.G2HT35WW.s01D3000.FL2)
 $(call rule_fl2_patch,x230t.GCHT25WW.img.enc,x230t.GCHT25WW.s01DA000.FL2)
-$(call rule_fl2_patch,x260.R02HT29W.img,x260.R02HT29W.s0AR0200.FL2)
 
 $(call rule_iso,t430.G1HT34WW.s01D2000.FL2,g1uj25us.iso)
 $(call rule_iso,t430.G1HT35WW.s01D2000.FL2,g1uj40us.iso)
