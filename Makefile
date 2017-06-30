@@ -354,11 +354,13 @@ endef
 # $2 = pattern to match FL2 file in ISO image
 # $3 = ISO image basename
 #
-# TODO - checking the checksum here is probably too strict - it adds
-# more barriers to downloading some random bios ISO and starting to port
-# the code to it.
+# Note that the integrity of the FL2 file is determined by two things:
+# - The sha1sum for the iso.orig file has been checked
+# - The ./scripts/copyFL2 script is generating correct data
+# We believe these two statements are correct, so there is no need to check
+# the checksum for the extracted FL2.orig file
 define rule_fl2_extract
-    $(1).orig: $(3).orig ; ./scripts/copyFL2 from_iso $(3).orig $(1).orig $(2) && ./scripts/checksum --rm_on_fail $(3).orig
+    $(1).orig: $(3).orig ; ./scripts/copyFL2 from_iso $(3).orig $(1).orig $(2)
 endef
 
 #
