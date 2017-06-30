@@ -14,10 +14,11 @@ if [ "$1" == "--rm_on_fail" ]; then
 fi
 
 FILE="$1"
-if [ -z "$1" ]; then
+if [ -z "$FILE" ]; then
     echo "Need filename" 2>&1
     exit 1
 fi
+shift
 
 
 LINE=$(egrep "^$FILE " "$DESCRIPTIONS")
