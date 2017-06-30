@@ -20,17 +20,30 @@ if [ -z "$FILE" ]; then
 fi
 shift
 
+# The name of the Descriptions.txt entry to use
+CHECKNAME="$1"
+if [ -z "$CHECKNAME" ]; then
+    # default to the same as the filename
+    CHECKNAME="$FILE"
+fi
 
-LINE=$(egrep "^$FILE " "$DESCRIPTIONS")
+do_exit_fail() {
+    if [ "$RM_ON_FAIL" ]; then
+        rm -f "$FILE"
+    fi
+    exit 1
+}
+
+LINE=$(egrep "^$CHECKNAME " "$DESCRIPTIONS")
 
 if [ $? -ne 0 ]; then
-    echo "Unknown file $FILE" 2>&1
-    exit 1
+    echo "Unknown file $CHECKNAME" 2>&1
+    do_exit_fail
 fi
 
 if [ ! -e "$FILE" ]; then
     echo "File $FILE does not exist" 2>&1
-    exit 1
+    do_exit_fail
 fi
 
 EXPECT=$(echo "$LINE" | awk -- '{print $2}')
@@ -39,11 +52,7 @@ GOT=$(sha1sum "$FILE" | cut -d" " -f1)
 if [ "$EXPECT" != "$GOT" ]; then
     echo "File $FILE failed checksum check" 2>&1
 
-    if [ "$RM_ON_FAIL" ]; then
-        rm "$FILE"
-    fi
-
-    exit 1
+    do_exit_fail
 fi
 
 exit 0

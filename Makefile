@@ -187,9 +187,9 @@ $(DEPSDIR)/slice.insert.deps: Makefile
 # NOTE: makes an assumption about the Lenovo URL not changing
 %.iso.orig:
 	@echo -n "Downloading "
-	@scripts/describe $@
+	@scripts/describe $(basename $@)
 	wget -O $@ https://download.lenovo.com/pccbbs/mobiles/$(basename $@)
-	scripts/checksum --rm_on_fail $@
+	scripts/checksum --rm_on_fail $@ $(basename $@)
 	touch $@
 
 # Download any README text file released alongside to ISO images.
@@ -202,7 +202,7 @@ $(DEPSDIR)/slice.insert.deps: Makefile
 # wrong (it removes a bunch of edge cases)
 %.txt.orig:
 	@echo -n "Downloading release notes for "
-	@scripts/describe $(subst .txt,.iso,$@)
+	@scripts/describe $(subst .txt.orig,.iso,$@)
 	wget -O $@ https://download.lenovo.com/pccbbs/mobiles/$(basename $@)
 
 # Generate all the orig images so that we can diff against them later
@@ -217,7 +217,7 @@ $(DEPSDIR)/slice.insert.deps: Makefile
 # FIXME - wrap the mec-tools with something that gives --rm_on_fail semantics
 %.img.orig:  %.img.enc.orig mec-tools/mec_encrypt
 	mec-tools/mec_encrypt -d $< $@
-	scripts/checksum --rm_on_fail $@
+	scripts/checksum --rm_on_fail $@ $(basename $@)
 	mec-tools/mec_csum_flasher -c $@
 	mec-tools/mec_csum_boot -c $@
 
@@ -245,7 +245,7 @@ $(DEPSDIR)/slice.insert.deps: Makefile
 # my mind to it..
 #
 %.iso.bat: %.iso.orig autoexec.bat.template
-	sed -e "s%__DIR%`mdir -/ -b -i $<@@$(FAT_OFFSET) |grep FL2 |cut -d/ -f3`%; s%__FL2%`mdir -/ -b -i $<@@$(FAT_OFFSET) |grep FL2 |cut -d/ -f4`%; s%__DESC%`scripts/describe $<`%; s/__BUILDINFO/$(BUILDINFO)/" autoexec.bat.template >$@.tmp
+	sed -e "s%__DIR%`mdir -/ -b -i $<@@$(FAT_OFFSET) |grep FL2 |cut -d/ -f3`%; s%__FL2%`mdir -/ -b -i $<@@$(FAT_OFFSET) |grep FL2 |cut -d/ -f4`%; s%__DESC%`scripts/describe $(basename $<)`%; s/__BUILDINFO/$(BUILDINFO)/" autoexec.bat.template >$@.tmp
 	mv $@.tmp $@
 	touch -d @1 $@
 
