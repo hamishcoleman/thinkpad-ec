@@ -205,12 +205,6 @@ $(DEPSDIR)/slice.insert.deps: Makefile
 	@scripts/describe $(subst .txt,.iso,$@)
 	wget -O $@ https://download.lenovo.com/pccbbs/mobiles/$(basename $@)
 
-# For newer systems they have used names that match for the iso and the txt
-%.txt.orig:
-	@echo -n "Downloading release notes for "
-	@scripts/describe $(subst .txt.,.iso.,$@)
-	wget -O $@ https://download.lenovo.com/pccbbs/mobiles/$(basename $@)
-
 # Generate all the orig images so that we can diff against them later
 
 # A generic binary extractor
