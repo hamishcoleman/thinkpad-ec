@@ -1,0 +1,364 @@
+#!/usr/bin/env perl
+use warnings;
+use strict;
+#
+# Given an FL2 file from the Lenovo BIOS update, try to recognise which
+# packing system was used and allow the EC firmware image inside it to
+# be extracted or reinserted
+#
+# Note that this script is just intended to deal with the container and
+# any actions needed to extract or insert into the container - It does
+# not check any checksums within the IMG - that should be left to
+# the img manipulating tools (like mec tools).
+
+package FL2::base;
+use warnings;
+use strict;
+#
+# The base class for all the various types of FL2 encapsulation
+#
+
+use IO::File;
+
+sub new {
+    my $class = shift;
+    my $fh = shift || return undef; # must have a file handle
+    my $self = {};
+    bless $self, $class;
+    $self->{fh} = $fh;
+    $self->{filesize} = (stat($self->{fh}))[7];
+
+    return $self->_check();
+}
+
+sub set_offset_size {
+    my $self = shift;
+    $self->{offset} = shift;
+    $self->{size} = shift;
+    return $self;
+}
+
+sub offset { return shift->{offset}; }
+sub size { return shift->{size}; }
+
+
+sub get_block {
+    my $self = shift;
+    my $offset = shift;
+    my $size = shift;
+
+    return undef if (!$self->{fh}->seek($offset, 0));
+
+    my $buf;
+    my $count = $self->{fh}->sysread($buf, $size);
+
+    return undef if ($count != $size);
+
+    return $buf;
+}
+
+# The base class simply says "no" to any checks - override to use
+sub _check {
+    return undef;
+}
+
+# Once a subclass has set the length and size, we can go and double check it
+# has the expected copyright message
+sub _check_copyright {
+    my $self = shift;
+
+    my $expect = "(C) Copyright IBM Corp. 2001, 2005 All Rights Reserved ";
+    my $check_size = length($expect);
+    my @offsets = (
+        0x268,
+        0x264,
+    );
+
+    while (@offsets) {
+        my $check_offset = shift @offsets;
+
+        my $buf = $self->get_block($self->offset()+$check_offset, $check_size);
+    
+        return undef if (!defined($buf));
+
+        if ($buf eq $expect) {
+            $self->{flag}{copyright}=$check_offset;
+            return $self;
+        }
+    }
+
+    return undef;
+}
+
+1;
+
+package FL2::prefix_ff;
+use warnings;
+use strict;
+#
+# Look for FL2 files that consist entirely of 0xff up until the IMG
+#
+
+use base qw(FL2::base);
+
+sub _check {
+    my $self = shift;
+
+    # List of known file sizes (basically a doublecheck on the signature)
+    my $known = {
+         8523776 => [0x500000, 0x20000],
+        12718080 => [0x500000, 0x30000],
+        16912384 => [0x500000, 0x30000],
+    };
+
+    my $check_offset = 0;
+    my $check_size = 0x1000;
+    my $buf = $self->get_block($check_offset, $check_size);
+
+    return undef if (!defined($buf));
+    return undef if (!defined($known->{$self->{filesize}}));
+
+    return undef if ($buf ne "\xff"x$check_size);
+
+    $self->{flag}{encrypted}="yes";
+    # All current examples of this format were encrypted
+
+    $self->set_offset_size(@{$known->{$self->{filesize}}});
+    return $self->_check_copyright();
+}
+
+1;
+
+package FL2::prefix_garbage;
+use warnings;
+use strict;
+#
+# Look for FL2 files that have garbage at the beginning and large areas of
+# 0xff before the IMG
+#
+
+use base qw(FL2::base);
+
+sub _check {
+    my $self = shift;
+
+    # List of known file sizes (basically a doublecheck on the signature)
+    my $known = {
+         4240490 => [0x290000, 0x20000],
+    };
+
+    my $check_offset = 0x21000;
+    my $check_size = 0x1000;
+    my $buf = $self->get_block($check_offset, $check_size);
+
+    return undef if (!defined($buf));
+    return undef if (!defined($known->{$self->{filesize}}));
+
+    return undef if ($buf ne "\xff"x$check_size);
+
+    $self->{flag}{encrypted}="no";
+    # All current examples of this format were not encrypted
+
+    $self->set_offset_size(@{$known->{$self->{filesize}}});
+    return $self->_check_copyright();
+}
+
+1;
+
+package FL2::prefix_nothing;
+use warnings;
+use strict;
+#
+# Some FL2 files are simply the IMG data, with no header or container.
+# For these, we can check the copyright string from inside the IMG
+#
+
+use base qw(FL2::base);
+
+sub _check {
+    my $self = shift;
+
+    # List of known file sizes (basically a doublecheck on the signature)
+    my $known = {
+         196608 => [0, 0x30000],
+    };
+
+    return undef if (!defined($known->{$self->{filesize}}));
+
+    $self->{flag}{encrypted}="yes";
+    # All current examples of this format were encrypted
+
+    $self->set_offset_size(@{$known->{$self->{filesize}}});
+    return $self->_check_copyright();
+}
+
+1;
+
+package FL2::prefix_head;
+use warnings;
+use strict;
+#
+# Look for FL2 files that have a "_EC" prefix header at their start
+#
+
+use base qw(FL2::base);
+
+sub _check {
+    my $self = shift;
+
+    # List of known file sizes (basically a doublecheck on the signature)
+    # We also store the encryption flag in here
+    my $known = {
+         196896 => 'yes',
+         286752 => 'no',
+    };
+
+    my $header_offset = 0;
+    my $header_size = 0x20;
+    my $trailer_size = 0x100;
+
+    my $buf = $self->get_block($header_offset, $header_size);
+
+    return undef if (!defined($buf));
+    return undef if (!defined($known->{$self->{filesize}}));
+
+    my @fields = qw(
+        signature filesize imgsize unk1 
+        unk2 maybe_csum all_00_1 all_00_2
+    );
+    my @values = unpack("a4VVVVVVV",$buf);
+    map { $self->{header}{$fields[$_]} = $values[$_] } (0..scalar(@fields)-1);
+
+    return undef if ($self->{header}{signature} ne "_EC\x01");
+    return undef if ($self->{header}{filesize} != $self->{filesize});
+
+    if ($self->{header}{imgsize}+$header_size+$trailer_size == $self->{filesize}) {
+        # there is an additional block of 0x100 appended to the FL2, outside
+        # of the header defined IMG file
+        # - I expect this is the digital signature
+        $self->{flag}{trailer}="external";
+    } elsif ($self->{header}{imgsize}+$header_size == $self->{filesize}) {
+        # the additional block still looks like it is there, but they have
+        # changed the accounting to count it in the IMG - these files are also
+        # significantly larger in size
+        $self->{flag}{trailer}="internal";
+    } else {
+        return undef;
+    }
+
+    # FIXME
+    # - is that a csum? how to generate it and check it?
+
+    $self->{flag}{encrypted} = $known->{$self->{filesize}};
+
+    $self->set_offset_size($header_size, $self->{header}{imgsize});
+    return $self->_check_copyright();
+}
+
+1;
+
+# TODO
+# - 8muj19us.iso has yet another format:
+# It is all 0xff until 0x500000, however it then looks like it has a header.
+# There is certainly not the normal copyright string, and the EC version
+# string is in entirely the wrong place
+# 00500000  45 43 20 49 4d 41 47 45  30 00 00 00 00 00 00 00  |EC IMAGE0.......|
+# 00500010  d0 08 38 4d 48 54 37 39  57 57 00 00 00 20 02 00  |..8MHT79WW... ..|
+# 00500020  00 00 00 00 31 36 01 00  00 00 00 00 0d b3 9e 00  |....16..........|
+
+package main;
+use warnings;
+use strict;
+
+use Data::Dumper;
+$Data::Dumper::Indent = 1;
+$Data::Dumper::Sortkeys = 1;
+$Data::Dumper::Quotekeys = 0;
+
+use IO::File;
+
+# Call each of the detectors in turn to try to find the location of the IMG
+sub detect_img {
+    my $fl2name = shift;
+
+    my $fh = IO::File->new($fl2name, "r"); # FIXME - openmode
+    if (!defined($fh)) {
+        warn("Could not open $fl2name: $!");
+        return undef;
+    }
+
+    my $object;
+    if (!defined($object)) {
+        $object = FL2::prefix_ff->new($fh);
+    }
+    if (!defined($object)) {
+        $object = FL2::prefix_garbage->new($fh);
+    }
+    if (!defined($object)) {
+        $object = FL2::prefix_nothing->new($fh);
+    }
+    if (!defined($object)) {
+        $object = FL2::prefix_head->new($fh);
+    }
+
+    return $object;
+}
+
+sub main() {
+    # get args
+    my $cmd = shift @ARGV;
+    if (!defined($cmd)) {
+        die("Need command");
+    }
+
+    my $fl2file = shift @ARGV;
+    if (!defined($fl2file)) {
+        die("Need FL2 filename");
+    }
+
+    my $imgfile = shift @ARGV;
+    if ($cmd ne 'check' && !defined($imgfile)) {
+        die("Need IMG filename");
+    }
+
+    # validity check args
+    if ($cmd ne "from_fl2" && $cmd ne "to_fl2" && $cmd ne "check") {
+        die("direction must be one of 'from_fl2' or 'to_fl2'");
+    }
+
+    if ( ! -e $fl2file ) {
+        die("FL2 file $fl2file must exist");
+    }
+
+    my $object = detect_img($fl2file);
+    if (!defined($object)) {
+        printf("Could not determine IMG details for %s\n", $fl2file);
+        return 1;
+    }
+    printf("IMG at offset 0x%x size 0x%x (%s %s)\n",
+        $object->offset(),
+        $object->size(),
+        ref($object),
+        $fl2file,
+    );
+
+    #if verbose
+    #    print(Dumper($object));
+
+    if ($cmd eq 'from_fl2') {
+        if (!$object->can('extract')) {
+            die("FL2 container type cannot extract");
+        }
+        return $object->extract($imgfile);
+    }
+
+    if ($cmd eq 'to_fl2') {
+        if (!$object->can('insert')) {
+            die("FL2 container type cannot insert");
+        }
+        return $object->insert($imgfile);
+    }
+}
+unless(caller) {
+    main();
+}
