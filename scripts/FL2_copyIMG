@@ -54,7 +54,7 @@ sub get_block {
 
     return undef if ($count != $size);
 
-    return $buf;
+    return \$buf;
 }
 
 # The base class simply says "no" to any checks - override to use
@@ -81,7 +81,7 @@ sub _check_copyright {
     
         return undef if (!defined($buf));
 
-        if ($buf eq $expect) {
+        if ($$buf eq $expect) {
             $self->{flag}{copyright}=$check_offset;
             return $self;
         }
@@ -118,7 +118,7 @@ sub _check {
     return undef if (!defined($buf));
     return undef if (!defined($known->{$self->{filesize}}));
 
-    return undef if ($buf ne "\xff"x$check_size);
+    return undef if ($$buf ne "\xff"x$check_size);
 
     $self->{flag}{encrypted}="yes";
     # All current examples of this format were encrypted
@@ -154,7 +154,7 @@ sub _check {
     return undef if (!defined($buf));
     return undef if (!defined($known->{$self->{filesize}}));
 
-    return undef if ($buf ne "\xff"x$check_size);
+    return undef if ($$buf ne "\xff"x$check_size);
 
     $self->{flag}{encrypted}="no";
     # All current examples of this format were not encrypted
@@ -226,7 +226,7 @@ sub _check {
         signature filesize imgsize unk1 
         unk2 maybe_csum all_00_1 all_00_2
     );
-    my @values = unpack("a4VVVVVVV",$buf);
+    my @values = unpack("a4VVVVVVV",$$buf);
     map { $self->{header}{$fields[$_]} = $values[$_] } (0..scalar(@fields)-1);
 
     return undef if ($self->{header}{signature} ne "_EC\x01");
