@@ -6,7 +6,7 @@
 # FIXME
 # - the description file is expected to be in the current dir
 
-set -o nounset -o pipefail -o errexit
+set -o pipefail -o errexit
 
 DESCRIPTIONS='Descriptions.txt'
 
@@ -20,6 +20,8 @@ if [ -z "$1" ]; then
     echo "Need filename" 2>&1
     exit 1
 fi
+
+set -o nounset
 
 LINE=$(egrep "^$FILE " "$DESCRIPTIONS")
 
