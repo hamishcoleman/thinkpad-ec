@@ -279,9 +279,9 @@ $(DEPSDIR)/slice.insert.deps: Makefile
 
 # Extract the "embedded" fat file system from a given iso.
 %.iso.extract: %.iso
-	mcopy -s -i $^@@$(FAT_OFFSET) :: $@
+	mcopy -n -s -i $^@@$(FAT_OFFSET) :: $@
 %.iso.orig.extract: %.iso.orig
-	mcopy -s -i $^@@$(FAT_OFFSET) :: $@
+	mcopy -n -s -i $^@@$(FAT_OFFSET) :: $@
 
 ## Use the system provided geteltorito script, if there is one
 #GETELTORITO := $(shell if type geteltorito >/dev/null; then echo geteltorito; else echo ./geteltorito; fi)
