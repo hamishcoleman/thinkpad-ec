@@ -57,7 +57,7 @@ if [ $(echo "$MATCH" |wc -w) -ne 1 ]; then
 fi
 
 from_iso() {
-    mcopy -i "$ISO"@@"$FAT_OFFSET" "$MATCH" "$FILENAME"
+    mcopy -n -i "$ISO"@@"$FAT_OFFSET" "$MATCH" "$FILENAME"
 }
 
 to_iso() {
