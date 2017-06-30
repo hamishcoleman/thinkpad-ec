@@ -6,8 +6,6 @@
 # FIXME
 # - the description file is expected to be in the current dir
 
-set -o pipefail -o errexit
-
 DESCRIPTIONS='Descriptions.txt'
 
 if [ "$1" == "--rm_on_fail" ]; then
@@ -21,7 +19,6 @@ if [ -z "$1" ]; then
     exit 1
 fi
 
-set -o nounset
 
 LINE=$(egrep "^$FILE " "$DESCRIPTIONS")
 
