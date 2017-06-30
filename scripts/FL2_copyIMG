@@ -90,6 +90,29 @@ sub _check_copyright {
     return undef;
 }
 
+# Helper function, called by the real classes if they support extraction
+sub _extract {
+    my $self = shift;
+    my $imgfile = shift;
+
+    my $buf = $self->get_block($self->offset(),$self->size());
+    die("bad read") if (!defined($buf));
+
+    my $fh = IO::File->new($imgfile, "w");
+    if (!defined($fh)) {
+        warn("Could not open $imgfile: $!");
+        return undef;
+    }
+
+    my $count = $fh->syswrite($$buf);
+    if ($count != $self->size()) {
+        unlink($imgfile);
+        die("bad write");
+    }
+
+    return $self;
+}
+
 1;
 
 package FL2::prefix_ff;
@@ -125,6 +148,10 @@ sub _check {
 
     $self->set_offset_size(@{$known->{$self->{filesize}}});
     return $self->_check_copyright();
+}
+
+sub extract {
+    return shift->_extract(shift);
 }
 
 1;
@@ -163,6 +190,10 @@ sub _check {
     return $self->_check_copyright();
 }
 
+sub extract {
+    return shift->_extract(shift);
+}
+
 1;
 
 package FL2::prefix_nothing;
@@ -190,6 +221,10 @@ sub _check {
 
     $self->set_offset_size(@{$known->{$self->{filesize}}});
     return $self->_check_copyright();
+}
+
+sub extract {
+    return shift->_extract(shift);
 }
 
 1;
@@ -254,6 +289,12 @@ sub _check {
     $self->set_offset_size($header_size, $self->{header}{imgsize});
     return $self->_check_copyright();
 }
+
+sub extract {
+    return shift->_extract(shift);
+}
+
+# Note, no insert() will work until we know how to generate the checksum
 
 1;
 
