@@ -113,6 +113,38 @@ sub _extract {
     return $self;
 }
 
+# Helper function, called by the real classes if they support insertion
+sub _insert {
+    my $self = shift;
+    my $imgfile = shift;
+
+    my $fh = IO::File->new($imgfile, "r");
+    if (!defined($fh)) {
+        warn("Could not open $imgfile: $!");
+        return undef;
+    }
+
+    my $buf;
+    my $count = $fh->sysread($buf, $self->size());
+    if ($count != $self->size()) {
+        unlink($imgfile);
+        die("bad read");
+    }
+
+    if (!$self->{fh}->seek($self->offset(), 0)) {
+        unlink($imgfile);
+        die("bad seek");
+    }
+
+    $count = $self->{fh}->syswrite($buf);
+    if ($count != $self->size()) {
+        unlink($imgfile);
+        die("bad write");
+    }
+
+    return $self;
+}
+
 1;
 
 package FL2::prefix_ff;
@@ -152,6 +184,10 @@ sub _check {
 
 sub extract {
     return shift->_extract(shift);
+}
+
+sub insert {
+    return shift->_insert(shift);
 }
 
 1;
@@ -194,6 +230,10 @@ sub extract {
     return shift->_extract(shift);
 }
 
+sub insert {
+    return shift->_insert(shift);
+}
+
 1;
 
 package FL2::prefix_nothing;
@@ -225,6 +265,10 @@ sub _check {
 
 sub extract {
     return shift->_extract(shift);
+}
+
+sub insert {
+    return shift->_insert(shift);
 }
 
 1;
@@ -295,6 +339,16 @@ sub extract {
 }
 
 # Note, no insert() will work until we know how to generate the checksum
+#sub insert {
+#    my $self = shift;
+#    my $imgfile = shift;
+#
+#    my $write = $self->_insert($imgfile);
+#
+#    Calculate checksum
+#    write checksum to header
+#}
+
 
 1;
 
@@ -322,7 +376,7 @@ use IO::File;
 sub detect_img {
     my $fl2name = shift;
 
-    my $fh = IO::File->new($fl2name, "r"); # FIXME - openmode
+    my $fh = IO::File->new($fl2name, "r+");
     if (!defined($fh)) {
         warn("Could not open $fl2name: $!");
         return undef;

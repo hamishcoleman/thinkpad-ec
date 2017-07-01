@@ -161,24 +161,6 @@ define patch_disable
 	$(call patch_mv,$1,$1.OFF)
 endef
 
--include $(DEPSDIR)/slice.extract.deps
-CLEAN_FILES += $(DEPSDIR)/slice.extract.deps
-$(DEPSDIR)/slice.extract.deps: Makefile
-	for i in *.slice; do read SLICEE other <$$i; echo $$i: $$SLICEE; done >$@.tmp
-	mv $@.tmp $@
-
--include $(DEPSDIR)/slice.insert.deps
-CLEAN_FILES += $(DEPSDIR)/slice.insert.deps
-$(DEPSDIR)/slice.insert.deps: Makefile
-	for i in *.slice; do read SLICEE other <$$i; echo `basename $$SLICEE .orig`: $$i `basename $$i .slice`; done >$@.tmp
-	mv $@.tmp $@
-
-# FIXME - the slice.deps targets basically do not handle add/del/change of
-# the *.slice files.  I dont use any of the regular tricks because I also
-# dont want to download every .iso file as a result of depending on the %.slice
-# file - and I dont want to work around that with makefile magic as that would
-# defeat the purpose of keeping the makefile simple
-
 # TODO - the scripts/describe output depends on Descriptions.txt -
 # could parse that file and create some deps
 
@@ -206,10 +188,6 @@ $(DEPSDIR)/slice.insert.deps: Makefile
 	wget -O $@ https://download.lenovo.com/pccbbs/mobiles/$(basename $@)
 
 # Generate all the orig images so that we can diff against them later
-
-# A generic binary extractor
-%.orig:  %.slice scripts/slice.extract
-	./scripts/slice.extract $< $@
 
 # TODO - checking the checksum here is probably too strict - it adds
 # more barriers to downloading some random bios ISO and starting to port
@@ -328,7 +306,7 @@ mec-tools/mec_encrypt: mec-tools/Makefile
 # $1 = encoded EC firmware
 # $2 = FL2 filename
 define rule_fl2_patch
-    $(2): $(1) ; ./scripts/slice.insert $(1).slice $(1) $(2)
+    $(2): $(1) ; cp --reflink=auto $(2).orig $(2) && ./scripts/FL2_copyIMG to_fl2 $(2) $(1)
 endef
 
 # Create a new ISO image with patches applied
@@ -342,8 +320,8 @@ endef
 # accidentally be used for BIOS updates
 
 # Extract the FL2 file from an ISO image
-# Note that the parameters here are essentially the same as rule_iso, but you cannot
-# define two targets with one define..
+# Note that the parameters here are intentionally the same as rule_iso,
+# but you cannot define two targets with one define..
 # $1 = FL2 linux filename basename
 # $2 = pattern to match FL2 file in ISO image
 # $3 = ISO image basename
@@ -357,9 +335,20 @@ define rule_fl2_extract
     $(1).orig: $(3).orig ; ./scripts/copyFL2 from_iso $(3).orig $(1).orig $(2)
 endef
 
+# Extract the IMG file from an FL2 file
+# Note that the parameters here are intentionallty the same as rule_fl2_patch,
+# but you cannot define two targets with one define..
+# $1 = IMG file basename
+# $2 = FL2 file basename
+define rule_img_extract
+    $(1).orig: $(2).orig ./scripts/FL2_copyIMG ; ./scripts/FL2_copyIMG from_fl2 $(2).orig $(1).orig
+endef
+
 #
 # TODO:
 # - add a simple method to autogenerate these non-generic rules
+#   - this is getting closer with the replacement of the .slice files with
+#     generic scripts.
 # - once that is done, convert the defines back to action bodies, not
 #   rule definitions
 
@@ -372,6 +361,15 @@ $(call rule_fl2_patch,w530.G4HT39WW.img.enc,w530.G4HT39WW.s01D5200.FL2)
 $(call rule_fl2_patch,x230.G2HT35WW.img.enc,x230.G2HT35WW.s01D3000.FL2)
 $(call rule_fl2_patch,x230t.GCHT25WW.img.enc,x230t.GCHT25WW.s01DA000.FL2)
 
+$(call rule_img_extract,x220.8DHT34WW.img.enc,x220.8DHT34WW.s01CB000.FL2)
+$(call rule_img_extract,t430.G1HT34WW.img.enc,t430.G1HT34WW.s01D2000.FL2)
+$(call rule_img_extract,t430.G1HT35WW.img.enc,t430.G1HT35WW.s01D2000.FL2)
+$(call rule_img_extract,t430s.G7HT39WW.img.enc,t430s.G7HT39WW.s01D8000.FL2)
+$(call rule_img_extract,t530.G4HT39WW.img.enc,t530.G4HT39WW.s01D5100.FL2)
+$(call rule_img_extract,w530.G4HT39WW.img.enc,w530.G4HT39WW.s01D5200.FL2)
+$(call rule_img_extract,x230.G2HT35WW.img.enc,x230.G2HT35WW.s01D3000.FL2)
+$(call rule_img_extract,x230t.GCHT25WW.img.enc,x230t.GCHT25WW.s01DA000.FL2)
+
 $(call rule_iso,t430.G1HT34WW.s01D2000.FL2,01D2000.FL2,g1uj25us.iso)
 $(call rule_iso,t430.G1HT35WW.s01D2000.FL2,01D2000.FL2,g1uj40us.iso)
 $(call rule_iso,x230.G2HT35WW.s01D3000.FL2,01D3000.FL2,g2uj25us.iso)
@@ -380,6 +378,7 @@ $(call rule_iso,w530.G4HT39WW.s01D5200.FL2,01D5200.FL2,g5uj28us.iso)
 $(call rule_iso,t430s.G7HT39WW.s01D8000.FL2,01D8000.FL2,g7uj19us.iso)
 $(call rule_iso,x230t.GCHT25WW.s01DA000.FL2,01DA000.FL2,gcuj24us.iso)
 
+$(call rule_fl2_extract,x220.8DHT34WW.s01CB000.FL2,01CB000.FL2,8duj27us.iso)
 $(call rule_fl2_extract,t430.G1HT35WW.s01D2000.FL2,01D2000.FL2,g1uj40us.iso)
 $(call rule_fl2_extract,t430.G1HT34WW.s01D2000.FL2,01D2000.FL2,g1uj25us.iso)
 $(call rule_fl2_extract,x230.G2HT35WW.s01D3000.FL2,01D3000.FL2,g2uj25us.iso)
