@@ -46,8 +46,20 @@ if [ ! -e "$FILE" ]; then
     do_exit_fail
 fi
 
-EXPECT=$(echo "$LINE" | awk -- '{print $2}')
-GOT=$(sha1sum "$FILE" | cut -d" " -f1)
+SUM_FIELD=$(echo "$LINE" | awk -- '{print $2}')
+
+TYPE=$(echo "$SUM_FIELD" | cut -d: -f1)
+EXPECT=$(echo "$SUM_FIELD" | cut -d: -f2)
+
+case "$TYPE" in
+    sha1)
+        GOT=$(sha1sum "$FILE" | cut -d" " -f1)
+        ;;
+    *)
+        echo "Unknown checksum type $TYPE for $CHECKNAME" 2>&1
+        do_exit_fail
+        ;;
+esac
 
 if [ "$EXPECT" != "$GOT" ]; then
     echo "File $FILE failed checksum check" 2>&1
