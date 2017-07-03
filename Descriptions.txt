@@ -29,6 +29,8 @@
 #       rule    - The basename of the make macro for this file
 #       dep     - The file(s) that this file depends on - the first dep
 #                 file is used to build the inverse rule for this line
+#       depe    - Dependancies that are only valid for "extract"
+#       depi    - Dependancies that are only valid for the inverse "insert"
 #       param   - Any parameters that are needed to be passed to the macro
 #
 
@@ -65,19 +67,22 @@ r02uj46d.iso  sha1:876a68add32d9c961cbdf80c74b88f92a66443cf x260 BIOS 1.19 (R02E
 r0iuj09wd.iso sha1:21b3abf69b9ee7ecf12fe0880564312122b1ff75 x270 BIOS 1.16 (R0IET38W) EC 1.12 (R0IHT30W)
 
 # The firmware files from inside the ISO images
-t430.G1HT34WW.s01D2000.FL2  rule:FL2,dep:g1uj25us.iso;g1uj25us.iso.bat,param:01D2000.FL2  t430 EC 1.12 Flash File
-t430.G1HT35WW.s01D2000.FL2  rule:FL2,dep:g1uj40us.iso;g1uj40us.iso.bat,param:01D2000.FL2  t430 EC 1.13 Flash File
-t430s.G7HT39WW.s01D8000.FL2 rule:FL2,dep:g7uj19us.iso;g7uj19us.iso.bat,param:01D8000.FL2  t430s EC 1.15 Flash File
-t530.G4HT39WW.s01D5100.FL2  rule:FL2,dep:g4uj30us.iso;g4uj30us.iso.bat,param:01D5100.FL2  t530 EC 1.13 Flash File
-w530.G4HT39WW.s01D5200.FL2  rule:FL2,dep:g5uj28us.iso;g5uj28us.iso.bat,param:01D5200.FL2  w530 EC 1.13 Flash File
-x220.8DHT34WW.s01CB000.FL2  rule:FL2,dep:8duj27us.iso;8duj27us.iso.bat,param:01CB000.FL2  x220 EC 1.24 Flash File
-x230.G2HT35WW.s01D3000.FL2  rule:FL2,dep:g2uj25us.iso;g2uj25us.iso.bat,param:01D3000.FL2  x230 EC 1.14 Flash File
-x230t.GCHT25WW.s01DA000.FL2 rule:FL2,dep:gcuj24us.iso;gcuj24us.iso.bat,param:01DA000.FL2  x230t EC 1.14 Flash File
-x250.N10HT17W.s01E5000.FL2  rule:FL2,dep:n10ur10w.iso;n10ur10w.iso.bat,param:01E5000.FL2  x250 EC 1.16 Flash File
-x260.R02HT29W.s0AR0200.FL2  rule:FL2,dep:r02uj46d.iso;r02uj46d.iso.bat,param:0AR0200.FL2  x260 EC 1.11 Flash File
+t430.G1HT34WW.s01D2000.FL2  rule:FL2,dep:g1uj25us.iso,depi:g1uj25us.iso.bat,param:01D2000.FL2  t430 EC 1.12 Flash File
+t430.G1HT35WW.s01D2000.FL2  rule:FL2,dep:g1uj40us.iso,depi:g1uj40us.iso.bat,param:01D2000.FL2  t430 EC 1.13 Flash File
+t430s.G7HT39WW.s01D8000.FL2 rule:FL2,dep:g7uj19us.iso,depi:g7uj19us.iso.bat,param:01D8000.FL2  t430s EC 1.15 Flash File
+t530.G4HT39WW.s01D5100.FL2  rule:FL2,dep:g4uj30us.iso,depi:g4uj30us.iso.bat,param:01D5100.FL2  t530 EC 1.13 Flash File
+w530.G4HT39WW.s01D5200.FL2  rule:FL2,dep:g5uj28us.iso,depi:g5uj28us.iso.bat,param:01D5200.FL2  w530 EC 1.13 Flash File
+x220.8DHT34WW.s01CB000.FL2  rule:FL2,dep:8duj27us.iso,param:01CB000.FL2                        x220 EC 1.24 Flash File
+x230.G2HT35WW.s01D3000.FL2  rule:FL2,dep:g2uj25us.iso,depi:g2uj25us.iso.bat,param:01D3000.FL2  x230 EC 1.14 Flash File
+x230t.GCHT25WW.s01DA000.FL2 rule:FL2,dep:gcuj24us.iso,depi:gcuj24us.iso.bat,param:01DA000.FL2  x230t EC 1.14 Flash File
+x250.N10HT17W.s01E5000.FL2  rule:FL2,dep:n10ur10w.iso,param:01E5000.FL2                        x250 EC 1.16 Flash File
+x260.R02HT29W.s0AR0200.FL2  rule:FL2,dep:r02uj46d.iso,param:0AR0200.FL2                        x260 EC 1.11 Flash File
 
 # TODO
-# - those deps on the .iso.bat files are both ugly and in some cases wrong
+# - the deps on the .iso.bat files are ugly
+# - the entries missing the .iso.bat dep will have a build error on insert
+#   but they are for systems that we dont know how to successfully build
+#   a working FL2 file anyway.
 
 
 # The actual EC firmware extracted from the BIOS firmware file
