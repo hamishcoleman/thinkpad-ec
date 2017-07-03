@@ -35,6 +35,13 @@ while(<>) {
         push @{$entry->{tags}{$tag}}, @values;
     }
 
+    # default tags - if there is a value loaded from the tags_raw, it will
+    # take precedence, but otherwise this ensures we create the array and
+    # have the default value at [0]
+    push @{$entry->{tags}{extract}},1;
+    push @{$entry->{tags}{insert}},1;
+    push @{$entry->{tags}{suffix}},1;
+
     push @entries,$entry;
 }
 
@@ -72,37 +79,47 @@ for my $entry (@entries) {
         @params = @{$entry->{tags}{param}};
     }
 
-    # generate the forward rule
-    my $rule = "rule_".$entry->{tags}{rule}[0]."_extract";
-    push @extracts,
-        sprintf("# %s:%i\n",
-            $entry->{generator_file},
-            $entry->{generator_line},
-        ),
-        sprintf("%s: %s %s %s %s\n\t\$(call %s)\n\n",
-            $entry->{filename}.".orig",
-            $dep0.".orig",
-            join(' ',@deps,@deps_extract),
-            $entry->{generator_file},
-            '$('.$rule.'_DEPS)',
-            join(',',$rule,@params),
-        );
+    if ($entry->{tags}{extract}[0]) {
+        # generate the forward rule
 
-    # generate the inverse rule
-    $rule = "rule_".$entry->{tags}{rule}[0]."_insert";
-    push @inserts,
-        sprintf("# %s:%i\n",
-            $entry->{generator_file},
-            $entry->{generator_line},
-        ),
-        sprintf("%s: %s %s %s %s\n\t\$(call %s)\n\n",
-            $dep0,
-            $entry->{filename},
-            join(' ',@deps,@deps_insert),
-            $entry->{generator_file},
-            '$('.$rule.'_DEPS)',
-            join(',',$rule,@params),
-        );
+        my $suffix = "";
+        if ($entry->{tags}{suffix}[0]) {
+            $suffix = ".orig";
+        }
+
+        my $rule = "rule_".$entry->{tags}{rule}[0]."_extract";
+        push @extracts,
+            sprintf("# %s:%i\n",
+                $entry->{generator_file},
+                $entry->{generator_line},
+            ),
+            sprintf("%s: %s %s %s %s\n\t\$(call %s)\n\n",
+                $entry->{filename}.$suffix,
+                $dep0.$suffix,
+                join(' ',@deps,@deps_extract),
+                $entry->{generator_file},
+                '$('.$rule.'_DEPS)',
+                join(',',$rule,@params),
+            );
+    }
+
+    if ($entry->{tags}{insert}[0]) {
+        # generate the inverse rule
+        my $rule = "rule_".$entry->{tags}{rule}[0]."_insert";
+        push @inserts,
+            sprintf("# %s:%i\n",
+                $entry->{generator_file},
+                $entry->{generator_line},
+            ),
+            sprintf("%s: %s %s %s %s\n\t\$(call %s)\n\n",
+                $dep0,
+                $entry->{filename},
+                join(' ',@deps,@deps_insert),
+                $entry->{generator_file},
+                '$('.$rule.'_DEPS)',
+                join(',',$rule,@params),
+            );
+    }
 }
 
 if (!$rules_found) {

@@ -15,20 +15,16 @@ QEMU_OPTIONS ?= -enable-kvm
 GITVERSION = $(shell git describe --dirty --abbrev=6 ) ($(shell date +%Y%m%d))
 BUILDINFO = $(GITVERSION) $(MAKECMDGOALS)
 
+LIST_PATCHED = $(basename $(shell grep ^patched Descriptions.txt |cut -d" " -f1))
+
 list_laptops:
 	$(info )
 	$(info The following make targets are the supported usb images:)
 	$(info )
-	$(info patched.t430.img  - for patching Thinkpad T430)
-	$(info patched.t430s.img - for patching Thinkpad T430s)
-	$(info patched.t530.img  - for patching Thinkpad T530)
-	$(info patched.t530i.img - for patching Thinkpad T530i)
-	$(info patched.w530.img  - for patching Thinkpad W530)
-	$(info patched.x230.img  - for patching Thinkpad X230)
-	$(info patched.x230t.img - for patching Thinkpad X230t)
-	$(info )
-	$(info patched.t430.257.img  - for patching Thinkpad T430 BIOS 2.57 - no keyboard patch)
-	$(info )
+	@for i in $(LIST_PATCHED); do \
+            echo "$$i.img\t- `scripts/describe $$i.iso`"; \
+	done
+	@echo
 
 .PHONY: list_laptops
 
@@ -49,32 +45,11 @@ clean:
 really_clean: clean
 	rm -f *.iso.orig
 
-# manually managed list of laptops - update this if the BIOS versions change
-
-patched.t430.iso: g1uj40us.iso
-	$(call patched_iso,$<,$@)
-
-patched.t430.257.iso: g1uj25us.iso
-	$(call patched_iso,$<,$@)
-
-patched.t430s.iso: g7uj19us.iso
-	$(call patched_iso,$<,$@)
-
-patched.t530.iso: g4uj30us.iso
-	$(call patched_iso,$<,$@)
-
-patched.t530i.iso: g4uj30us.iso
-	$(call patched_iso,$<,$@)
-
-patched.w530.iso: g5uj28us.iso
-	$(call patched_iso,$<,$@)
-
-patched.x230.iso: g2uj25us.iso
-	$(call patched_iso,$<,$@)
-
-patched.x230t.iso: gcuj24us.iso
-	$(call patched_iso,$<,$@)
-
+# TODO - whilst this could be added to the "pretty named" list, I think
+# that it is more useful to use the new generated rules framework to allow
+# asking for the iso image by name - in this case "g1uj25us.iso"
+#patched.t430.257.iso: g1uj25us.iso
+#	$(call patched_iso,$<,$@)
 
 list_iso:
 	$(info )
@@ -248,14 +223,6 @@ GETELTORITO := ./scripts/geteltorito
 	mv $@.tmp $@
 	$(call build_info,$<.report)
 
-# $1 is the lenovo named iso
-# $2 is the nicely named iso
-define patched_iso
-	mv $1 $2
-	mv $1.report $2.report
-	$(call build_info,$2.report)
-endef
-
 # $1 is the bat file
 define build_info
 	@echo
@@ -366,6 +333,18 @@ define rule_IMG_insert
     $(call buildinfo_FL2)
 endef
 rule_IMG_insert_DEPS = scripts/FL2_copyIMG scripts/xx30.encrypt
+
+# Take a built ISO file with Lenovo's name and rename it to a nice name
+#
+# $< is the lenovo named iso
+# $@ is the nicely named iso
+define rule_niceISO_extract
+    mv $< $@
+    mv $<.report $@.report
+    $(call build_info,$@.report)
+endef
+rule_niceISO_extract_DEPS = # no extra dependancies
+
 
 # Additional macros for any special cases:
 
