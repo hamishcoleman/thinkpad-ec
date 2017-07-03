@@ -283,7 +283,7 @@ mec-tools/mec_encrypt: mec-tools/Makefile
 #
 # Note that the integrity of the FL2 file is determined by two things:
 # - The sha1sum for the ISO.orig file has been checked
-# - The ./scripts/copyFL2 script is generating correct data
+# - The ./scripts/ISO_copyFL2 script is generating correct data
 # We believe these two statements are correct, so there is no need to check
 # the checksum for the extracted FL2.orig file
 #
@@ -291,9 +291,9 @@ mec-tools/mec_encrypt: mec-tools/Makefile
 # $< is the ISO file
 # $1 is the pattern to match FL2 file in ISO image
 define rule_FL2_extract
-    ./scripts/copyFL2 from_iso $< $@ $(1)
+    ./scripts/ISO_copyFL2 from_iso $< $@ $(1)
 endef
-rule_FL2_extract_DEPS = scripts/copyFL2
+rule_FL2_extract_DEPS = scripts/ISO_copyFL2
 
 # Extract and decyrpt the IMG file from an FL2 file
 #
@@ -316,13 +316,13 @@ rule_IMG_extract_DEPS = scripts/FL2_copyIMG mec-tools/mec_encrypt mec-tools/mec_
 # $1 is the pattern to match FL2 file in ISO image
 define rule_FL2_insert
     cp --reflink=auto $@.orig $@.tmp
-    ./scripts/copyFL2 to_iso $@.tmp $< $(1)
+    ./scripts/ISO_copyFL2 to_iso $@.tmp $< $(1)
     sed -i "s/__BUILT/`sha1sum $<`/" $@.bat
     mcopy -m -o -i $@.tmp@@$(FAT_OFFSET) $@.bat ::AUTOEXEC.BAT
     -mdel -i $@.tmp@@$(FAT_OFFSET) ::EFI/Boot/BootX64.efi
     mv $@.tmp $@
 endef
-rule_FL2_insert_DEPS = scripts/copyFL2 # TODO - bat file
+rule_FL2_insert_DEPS = scripts/ISO_copyFL2 # TODO - bat file
 # TODO
 # - maybe mdel any FL1 files, so the image can not accidentally be used to
 #   flash the BIOS?
@@ -384,7 +384,7 @@ rule_FL2multi2_extract_DEPS = $(rule_FL2_extract_DEPS)
 # $2 is the second FL2 pattern
 define rule_FL2multi2_insert
     $(call rule_FL2_insert,$1)
-    ./scripts/copyFL2 to_iso $@ $< $(2)
+    ./scripts/ISO_copyFL2 to_iso $@ $< $(2)
 endef
 rule_FL2multi2_insert_DEPS = $(rule_FL2_insert_DEPS)
 
