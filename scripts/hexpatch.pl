@@ -20,7 +20,7 @@ sub usage() {
     print("patching the right file\n");
     print("\n");
     print("Usage:\n");
-    print("    hexpatch.pl [--rm_on_fail] binaryfile patchfile [patchfile...]\n");
+    print("  hexpatch.pl [--rm_on_fail] [--report file] binaryfile patchfile [patchfile...]\n");
     print("\n");
     exit(1);
 }
@@ -138,6 +138,7 @@ sub verify_context {
         $fh->seek($addr,SEEK_SET);
         $fh->read($found,length($expected));
 
+        # TODO - if found eq new warn "patch reversed?"
         if ($found ne $expected) {
             warn("Address $addr mismatched data\n");
             return undef;
@@ -167,6 +168,40 @@ sub apply_patch {
     }
 }
 
+sub output_report {
+    my $filename = shift;
+    my @patches = @_;
+
+    my $fh = IO::File->new($filename, "w");
+    if (!defined($fh)) {
+        warn("Could not open report file $filename: $!\n");
+        exit(1);
+    }
+
+    if (!@patches) {
+        $fh->print("No patches applied: Lenovo default firmware\n");
+        return;
+    }
+
+    $fh->print("Patches applied:\n");
+    my $line = "";
+    for my $patch (@patches) {
+        if (length($line)+length($patch)+1 > 79) {
+            $line .= "\n";
+            $fh->print($line);
+            $line = "";
+        }
+        if ($line) {
+            $line .= " ";
+        }
+        $line .= $patch;
+    }
+    if ($line) {
+        $line .= "\n";
+        $fh->print($line);
+    }
+}
+
 sub rm_on_fail {
     my ($bool, $filename) = @_;
 
@@ -182,6 +217,12 @@ sub main() {
         shift @ARGV;
     }
 
+    my $reportfile;
+    if (defined($ARGV[0]) && $ARGV[0] eq "--report") {
+        shift @ARGV;
+        $reportfile=shift @ARGV;
+    }
+
     my $binaryfile = shift @ARGV;
     if (!defined($binaryfile) or !defined($ARGV[0])) {
         usage();
@@ -195,6 +236,7 @@ sub main() {
 
     print("Attempting to patch $binaryfile\n");
 
+    my @report_patches;
     while ($ARGV[0]) {
         my $patchfile = shift @ARGV;
 
@@ -219,6 +261,11 @@ sub main() {
 
         print("Applying ",$patchfile," ",$db->{name},"\n");
         apply_patch($db,$fh);
+        push @report_patches,$patchfile;
+    }
+
+    if ($reportfile) {
+        output_report($reportfile,@report_patches);
     }
 }
 main();

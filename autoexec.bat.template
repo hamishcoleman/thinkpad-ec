@@ -4,7 +4,7 @@ cd c:\flash
 cls
 echo.
 echo.
-echo This will flash your firmware to support a classic 7-row keyboard
+echo This will flash your Embedded controller firmware
 echo.
 echo.
 echo WARNING: Incorrectly flashing your firmware can damage your laptop.
@@ -13,12 +13,8 @@ echo the firmware - there are minimal checks done.
 echo.
 echo This disc will flash the file __DIR\__FL2
 echo.
-echo This disk is prepared for __DESC
-echo.
-echo Buildinfo: __BUILDINFO
-echo Built: __BUILT
+type c:\report.txt
 echo.
 pause
 echo on
 dosflash /sd /ipf ec /file __DIR\__FL2
-

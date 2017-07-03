@@ -40,7 +40,7 @@ $(shell mkdir -p $(DEPSDIR))
 clean:
 	rm -f $(CLEAN_FILES) \
             patched.*.iso patched.*.img *.FL2 *.FL2.orig *.img.enc \
-            *.img.enc.orig *.img.orig *.bat \
+            *.img.enc.orig *.img.orig *.bat *.report \
             *.img \
             *.txt.orig
 	rm -rf *.iso.extract *.iso.orig.extract
@@ -195,14 +195,14 @@ endef
 # Generate a working file with any known patches applied
 %.img: %.img.orig
 	cp --reflink=auto $< $@
-	./scripts/hexpatch.pl --rm_on_fail $@ $@.d/*.patch
+	./scripts/hexpatch.pl --rm_on_fail --report $@.report $@ $@.d/*.patch
 
 # using both __DIR and __FL2 is a hack to get around needing to quote the
 # DOS path separator.  It feels like there should be a better way if I put
 # my mind to it..
 #
 %.iso.bat: %.iso.orig autoexec.bat.template
-	sed -e "s%__DIR%`mdir -/ -b -i $<@@$(FAT_OFFSET) |grep FL2 |head -1|cut -d/ -f3`%; s%__FL2%`mdir -/ -b -i $<@@$(FAT_OFFSET) |grep FL2 |head -1|cut -d/ -f4`%; s%__DESC%`scripts/describe $(basename $<)`%; s/__BUILDINFO/$(BUILDINFO)/" autoexec.bat.template >$@.tmp
+	sed -e "s%__DIR%`mdir -/ -b -i $<@@$(FAT_OFFSET) |grep FL2 |head -1|cut -d/ -f3`%; s%__FL2%`mdir -/ -b -i $<@@$(FAT_OFFSET) |grep FL2 |head -1|cut -d/ -f4`%" autoexec.bat.template >$@.tmp
 	mv $@.tmp $@
 	touch -d @1 $@
 
@@ -246,14 +246,14 @@ GETELTORITO := ./scripts/geteltorito
 	$(GETELTORITO) -o $@.tmp $<
 	./scripts/fix_mbr $@.tmp
 	mv $@.tmp $@
-	$(call build_info,$<.bat)
+	$(call build_info,$<.report)
 
 # $1 is the lenovo named iso
 # $2 is the nicely named iso
 define patched_iso
 	mv $1 $2
-	mv $1.bat $2.bat
-	$(call build_info,$2.bat)
+	mv $1.report $2.report
+	$(call build_info,$2.report)
 endef
 
 # $1 is the bat file
@@ -261,7 +261,27 @@ define build_info
 	@echo
 	@echo
 	@echo Your build has completed with the following details:
-	@grep Buil $1
+        @echo
+	@cat $1
+endef
+
+# Add information about the FL2 file to the current report
+# $< is the IMG file
+# $@ is the FL2 file being inserted into
+define buildinfo_FL2
+    echo "Buildinfo: $(BUILDINFO)" >$@.report
+    echo "Built: `sha1sum $@`" >>$@.report
+    echo "" >>$@.report
+    cat $<.report >>$@.report
+endef
+
+# Add information about the ISO file to the current report
+# $< is the FL2 file
+# $@ is the ISO file being inserted into
+define buildinfo_ISO
+    cp $<.report $@.report
+    echo "" >>$@.report
+    echo "Description: `scripts/describe $@`" >>$@.report
 endef
 
 # simple testing of images in an emulator
@@ -317,8 +337,9 @@ rule_IMG_extract_DEPS = scripts/FL2_copyIMG mec-tools/mec_encrypt mec-tools/mec_
 define rule_FL2_insert
     cp --reflink=auto $@.orig $@.tmp
     ./scripts/ISO_copyFL2 to_iso $@.tmp $< $(1)
-    sed -i "s/__BUILT/`sha1sum $<`/" $@.bat
-    mcopy -m -o -i $@.tmp@@$(FAT_OFFSET) $@.bat ::AUTOEXEC.BAT
+    $(call buildinfo_ISO)
+    mcopy -t -m -o -i $@.tmp@@$(FAT_OFFSET) $@.report ::report.txt
+    mcopy -t -m -o -i $@.tmp@@$(FAT_OFFSET) $@.bat ::AUTOEXEC.BAT
     -mdel -i $@.tmp@@$(FAT_OFFSET) ::EFI/Boot/BootX64.efi
     mv $@.tmp $@
 endef
@@ -327,6 +348,10 @@ rule_FL2_insert_DEPS = scripts/ISO_copyFL2 # TODO - bat file
 # - maybe mdel any FL1 files, so the image can not accidentally be used to
 #   flash the BIOS?
 # - only delete the UEFI updater if it exists in the original ISO
+# - continue removing variables from the AUTOEXEC bat - perhaps calculate
+#   its contents here
+# - provide a simple mechanism for selecting the flash command to run, to
+#   allow for autoexec bat files that do not use dosflash
 
 # Insert the new firmware into the FL2 file
 #
@@ -338,6 +363,7 @@ define rule_IMG_insert
     ./scripts/FL2_copyIMG to_fl2 $@.tmp $<.enc.tmp
     rm $<.enc.tmp
     mv $@.tmp $@
+    $(call buildinfo_FL2)
 endef
 rule_IMG_insert_DEPS = scripts/FL2_copyIMG scripts/xx30.encrypt
 
@@ -360,6 +386,7 @@ define rule_IMGnoenc_insert
     cp --reflink=auto $@.orig $@.tmp
     ./scripts/FL2_copyIMG to_fl2 $@.tmp $<
     mv $@.tmp $@
+    $(call buildinfo_FL2)
 endef
 rule_IMGnoenc_insert_DEPS = scripts/FL2_copyIMG
 

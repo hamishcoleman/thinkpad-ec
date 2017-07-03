@@ -13,6 +13,7 @@
 
 # ignore generated files
 *.bat
+*.report
 .d
 
 # Temp are (should be) just junk
