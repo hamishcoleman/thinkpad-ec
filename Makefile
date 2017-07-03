@@ -202,7 +202,7 @@ endef
 # my mind to it..
 #
 %.iso.bat: %.iso.orig autoexec.bat.template
-	sed -e "s%__DIR%`mdir -/ -b -i $<@@$(FAT_OFFSET) |grep FL2 |cut -d/ -f3`%; s%__FL2%`mdir -/ -b -i $<@@$(FAT_OFFSET) |grep FL2 |cut -d/ -f4`%; s%__DESC%`scripts/describe $(basename $<)`%; s/__BUILDINFO/$(BUILDINFO)/" autoexec.bat.template >$@.tmp
+	sed -e "s%__DIR%`mdir -/ -b -i $<@@$(FAT_OFFSET) |grep FL2 |head -1|cut -d/ -f3`%; s%__FL2%`mdir -/ -b -i $<@@$(FAT_OFFSET) |grep FL2 |head -1|cut -d/ -f4`%; s%__DESC%`scripts/describe $(basename $<)`%; s/__BUILDINFO/$(BUILDINFO)/" autoexec.bat.template >$@.tmp
 	mv $@.tmp $@
 	touch -d @1 $@
 
