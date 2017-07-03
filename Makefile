@@ -301,10 +301,11 @@ rule_FL2_extract_DEPS = scripts/copyFL2
 # $< is the FL2
 define rule_IMG_extract
     ./scripts/FL2_copyIMG from_fl2 $< $(subst .orig,.enc.tmp,$@)
-    mec-tools/mec_encrypt -d $(subst .orig,.enc.tmp,$@) $@
+    mec-tools/mec_encrypt -d $(subst .orig,.enc.tmp,$@) $@.tmp
+    mec-tools/mec_csum_flasher -c $@.tmp
+    mec-tools/mec_csum_boot -c $@.tmp
     rm $(subst .orig,.enc.tmp,$@)
-    mec-tools/mec_csum_flasher -c $@
-    mec-tools/mec_csum_boot -c $@
+    mv $@.tmp $@
 endef
 rule_IMG_extract_DEPS = scripts/FL2_copyIMG mec-tools/mec_encrypt mec-tools/mec_csum_flasher mec-tools/mec_csum_boot
 
