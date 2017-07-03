@@ -72,6 +72,7 @@ t430.G1HT35WW.s01D2000.FL2  rule:FL2,dep:g1uj40us.iso,depi:g1uj40us.iso.bat,para
 t430s.G7HT39WW.s01D8000.FL2 rule:FL2,dep:g7uj19us.iso,depi:g7uj19us.iso.bat,param:01D8000.FL2  t430s EC 1.15 Flash File
 t530.G4HT39WW.s01D5100.FL2  rule:FL2,dep:g4uj30us.iso,depi:g4uj30us.iso.bat,param:01D5100.FL2  t530 EC 1.13 Flash File
 w530.G4HT39WW.s01D5200.FL2  rule:FL2,dep:g5uj28us.iso,depi:g5uj28us.iso.bat,param:01D5200.FL2  w530 EC 1.13 Flash File
+x200.7XHT22WW.s01B9000.FL2  rule:FL2multi2,dep:6duj37uc.iso,depi:6duj37uc.iso.bat,param:01B9000.FL2;01B9100.FL2         x200 EC 1.04 Flash File
 x220.8DHT34WW.s01CB000.FL2  rule:FL2,dep:8duj27us.iso,param:01CB000.FL2                        x220 EC 1.24 Flash File
 x230.G2HT35WW.s01D3000.FL2  rule:FL2,dep:g2uj25us.iso,depi:g2uj25us.iso.bat,param:01D3000.FL2  x230 EC 1.14 Flash File
 x230t.GCHT25WW.s01DA000.FL2 rule:FL2,dep:gcuj24us.iso,depi:gcuj24us.iso.bat,param:01DA000.FL2  x230t EC 1.14 Flash File
@@ -91,6 +92,7 @@ t430.G1HT35WW.img     rule:IMG,dep:t430.G1HT35WW.s01D2000.FL2       t430 EC 1.13
 t430s.G7HT39WW.img    rule:IMG,dep:t430s.G7HT39WW.s01D8000.FL2      t430s EC 1.15 (decrypted)
 t530.G4HT39WW.img     rule:IMG,dep:t530.G4HT39WW.s01D5100.FL2       t530 EC 1.13 (decrypted)
 w530.G4HT39WW.img     rule:IMG,dep:w530.G4HT39WW.s01D5200.FL2       w530 EC 1.13 (decrypted)
+x200.7XHT22WW.img     rule:IMGnoenc,dep:x200.7XHT22WW.s01B9000.FL2  x200 EC 1.04 (not encrypted)
 x220.8DHT34WW.img.enc rule:IMGnoenc,dep:x220.8DHT34WW.s01CB000.FL2  x220 EC 1.24 (encrypted)
 x230.G2HT35WW.img     rule:IMG,dep:x230.G2HT35WW.s01D3000.FL2       x230 EC 1.14 (decrypted)
 x230t.GCHT25WW.img    rule:IMG,dep:x230t.GCHT25WW.s01DA000.FL2      x230t EC 1.14 (decrypted)

@@ -341,6 +341,7 @@ define rule_IMG_insert
 endef
 rule_IMG_insert_DEPS = scripts/FL2_copyIMG scripts/xx30.encrypt
 
+# Additional macros for any special cases:
 
 # Extract the IMG file from an FL2 file - special case, without decryption
 #
@@ -361,6 +362,31 @@ define rule_IMGnoenc_insert
     mv $@.tmp $@
 endef
 rule_IMGnoenc_insert_DEPS = scripts/FL2_copyIMG
+
+
+# Extract the FL2 file from an ISO image with two FL2 files
+#
+# $@ is the FL2 file to create
+# $< is the ISO file
+# $1 is the pattern to match FL2 file in ISO image
+# $2 is the second FL2 files, but this is ignored
+define rule_FL2multi2_extract
+    $(call rule_FL2_extract,$1)
+endef
+rule_FL2multi2_extract_DEPS = $(rule_FL2_extract_DEPS)
+
+# Create a new ISO image with patches applied - for images with two FL2 files
+# with different names but the same content
+#
+# $@ is the ISO to create
+# $< is the FL2
+# $1 is the first FL2 pattern
+# $2 is the second FL2 pattern
+define rule_FL2multi2_insert
+    $(call rule_FL2_insert,$1)
+    ./scripts/copyFL2 to_iso $@ $< $(2)
+endef
+rule_FL2multi2_insert_DEPS = $(rule_FL2_insert_DEPS)
 
 
 # Generate and include the rules that use the above macros
