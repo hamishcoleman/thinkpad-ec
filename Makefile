@@ -319,12 +319,14 @@ define rule_FL2_insert
     ./scripts/copyFL2 to_iso $@.tmp $< $(1)
     sed -i "s/__BUILT/`sha1sum $<`/" $@.bat
     mcopy -m -o -i $@.tmp@@$(FAT_OFFSET) $@.bat ::AUTOEXEC.BAT
-    mdel -i $@.tmp@@$(FAT_OFFSET) ::EFI/Boot/BootX64.efi
+    -mdel -i $@.tmp@@$(FAT_OFFSET) ::EFI/Boot/BootX64.efi
     mv $@.tmp $@
 endef
 rule_FL2_insert_DEPS = scripts/copyFL2 # TODO - bat file
-# TODO - maybe mdel any FL1 files, so the image can not accidentally be used to
-# flash the BIOS?
+# TODO
+# - maybe mdel any FL1 files, so the image can not accidentally be used to
+#   flash the BIOS?
+# - only delete the UEFI updater if it exists in the original ISO
 
 # Insert the new firmware into the FL2 file
 #
