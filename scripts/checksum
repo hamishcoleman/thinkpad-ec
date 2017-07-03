@@ -5,6 +5,7 @@
 #
 # FIXME
 # - the description file is expected to be in the current dir
+# - does not handle description file entries with more than just the sha1 tag
 
 DESCRIPTIONS='Descriptions.txt'
 

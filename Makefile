@@ -1,7 +1,7 @@
 #
 # Infrastructure to manage patching thinkpad EC firmware
 #
-# Copyright (C) 2016 Hamish Coleman
+# Copyright (C) 2016-2017 Hamish Coleman
 #
 
 all:    list_laptops
@@ -299,92 +299,89 @@ mec-tools/mec_encrypt: mec-tools/Makefile
 	git submodule update
 	make -C mec-tools
 
-# using function calls to build rules with actions is kind of a hack,
-# which is why these are all on oneline.
-
-# Insert the new firmware into the FL2 file
-# $1 = encoded EC firmware
-# $2 = FL2 filename
-define rule_fl2_patch
-    $(2): $(1) ; cp --reflink=auto $(2).orig $(2) && ./scripts/FL2_copyIMG to_fl2 $(2) $(1)
-endef
-
-# Create a new ISO image with patches applied
-# $1 = FL2 linux filename
-# $2 = pattern to match FL2 file in ISO image
-# $3 = ISO image
-define rule_iso
-    $(3): $(1) $(3).bat ; cp --reflink=auto $(3).orig $(3) && ./scripts/copyFL2 to_iso $(3) $(1) $(2) && sed -i "s/__BUILT/`sha1sum $(1)`/" $(3).bat && mcopy -m -o -i $(3)@@$(FAT_OFFSET) $(3).bat ::AUTOEXEC.BAT && mdel -i $(3)@@$(FAT_OFFSET) ::EFI/Boot/BootX64.efi
-endef
-# TODO - remove any FL1 files from the image, ensuring it can never
-# accidentally be used for BIOS updates
 
 # Extract the FL2 file from an ISO image
-# Note that the parameters here are intentionally the same as rule_iso,
-# but you cannot define two targets with one define..
-# $1 = FL2 linux filename basename
-# $2 = pattern to match FL2 file in ISO image
-# $3 = ISO image basename
 #
 # Note that the integrity of the FL2 file is determined by two things:
-# - The sha1sum for the iso.orig file has been checked
+# - The sha1sum for the ISO.orig file has been checked
 # - The ./scripts/copyFL2 script is generating correct data
 # We believe these two statements are correct, so there is no need to check
 # the checksum for the extracted FL2.orig file
-define rule_fl2_extract
-    $(1).orig: $(3).orig ; ./scripts/copyFL2 from_iso $(3).orig $(1).orig $(2)
-endef
-
-# Extract the IMG file from an FL2 file
-# Note that the parameters here are intentionallty the same as rule_fl2_patch,
-# but you cannot define two targets with one define..
-# $1 = IMG file basename
-# $2 = FL2 file basename
-define rule_img_extract
-    $(1).orig: $(2).orig ./scripts/FL2_copyIMG ; ./scripts/FL2_copyIMG from_fl2 $(2).orig $(1).orig
-endef
-
 #
-# TODO:
-# - add a simple method to autogenerate these non-generic rules
-#   - this is getting closer with the replacement of the .slice files with
-#     generic scripts.
-# - once that is done, convert the defines back to action bodies, not
-#   rule definitions
+# $@ is the FL2 file to create
+# $< is the ISO file
+# $1 is the pattern to match FL2 file in ISO image
+define rule_FL2_extract
+    ./scripts/copyFL2 from_iso $< $@ $(1)
+endef
+rule_FL2_extract_DEPS = scripts/copyFL2
 
-# Hacky, non generic rules
-$(call rule_fl2_patch,t430.G1HT34WW.img.enc,t430.G1HT34WW.s01D2000.FL2)
-$(call rule_fl2_patch,t430.G1HT35WW.img.enc,t430.G1HT35WW.s01D2000.FL2)
-$(call rule_fl2_patch,t430s.G7HT39WW.img.enc,t430s.G7HT39WW.s01D8000.FL2)
-$(call rule_fl2_patch,t530.G4HT39WW.img.enc,t530.G4HT39WW.s01D5100.FL2)
-$(call rule_fl2_patch,w530.G4HT39WW.img.enc,w530.G4HT39WW.s01D5200.FL2)
-$(call rule_fl2_patch,x230.G2HT35WW.img.enc,x230.G2HT35WW.s01D3000.FL2)
-$(call rule_fl2_patch,x230t.GCHT25WW.img.enc,x230t.GCHT25WW.s01DA000.FL2)
+# Extract and decyrpt the IMG file from an FL2 file
+#
+# $@ is the decrypted IMG to create
+# $< is the FL2
+define rule_IMG_extract
+    ./scripts/FL2_copyIMG from_fl2 $< $(subst .orig,.enc.tmp,$@)
+    mec-tools/mec_encrypt -d $(subst .orig,.enc.tmp,$@) $@
+    rm $(subst .orig,.enc.tmp,$@)
+    mec-tools/mec_csum_flasher -c $@
+    mec-tools/mec_csum_boot -c $@
+endef
+rule_IMG_extract_DEPS = scripts/FL2_copyIMG mec-tools/mec_encrypt mec-tools/mec_csum_flasher mec-tools/mec_csum_boot
 
-$(call rule_img_extract,x220.8DHT34WW.img.enc,x220.8DHT34WW.s01CB000.FL2)
-$(call rule_img_extract,t430.G1HT34WW.img.enc,t430.G1HT34WW.s01D2000.FL2)
-$(call rule_img_extract,t430.G1HT35WW.img.enc,t430.G1HT35WW.s01D2000.FL2)
-$(call rule_img_extract,t430s.G7HT39WW.img.enc,t430s.G7HT39WW.s01D8000.FL2)
-$(call rule_img_extract,t530.G4HT39WW.img.enc,t530.G4HT39WW.s01D5100.FL2)
-$(call rule_img_extract,w530.G4HT39WW.img.enc,w530.G4HT39WW.s01D5200.FL2)
-$(call rule_img_extract,x230.G2HT35WW.img.enc,x230.G2HT35WW.s01D3000.FL2)
-$(call rule_img_extract,x230t.GCHT25WW.img.enc,x230t.GCHT25WW.s01DA000.FL2)
+# Create a new ISO image with patches applied
+#
+# $@ is the ISO to create
+# $< is the FL2
+# $1 is the pattern to match FL2 file in ISO image
+define rule_FL2_insert
+    cp --reflink=auto $@.orig $@.tmp
+    ./scripts/copyFL2 to_iso $@.tmp $< $(1)
+    sed -i "s/__BUILT/`sha1sum $<`/" $@.bat
+    mcopy -m -o -i $@.tmp@@$(FAT_OFFSET) $@.bat ::AUTOEXEC.BAT
+    mdel -i $@.tmp@@$(FAT_OFFSET) ::EFI/Boot/BootX64.efi
+    mv $@.tmp $@
+endef
+rule_FL2_insert_DEPS = scripts/copyFL2 # TODO - bat file
 
-$(call rule_iso,t430.G1HT34WW.s01D2000.FL2,01D2000.FL2,g1uj25us.iso)
-$(call rule_iso,t430.G1HT35WW.s01D2000.FL2,01D2000.FL2,g1uj40us.iso)
-$(call rule_iso,x230.G2HT35WW.s01D3000.FL2,01D3000.FL2,g2uj25us.iso)
-$(call rule_iso,t530.G4HT39WW.s01D5100.FL2,01D5100.FL2,g4uj30us.iso)
-$(call rule_iso,w530.G4HT39WW.s01D5200.FL2,01D5200.FL2,g5uj28us.iso)
-$(call rule_iso,t430s.G7HT39WW.s01D8000.FL2,01D8000.FL2,g7uj19us.iso)
-$(call rule_iso,x230t.GCHT25WW.s01DA000.FL2,01DA000.FL2,gcuj24us.iso)
+# Insert the new firmware into the FL2 file
+#
+# $@ is the FL2 to create
+# $< is the IMG
+define rule_IMG_insert
+    ./scripts/xx30.encrypt $< $<.enc.tmp
+    cp --reflink=auto $@.orig $@.tmp
+    ./scripts/FL2_copyIMG to_fl2 $@.tmp $<.enc.tmp
+    rm $<.enc.tmp
+    mv $@.tmp $@
+endef
+rule_IMG_insert_DEPS = scripts/FL2_copyIMG scripts/xx30.encrypt
 
-$(call rule_fl2_extract,x220.8DHT34WW.s01CB000.FL2,01CB000.FL2,8duj27us.iso)
-$(call rule_fl2_extract,t430.G1HT35WW.s01D2000.FL2,01D2000.FL2,g1uj40us.iso)
-$(call rule_fl2_extract,t430.G1HT34WW.s01D2000.FL2,01D2000.FL2,g1uj25us.iso)
-$(call rule_fl2_extract,x230.G2HT35WW.s01D3000.FL2,01D3000.FL2,g2uj25us.iso)
-$(call rule_fl2_extract,t530.G4HT39WW.s01D5100.FL2,01D5100.FL2,g4uj30us.iso)
-$(call rule_fl2_extract,w530.G4HT39WW.s01D5200.FL2,01D5200.FL2,g5uj28us.iso)
-$(call rule_fl2_extract,t430s.G7HT39WW.s01D8000.FL2,01D8000.FL2,g7uj19us.iso)
-$(call rule_fl2_extract,x230t.GCHT25WW.s01DA000.FL2,01DA000.FL2,gcuj24us.iso)
-$(call rule_fl2_extract,x260.R02HT29W.s0AR0200.FL2,0AR0200.FL2,r02uj46d.iso)
-$(call rule_fl2_extract,x270.R0IHT30W.s0AR0I00.FL2,0AR0I00.FL2,r0iuj09wd.iso)
+
+# Extract the IMG file from an FL2 file - special case, without decryption
+#
+# $@ is the IMG to create
+# $< is the FL2
+define rule_IMGnoenc_extract
+    ./scripts/FL2_copyIMG from_fl2 $< $@
+endef
+rule_IMGnoenc_extract_DEPS = scripts/FL2_copyIMG
+
+# Insert the new firmware into the FL2 file - special case, without encryption
+#
+# $@ is the FL2 to create
+# $< is the IMG
+define rule_IMGnoenc_insert
+    cp --reflink=auto $@.orig $@.tmp
+    ./scripts/FL2_copyIMG to_fl2 $@.tmp $<
+    mv $@.tmp $@
+endef
+rule_IMGnoenc_insert_DEPS = scripts/FL2_copyIMG
+
+
+# Generate and include the rules that use the above macros
+-include $(DEPSDIR)/generated.deps
+CLEAN_FILES += $(DEPSDIR)/generated.deps
+$(DEPSDIR)/generated.deps: scripts/generate_deps
+$(DEPSDIR)/generated.deps: Descriptions.txt
+	./scripts/generate_deps $< >$@
