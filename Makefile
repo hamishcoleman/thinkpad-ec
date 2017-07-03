@@ -187,27 +187,6 @@ endef
 	@scripts/describe $(subst .txt.orig,.iso,$@)
 	wget -O $@ https://download.lenovo.com/pccbbs/mobiles/$(basename $@)
 
-# Generate all the orig images so that we can diff against them later
-
-# TODO - checking the checksum here is probably too strict - it adds
-# more barriers to downloading some random bios ISO and starting to port
-# the code to it.
-# FIXME - wrap the mec-tools with something that gives --rm_on_fail semantics
-%.img.orig:  %.img.enc.orig mec-tools/mec_encrypt
-	mec-tools/mec_encrypt -d $< $@
-	scripts/checksum --rm_on_fail $@ $(basename $@)
-	mec-tools/mec_csum_flasher -c $@
-	mec-tools/mec_csum_boot -c $@
-
-
-# A generic encryptor
-%.img.enc:  %.img scripts/xx30.encrypt
-	./scripts/xx30.encrypt $< $@
-
-# TODO
-# - if we ever get generic extraction or encryption for more than
-#   just the Xx30 series, these generic rules will need to be reworked
-
 # keep intermediate files
 .PRECIOUS: %.orig
 .PRECIOUS: %.img
@@ -343,6 +322,8 @@ define rule_FL2_insert
     mv $@.tmp $@
 endef
 rule_FL2_insert_DEPS = scripts/copyFL2 # TODO - bat file
+# TODO - maybe mdel any FL1 files, so the image can not accidentally be used to
+# flash the BIOS?
 
 # Insert the new firmware into the FL2 file
 #
