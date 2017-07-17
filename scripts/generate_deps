@@ -30,6 +30,9 @@ while(<>) {
 
     for my $tv (split(/,/,$entry->{tags_raw})) {
         my ($tag,$val_raw) = split(/:/,$tv);
+        if (!defined($val_raw)) {
+            die("Missing tag value");
+        }
         my @values = split(/;/,$val_raw);
 
         push @{$entry->{tags}{$tag}}, @values;
