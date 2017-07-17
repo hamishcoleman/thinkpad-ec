@@ -88,6 +88,7 @@ x230.G2HT35WW.s01D3000.FL2  rule:FL2,dep:g2uj25us.iso,depi:g2uj25us.iso.bat,para
 x230t.GCHT25WW.s01DA000.FL2 rule:FL2,dep:gcuj24us.iso,depi:gcuj24us.iso.bat,param:01DA000.FL2  x230t EC 1.14 Flash File
 x250.N10HT17W.s01E5000.FL2  rule:FL2,dep:n10ur10w.iso,param:01E5000.FL2                        x250 EC 1.16 Flash File
 x260.R02HT29W.s0AR0200.FL2  rule:FL2,dep:r02uj46d.iso,param:0AR0200.FL2                        x260 EC 1.11 Flash File
+x1cg1.G6HT24WW.s01D7000.FL2 rule:FL2,dep:g6uj24us.iso,param:01D7000.FL2                        x1c Gen 1 EC 1.06 Flash File
 
 # TODO
 # - the deps on the .iso.bat files are ugly
@@ -108,6 +109,7 @@ x230.G2HT35WW.img     rule:IMG,dep:x230.G2HT35WW.s01D3000.FL2       x230 EC 1.14
 x230t.GCHT25WW.img    rule:IMG,dep:x230t.GCHT25WW.s01DA000.FL2      x230t EC 1.14 (decrypted)
 x250.N10HT17W.img.enc rule:IMGnoenc,dep:x250.N10HT17W.s01E5000.FL2  x250 EC 1.16 (encrypted)
 x260.R02HT29W.img     rule:IMGnoenc,dep:x260.R02HT29W.s0AR0200.FL2  x260 EC 1.11 (not encrypted)
+x1cg1.G6HT24WW.img    rule:IMG,dep:x1c.G6HT24WW.s01D7000.FL2        x1c Gen 1 EC 1.06 (decrypted)
 
 
 # The end-user visible, nicely named iso images
