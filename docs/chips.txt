@@ -30,7 +30,8 @@ ThinkPad xx30 series:
         http://pdf.datasheetarchive.com/indexerfiles/Datasheets-EC3/DSAQ00359444.pdf
     Microchip product page:
         https://www.microchip.com/wwwproducts/en/MEC1619
-        (note that microchip does not have a real datasheet available)
+        (note that microchip does not have a real datasheet available but there is one for the similar MEC1618:
+        http://ww1.microchip.com/downloads/en/DeviceDoc/00002339A.pdf)
 
     (source: physical inspection, reverse engineering the EC firmware
     and the schematics - http://plan9.stanleylieber.com/hardware/thinkpad/x230/x230.schematics.pdf)
