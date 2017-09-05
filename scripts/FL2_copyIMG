@@ -10,6 +10,9 @@ use strict;
 # any actions needed to extract or insert into the container - It does
 # not check any checksums within the IMG - that should be left to
 # the img manipulating tools (like mec tools).
+#
+# This script now supports extracting a couple of FL1 files, so its name
+# is starting to be wrong.
 
 package FL2::base;
 use warnings;
@@ -352,6 +355,126 @@ sub extract {
 
 1;
 
+package FL1::PFH_header;
+use warnings;
+use strict;
+#
+# Look for FL1 files that have a "$PFH" prefix header near their end
+#
+# Seen in at least the l530 firmware updates
+
+use base qw(FL2::base);
+
+sub _find_capsule_header {
+    my $self = shift;
+    my $buf = $self->get_block(0,16);
+    return undef if (!defined($buf));
+    $buf = $$buf;
+
+    my $capsule_uuid = "\xbd\x86\x66\x3b\x76\x0d\x30\x40\xb7\x0e\xb5\x51\x9e\x2f\xc5\xa0";
+
+    if ($buf eq $capsule_uuid) {
+        # TODO
+        # - while I am reading the capsule signature, I dont understand
+        #   why the magic offset doesnt match anything in the capsule header
+        return 0x1d0;
+    }
+    return undef;
+}
+
+sub _find_pfh {
+    my $self = shift;
+    my $offset = 0;
+
+    while ($offset < $self->{filesize}) {
+        my $buf = $self->get_block($offset, 4);
+        return undef if (!defined($buf));
+        $buf = $$buf;
+
+        if ($buf eq '$PFH') {
+            return $offset;
+        }
+
+        $offset+=0x10;
+    }
+
+    return undef; # not found
+}
+
+sub _check {
+    my $self = shift;
+
+    # List of known file sizes (basically a doublecheck on the signature)
+    my $known = {
+         9437264 => 1,
+        12587008 => 1,
+    };
+
+    my $capsule_offset_hack = $self->_find_capsule_header() ||0;
+
+    my $header_offset = $self->_find_pfh();
+    return undef if (!defined($header_offset));
+
+    my $header_size = 4+4+4+2+4+2+4+4;
+
+    my $buf = $self->get_block($header_offset, $header_size);
+
+    return undef if (!defined($buf));
+    return undef if (!defined($known->{$self->{filesize}}));
+
+    my @fields = qw(
+        signature version headersize headerchecksum
+        totalimagesize totalimagechecksum
+        numberofimages imagetableoffset
+    );
+    my @values = unpack("a4VVvVvVV",$$buf);
+    map { $self->{header}{$fields[$_]} = $values[$_] } (0..scalar(@fields)-1);
+
+    return undef if ($self->{header}{signature} ne '$PFH');
+
+    # now load the partition table
+    $buf = $self->get_block(
+        $self->{header}{imagetableoffset}+$capsule_offset_hack,
+        (4+4+8+4)*$self->{header}{numberofimages}
+    );
+    return undef if (!defined($buf));
+
+    $buf = $$buf;
+
+    while ($buf) {
+        my ($FileOffset, $Size, $FlashAddress, $NameOffset, $rest) =
+            unpack("VVQVa*",$buf);
+        $buf = $rest;
+
+        my $buf2 = $self->get_block(
+            $NameOffset+$capsule_offset_hack,
+            32 # TODO - just a guess at the max name size
+        );
+        return undef if (!defined($buf2));
+
+        my $name = unpack("Z*",$$buf2);
+
+        if ($name eq 'Ec') {
+            $self->set_offset_size(
+                $FileOffset+$capsule_offset_hack,
+                $Size,
+            );
+            return $self;
+        }
+    }
+
+    return undef;
+}
+
+sub extract {
+    return shift->_extract(shift);
+}
+
+# no insert() will work until we know how to generate the checksums
+
+
+1;
+
 # TODO
 # - 8muj19us.iso has yet another format:
 # It is all 0xff until 0x500000, however it then looks like it has a header.
@@ -394,6 +517,9 @@ sub detect_img {
     }
     if (!defined($object)) {
         $object = FL2::prefix_head->new($fh);
+    }
+    if (!defined($object)) {
+        $object = FL1::PFH_header->new($fh);
     }
 
     return $object;
