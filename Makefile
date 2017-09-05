@@ -73,8 +73,11 @@ list_images:
 .PHONY: list_images
 
 # All the bios update iso images I have checked have had a fat16 filesystem
-# embedded in a dos mbr image as the el-torito ISO payload.  They also all
+# embedded in a dos mbr image as the el-torito ISO payload.  Most of them
 # had the same offset to this fat filesystem, so hardcode that offset here.
+# FIXME:
+# - checking the E330 image showed a different FAT_OFFSET, need to handle that
+
 # The offset value is bytes in decimal.
 FAT_OFFSET := 71680
 
