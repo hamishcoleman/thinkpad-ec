@@ -41,6 +41,20 @@ ThinkPad xx30 series:
     the case of a bricked system.
     (see discussion: http://notebook1.ru/forma1/viewtopic.php?f=70&t=109179)
 
+ThinkPad l430:
+--------------
+    IT8511TE
+
+    This is a 8051 core CPU.
+
+    (source: schematics - http://www.informaticanapoli.it/download/SCHEMIELETTRICI/IBM-LENOVO/Lenovo%20laptop%20motherboard%20schematic%20diagram.pdf)
+
+ThinkPad e330:
+--------------
+    This is a 8051 core CPU, so probably a IT8511TE or similar
+
+    (source: EC firmware similarity to the l430)
+
 Thinkpad x250:
 --------------
     An ARCompact instruction set CPU, so probably a MEC1619
