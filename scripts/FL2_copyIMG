@@ -362,6 +362,10 @@ use strict;
 # Look for FL1 files that have a "$PFH" prefix header near their end
 #
 # Seen in at least the l530 firmware updates
+#
+# Thanks for skochinsky for the details:
+# https://github.com/hamishcoleman/thinkpad-ec/issues/46
+#
 
 use base qw(FL2::base);
 
