@@ -24,14 +24,18 @@
 # Each tag is separated from its value with a colon and each value can
 # contain multiple items, separated by semi-colons
 #
-# Available generator field tags:
+# Available tags names:
 #       sha1    - The value is the known sha1 of the file
+#       sha256  - The value is the known sha256 of the file
+#
 #       rule    - The basename of the make macro for this file
+#       param   - Any parameters that are needed to be passed to the macro
+#
 #       dep     - The file(s) that this file depends on - the first dep
 #                 file is used to build the inverse rule for this line
 #       depe    - Dependancies that are only valid for "extract"
 #       depi    - Dependancies that are only valid for the inverse "insert"
-#       param   - Any parameters that are needed to be passed to the macro
+#
 #       extract - "0" turns off the extract rule
 #       insert  - "0" turns off the insert rule
 #       suffix  - "0" turns off the ".orig" suffix on the extract rule
