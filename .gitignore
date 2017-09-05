@@ -8,6 +8,7 @@
 *.img.orig
 *.img.enc
 *.img.enc.orig
+*.FL1.orig
 *.FL2
 *.FL2.orig
 
