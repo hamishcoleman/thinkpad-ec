@@ -5,7 +5,7 @@ use strict;
 # Read through a descriptions file on input and auto generate a list of rules
 # for building the various files on output
 #
-# Each rule input line generates two dependancies: 
+# Each rule input line generates two dependancies:
 #       $filename.orig from $depname.orig using macro rule_$rule_extract
 #       $depname from $filename using macro rule_$rule_insert
 #

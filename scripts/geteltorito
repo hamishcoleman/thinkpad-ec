@@ -13,7 +13,7 @@ use Getopt::Std;
 # Get latest version from:
 # http://userpages.uni-koblenz.de/~krienke/ftp/noarch/geteltorito
 #
-$utilVersion="0.6"; 
+$utilVersion="0.6";
 #
 # Version 0.6
 #    2015/02/25
@@ -35,7 +35,7 @@ $utilVersion="0.6";
 #    unpack of the sector count from n to v to get the correct sector count.
 # Version 0.3
 #    2006/02/21
-#    A patch from  Ben Collins <bcollins@ubuntu.com> to make the 
+#    A patch from  Ben Collins <bcollins@ubuntu.com> to make the
 #    utility work on PPC machines (change from 'L'-encoding in pack to 'V')
 # Version 0.2
 #    Several patches included from Nathan Stratton Treadway(nathant@ontko.com)
@@ -43,7 +43,7 @@ $utilVersion="0.6";
 # Version 0.1
 #    Initial release
 #
-# For information on El Torito see 
+# For information on El Torito see
 # http://en.wikipedia.org/wiki/El_torito
 
 $vSecSize=512;
@@ -96,13 +96,13 @@ sub usage{
 	    "   -v:        Print version of script and exit.\n",
 	    "   -o <file>: Write extracted data to file <file> instead of STDOUT.\n",
 	    "\n\n";
-	exit 0;    
+	exit 0;
 }
 
 
 # ---------------------------------------------------------------------
 $ret=getopts('hvo:');
- 
+
 if( defined($opt_v) ){
  	warn "Version: $utilVersion \n";
 	exit 0;
@@ -110,12 +110,12 @@ if( defined($opt_v) ){
 
 if( defined($opt_h) || $#ARGV <0 ){
          usage(0);
-}	 
+}
 
 if( defined($opt_o) ){
    $outputFilename="$opt_o";
 }
-	 
+
 $imageFile=$ARGV[0];
 
 if( ! -r $imageFile ){
@@ -140,7 +140,7 @@ if( $isoIdent ne "CD001" || $toritoSpec ne "EL TORITO SPECIFICATION" ){
 }	
 
 #
-# Now fetch the sector of the booting catalog 
+# Now fetch the sector of the booting catalog
 #
 $sector=getSector($bootP, 1, $imageFile );
 
@@ -149,8 +149,8 @@ print STDERR "Booting catalog starts at sector: $bootP \n";
 # The first 32 bytes of this sector contains the validation entry for a
 # boot. The first byte has to be 01, the next byte determines the
 # architecture the image is designed for, where 00 is i86, 01 is PowerPC
-# and 02 is Mac. More data give info about manufacturer, etc.  The 
-# final two bytes must contain 0x55 and 0xAA respectively (as 
+# and 02 is Mac. More data give info about manufacturer, etc.  The
+# final two bytes must contain 0x55 and 0xAA respectively (as
 # defined by the El Torito standard).
 
 $validateEntry=substr($sector, 0, 32);
@@ -172,16 +172,16 @@ print STDERR "\n";
 
 #
 # Now we examine the initial/defaultentry which follows the validate
-# entry and has a size of 32 bytes. 
+# entry and has a size of 32 bytes.
 
 $initialEntry=substr($sector, 32, 32);
 
-($boot, $media, $loadSegment, $systemType, $unUsed, 
+($boot, $media, $loadSegment, $systemType, $unUsed,
        $sCount, $imgStart, $unUsed)=unpack( "CCvCCvVC", $initialEntry);
 
 if( $boot != 0x88 ){
 	die "Boot indicator in Initial/Default-Entry is not 0x88. CD is not bootable. \n";
-}    
+}
 
 print STDERR "Boot media type is: ";
 if( $media == 0 ){
@@ -190,15 +190,15 @@ if( $media == 0 ){
 }
 if( $media == 1 ){
 	print STDERR "1.2meg floppy";
-        $count=1200*1024/$vSecSize;  
+        $count=1200*1024/$vSecSize;
 }
 if( $media == 2 ){
 	print STDERR "1.44meg floppy";
-        $count=1440*1024/$vSecSize;  
+        $count=1440*1024/$vSecSize;
 }
 if( $media == 3 ){
 	print STDERR "2.88meg floppy";
-        $count=2880*1024/$vSecSize;  
+        $count=2880*1024/$vSecSize;
 }
 if( $media == 4 ){
 	print STDERR "harddisk";
@@ -224,5 +224,5 @@ if( length($outputFilename) ){
    print STDERR "\nImage has been written to file \"$outputFilename\".\n";
 }else{
    print "$image";
-   print STDERR "Image has been written to stdout ....\n"; 
+   print STDERR "Image has been written to stdout ....\n";
 }

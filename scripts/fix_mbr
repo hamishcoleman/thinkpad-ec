@@ -187,7 +187,7 @@ sub fixup_part {
     # Reduce the number of heads and increase the number of cylinders
     while ($part->{end_head} >0x10) {
         $part->{end_head} = int($part->{end_head}/2);
-        $part->{end_cyl} *= 2; 
+        $part->{end_cyl} *= 2;
     }
 
     my $total_sec2 = $part->{end_sec} * $part->{end_head} * $part->{end_cyl};

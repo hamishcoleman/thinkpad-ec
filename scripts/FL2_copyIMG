@@ -78,7 +78,7 @@ sub _check_copyright {
         my $check_offset = shift @offsets;
 
         my $buf = $self->get_block($self->offset()+$check_offset, $check_size);
-    
+
         return undef if (!defined($buf));
 
         if ($$buf eq $expect) {
@@ -302,7 +302,7 @@ sub _check {
     return undef if (!defined($known->{$self->{filesize}}));
 
     my @fields = qw(
-        signature filesize imgsize unk1 
+        signature filesize imgsize unk1
         unk2 maybe_csum all_00_1 all_00_2
     );
     my @values = unpack("a4VVVVVVV",$$buf);
