@@ -40,8 +40,8 @@
 # The iso images downloadable from Lenovo
 # (these checksums are those found on the Lenovo site)
 
-# First, the images that follow the same pattern as the xx30 series and
-# have both FL1 and FL2 - thus are straightforward to examine the EC
+# These ISO images follow a known pattern and we can extract the required
+# firmware flash files from them
 6duj37uc.iso  sha1:0ac15607379ac71ed041181ab1987b123cb2884d x200 and x200s BIOS 3.10 (7XET60WW) EC 1.04 (7XHT22WW)
 6duj41uc.iso  sha1:016b85296694340cc1b70c956e6fdd775b14d261 x200 and x200s BIOS 3.14 (7XET64WW) EC 1.06 (7XHT24WW)
 6duj47uc.iso  sha1:06a23e319e1028bd7b4ea8358b2335d5e2eb2e64 x200 and x200s BIOS 3.22 (7XET72WW) EC 1.06 (7XHT24WW)
@@ -72,9 +72,12 @@ n1mur06w.iso  sha1:e2bed755c065daf83cabc130b8d65c08e6a6a391 x1 Carbon (Type 20HQ
 r02uj46d.iso  sha1:876a68add32d9c961cbdf80c74b88f92a66443cf x260 BIOS 1.19 (R02ET46W) EC 1.11 (R02HT29W)
 r0iuj09wd.iso sha1:21b3abf69b9ee7ecf12fe0880564312122b1ff75 x270 BIOS 1.16 (R0IET38W) EC 1.12 (R0IHT30W)
 
-# Next, a list of bios update images that have been downloaded, but
-# do not follow the pattern and cannot currently be examined.
+# Next, a list of ISO images that have been downloaded, but do not follow
+# the pattern and cannot be automatically examined.
 h3uj04wd.iso  sha1:3bbf65b61d1e2ed806ea6cf40b97d24c090c00dc e330 and v480s - no FL2 file (all in UEFI Capsule), FAT_OFFSET is 79872
+
+# TODO
+# - update the tools to automatically determine the FAT_OFFSET
 
 # The firmware files from inside the ISO images
 t430.G1HT34WW.s01D2000.FL2  rule:FL2,dep:g1uj25us.iso,depi:g1uj25us.iso.bat,param:01D2000.FL2  t430 EC 1.12 Flash File
