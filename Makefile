@@ -86,6 +86,11 @@ FAT_OFFSET := 71680
 # applied some patch
 export MTOOLS_SKIP_CHECK=1
 
+# At least one distribution has set this value poorly for our scripts in their
+# global /etc/mtools.conf file, so we set it back to the default value here.
+export MTOOLS_LOWER_CASE=0
+
+
 #
 # Radare didnt seem to let me specify the directory to store the project file,
 # so this target hacks around that
