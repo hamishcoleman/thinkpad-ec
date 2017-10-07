@@ -15,8 +15,9 @@ DIR="$1"
 case "$DIR" in
     from_iso) ;;
     to_iso)   ;;
+    ls)       ;;
     *)
-        echo direction is either from_iso or to_iso
+        echo direction is either from_iso, to_iso or ls
         exit 1
         ;;
 esac
@@ -28,6 +29,12 @@ if [ ! -e "$ISO" ]; then
     exit 1
 fi
 shift
+
+# If we just want to look at the contents, do that
+if [ "$DIR" = "ls" ]; then
+    mdir -i "$ISO"@@"$FAT_OFFSET" -/ -b
+    exit
+fi
 
 # The "external" filename - used in the linux filesystem
 FILENAME="$1"
