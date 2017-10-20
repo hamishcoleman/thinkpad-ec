@@ -50,7 +50,7 @@ fi
 SUM_FIELD=$(echo "$LINE" | awk -- '{print $2}')
 
 TYPE=$(echo "$SUM_FIELD" | cut -d: -f1)
-EXPECT=$(echo "$SUM_FIELD" | cut -d: -f2)
+EXPECT=$(echo "$SUM_FIELD" | cut -d: -f2 |tr A-Z a-z)
 
 case "$TYPE" in
     sha1)
