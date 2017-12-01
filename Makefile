@@ -22,7 +22,7 @@ list_laptops:
 	$(info The following make targets are the supported usb images:)
 	$(info )
 	@for i in $(LIST_PATCHED); do \
-            echo "$$i.img\t- `scripts/describe $$i.iso`"; \
+            echo "$$i.img	- `scripts/describe $$i.iso`"; \
 	done
 	@echo
 
