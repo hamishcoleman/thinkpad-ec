@@ -94,8 +94,13 @@ This is more a list of issues that the community has discovered as the
 patch was applied in different circumstances than a hard and fast set
 of requirements.
 
+* For best results, ensure you have the power charger plugged in during
+  the flashing process.
+
 * The firmware flash process generally requires you to have a charged
-  battery plugged in to the laptop before it will complete.
+  battery plugged in to the laptop before it will complete.  It may be
+  possible to bypass the requirement for a charged battery if you unplug
+  the battery completely.
 
 * Ensure your BIOS has been configured to boot from "Legacy" and not
   "UEFI" before trying to boot.
