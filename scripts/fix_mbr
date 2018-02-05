@@ -89,12 +89,18 @@ sub mbr_part_pack {
     die("end cyl too big") if ($part->{end_cyl} > 1023);
     die("end sec too big") if ($part->{end_sec} > 0x3f);
 
-    # TODO - bit munge things
+    # TODO
+    # - add support for larger cylinder numbers
+    #   This needs adding support for the bitfiddling to move the highbits to
+    #   the other fields.
+    #   This should only occur when the .iso image file is larger than 255Meg
     if ($part->{start_cyl} > 0xff) {
-        ...
+        printf("Unsupported start_cyl (0x%x)\n", $part->{start_cyl});
+        die;
     }
     if ($part->{end_cyl} > 0xff) {
-        ...
+        printf("Unsupported end_cyl (0x%x)\n", $part->{end_cyl});
+        die;
     }
 
     $part->{start_cysec} = $part->{start_sec};
