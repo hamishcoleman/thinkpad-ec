@@ -32,7 +32,7 @@ will not complete.
 1. Ensure you have installed the prerequisite packages
    On debian, this can be done with:
 
-    apt-get install build-essential git mtools libssl-dev
+    sudo apt-get install build-essential git mtools libssl-dev
 
 2. Clone a copy of this repo on to your computer:
 
