@@ -9,7 +9,10 @@
 
 DESCRIPTIONS='Descriptions.txt'
 
-if [ "$1" == "--rm_on_fail" ]; then
+if [ "$1" == "--mv_on_fail" ]; then
+    MV_ON_FAIL=yes
+    shift
+elif [ "$1" == "--rm_on_fail" ]; then
     RM_ON_FAIL=yes
     shift
 fi
@@ -29,7 +32,12 @@ if [ -z "$CHECKNAME" ]; then
 fi
 
 do_exit_fail() {
-    if [ "$RM_ON_FAIL" ]; then
+    if [ "$MV_ON_FAIL" ]; then
+        BADNAME="${FILE}.bad"
+        echo "ERROR: moved file to $BADNAME" 2>&1
+        mv -f "$FILE" "$BADNAME"
+    elif [ "$RM_ON_FAIL" ]; then
+        echo "ERROR: removed file" 2>&1
         rm -f "$FILE"
     fi
     exit 1

@@ -156,7 +156,7 @@ endef
 	@echo -n "Downloading "
 	@scripts/describe $(basename $@)
 	wget -O $@ https://download.lenovo.com/pccbbs/mobiles/$(basename $@)
-	scripts/checksum --rm_on_fail $@ $(basename $@)
+	scripts/checksum --mv_on_fail $@ $(basename $@)
 	touch $@
 
 # Download any README text file released alongside to ISO images.
