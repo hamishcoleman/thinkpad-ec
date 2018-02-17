@@ -79,6 +79,10 @@ n14ur15w.iso  sha1:e106b024b1d448234e5ea958b0e8e93bbda1a543 x1 Carbon (Type 20BS
 n1mur06w.iso  sha1:e2bed755c065daf83cabc130b8d65c08e6a6a391 x1 Carbon (Type 20HQ, 20HR, 20K3, 20K4) BIOS 1.20 (N1MET35W) EC 1.14 (N1MHT25W)
 n1qur08w.iso  sha256:3bd8dd95a312707dbedd6385b3ae5a1ee2aab9eb69279542eaf1ef15c4fd5837 T470 BIOS 1.32 (N1QET57W), EC 1.14 (N1QHT32W)
 n1qur09w.iso  sha256:ad5fddecf44f4a2063fc5430ddfafadf7f1eb1d3f1549fbb4237c8a394d22829 T470, 25 BIOS 1.39 (N1QET64W), EC 1.25 (N1QHT43W)
+n1qur11w.iso  sha1:FIXME                                    T470, 25 BIOS 1.42 (N1QET67W) EC 1.27 (N1QHT45W)
+n1qur12w.iso  sha1:FIXME                                    T470, 25 BIOS 1.43 (N1QET68W) EC 1.29 (N1QHT47W)
+n1qur13w.iso  sha1:FIXME                                    T470, 25 BIOS 1.44 (N1QET69W) EC 1.30 (N1QHT48W)
+n1qur14w.iso  sha1:fea0d271a23548adb5d11f3c16b4e016be3869a5 T470, 25 BIOS 1.46 (N1QET71W) EC 1.30 (N1QHT48W)
 r02uj46d.iso  sha1:876a68add32d9c961cbdf80c74b88f92a66443cf x260 BIOS 1.19 (R02ET46W) EC 1.11 (R02HT29W)
 r0iuj09wd.iso sha1:21b3abf69b9ee7ecf12fe0880564312122b1ff75 x270 BIOS 1.16 (R0IET38W) EC 1.12 (R0IHT30W)
 
