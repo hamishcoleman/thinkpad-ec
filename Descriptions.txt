@@ -85,6 +85,16 @@ n1qur13w.iso  sha1:FIXME                                    T470, 25 BIOS 1.44 (
 n1qur14w.iso  sha1:fea0d271a23548adb5d11f3c16b4e016be3869a5 T470, 25 BIOS 1.46 (N1QET71W) EC 1.30 (N1QHT48W)
 r02uj46d.iso  sha1:876a68add32d9c961cbdf80c74b88f92a66443cf x260 BIOS 1.19 (R02ET46W) EC 1.11 (R02HT29W)
 r0iuj09wd.iso sha1:21b3abf69b9ee7ecf12fe0880564312122b1ff75 x270 BIOS 1.16 (R0IET38W) EC 1.12 (R0IHT30W)
+r0iuj10wd.iso sha1:FIXME                                    x270 BIOS 1.17 (R0IET39W) EC 1.13 (R0IHT31W)
+r0iuj11wd.iso sha1:FIXME                                    x270 BIOS 1.18 (R0IET40W) EC 1.13 (R0IHT31W)
+r0iuj12wd.iso sha1:FIXME                                    x270 BIOS 1.19 (R0IET41W) EC 1.13 (R0IHT31W)
+r0iuj13wd.iso sha1:FIXME                                    x270 BIOS 1.20 (R0IET42W) EC 1.13 (R0IHT31W)
+r0iuj14wd.iso sha1:FIXME                                    x270 BIOS 1.21 (R0IET43W) EC 1.13 (R0IHT31W)
+r0iuj16wd.iso sha1:FIXME                                    x270 BIOS 1.23 (R0IET45W) EC 1.14 (R0IHT32W)
+r0iuj17wd.iso sha1:FIXME                                    x270 BIOS 1.24 (R0IET46W) EC 1.15 (R0IHT35W)
+r0iuj19wd.iso sha1:FIXME                                    x270 BIOS 1.26 (R0IET48W) EC 1.15 (R0IHT35W)
+#    20?      sha1:FIXME                                    x270 BIOS 1.27 (R0IET49W) EC 1.17 (R0IHT35W) "Dropped"
+r0iuj21wd.iso sha1:3765d1715f001ddae982682f0189b49c2b04bf3a x270 BIOS 1.28 (R0IET50W) EC 1.15 (R0IHT35W)
 
 # Next, a list of ISO images that have been downloaded, but do not follow
 # the pattern and cannot be automatically examined.
