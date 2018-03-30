@@ -302,8 +302,10 @@ sub _check {
 
     my $buf = $self->get_block($header_offset, $header_size);
 
-    return undef if (!defined($buf));
-    return undef if (!defined($known->{$self->{filesize}}));
+    if (!defined($buf)) {
+        warn("Bad Read");
+        return undef;
+    }
 
     my @fields = qw(
         signature filesize imgsize unk1
@@ -314,6 +316,11 @@ sub _check {
 
     return undef if ($self->{header}{signature} ne "_EC\x01");
     return undef if ($self->{header}{filesize} != $self->{filesize});
+
+    if (!defined($known->{$self->{filesize}})) {
+        warn("filesize not in whitelist");
+        return undef;
+    }
 
     if ($self->{header}{imgsize}+$header_size+$trailer_size == $self->{filesize}) {
         # there is an additional block of 0x100 appended to the FL2, outside
