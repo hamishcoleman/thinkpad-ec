@@ -73,6 +73,7 @@ gcuj24us.iso  sha1:468e70cf4253d216bfa877ac31cc2c4ae322ca16 x230t BIOS 2.64 (GCE
 gcuj25us.iso  sha1:09c1a0b14ba443fe1ab252023106624401782461 x230t BIOS 2.65 (GCETA5WW) EC 1.14 (GCHT25WW)
 gcuj26us.iso  sha1:8b9ffa924c92df33fe673c64766501a8bd83d4cb x230t BIOS 2.66 (GCETA6WW) EC 1.14 (GCHT25WW)
 giuj26us.iso  sha1:c5a87023e977e17a15eca26e8027bd0f2eefd568 x240 BIOS 2.39 (GIET89WW) EC 1.17 (GIHT32WW)
+giuj29us.iso  sha1:6a87e3377140620130e154f488d9116e18f55ec4 x240 BIOS 2.42 (GIET92WW) EC 1.17 (GIHT32WW)
 gruj26us.iso  sha1:89a3b3e364f37694bf514e01f9c3e2eda33a59e8 x1 Carbon (Type 20A7, 20A8) BIOS 1.29 (GRET52WW) EC 1.19 (GRHT38WW)
 n10ur10w.iso  sha1:0e4c4ffb99146e50867dc1345ee2ef88c60ea192 x250 BIOS 1.21 (N10ET42W) EC 1.16 (N10HT17W)
 n14ur15w.iso  sha1:e106b024b1d448234e5ea958b0e8e93bbda1a543 x1 Carbon (Type 20BS, 20BT) BIOS 1.16 (N14ET38W) EC 1.09 (N14HT36W)
@@ -122,6 +123,7 @@ x200.7XHT22WW.s01B9000.FL2  rule:FL2multi2,dep:6duj37uc.iso,depi:6duj37uc.iso.ba
 x220.8DHT34WW.s01CB000.FL2  rule:FL2,dep:8duj27us.iso,param:01CB000.FL2                        x220 EC 1.24 Flash File
 x230.G2HT35WW.s01D3000.FL2  rule:FL2,dep:g2uj23us.iso,depi:g2uj23us.iso.bat,param:01D3000.FL2  x230 EC 1.14 Flash File
 x230t.GCHT25WW.s01DA000.FL2 rule:FL2,dep:gcuj24us.iso,depi:gcuj24us.iso.bat,param:01DA000.FL2  x230t EC 1.14 Flash File
+x240.GIHT32WW.s01DE000.FL2  rule:FL2,dep:giuj26us.iso,param:01DE000.FL2                        x240 EC 1.17 Flash file
 x250.N10HT17W.s01E5000.FL2  rule:FL2,dep:n10ur10w.iso,param:01E5000.FL2                        x250 EC 1.16 Flash File
 x260.R02HT29W.s0AR0200.FL2  rule:FL2,dep:r02uj46d.iso,param:0AR0200.FL2                        x260 EC 1.11 Flash File
 x270.R0IHT50W.s0AR0I00.FL2  rule:FL2,dep:r0iuj21wd.iso,param:0AR0I00.FL2                       x270 EC 1.15 Flash File
@@ -148,6 +150,7 @@ x200.7XHT22WW.img     rule:IMGnoenc,dep:x200.7XHT22WW.s01B9000.FL2  x200 EC 1.04
 x220.8DHT34WW.img.enc rule:IMGnoenc,dep:x220.8DHT34WW.s01CB000.FL2  x220 EC 1.24 (encrypted) (H8300 cpu)
 x230.G2HT35WW.img     rule:IMG,dep:x230.G2HT35WW.s01D3000.FL2       x230 EC 1.14 (decrypted) (ARCompact cpu)
 x230t.GCHT25WW.img    rule:IMG,dep:x230t.GCHT25WW.s01DA000.FL2      x230t EC 1.14 (decrypted) (ARCompact cpu)
+x240.GIHT32WW.img.enc rule:IMGnoenc,dep:x240.GIHT32WW.s01DE000.FL2  x240 EC 1.17 (encrypted) (ARCompact cpu)
 x250.N10HT17W.img.enc rule:IMGnoenc,dep:x250.N10HT17W.s01E5000.FL2  x250 EC 1.16 (encrypted) (ARCompact cpu)
 x260.R02HT29W.img     rule:IMGnoenc,dep:x260.R02HT29W.s0AR0200.FL2  x260 EC 1.11 (not encrypted) (ARCompact cpu)
 x270.R0IHT50W.img     rule:IMGnoenc,dep:x270.R0IHT50W.s0AR0I00.FL2  x270 EC 1.15 (not encrupted) (ARCompact cpu)

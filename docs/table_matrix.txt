@@ -98,3 +98,21 @@ controller scancode of the key pressed (Note that this scancode is internal
 to the EC - it is not the same as the BIOS scancode)
 
     (source: x230 EC firmware version G2HT35WW, offset 0x219e8)
+
+
+Other ThinkPad firmware matrix offsets:
+---------------------------------------
+
+While examining the firmware from other thinkpad models, the keyboard matrix
+table has often been located.  To avoid needing to locate these tables
+multiple times, they are recorded here.
+
+t470.N1QHT57W.img.orig  02d81c and 02d974 (both identical)
+t480.N24HT23W.img.orig  02efd0 and 02f128 (both identical)
+x260.R02HT29W.img.orig  0287b0 and 0288e4 (both identical)
+x270.R0IHT50W.img.orig  02ce00 and 02cf34 (both identical)
+x280.N20HT29W.img.orig  02b1c0 and 02b318 (both identical)
+
+One think noted from this examination was that all the xx70 and xx80 matrix
+tables checked were identical (thus the keyboards in those models are
+interchangable with no firmware changes)
