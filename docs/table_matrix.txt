@@ -107,12 +107,17 @@ While examining the firmware from other thinkpad models, the keyboard matrix
 table has often been located.  To avoid needing to locate these tables
 multiple times, they are recorded here.
 
-t470.N1QHT57W.img.orig  02d81c and 02d974 (both identical)
-t480.N24HT23W.img.orig  02efd0 and 02f128 (both identical)
-x260.R02HT29W.img.orig  0287b0 and 0288e4 (both identical)
-x270.R0IHT50W.img.orig  02ce00 and 02cf34 (both identical)
-x280.N20HT29W.img.orig  02b1c0 and 02b318 (both identical)
+t470.N1QHT57W.img.orig      02d81c and 02d974 (both identical)
+t480.N24HT23W.img.orig      02efd0 and 02f128 (both identical)
+x240.GIHT32WW.img.enc.orig  023ec0 and 023ff4 (both identical)
+x250.N10HT17W.img.enc.orig  025cd8 and 025e0c (both identical)
+x260.R02HT29W.img.orig      0287b0 and 0288e4 (both identical)
+x270.R0IHT50W.img.orig      02ce00 and 02cf34 (both identical)
+x280.N20HT29W.img.orig      02b1c0 and 02b318 (both identical)
 
-One think noted from this examination was that all the xx70 and xx80 matrix
-tables checked were identical (thus the keyboards in those models are
-interchangable with no firmware changes)
+One think noted from this examination was that many of the matrix tables are
+identical (thus the keyboards in those models are interchangable with no
+firmware changes)
+
+* the x240, x250 and x260 matrices are identical
+* all the xx70 and xx80 matrices checked are identical
