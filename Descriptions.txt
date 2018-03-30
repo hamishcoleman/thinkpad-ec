@@ -146,6 +146,7 @@ x230t.GCHT25WW.img    rule:IMG,dep:x230t.GCHT25WW.s01DA000.FL2      x230t EC 1.1
 x250.N10HT17W.img.enc rule:IMGnoenc,dep:x250.N10HT17W.s01E5000.FL2  x250 EC 1.16 (encrypted) (ARCompact cpu)
 x260.R02HT29W.img     rule:IMGnoenc,dep:x260.R02HT29W.s0AR0200.FL2  x260 EC 1.11 (not encrypted) (ARCompact cpu)
 x270.R0IHT50W.img     rule:IMGnoenc,dep:x270.R0IHT50W.s0AR0I00.FL2  x270 EC 1.15 (not encrupted) (ARCompact cpu)
+x280.N20HT29W.img     rule:IMGnoenc,dep:x280.N20HT29W.s0AN2000.FL2  x280 EC 1.04 (not encrupted) (ARCompact cpu)
 x1cg1.G6HT24WW.img    rule:IMG,dep:x1c.G6HT24WW.s01D7000.FL2        x1c Gen 1 EC 1.06 (decrypted) (ARCompact cpu)
 
 

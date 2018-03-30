@@ -292,6 +292,7 @@ sub _check {
     # We also store the encryption flag in here
     my $known = {
          196896 => 'yes',
+         262176 => 'no',
          286752 => 'no',
     };
 
