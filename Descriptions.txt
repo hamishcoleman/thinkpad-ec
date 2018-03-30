@@ -83,6 +83,9 @@ n1qur11w.iso  sha1:FIXME                                    T470, 25 BIOS 1.42 (
 n1qur12w.iso  sha1:FIXME                                    T470, 25 BIOS 1.43 (N1QET68W) EC 1.29 (N1QHT47W)
 n1qur13w.iso  sha1:FIXME                                    T470, 25 BIOS 1.44 (N1QET69W) EC 1.30 (N1QHT48W)
 n1qur14w.iso  sha1:fea0d271a23548adb5d11f3c16b4e016be3869a5 T470, 25 BIOS 1.46 (N1QET71W) EC 1.30 (N1QHT48W)
+n20ur02w.iso  sha1:FIXME                                    x280 BIOS 1.08 (N20ET23W) EC 1.03 (N20HT16W)
+n20ur03w.iso  sha1:FIXME                                    x280 BIOS 1.12 (N20ET27W) EC 1.04 (N20HT17W)
+n20ur04w.iso  sha1:8ca1d873aeca5ce87d67f795739f8cc95f0c519f x280 BIOS 1.14 (N20ET29W) EC 1.04 (N20HT17W)
 r02uj46d.iso  sha1:876a68add32d9c961cbdf80c74b88f92a66443cf x260 BIOS 1.19 (R02ET46W) EC 1.11 (R02HT29W)
 r0iuj09wd.iso sha1:21b3abf69b9ee7ecf12fe0880564312122b1ff75 x270 BIOS 1.16 (R0IET38W) EC 1.12 (R0IHT30W)
 r0iuj10wd.iso sha1:FIXME                                    x270 BIOS 1.17 (R0IET39W) EC 1.13 (R0IHT31W)
@@ -118,6 +121,7 @@ x230t.GCHT25WW.s01DA000.FL2 rule:FL2,dep:gcuj24us.iso,depi:gcuj24us.iso.bat,para
 x250.N10HT17W.s01E5000.FL2  rule:FL2,dep:n10ur10w.iso,param:01E5000.FL2                        x250 EC 1.16 Flash File
 x260.R02HT29W.s0AR0200.FL2  rule:FL2,dep:r02uj46d.iso,param:0AR0200.FL2                        x260 EC 1.11 Flash File
 x270.R0IHT50W.s0AR0I00.FL2  rule:FL2,dep:r0iuj21wd.iso,param:0AR0I00.FL2                       x270 EC 1.15 Flash File
+x280.N20HT29W.s0AN2000.FL2  rule:FL2,dep:n20ur04w.iso,param:0AN2000.FL2                        x280 EC 1.04 Flash File
 x1cg1.G6HT24WW.s01D7000.FL2 rule:FL2,dep:g6uj24us.iso,param:01D7000.FL2                        x1c Gen 1 EC 1.06 Flash File
 
 # TODO
