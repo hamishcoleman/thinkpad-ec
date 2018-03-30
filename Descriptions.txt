@@ -86,6 +86,9 @@ n1qur14w.iso  sha1:fea0d271a23548adb5d11f3c16b4e016be3869a5 T470, 25 BIOS 1.46 (
 n20ur02w.iso  sha1:FIXME                                    x280 BIOS 1.08 (N20ET23W) EC 1.03 (N20HT16W)
 n20ur03w.iso  sha1:FIXME                                    x280 BIOS 1.12 (N20ET27W) EC 1.04 (N20HT17W)
 n20ur04w.iso  sha1:8ca1d873aeca5ce87d67f795739f8cc95f0c519f x280 BIOS 1.14 (N20ET29W) EC 1.04 (N20HT17W)
+n24ur01w.iso  sha1:FIXME                                    t480 BIOS 1.07 (N24ET32W) EC 1.06 (N24HT21W)
+n24ur03w.iso  sha1:FIXME                                    t480 BIOS 1.11 (N24ET36W) EC 1.08 (N24HT23W)
+n24ur04w.iso  sha1:134b239e4ce4c9c2d1f5f8f645f279c162fc5f3e t480 BIOS 1.12 (N24ET37W) EC 1.08 (N24HT23W)
 r02uj46d.iso  sha1:876a68add32d9c961cbdf80c74b88f92a66443cf x260 BIOS 1.19 (R02ET46W) EC 1.11 (R02HT29W)
 r0iuj09wd.iso sha1:21b3abf69b9ee7ecf12fe0880564312122b1ff75 x270 BIOS 1.16 (R0IET38W) EC 1.12 (R0IHT30W)
 r0iuj10wd.iso sha1:FIXME                                    x270 BIOS 1.17 (R0IET39W) EC 1.13 (R0IHT31W)
@@ -112,6 +115,7 @@ t430.G1HT34WW.s01D2000.FL2  rule:FL2,dep:g1uj25us.iso,depi:g1uj25us.iso.bat,para
 t430.G1HT35WW.s01D2000.FL2  rule:FL2,dep:g1uj40us.iso,depi:g1uj40us.iso.bat,param:01D2000.FL2  t430 EC 1.13 Flash File
 t430s.G7HT39WW.s01D8000.FL2 rule:FL2,dep:g7uj21us.iso,depi:g7uj21us.iso.bat,param:01D8000.FL2  t430s EC 1.15 Flash File
 t470.N1QHT57W.s0AN1Q00.FL2  rule:FL2,dep:n1qur08w.iso,depi:n1qur08w.iso.bat,param:0AN1Q00.FL2  t470 EC 1.32 Flash File
+t480.N24HT23W.s0AN2400.FL2  rule:FL2,dep:n24ur04w.iso,depi:n24ur04w.iso.bat,param:0AN2400.FL2  t480 EC 1.08 Flash File
 t530.G4HT39WW.s01D5100.FL2  rule:FL2,dep:g4uj30us.iso,depi:g4uj30us.iso.bat,param:01D5100.FL2  t530 EC 1.13 Flash File
 w530.G4HT39WW.s01D5200.FL2  rule:FL2,dep:g5uj28us.iso,depi:g5uj28us.iso.bat,param:01D5200.FL2  w530 EC 1.13 Flash File
 x200.7XHT22WW.s01B9000.FL2  rule:FL2multi2,dep:6duj37uc.iso,depi:6duj37uc.iso.bat,param:01B9000.FL2;01B9100.FL2         x200 EC 1.04 Flash File
@@ -137,6 +141,7 @@ t430.G1HT34WW.img     rule:IMG,dep:t430.G1HT34WW.s01D2000.FL2       t430 EC 1.12
 t430.G1HT35WW.img     rule:IMG,dep:t430.G1HT35WW.s01D2000.FL2       t430 EC 1.13 (decrypted) (ARCompact cpu)
 t430s.G7HT39WW.img    rule:IMG,dep:t430s.G7HT39WW.s01D8000.FL2      t430s EC 1.15 (decrypted) (ARCompact cpu)
 t470.N1QHT57W.img     rule:IMGnoenc,dep:t470.N1QHT57W.s0AN1Q00.FL2  t470 EC 1.32 (may be wrong) (ARCompact cpu)
+t480.N24HT23W.img     rule:IMGnoenc,dep:t480.N24HT23W.s0AN2400.FL2  t480 EC 1.08 (may be wrong) (ARCompact cpu)
 t530.G4HT39WW.img     rule:IMG,dep:t530.G4HT39WW.s01D5100.FL2       t530 EC 1.13 (decrypted) (ARCompact cpu)
 w530.G4HT39WW.img     rule:IMG,dep:w530.G4HT39WW.s01D5200.FL2       w530 EC 1.13 (decrypted) (ARCompact cpu)
 x200.7XHT22WW.img     rule:IMGnoenc,dep:x200.7XHT22WW.s01B9000.FL2  x200 EC 1.04 (not encrypted) (H8300 cpu)
