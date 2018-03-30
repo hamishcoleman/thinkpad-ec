@@ -154,6 +154,7 @@ endef
 #
 # Download any ISO image that we have a checksum for
 # NOTE: makes an assumption about the Lenovo URL not changing
+.PRECIOUS: %.iso.orig
 %.iso.orig:
 	@echo -n "Downloading "
 	@scripts/describe $(basename $@)
