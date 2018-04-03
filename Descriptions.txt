@@ -84,6 +84,7 @@ n1qur11w.iso  sha1:FIXME                                    T470, 25 BIOS 1.42 (
 n1qur12w.iso  sha1:FIXME                                    T470, 25 BIOS 1.43 (N1QET68W) EC 1.29 (N1QHT47W)
 n1qur13w.iso  sha1:FIXME                                    T470, 25 BIOS 1.44 (N1QET69W) EC 1.30 (N1QHT48W)
 n1qur14w.iso  sha1:fea0d271a23548adb5d11f3c16b4e016be3869a5 T470, 25 BIOS 1.46 (N1QET71W) EC 1.30 (N1QHT48W)
+n1uur12w.iso  sha1:82628c7b7ed2064f4c272440b72cbb38a88b18d8 P51 BIOS 1.20 (N1UET46W) EC 1.07 (N1UHT24W)
 n20ur02w.iso  sha1:FIXME                                    x280 BIOS 1.08 (N20ET23W) EC 1.03 (N20HT16W)
 n20ur03w.iso  sha1:FIXME                                    x280 BIOS 1.12 (N20ET27W) EC 1.04 (N20HT17W)
 n20ur04w.iso  sha1:8ca1d873aeca5ce87d67f795739f8cc95f0c519f x280 BIOS 1.14 (N20ET29W) EC 1.04 (N20HT17W)
@@ -113,6 +114,7 @@ h3uj04wd.iso  sha1:3bbf65b61d1e2ed806ea6cf40b97d24c090c00dc e330 and v480s - no 
 
 # The firmware files from inside the ISO images
 l430.G3HT40WW.s01D4000.FL1  rule:FL2,dep:g3uj25us.iso,param:01D4000.FL1                        l430 BIOS 2.68 Flash File
+p51.N1UHT24W.s0AN1U00.FL2   rule:FL2,dep:n1uur12w.iso,param:0AN1U00.FL2                        p51 EC 1.07 Flash File
 t430.G1HT34WW.s01D2000.FL2  rule:FL2,dep:g1uj25us.iso,depi:g1uj25us.iso.bat,param:01D2000.FL2  t430 EC 1.12 Flash File
 t430.G1HT35WW.s01D2000.FL2  rule:FL2,dep:g1uj40us.iso,depi:g1uj40us.iso.bat,param:01D2000.FL2  t430 EC 1.13 Flash File
 t430s.G7HT39WW.s01D8000.FL2 rule:FL2,dep:g7uj21us.iso,depi:g7uj21us.iso.bat,param:01D8000.FL2  t430s EC 1.15 Flash File
@@ -141,6 +143,7 @@ x1cg1.G6HT24WW.s01D7000.FL2 rule:FL2,dep:g6uj24us.iso,param:01D7000.FL2         
 
 # The actual EC firmware extracted from the BIOS firmware file
 l430.G3HT40WW.img     rule:IMGnoenc,dep:l430.G3HT40WW.s01D4000.FL1  l430 EC 1.14 (may be wrong) (8052 cpu)
+p51.N1UHT24W.img      rule:IMGnoenc,dep:p51.N1UHT24W.s0AN1U00.FL2   p51 EC 1.07
 t430.G1HT34WW.img     rule:IMG,dep:t430.G1HT34WW.s01D2000.FL2       t430 EC 1.12 (decrypted) (ARCompact cpu)
 t430.G1HT35WW.img     rule:IMG,dep:t430.G1HT35WW.s01D2000.FL2       t430 EC 1.13 (decrypted) (ARCompact cpu)
 t430s.G7HT39WW.img    rule:IMG,dep:t430s.G7HT39WW.s01D8000.FL2      t430s EC 1.15 (decrypted) (ARCompact cpu)
