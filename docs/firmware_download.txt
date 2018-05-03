@@ -1,0 +1,25 @@
+This is a list of the Lenovo pages that can be checked to find possible BIOS
+and EC updates.  It is not completely clear if Lenovo publishes all new
+versions to the same page URL, so these may not link to the latest software,
+but they will provide a reasonable starting point for any search for the
+latest versions.
+
+These pages provide the the description, checksum and binaries for the
+bootable BIOS update CD images for both the current and historical releases.
+
+e220    https://support.lenovo.com/hk/en/downloads/DS031908
+l430    https://support.lenovo.com/hk/en/downloads/DS018887
+p51     https://support.lenovo.com/hk/en/downloads/DS121297
+t430    https://support.lenovo.com/hk/en/downloads/DS029253
+t430s   https://support.lenovo.com/hk/en/downloads/DS029724
+t470    https://support.lenovo.com/hk/en/downloads/DS120430
+t480    https://support.lenovo.com/hk/en/downloads/DS502357
+t530    https://support.lenovo.com/hk/en/downloads/DS029249
+w530    https://support.lenovo.com/hk/en/downloads/DS029170
+x220    https://support.lenovo.com/hk/en/downloads/DS018807
+x230    https://support.lenovo.com/hk/en/downloads/DS029188
+x230t   https://support.lenovo.com/hk/en/downloads/DS018887
+x240    https://support.lenovo.com/hk/en/downloads/DS035952
+x250    https://support.lenovo.com/hk/en/downloads/DS029253
+x260    https://support.lenovo.com/hk/en/downloads/DS105891
+x270    https://support.lenovo.com/hk/en/downloads/DS120444

@@ -1,11 +1,17 @@
 A collection of the information discovered about the embedded controllers
 used in the thinkpad laptops.
 
+CONFIG.txt
+    -   Steps to configure the optional parts of the patching
+
 HACKING.txt
     -   information on how to use this repository for hacking on the firmware
 
 chips.txt
     -   details on the different ICs used
+
+firmware_download.txt
+    -   List of links to the lenovo firmware update and information pages
 
 firmware_flashing.txt
     -   outline of how we think the flashing process works
