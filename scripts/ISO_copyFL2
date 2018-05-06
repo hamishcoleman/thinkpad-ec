@@ -30,7 +30,7 @@ if [ ! -e "$ISO" ]; then
 fi
 shift
 
-if ! type mdir 2>/dev/null; then
+if ! type mdir >/dev/null; then
     echo Fatal:  It looks like you have not installed the mtools package
     exit 1
 fi
