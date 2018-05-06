@@ -13,6 +13,7 @@ p51     https://support.lenovo.com/hk/en/downloads/DS121297
 t430    https://support.lenovo.com/hk/en/downloads/DS029253
 t430s   https://support.lenovo.com/hk/en/downloads/DS029724
 t470    https://support.lenovo.com/hk/en/downloads/DS120430
+t470p   https://support.lenovo.com/hk/en/downloads/DS120708
 t480    https://support.lenovo.com/hk/en/downloads/DS502357
 t530    https://support.lenovo.com/hk/en/downloads/DS029249
 w530    https://support.lenovo.com/hk/en/downloads/DS029170

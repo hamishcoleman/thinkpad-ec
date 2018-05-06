@@ -109,6 +109,7 @@ multiple times, they are recorded here.
 
 p51.N1UHT24W.img.orig       02cbc8 and 02cd20 (both identical)
 t470.N1QHT57W.img.orig      02d81c and 02d974 (both identical)
+t470p.R0FHT16W.img.orig     02b430 and 02b588 (both identical)
 t480.N24HT23W.img.orig      02efd0 and 02f128 (both identical)
 t480s.N22HT22W.img.orig     02bd38 and 02be90 (both identical)
 x240.GIHT32WW.img.enc.orig  023ec0 and 023ff4 (both identical)
@@ -122,5 +123,5 @@ identical (thus the keyboards in those models are interchangable with no
 firmware changes)
 
 * the x240, x250 and x260 matrices are identical
-* all the xx70 and xx80 matrices checked are identical (including t480s) and
-  are also the same as the p51
+* all the xx70 and xx80 matrices checked are identical - including t480s,
+  t470p and additionally the p51
