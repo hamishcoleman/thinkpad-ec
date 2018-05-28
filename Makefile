@@ -352,8 +352,8 @@ rule_IMG_insert_DEPS = scripts/FL2_copyIMG scripts/xx30.encrypt
 # $< is the lenovo named iso
 # $@ is the nicely named iso
 define rule_niceISO_extract
-    mv $< $@
-    mv $<.report $@.report
+    cp $< $@
+    cp $<.report $@.report
     $(call build_info,$@.report)
 endef
 rule_niceISO_extract_DEPS = # no extra dependancies
