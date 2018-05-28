@@ -33,6 +33,8 @@ list_laptops:
 DEPSDIR := .d
 $(shell mkdir -p $(DEPSDIR))
 
+test: $(addsuffix .iso,$(LIST_PATCHED))
+
 # Remove all the locally generated junk (including any patched firmware
 # images) and any small downloads
 clean:
