@@ -1,0 +1,5 @@
+# Not the correct language, but one that has very few dependancies to install
+language: c
+
+script:
+    - make test
