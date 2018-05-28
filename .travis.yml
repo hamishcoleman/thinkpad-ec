@@ -1,5 +1,8 @@
 # Not the correct language, but one that has very few dependancies to install
 language: c
 
+before_script:
+    - sudo make build-deps
+
 script:
     - make test

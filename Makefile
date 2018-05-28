@@ -95,7 +95,7 @@ export MTOOLS_SKIP_CHECK=1
 export MTOOLS_LOWER_CASE=0
 
 build-deps:
-	apt install git mtools libssl-dev build-essential
+	apt -y install git mtools libssl-dev build-essential
 
 #
 # Radare didnt seem to let me specify the directory to store the project file,
