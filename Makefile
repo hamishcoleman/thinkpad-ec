@@ -33,6 +33,8 @@ list_laptops:
 DEPSDIR := .d
 $(shell mkdir -p $(DEPSDIR))
 
+test: $(addsuffix .iso,$(LIST_PATCHED))
+
 # Remove all the locally generated junk (including any patched firmware
 # images) and any small downloads
 clean:
@@ -93,7 +95,7 @@ export MTOOLS_SKIP_CHECK=1
 export MTOOLS_LOWER_CASE=0
 
 build-deps:
-	apt install git mtools libssl-dev build-essential
+	apt -y install git mtools libssl-dev build-essential
 
 #
 # Radare didnt seem to let me specify the directory to store the project file,
@@ -352,8 +354,8 @@ rule_IMG_insert_DEPS = scripts/FL2_copyIMG scripts/xx30.encrypt
 # $< is the lenovo named iso
 # $@ is the nicely named iso
 define rule_niceISO_extract
-    mv $< $@
-    mv $<.report $@.report
+    cp $< $@
+    cp $<.report $@.report
     $(call build_info,$@.report)
 endef
 rule_niceISO_extract_DEPS = # no extra dependancies

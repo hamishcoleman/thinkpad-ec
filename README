@@ -100,7 +100,13 @@ of requirements.
 * The firmware flash process generally requires you to have a charged
   battery plugged in to the laptop before it will complete.  It may be
   possible to bypass the requirement for a charged battery if you unplug
-  the battery completely.
+  the battery completely.  Alternatively, it might be simply looking for
+  any battery /and/ the power charger plugged in.  Yes, this is
+  contradictory, but it is worth trying both options.
+
+* An ultrabay battery is not considered by the update mechanism to be
+  a suitable source of power - when trying different battery options,
+  ensure you are trying batteries in the main battery slot.
 
 * Ensure your BIOS has been configured to boot from "Legacy" and not
   "UEFI" before trying to boot.
