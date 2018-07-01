@@ -21,6 +21,6 @@ x220    https://support.lenovo.com/hk/en/downloads/DS018807
 x230    https://support.lenovo.com/hk/en/downloads/DS029188
 x230t   https://support.lenovo.com/hk/en/downloads/DS018887
 x240    https://support.lenovo.com/hk/en/downloads/DS035952
-x250    https://support.lenovo.com/hk/en/downloads/DS029253
+x250    https://pcsupport.lenovo.com/au/en/downloads/ds102289
 x260    https://support.lenovo.com/hk/en/downloads/DS105891
 x270    https://support.lenovo.com/hk/en/downloads/DS120444
