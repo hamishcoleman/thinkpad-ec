@@ -17,6 +17,7 @@ t470p   https://support.lenovo.com/hk/en/downloads/DS120708
 t480    https://support.lenovo.com/hk/en/downloads/DS502357
 t530    https://support.lenovo.com/hk/en/downloads/DS029249
 w530    https://support.lenovo.com/hk/en/downloads/DS029170
+x131e   https://support.lenovo.com/au/en/downloads/ds029773
 x220    https://support.lenovo.com/hk/en/downloads/DS018807
 x230    https://support.lenovo.com/hk/en/downloads/DS029188
 x230t   https://support.lenovo.com/hk/en/downloads/DS018887
