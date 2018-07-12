@@ -566,7 +566,7 @@ sub main() {
     my $object = detect_img($fl2file);
     if (!defined($object)) {
         printf("Could not determine IMG details for %s\n", $fl2file);
-        return 1;
+        exit(1);
     }
     printf("IMG at offset 0x%x size 0x%x (%s %s)\n",
         $object->offset(),
