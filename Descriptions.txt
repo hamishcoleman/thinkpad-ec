@@ -70,6 +70,10 @@ g4uj30us.iso  sha1:8673a448abd5cba1a8d7d1cb2eeb7935c7a252cd t530 and t530i BIOS 
 g4uj32us.iso  sha1:f86c7402fb57038143c81aa90ced615e95369844 t530 and t530i BIOS 2.68 (G4ETA8WW) EC 1.13 (G4HT39WW)
 g5uj28us.iso  sha1:4ed559b7c66957c3c66ca3f8c85c37a0e181da2a w530 BIOS 2.65 (G5ETA5WW) EC 1.13 (G4HT39WW)
 g5uj30us.iso  sha1:d714e0f431ffb316bebb72d39ecdb0a19ade6836 w530 BIOS 2.67 (G5ETA7WW) EC 1.13 (G4HT39WW)
+g5uj32us.iso  sha1:FIXME w530 BIOS 2.69 (G5ETA8WW) EC 1.13 (G4HT39WW)
+g5uj33us.iso  sha1:FIXME w530 BIOS 2.70 (G5ETB0WW) EC 1.13 (G4HT39WW)
+g5uj34us.iso  sha1:FIXME w530 BIOS 2.71 (G5ETB1WW) EC 1.13 (G4HT39WW)
+g5uj35us.iso  sha1:efc6a8473d1a6379b9ec1573cf54095db10d583c w530 BIOS 2.72 (G5ETB2WW) EC 1.13 (G4HT39WW)
 g6uj24us.iso  sha1:9dba2945eff1eb387bc24f479e68eb401e3cc4ee x1 Carbon (Type 34xx - Gen1) BIOS 2.76 (G6ETB6WW) EC 1.06 (G6HT24WW)
 g7uj18us.iso  sha1:418bdab59ed0cf8da52078c1f2949f3fec441f0b t430s BIOS 2.64 (G7ETA4WW) EC 1.15 (G7HT39WW)
 g7uj19us.iso  sha1:be900c38e185831ae5fa93266a806bb394ba7ac7 t430s BIOS 2.65 (G7ETA5WW) EC 1.15 (G7HT39WW)
@@ -130,7 +134,7 @@ t470p.R0FHT16W.s0AR0F00.FL2 rule:FL2,dep:r0fuj15wd.iso,depi:r0fuj15wd.iso.bat,pa
 t480.N24HT23W.s0AN2400.FL2  rule:FL2,dep:n24ur04w.iso,depi:n24ur04w.iso.bat,param:0AN2400.FL2  t480 EC 1.08 Flash File
 t480s.N22HT22W.s0AN2200.FL2 rule:FL2,dep:n22ur04w.iso,depi:n22ur04w.iso.bat,param:0AN2200.FL2  t480s EC 1.07 Flash File
 t530.G4HT39WW.s01D5100.FL2  rule:FL2,dep:g4uj30us.iso,depi:g4uj30us.iso.bat,param:01D5100.FL2  t530 EC 1.13 Flash File
-w530.G4HT39WW.s01D5200.FL2  rule:FL2,dep:g5uj28us.iso,depi:g5uj28us.iso.bat,param:01D5200.FL2  w530 EC 1.13 Flash File
+w530.G4HT39WW.s01D5200.FL2  rule:FL2,dep:g5uj35us.iso,depi:g5uj35us.iso.bat,param:01D5200.FL2  w530 EC 1.13 Flash File
 x131e.G8HT52WW.s0AG8000.FL1 rule:FL2,dep:g8uj31us.iso,param:0AG8000.FL1                        x131e BIOS 2.98 Flash File
 #x131e.G8HT52WW.s0ag9000.FL1 rule:FL2,dep:g8uj31us.iso,param:0ag9000.FL1                        x131e g9 BIOS 2.98 Flash File
 x200.7XHT22WW.s01B9000.FL2  rule:FL2multi2,dep:6duj37uc.iso,depi:6duj37uc.iso.bat,param:01B9000.FL2;01B9100.FL2         x200 EC 1.04 Flash File
@@ -180,6 +184,6 @@ patched.t430.iso   rule:niceISO,dep:g1uj44us.iso,suffix:0,insert:0  for patching
 patched.t430s.iso  rule:niceISO,dep:g7uj21us.iso,suffix:0,insert:0  for patching Thinkpad T430s
 patched.t530.iso   rule:niceISO,dep:g4uj30us.iso,suffix:0,insert:0  for patching Thinkpad T530
 patched.t530i.iso  rule:niceISO,dep:g4uj30us.iso,suffix:0,insert:0  for patching Thinkpad T530i
-patched.w530.iso   rule:niceISO,dep:g5uj28us.iso,suffix:0,insert:0  for patching Thinkpad W530
+patched.w530.iso   rule:niceISO,dep:g5uj35us.iso,suffix:0,insert:0  for patching Thinkpad W530
 patched.x230.iso   rule:niceISO,dep:g2uj28us.iso,suffix:0,insert:0  for patching Thinkpad X230
 patched.x230t.iso  rule:niceISO,dep:gcuj24us.iso,suffix:0,insert:0  for patching Thinkpad X230t
