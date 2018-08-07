@@ -79,6 +79,10 @@ g6uj24us.iso  sha1:9dba2945eff1eb387bc24f479e68eb401e3cc4ee x1 Carbon (Type 34xx
 g7uj18us.iso  sha1:418bdab59ed0cf8da52078c1f2949f3fec441f0b t430s BIOS 2.64 (G7ETA4WW) EC 1.15 (G7HT39WW)
 g7uj19us.iso  sha1:be900c38e185831ae5fa93266a806bb394ba7ac7 t430s BIOS 2.65 (G7ETA5WW) EC 1.15 (G7HT39WW)
 g7uj21us.iso  sha1:58a90d4db266e0a7aba430d06ff68937e26b11b3 t430s BIOS 2.67 (G7ETA7WW) EC 1.15 (G7HT39WW)
+g7uj22us.iso  sha1:TODO
+g7uj23us.iso  sha1:TODO
+g7uj24us.iso  sha1:TODO
+g7uj25us.iso  sha1:e9ea2fbf3cbe3762a05e5a16d25227f1e64c0ee7 t430s BIOS 2.72 (G7ETB2WW) EC 1.15 (G7HT39WW)
 g8uj31us.iso  sha1:443bf6090f2d621369e4a4dce6ff7e151dcac901 x131e BIOS 2.98 (G8ETB1WW) EC 2.02 (G8HT52WW)
 gcuj24us.iso  sha1:468e70cf4253d216bfa877ac31cc2c4ae322ca16 x230t BIOS 2.64 (GCETA4WW) EC 1.14 (GCHT25WW)
 gcuj25us.iso  sha1:09c1a0b14ba443fe1ab252023106624401782461 x230t BIOS 2.65 (GCETA5WW) EC 1.14 (GCHT25WW)
@@ -129,7 +133,7 @@ l430.G3HT40WW.s01D4000.FL1  rule:FL2,dep:g3uj25us.iso,param:01D4000.FL1         
 p51.N1UHT24W.s0AN1U00.FL2   rule:FL2,dep:n1uur12w.iso,param:0AN1U00.FL2                        p51 EC 1.07 Flash File
 t430.G1HT34WW.s01D2000.FL2  rule:FL2,dep:g1uj25us.iso,depi:g1uj25us.iso.bat,param:01D2000.FL2  t430 EC 1.12 Flash File
 t430.G1HT35WW.s01D2000.FL2  rule:FL2,dep:g1uj44us.iso,depi:g1uj44us.iso.bat,param:01D2000.FL2  t430 EC 1.13 Flash File
-t430s.G7HT39WW.s01D8000.FL2 rule:FL2,dep:g7uj21us.iso,depi:g7uj21us.iso.bat,param:01D8000.FL2  t430s EC 1.15 Flash File
+t430s.G7HT39WW.s01D8000.FL2 rule:FL2,dep:g7uj25us.iso,depi:g7uj25us.iso.bat,param:01D8000.FL2  t430s EC 1.15 Flash File
 t470.N1QHT57W.s0AN1Q00.FL2  rule:FL2,dep:n1qur08w.iso,depi:n1qur08w.iso.bat,param:0AN1Q00.FL2  t470 EC 1.32 Flash File
 t470p.R0FHT16W.s0AR0F00.FL2 rule:FL2,dep:r0fuj15wd.iso,depi:r0fuj15wd.iso.bat,param:0AR0F00.FL2 t470p EC 1.04 Flash File
 t480.N24HT23W.s0AN2400.FL2  rule:FL2,dep:n24ur04w.iso,depi:n24ur04w.iso.bat,param:0AN2400.FL2  t480 EC 1.08 Flash File
@@ -182,7 +186,7 @@ x1cg1.G6HT24WW.img    rule:IMG,dep:x1c.G6HT24WW.s01D7000.FL2        x1c Gen 1 EC
 
 # The end-user visible, nicely named iso images
 patched.t430.iso   rule:niceISO,dep:g1uj44us.iso,suffix:0,insert:0  for patching Thinkpad T430
-patched.t430s.iso  rule:niceISO,dep:g7uj21us.iso,suffix:0,insert:0  for patching Thinkpad T430s
+patched.t430s.iso  rule:niceISO,dep:g7uj25us.iso,suffix:0,insert:0  for patching Thinkpad T430s
 patched.t530.iso   rule:niceISO,dep:g4uj30us.iso,suffix:0,insert:0  for patching Thinkpad T530
 patched.t530i.iso  rule:niceISO,dep:g4uj30us.iso,suffix:0,insert:0  for patching Thinkpad T530i
 patched.w530.iso   rule:niceISO,dep:g5uj35us.iso,suffix:0,insert:0  for patching Thinkpad W530
