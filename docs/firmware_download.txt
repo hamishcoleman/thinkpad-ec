@@ -11,7 +11,7 @@ e220    https://support.lenovo.com/hk/en/downloads/DS031908
 l430    https://support.lenovo.com/hk/en/downloads/DS018887
 p51     https://support.lenovo.com/hk/en/downloads/DS121297
 t430    https://support.lenovo.com/hk/en/downloads/DS029253
-t430s   https://support.lenovo.com/hk/en/downloads/DS029724
+t430s   https://support.lenovo.com/au/en/downloads/ds029725
 t470    https://support.lenovo.com/hk/en/downloads/DS120430
 t470p   https://support.lenovo.com/hk/en/downloads/DS120708
 t480    https://support.lenovo.com/hk/en/downloads/DS502357
