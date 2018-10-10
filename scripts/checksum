@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #
 # Look up the given filename in the description file and confirm that
 # the checksum matches

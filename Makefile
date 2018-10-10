@@ -10,7 +10,7 @@ all:    list_laptops
 
 .PHONY: all
 
-SHELL = /bin/bash
+SHELL = /usr/bin/env bash
 
 QEMU_OPTIONS ?= -enable-kvm
 
