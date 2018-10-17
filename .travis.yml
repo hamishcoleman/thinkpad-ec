@@ -2,6 +2,7 @@
 language: c
 
 before_script:
+    - sudo apt-get update
     - sudo make build-deps
 
 script:
