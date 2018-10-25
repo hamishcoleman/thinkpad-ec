@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 #
 # Look up the given filename in the description file and confirm that
 # the checksum matches
@@ -9,10 +9,10 @@
 
 DESCRIPTIONS='Descriptions.txt'
 
-if [ "$1" == "--mv_on_fail" ]; then
+if [ "$1" = "--mv_on_fail" ]; then
     MV_ON_FAIL=yes
     shift
-elif [ "$1" == "--rm_on_fail" ]; then
+elif [ "$1" = "--rm_on_fail" ]; then
     RM_ON_FAIL=yes
     shift
 fi
@@ -43,9 +43,7 @@ do_exit_fail() {
     exit 1
 }
 
-LINE=$(egrep "^$CHECKNAME " "$DESCRIPTIONS")
-
-if [ $? -ne 0 ]; then
+if ! LINE=$(grep -E "^$CHECKNAME " "$DESCRIPTIONS"); then
     echo "Unknown file $CHECKNAME" 2>&1
     do_exit_fail
 fi
@@ -58,7 +56,7 @@ fi
 SUM_FIELD=$(echo "$LINE" | awk -- '{print $2}')
 
 TYPE=$(echo "$SUM_FIELD" | cut -d: -f1)
-EXPECT=$(echo "$SUM_FIELD" | cut -d: -f2 |tr A-Z a-z)
+EXPECT=$(echo "$SUM_FIELD" | cut -d: -f2 |tr '[:upper:]' '[:lower:]')
 
 case "$TYPE" in
     sha1)
