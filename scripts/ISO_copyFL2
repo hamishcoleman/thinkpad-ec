@@ -30,7 +30,7 @@ if [ ! -e "$ISO" ]; then
 fi
 shift
 
-if ! type mdir >/dev/null; then
+if ! which mdir >/dev/null; then
     echo Fatal:  It looks like you have not installed the mtools package
     exit 1
 fi
@@ -62,7 +62,7 @@ if [ -z "$MATCH" ]; then
     echo "Error: could not find any files in $ISO matching $INTPATTERN"
     exit 1
 fi
-if [ $(echo "$MATCH" |wc -w) -ne 1 ]; then
+if [ "$(echo "$MATCH" |wc -w)" -ne 1 ]; then
     echo "Error: $ISO has more than one matching file:"
     echo "$MATCH"
     exit 1
