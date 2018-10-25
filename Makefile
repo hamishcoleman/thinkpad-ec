@@ -10,8 +10,6 @@ all:    list_laptops
 
 .PHONY: all
 
-SHELL = /bin/bash
-
 QEMU_OPTIONS ?= -enable-kvm
 
 GITVERSION = $(shell git describe --dirty --abbrev=6 ) ($(shell date +%Y%m%d))
@@ -24,7 +22,7 @@ list_laptops:
 	$(info The following make targets are the supported usb images:)
 	$(info )
 	@for i in $(LIST_PATCHED); do \
-            echo -e "$$i.img\t- `scripts/describe $$i.iso`"; \
+            echo "$$i.img\t- `scripts/describe $$i.iso`"; \
 	done
 	@echo
 
