@@ -97,6 +97,11 @@ of requirements.
 * For best results, ensure you have the power charger plugged in during
   the flashing process.
 
+* Some chargers seem to have issues with actually performing the flashing 
+  procedure after the flash process reboots. In this cases everything looks
+  like it was successful but after the reboot the "Flashing embedded controller"
+  message is missing and keys are not remapped.
+
 * The firmware flash process generally requires you to have a charged
   battery plugged in to the laptop before it will complete.  It may be
   possible to bypass the requirement for a charged battery if you unplug
