@@ -210,6 +210,7 @@ sub _check {
 
     # List of known file sizes (basically a doublecheck on the signature)
     my $known = {
+         4213270 => [0x290000, 0x20000],
          4240490 => [0x290000, 0x20000],
     };
 
