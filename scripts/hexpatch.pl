@@ -141,6 +141,8 @@ sub verify_context {
         # TODO - if found eq new warn "patch reversed?"
         if ($found ne $expected) {
             warn("Address $addr mismatched data\n");
+            printf("found:  0x%08x: %s\n", $addr, join(' ',unpack('(H2)*', $found)));
+            printf("expect: 0x%08x: %s\n", $addr, join(' ',unpack('(H2)*', $expected)));
             return undef;
         }
     }
