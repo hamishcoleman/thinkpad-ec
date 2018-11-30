@@ -4,7 +4,7 @@ use strict;
 #
 # Apply a diff of two hexdumps as a binary patch
 #
-# Copyright (C) 2016 Hamish Coleman
+# Copyright (C) 2016-2018 Hamish Coleman
 
 use IO::File;
 
