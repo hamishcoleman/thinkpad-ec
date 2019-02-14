@@ -131,6 +131,10 @@ r0iuj21wd.iso sha1:3765d1715f001ddae982682f0189b49c2b04bf3a x270 BIOS 1.28 (R0IE
 # Next, a list of ISO images that do not follow the pattern
 # (and cannot be currently automatically extracted / examined)
 
+# The X60 BIOS update does not use a El-Torito emulated Hard Disk, so the
+# update files are actually in the ISO image
+7buj28uc.iso  sha1:8cc957d41a0d4ee4e48e5f39e7c542a499e7fc1c x60 and x60s BIOS 2.19 (7BETD8WW) EC 1.13
+
 # no FL2 file (all in UEFI Capsule), FAT_OFFSET is 79872
 h3uj04wd.iso  sha1:3bbf65b61d1e2ed806ea6cf40b97d24c090c00dc e330 and v480s
 

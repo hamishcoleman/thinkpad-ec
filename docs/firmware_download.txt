@@ -25,3 +25,4 @@ x240    https://support.lenovo.com/hk/en/downloads/DS035952
 x250    https://pcsupport.lenovo.com/au/en/downloads/ds102289
 x260    https://support.lenovo.com/hk/en/downloads/DS105891
 x270    https://support.lenovo.com/hk/en/downloads/DS120444
+x60     https://support.lenovo.com/hk/en/downloads/migr-63145

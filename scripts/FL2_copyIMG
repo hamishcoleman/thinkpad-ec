@@ -216,6 +216,9 @@ sub _check {
     #  [1] size of EC firmware
     #  [2] offset of block to check for all 0xff as a signature check
     my $known = {
+         # Signatures for older X60
+         2102742 => [0x10000, 0x20000, 0xf000],
+
          4213270 => [0x290000, 0x20000, 0x21000],  # Seen in X200
          4240490 => [0x290000, 0x20000, 0x21000],
     };
