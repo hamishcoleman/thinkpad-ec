@@ -2,7 +2,7 @@
 use warnings;
 use strict;
 #
-# Copyright (C) 2017-2018 Hamish Coleman
+# Copyright (C) 2017-2019 Hamish Coleman
 #
 # Read through a descriptions file on input and auto generate a list of rules
 # for building the various files on output

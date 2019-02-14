@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# Copyright (C) 2017-2018 Hamish Coleman
+# Copyright (C) 2017-2019 Hamish Coleman
 #
 # Deal with copying the FL2 file from and to the ISO image
 #

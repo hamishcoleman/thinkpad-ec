@@ -2,7 +2,7 @@
 use warnings;
 use strict;
 #
-# Copyright (C) 2017-2018 Hamish Coleman
+# Copyright (C) 2017-2019 Hamish Coleman
 #
 # The Lenovo BIOS update ISO images contain an embedded hard drive image,
 # complete with a partition table.

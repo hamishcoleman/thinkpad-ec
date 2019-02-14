@@ -2,7 +2,7 @@
 use warnings;
 use strict;
 #
-# Copyright (C) 2017-2018 Hamish Coleman
+# Copyright (C) 2017-2019 Hamish Coleman
 #
 # Given an FL2 file from the Lenovo BIOS update, try to recognise which
 # packing system was used and allow the EC firmware image inside it to

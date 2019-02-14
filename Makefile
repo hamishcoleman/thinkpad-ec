@@ -1,7 +1,7 @@
 #
 # Infrastructure to manage patching thinkpad EC firmware
 #
-# Copyright (C) 2016-2018 Hamish Coleman
+# Copyright (C) 2016-2019 Hamish Coleman
 #
 
 all:    list_laptops
