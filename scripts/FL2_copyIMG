@@ -211,6 +211,9 @@ sub _check {
     my $self = shift;
 
     # List of known file sizes (basically a doublecheck on the signature)
+    # When found, Data is:
+    #  [0] offset of EC firmware
+    #  [1] size of EC firmware
     my $known = {
          4213270 => [0x290000, 0x20000],  # Seen in X200
          4240490 => [0x290000, 0x20000],
@@ -218,6 +221,7 @@ sub _check {
 
     # If the filesize is not in our known database, return no match
     return undef if (!defined($known->{$self->{filesize}}));
+    my $known_data = $known->{$self->{filesize}};
 
     my $check_offset = 0x21000;
     my $check_size = 0x1000;
@@ -230,7 +234,7 @@ sub _check {
     $self->{flag}{encrypted}="no";
     # All current examples of this format were not encrypted
 
-    $self->set_offset_size(@{$known->{$self->{filesize}}});
+    $self->set_offset_size(@{$known_data});
     return $self->_check_copyright();
 }
 
