@@ -214,18 +214,18 @@ sub _check {
     # When found, Data is:
     #  [0] offset of EC firmware
     #  [1] size of EC firmware
+    #  [2] offset of block to check for all 0xff as a signature check
     my $known = {
-         4213270 => [0x290000, 0x20000],  # Seen in X200
-         4240490 => [0x290000, 0x20000],
+         4213270 => [0x290000, 0x20000, 0x21000],  # Seen in X200
+         4240490 => [0x290000, 0x20000, 0x21000],
     };
 
     # If the filesize is not in our known database, return no match
     return undef if (!defined($known->{$self->{filesize}}));
     my $known_data = $known->{$self->{filesize}};
 
-    my $check_offset = 0x21000;
     my $check_size = 0x1000;
-    my $buf = $self->get_block($check_offset, $check_size);
+    my $buf = $self->get_block($known_data->[2], $check_size);
 
     return undef if (!defined($buf));
 
