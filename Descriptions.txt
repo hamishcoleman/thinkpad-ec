@@ -128,9 +128,11 @@ r0iuj19wd.iso sha1:FIXME                                    x270 BIOS 1.26 (R0IE
 #    20?      sha1:FIXME                                    x270 BIOS 1.27 (R0IET49W) EC 1.17 (R0IHT35W) "Dropped"
 r0iuj21wd.iso sha1:3765d1715f001ddae982682f0189b49c2b04bf3a x270 BIOS 1.28 (R0IET50W) EC 1.15 (R0IHT35W)
 
-# Next, a list of ISO images that have been downloaded, but do not follow
-# the pattern and cannot be automatically examined.
-h3uj04wd.iso  sha1:3bbf65b61d1e2ed806ea6cf40b97d24c090c00dc e330 and v480s - no FL2 file (all in UEFI Capsule), FAT_OFFSET is 79872
+# Next, a list of ISO images that do not follow the pattern
+# (and cannot be currently automatically extracted / examined)
+
+# no FL2 file (all in UEFI Capsule), FAT_OFFSET is 79872
+h3uj04wd.iso  sha1:3bbf65b61d1e2ed806ea6cf40b97d24c090c00dc e330 and v480s
 
 # TODO
 # - update the tools to automatically determine the FAT_OFFSET
