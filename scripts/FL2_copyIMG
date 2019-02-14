@@ -216,12 +216,14 @@ sub _check {
          4240490 => [0x290000, 0x20000],
     };
 
+    # If the filesize is not in our known database, return no match
+    return undef if (!defined($known->{$self->{filesize}}));
+
     my $check_offset = 0x21000;
     my $check_size = 0x1000;
     my $buf = $self->get_block($check_offset, $check_size);
 
     return undef if (!defined($buf));
-    return undef if (!defined($known->{$self->{filesize}}));
 
     return undef if ($$buf ne "\xff"x$check_size);
 
