@@ -7,3 +7,4 @@ before_script:
 
 script:
     - make test
+    - make test.extracted

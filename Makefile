@@ -33,6 +33,11 @@ $(shell mkdir -p $(DEPSDIR))
 
 test: $(addsuffix .iso,$(LIST_PATCHED))
 
+test.extracted: $(addsuffix .orig,$(shell grep rule:IMG Descriptions.txt |cut -d" " -f1))
+
+# TODO
+# - add tests for the non xx30 supported things
+
 # Remove all the locally generated junk (including any patched firmware
 # images) and any small downloads
 clean:
