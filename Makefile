@@ -412,6 +412,15 @@ define rule_FL2multi2_insert
 endef
 rule_FL2multi2_insert_DEPS = $(rule_FL2_insert_DEPS)
 
+# Extract the FL2 file from an old style ISO image with no Hard disk image
+#
+# $@ is the FL2 file to create
+# $< is the ISO file
+# $1 is the pattern to match FL2 file in ISO image
+define rule_oldISO_extract
+    xorriso -osirrox on -indev $< -extract $(shell xorriso -osirrox on -indev $< -ls '*$(1)*') $@
+    chmod a-x,u+w $@
+endef
 
 # Generate and include the rules that use the above macros
 -include $(DEPSDIR)/generated.deps

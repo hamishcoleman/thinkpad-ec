@@ -49,6 +49,21 @@
 6duj37uc.iso  sha1:0ac15607379ac71ed041181ab1987b123cb2884d x200 and x200s BIOS 3.10 (7XET60WW) EC 1.04 (7XHT22WW)
 6duj41uc.iso  sha1:016b85296694340cc1b70c956e6fdd775b14d261 x200 and x200s BIOS 3.14 (7XET64WW) EC 1.06 (7XHT24WW)
 6duj47uc.iso  sha1:06a23e319e1028bd7b4ea8358b2335d5e2eb2e64 x200 and x200s BIOS 3.22 (7XET72WW) EC 1.06 (7XHT24WW)
+7buj01uc.iso  sha1:1d9d62cc9536990c86665b8a70347accb7464c89 x60 and x60s BIOS xx (7BET43US) EC 1.01 (7BHT28WW)
+7buj02uc.iso  sha1:cbccae8959996b9c0b22b7b8a0a25079e71edd40 x60 and x60s BIOS xx (7BET44US) EC 1.02 (7BHT29WW)
+7buj03uc.iso  sha1:32295da2c3b61268dde5339d23558da43a2c4e9e x60 and x60s BIOS xx (7BET45US) EC 1.04 (7BHT31WW)
+7buj07uc.iso  sha1:2b9501667b12e3e25c47e8155e12d4e65a559a29 x60 and x60s BIOS xx (7BET49US) EC 1.07 (7BHT34WW)
+7buj08uc.iso  sha1:61dcba8aaa1294aca21e01655106c8734933b2b6 x60 and x60s BIOS xx (7BET50US) EC 1.08 (7BHT35WW)
+7buj12uc.iso  sha1:2720738f1c5ec705a919bb887ead728016397880 x60 and x60s BIOS xx (7BETC3US) EC 1.09 (7BHT36WW)
+7buj13uc.iso  sha1:880edf276da13a7687d54523b046fd5753170d71 x60 and x60s BIOS xx (7BETC4US) EC 1.10 (7BHT37WW)
+7buj19uc.iso  sha1:a3ab400d9bd8d17a3d496cf63c8c7be35fe0eaf8 x60 and x60s BIOS xx (7BETC9US) EC 1.13 (7BHT40WW)
+7buj22uc.iso  sha1:04225220f979f80fa5e4237f11b39358504c9448 x60 and x60s BIOS 2.13 (7BETD2WW) EC 1.13
+7buj23uc.iso  sha1:d2faf4c7c1b34d5656036aabd684040e9dc56905 x60 and x60s BIOS 2.14 (7BETD3WW) EC 1.13
+7buj24uc.iso  sha1:398cb918a2a730bddffa343d306bab0a2f3f8f7d x60 and x60s BIOS 2.15 (7BETD4WW) EC 1.13
+7buj25uc.iso  sha1:73e116b4a4b0d512b88d10db4cfc9949a763f42b x60 and x60s BIOS 2.16 (7BETD5WW) EC 1.13
+7buj26uc.iso  sha1:cbe9f4e70470fdccdf1e336cd5cb133b6f864289 x60 and x60s BIOS 2.17 (7BETD6WW) EC 1.13
+7buj27uc.iso  sha1:ab69ccc0d49f810fd87f43a75d88e483089bdb7f x60 and x60s BIOS 2.18 (7BETD7WW) EC 1.13
+7buj28uc.iso  sha1:8cc957d41a0d4ee4e48e5f39e7c542a499e7fc1c x60 and x60s BIOS 2.19 (7BETD8WW) EC 1.13
 8duj27us.iso  sha1:856a1a3efee305d335df10932b54aa478f818677 x220 BIOS 1.42 (8DET72WW) EC 1.24 (8DHT34WW)
 8duj30us.iso  sha1:4fb741608ade0885cfaeb3696b212619a86b85ba x220 BIOS 1.45 (8DUJ30UC) EC 1.24 (8DHT34WW)
 8muj19us.iso  sha1:ccbb450d9beaefa8b4c7e9ac559ae8503f8df5db x1, x1 hybrid BIOS 1.71 (8MET71WW) EC 2.02 (8MHT79WW)
@@ -128,12 +143,8 @@ r0iuj19wd.iso sha1:FIXME                                    x270 BIOS 1.26 (R0IE
 #    20?      sha1:FIXME                                    x270 BIOS 1.27 (R0IET49W) EC 1.17 (R0IHT35W) "Dropped"
 r0iuj21wd.iso sha1:3765d1715f001ddae982682f0189b49c2b04bf3a x270 BIOS 1.28 (R0IET50W) EC 1.15 (R0IHT35W)
 
-# Next, a list of ISO images that do not follow the pattern
+# Next, sections for ISO images that do not follow a usable pattern
 # (and cannot be currently automatically extracted / examined)
-
-# The X60 BIOS update does not use a El-Torito emulated Hard Disk, so the
-# update files are actually in the ISO image
-7buj28uc.iso  sha1:8cc957d41a0d4ee4e48e5f39e7c542a499e7fc1c x60 and x60s BIOS 2.19 (7BETD8WW) EC 1.13
 
 # no FL2 file (all in UEFI Capsule), FAT_OFFSET is 79872
 h3uj04wd.iso  sha1:3bbf65b61d1e2ed806ea6cf40b97d24c090c00dc e330 and v480s
@@ -165,6 +176,14 @@ x250.N10HT17W.s01E5000.FL2  rule:FL2,dep:n10ur10w.iso,param:01E5000.FL2         
 x260.R02HT29W.s0AR0200.FL2  rule:FL2,dep:r02uj46d.iso,param:0AR0200.FL2                        x260 EC 1.11 Flash File
 x270.R0IHT50W.s0AR0I00.FL2  rule:FL2,dep:r0iuj21wd.iso,param:0AR0I00.FL2                       x270 EC 1.15 Flash File
 x280.N20HT29W.s0AN2000.FL2  rule:FL2,dep:n20ur04w.iso,param:0AN2000.FL2                        x280 EC 1.04 Flash File
+x60.7BHT28WW.s01A5000.FL2   rule:oldISO,dep:7buj01uc.iso,param:01A5000.FL2                     x60 EC 1.01 Flash File
+x60.7BHT29WW.s01A5000.FL2   rule:oldISO,dep:7buj02uc.iso,param:01A5000.FL2                     x60 EC 1.02 Flash File
+x60.7BHT31WW.s01A5000.FL2   rule:oldISO,dep:7buj03uc.iso,param:01A5000.FL2                     x60 EC 1.04 Flash File
+x60.7BHT34WW.s01A5000.FL2   rule:oldISO,dep:7buj07uc.iso,param:01A5000.FL2                     x60 EC 1.07 Flash File
+x60.7BHT35WW.s01A5000.FL2   rule:oldISO,dep:7buj08uc.iso,param:01A5000.FL2                     x60 EC 1.08 Flash File
+x60.7BHT36WW.s01A5000.FL2   rule:oldISO,dep:7buj12uc.iso,param:01A5000.FL2                     x60 EC 1.09 Flash File
+x60.7BHT37WW.s01A5000.FL2   rule:oldISO,dep:7buj13uc.iso,param:01A5000.FL2                     x60 EC 1.10 Flash File
+x60.7BHT40WW.s01A5000.FL2   rule:oldISO,dep:7buj28uc.iso,param:01A5000.FL2                     x60 EC 1.13 Flash File
 
 # TODO
 # - the deps on the .iso.bat files are ugly
@@ -195,6 +214,14 @@ x250.N10HT17W.img.enc rule:IMGnoenc,dep:x250.N10HT17W.s01E5000.FL2  x250 EC 1.16
 x260.R02HT29W.img     rule:IMGnoenc,dep:x260.R02HT29W.s0AR0200.FL2  x260 EC 1.11 (not encrypted) (ARCompact cpu)
 x270.R0IHT50W.img     rule:IMGnoenc,dep:x270.R0IHT50W.s0AR0I00.FL2  x270 EC 1.15 (not encrupted) (ARCompact cpu)
 x280.N20HT29W.img     rule:IMGnoenc,dep:x280.N20HT29W.s0AN2000.FL2  x280 EC 1.04 (not encrupted) (ARCompact cpu)
+x60.7BHT28WW.img      rule:IMGnoenc,dep:x60.7BHT28WW.s01A5000.FL2   x60 EC 1.01
+x60.7BHT29WW.img      rule:IMGnoenc,dep:x60.7BHT29WW.s01A5000.FL2   x60 EC 1.02
+x60.7BHT31WW.img      rule:IMGnoenc,dep:x60.7BHT31WW.s01A5000.FL2   x60 EC 1.04
+x60.7BHT34WW.img      rule:IMGnoenc,dep:x60.7BHT34WW.s01A5000.FL2   x60 EC 1.07
+x60.7BHT35WW.img      rule:IMGnoenc,dep:x60.7BHT35WW.s01A5000.FL2   x60 EC 1.08
+x60.7BHT36WW.img      rule:IMGnoenc,dep:x60.7BHT36WW.s01A5000.FL2   x60 EC 1.09
+x60.7BHT37WW.img      rule:IMGnoenc,dep:x60.7BHT37WW.s01A5000.FL2   x60 EC 1.10
+x60.7BHT40WW.img      rule:IMGnoenc,dep:x60.7BHT40WW.s01A5000.FL2   x60 EC 1.13
 
 
 # The end-user visible, nicely named iso images
