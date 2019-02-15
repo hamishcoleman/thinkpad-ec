@@ -288,7 +288,7 @@ sub insert {
 
 1;
 
-package FL2::prefix_head;
+package FL2::prefix_head_EC;
 use warnings;
 use strict;
 #
@@ -540,7 +540,7 @@ sub detect_img {
         $object = FL2::prefix_nothing->new($fh);
     }
     if (!defined($object)) {
-        $object = FL2::prefix_head->new($fh);
+        $object = FL2::prefix_head_EC->new($fh);
     }
     if (!defined($object)) {
         $object = FL1::PFH_header->new($fh);
