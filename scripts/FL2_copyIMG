@@ -216,9 +216,6 @@ sub _check {
     #  [1] size of EC firmware
     #  [2] offset of block to check for all 0xff as a signature check
     my $known = {
-         # Signatures for older X60
-         2102742 => [0x10000, 0x20000, 0xf000],
-
          4213270 => [0x290000, 0x20000, 0x21000],  # Seen in X200
          4240490 => [0x290000, 0x20000, 0x21000],
     };
@@ -238,6 +235,83 @@ sub _check {
     # All current examples of this format were not encrypted
 
     $self->set_offset_size(@{$known_data});
+    return $self->_check_copyright();
+}
+
+sub extract {
+    return shift->_extract(shift);
+}
+
+sub insert {
+    return shift->_insert(shift);
+}
+
+1;
+
+package FL2::prefix_head_NAPI;
+use warnings;
+use strict;
+#
+# Look for FL2 files that have a "NAPI" header, followed by 0xff, followed
+# by the IMG
+#
+# This was first seen in old x60 FL2 files
+
+use base qw(FL2::base);
+
+sub _check {
+    my $self = shift;
+
+    my $header_offset = 0;
+    my $header_size = 0x20;
+
+    my $buf = $self->get_block($header_offset, $header_size);
+
+    if (!defined($buf)) {
+        warn("Bad Read");
+        return undef;
+    }
+
+    my @fields = qw(
+        signature1 unk1 unk2 signature2 unk3 unk4 unk5 signature3
+        unk6 unk7 unk8 all_00
+    );
+    my @values = unpack("a4vCa4vvva4vVVc",$$buf);
+    map { $self->{header}{$fields[$_]} = $values[$_] } (0..scalar(@fields)-1);
+
+    return undef if ($self->{header}{signature1} ne "NAPI");
+    return undef if ($self->{header}{signature2} ne "ESCD");
+    return undef if ($self->{header}{signature3} ne "ACFG");
+
+    # because I have no idea about the actual format of this header, we check
+    # every field
+    if (($self->{header}{unk1} != 0x000f) ||
+        ($self->{header}{unk2} != 0x8d) ||
+        ($self->{header}{unk3} != 0x000f) ||
+        ($self->{header}{unk4} != 0x000e) ||
+        ($self->{header}{unk5} != 0x000e) ||
+        ($self->{header}{unk6} != 0x0200) ||
+        ($self->{header}{unk7} != 0x00000000) ||
+        ($self->{header}{unk8} != 0x0000fedf) ||
+        ($self->{header}{all_00} != 0x00)
+        ) {
+        die("Unexpected NAPI header data");
+    }
+
+    # TODO
+    # - there is one more field at offset 0x1fff, containing a 0x02
+
+    my $check_offset = 0x2000;
+    my $check_size = 0x1000;
+    $buf = $self->get_block($check_offset, $check_size);
+
+    return undef if (!defined($buf));
+    return undef if ($$buf ne "\xff"x$check_size);
+
+    $self->{flag}{encrypted}="no";
+    # All current examples of this format were not encrypted
+
+    $self->set_offset_size(0x10000, 0x20000);
     return $self->_check_copyright();
 }
 
@@ -544,6 +618,9 @@ sub detect_img {
     }
     if (!defined($object)) {
         $object = FL1::PFH_header->new($fh);
+    }
+    if (!defined($object)) {
+        $object = FL2::prefix_head_NAPI->new($fh);
     }
 
     return $object;
