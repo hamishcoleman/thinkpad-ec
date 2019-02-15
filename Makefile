@@ -163,7 +163,7 @@ endef
 %.iso.orig:
 	@echo -n "Downloading "
 	@scripts/describe $(basename $@)
-	wget -O $@ https://download.lenovo.com/pccbbs/mobiles/$(basename $@)
+	wget -nv -O $@ https://download.lenovo.com/pccbbs/mobiles/$(basename $@)
 	scripts/checksum --mv_on_fail $@ $(basename $@)
 	touch $@
 
