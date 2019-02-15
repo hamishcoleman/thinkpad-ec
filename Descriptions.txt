@@ -155,6 +155,7 @@ t530.G4HT39WW.s01D5100.FL2  rule:FL2,dep:g4uj38us.iso,depi:g4uj38us.iso.bat,para
 w530.G4HT39WW.s01D5200.FL2  rule:FL2,dep:g5uj35us.iso,depi:g5uj35us.iso.bat,param:01D5200.FL2  w530 EC 1.13 Flash File
 x131e.G8HT52WW.s0AG8000.FL1 rule:FL2,dep:g8uj31us.iso,param:0AG8000.FL1                        x131e BIOS 2.98 Flash File
 #x131e.G8HT52WW.s0ag9000.FL1 rule:FL2,dep:g8uj31us.iso,param:0ag9000.FL1                        x131e g9 BIOS 2.98 Flash File
+x1cg1.G6HT24WW.s01D7000.FL2 rule:FL2,dep:g6uj24us.iso,param:01D7000.FL2                        x1c Gen 1 EC 1.06 Flash File
 x200.7XHT22WW.s01B9000.FL2  rule:FL2multi2,dep:6duj37uc.iso,depi:6duj37uc.iso.bat,param:01B9000.FL2;01B9100.FL2         x200 EC 1.04 Flash File
 x220.8DHT34WW.s01CB000.FL2  rule:FL2,dep:8duj27us.iso,param:01CB000.FL2                        x220 EC 1.24 Flash File
 x230.G2HT35WW.s01D3000.FL2  rule:FL2,dep:g2uj30us.iso,depi:g2uj30us.iso.bat,param:01D3000.FL2  x230 EC 1.14 Flash File
@@ -164,7 +165,6 @@ x250.N10HT17W.s01E5000.FL2  rule:FL2,dep:n10ur10w.iso,param:01E5000.FL2         
 x260.R02HT29W.s0AR0200.FL2  rule:FL2,dep:r02uj46d.iso,param:0AR0200.FL2                        x260 EC 1.11 Flash File
 x270.R0IHT50W.s0AR0I00.FL2  rule:FL2,dep:r0iuj21wd.iso,param:0AR0I00.FL2                       x270 EC 1.15 Flash File
 x280.N20HT29W.s0AN2000.FL2  rule:FL2,dep:n20ur04w.iso,param:0AN2000.FL2                        x280 EC 1.04 Flash File
-x1cg1.G6HT24WW.s01D7000.FL2 rule:FL2,dep:g6uj24us.iso,param:01D7000.FL2                        x1c Gen 1 EC 1.06 Flash File
 
 # TODO
 # - the deps on the .iso.bat files are ugly
@@ -185,6 +185,7 @@ t480.N24HT23W.img     rule:IMGnoenc,dep:t480.N24HT23W.s0AN2400.FL2  t480 EC 1.08
 t480s.N22HT22W.img    rule:IMGnoenc,dep:t480s.N22HT22W.s0AN2200.FL2 t480s EC 1.07 (may be wrong) (ARCompact cpu)
 t530.G4HT39WW.img     rule:IMG,dep:t530.G4HT39WW.s01D5100.FL2       t530 EC 1.13 (decrypted) (ARCompact cpu)
 w530.G4HT39WW.img     rule:IMG,dep:w530.G4HT39WW.s01D5200.FL2       w530 EC 1.13 (decrypted) (ARCompact cpu)
+x1cg1.G6HT24WW.img    rule:IMG,dep:x1cg1.G6HT24WW.s01D7000.FL2        x1c Gen 1 EC 1.06 (decrypted) (ARCompact cpu)
 x200.7XHT22WW.img     rule:IMGnoenc,dep:x200.7XHT22WW.s01B9000.FL2  x200 EC 1.04 (not encrypted) (H8300 cpu)
 x220.8DHT34WW.img.enc rule:IMGnoenc,dep:x220.8DHT34WW.s01CB000.FL2  x220 EC 1.24 (encrypted) (H8300 cpu)
 x230.G2HT35WW.img     rule:IMG,dep:x230.G2HT35WW.s01D3000.FL2       x230 EC 1.14 (decrypted) (ARCompact cpu)
@@ -194,7 +195,6 @@ x250.N10HT17W.img.enc rule:IMGnoenc,dep:x250.N10HT17W.s01E5000.FL2  x250 EC 1.16
 x260.R02HT29W.img     rule:IMGnoenc,dep:x260.R02HT29W.s0AR0200.FL2  x260 EC 1.11 (not encrypted) (ARCompact cpu)
 x270.R0IHT50W.img     rule:IMGnoenc,dep:x270.R0IHT50W.s0AR0I00.FL2  x270 EC 1.15 (not encrupted) (ARCompact cpu)
 x280.N20HT29W.img     rule:IMGnoenc,dep:x280.N20HT29W.s0AN2000.FL2  x280 EC 1.04 (not encrupted) (ARCompact cpu)
-x1cg1.G6HT24WW.img    rule:IMG,dep:x1cg1.G6HT24WW.s01D7000.FL2        x1c Gen 1 EC 1.06 (decrypted) (ARCompact cpu)
 
 
 # The end-user visible, nicely named iso images
