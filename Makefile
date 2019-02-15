@@ -197,7 +197,6 @@ endef
 %.iso.bat: %.iso.orig autoexec.bat.template
 	sed -e "s%__DIR%`mdir -/ -b -i $<@@$(FAT_OFFSET) |grep FL2 |head -1|cut -d/ -f3`%; s%__FL2%`mdir -/ -b -i $<@@$(FAT_OFFSET) |grep FL2 |head -1|cut -d/ -f4`%" autoexec.bat.template >$@.tmp
 	mv $@.tmp $@
-	touch -d @1 $@
 
 # helper to write the ISO onto a cdrw
 %.iso.blank_burn: %.iso
@@ -320,12 +319,22 @@ rule_IMG_extract_DEPS = scripts/FL2_copyIMG mec-tools/mec_encrypt mec-tools/mec_
 # $< is the FL2
 # $1 is the pattern to match FL2 file in ISO image
 define rule_FL2_insert
-    cp --reflink=auto $@.orig $@.tmp
-    ./scripts/ISO_copyFL2 to_iso $@.tmp $< $(1)
     $(call buildinfo_ISO)
-    mcopy -t -m -o -i $@.tmp@@$(FAT_OFFSET) $@.report ::report.txt
-    mcopy -t -m -o -i $@.tmp@@$(FAT_OFFSET) $@.bat ::AUTOEXEC.BAT
+
+    cp --reflink=auto $@.orig $@.tmp
+
+    cp --reflink=auto $< $<.tmp
+    cp --reflink=auto $@.report $@.report.tmp
+    cp --reflink=auto $@.bat $@.bat.tmp
+    touch -d @1 $<.tmp $@.report.tmp $@.bat.tmp
+    # TODO - datestamp here could be the lastcommitdatestamp
+
+    ./scripts/ISO_copyFL2 to_iso $@.tmp $<.tmp $(1)
+    mcopy -t -m -o -i $@.tmp@@$(FAT_OFFSET) $@.report.tmp ::report.txt
+    mcopy -t -m -o -i $@.tmp@@$(FAT_OFFSET) $@.bat.tmp ::AUTOEXEC.BAT
     -mdel -i $@.tmp@@$(FAT_OFFSET) ::EFI/Boot/BootX64.efi
+
+    rm $<.tmp $@.report.tmp $@.bat.tmp
     mv $@.tmp $@
 endef
 rule_FL2_insert_DEPS = scripts/ISO_copyFL2 # TODO - bat file
