@@ -213,6 +213,21 @@ sub fixup_part {
     return 1;
 }
 
+# Some boot records downloaded from Lenovo appear to have been corrupted
+# (perhaps this is an attempt to force people to use a UEFI boot?)
+#
+sub fixup_boot {
+    my $buf = shift;
+
+    if (ord(substr($buf,0,1)) == 0) {
+        # No normal x86 boot instruction starts with a zero.
+        warn("Found corrupted bootcode in ISO from Lenovo - attempting fix\n");
+        substr($buf,0,1) = chr(0xfa);
+    }
+
+    return $buf;
+}
+
 sub main() {
     if (!defined($ARGV[0])) {
         die("Need image filename");
@@ -227,6 +242,7 @@ sub main() {
     }
 
     $buf = mbr_pack($mbr);
+    $buf = fixup_boot($buf);
 
     if (defined($ARGV[1]) && $ARGV[1] eq 'debug') {
         print(Dumper($mbr));
