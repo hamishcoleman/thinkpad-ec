@@ -218,6 +218,7 @@ sub _check {
     my $known = {
          4213270 => [0x290000, 0x20000, 0x21000],  # Seen in X200
          4240490 => [0x290000, 0x20000, 0x21000],
+         2103350 => [0x090000, 0x20000, 0x00020],  # Seen in X61
     };
 
     # If the filesize is not in our known database, return no match
