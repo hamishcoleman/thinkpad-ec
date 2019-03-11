@@ -64,6 +64,23 @@
 7buj26uc.iso  sha1:cbe9f4e70470fdccdf1e336cd5cb133b6f864289 x60 and x60s BIOS 2.17 (7BETD6WW) EC 1.13
 7buj27uc.iso  sha1:ab69ccc0d49f810fd87f43a75d88e483089bdb7f x60 and x60s BIOS 2.18 (7BETD7WW) EC 1.13
 7buj28uc.iso  sha1:8cc957d41a0d4ee4e48e5f39e7c542a499e7fc1c x60 and x60s BIOS 2.19 (7BETD8WW) EC 1.13
+7nuj02uc.iso  sha1:327dec5432fdd9f6c8efc9a36613f90f29ef347b x61 and x61s BIOS 1.03 (7NET22WW) EC 1.02 (7MHT24WW)
+7nuj03uc.iso  sha1:a0ab7cb07098c6a8927bc1dfe2786b04c4dd86df x61 and x61s BIOS 1.05 (7NET24WW) EC 1.02 (7MHT24WW)
+7nuj04uc.iso  sha1:5bce20b0ab8b334c2903aa15c5ea1a9dc8d4d916 x61 and x61s BIOS 1.06 (7NET25WW) EC 1.02 (7MHT24WW)
+7nuj05uc.iso  sha1:0d21b6dc07ad843433d48e5a343883e33b610fbc x61 and x61s BIOS 1.08 (7NET27WW) EC 1.02 (7MHT24WW)
+7nuj06uc.iso  sha1:c74e5f4e763e9b3b71e1a6e23f6b029816082f2d x61 and x61s BIOS 1.10 (7NET29WW) EC 1.02 (7MHT24WW)
+7nuj07uc.iso  sha1:2fbe7ea1d664d77e9772c2c67cf54b234e3baa39 x61 and x61s BIOS 1.11 (7NET30WW) EC 1.02 (7MHT24WW)
+7nuj09uc.iso  sha1:d473bc2f931d54575bb8d6df5c18079463210e4b x61 and x61s BIOS 2.06 (7NETA6WW) EC 1.03 (7MHT25WW)
+7nuj10uc.iso  sha1:6fa445eb2257659fece69007965f47cff1f8ca4a x61 and x61s BIOS 2.07 (7NETA7WW) EC 1.03 (7MHT25WW)
+7nuj12uc.iso  sha1:986c9e28fb763c9d2efb60b4763b36413d488196 x61 and x61s BIOS 2.11 (7NETB1WW) EC 1.03 (7MHT25WW)
+7nuj13uc.iso  sha1:c4b6cbec99e0183cf3dbee2024449777fc2cb86f x61 and x61s BIOS 2.13 (7NETB3WW) EC 1.03 (7MHT25WW)
+7nuj14uc.iso  sha1:8ee159ed67c8db56cba4904d04502ec730a4ed0f x61 and x61s BIOS 2.14 (7NETB4WW) EC 1.03 (7MHT25WW)
+7nuj16uc.iso  sha1:546714b59cfd4641f0a29b04caf5654ce447a8c9 x61 and x61s BIOS 2.16 (7NETB6WW) EC 1.03 (7MHT25WW)
+7nuj18uc.iso  sha1:4ea3da805c24b0e62e5543fa8d169bac683a78ed x61 and x61s BIOS 2.18 (7NETB8WW) EC 1.03 (7MHT25WW)
+7nuj19uc.iso  sha1:bc8a39965e7c824b88aeb93e357e9bbbc4e38536 x61 and x61s BIOS 2.19 (7NETB9WW) EC 1.03 (7MHT25WW)
+7nuj20uc.iso  sha1:ff3999013b482c931b68deb216531c82cbe3299e x61 and x61s BIOS 2.20 (7NETC0WW) EC 1.03 (7MHT25WW)
+7nuj21uc.iso  sha1:acb83d5d700b2e9ab8b925465504390f31bc610c x61 and x61s BIOS 2.21 (7NETC1WW) EC 1.03 (7MHT25WW)
+7nuj22uc.iso  sha1:f05e716f5843184818da21fe459e007c527a42f7 x61 and x61s BIOS 2.22 (7NETC2WW) EC 1.03 (7MHT25WW)
 8duj27us.iso  sha1:856a1a3efee305d335df10932b54aa478f818677 x220 BIOS 1.42 (8DET72WW) EC 1.24 (8DHT34WW)
 8duj30us.iso  sha1:4fb741608ade0885cfaeb3696b212619a86b85ba x220 BIOS 1.45 (8DUJ30UC) EC 1.24 (8DHT34WW)
 8muj19us.iso  sha1:ccbb450d9beaefa8b4c7e9ac559ae8503f8df5db x1, x1 hybrid BIOS 1.71 (8MET71WW) EC 2.02 (8MHT79WW)
@@ -184,6 +201,8 @@ x60.7BHT35WW.s01A5000.FL2   rule:oldISO,dep:7buj08uc.iso,param:01A5000.FL2      
 x60.7BHT36WW.s01A5000.FL2   rule:oldISO,dep:7buj12uc.iso,param:01A5000.FL2                     x60 EC 1.09 Flash File
 x60.7BHT37WW.s01A5000.FL2   rule:oldISO,dep:7buj13uc.iso,param:01A5000.FL2                     x60 EC 1.10 Flash File
 x60.7BHT40WW.s01A5000.FL2   rule:oldISO,dep:7buj28uc.iso,param:01A5000.FL2                     x60 EC 1.13 Flash File
+x61.7MHT24WW.s01B2000.FL2   rule:oldISO,dep:7nuj07uc.iso,param:01B2000.FL2                     x61 EC 1.02 Flash File
+x61.7MHT25WW.s01B2000.FL2   rule:oldISO,dep:7nuj22uc.iso,param:01B2000.FL2                     x61 EC 1.03 Flash File
 
 # TODO
 # - the deps on the .iso.bat files are ugly
@@ -222,6 +241,8 @@ x60.7BHT35WW.img      rule:IMGnoenc,dep:x60.7BHT35WW.s01A5000.FL2   x60 EC 1.08
 x60.7BHT36WW.img      rule:IMGnoenc,dep:x60.7BHT36WW.s01A5000.FL2   x60 EC 1.09
 x60.7BHT37WW.img      rule:IMGnoenc,dep:x60.7BHT37WW.s01A5000.FL2   x60 EC 1.10
 x60.7BHT40WW.img      rule:IMGnoenc,dep:x60.7BHT40WW.s01A5000.FL2   x60 EC 1.13
+x61.7MHT24WW.img      rule:IMGnoenc,dep:x61.7MHT24WW.s01B2000.FL2   x61 EC 1.02
+x61.7MHT25WW.img      rule:IMGnoenc,dep:x61.7MHT25WW.s01B2000.FL2   x61 EC 1.03
 
 
 # The end-user visible, nicely named iso images
