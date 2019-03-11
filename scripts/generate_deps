@@ -139,3 +139,4 @@ print(join('',@extracts));
 print("\n\n");
 print(join('',@inserts));
 
+print STDERR "Generated dependancies from descriptions\n";

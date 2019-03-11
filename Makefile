@@ -163,9 +163,9 @@ endef
 %.iso.orig:
 	@echo -n "Downloading "
 	@scripts/describe $(basename $@)
-	wget -nv -O $@ https://download.lenovo.com/pccbbs/mobiles/$(basename $@)
+	@wget -nv -O $@ https://download.lenovo.com/pccbbs/mobiles/$(basename $@)
 	scripts/checksum --mv_on_fail $@ $(basename $@)
-	touch $@
+	@touch $@
 
 # Download any README text file released alongside to ISO images.
 # Useful for looking up firmware versions and the changelog.
@@ -187,7 +187,7 @@ endef
 
 # Generate a working file with any known patches applied
 %.img: %.img.orig
-	cp --reflink=auto $< $@
+	@cp --reflink=auto $< $@
 	./scripts/hexpatch.pl --rm_on_fail --report $@.report $@ $@.d/*.patch
 
 # using both __DIR and __FL2 is a hack to get around needing to quote the
@@ -195,8 +195,8 @@ endef
 # my mind to it..
 #
 %.iso.bat: %.iso.orig autoexec.bat.template
-	sed -e "s%__DIR%`mdir -/ -b -i $<@@$(FAT_OFFSET) |grep FL2 |head -1|cut -d/ -f3`%; s%__FL2%`mdir -/ -b -i $<@@$(FAT_OFFSET) |grep FL2 |head -1|cut -d/ -f4`%" autoexec.bat.template >$@.tmp
-	mv $@.tmp $@
+	@sed -e "s%__DIR%`mdir -/ -b -i $<@@$(FAT_OFFSET) |grep FL2 |head -1|cut -d/ -f3`%; s%__FL2%`mdir -/ -b -i $<@@$(FAT_OFFSET) |grep FL2 |head -1|cut -d/ -f4`%" autoexec.bat.template >$@.tmp
+	@mv $@.tmp $@
 
 # helper to write the ISO onto a cdrw
 %.iso.blank_burn: %.iso
@@ -237,7 +237,7 @@ GETELTORITO := ./scripts/geteltorito
 %.img: %.iso
 	$(GETELTORITO) -o $@.tmp $<
 	./scripts/fix_mbr $@.tmp
-	mv $@.tmp $@
+	@mv $@.tmp $@
 	$(call build_info,$<.report)
 
 # $1 is the bat file
@@ -253,19 +253,19 @@ endef
 # $< is the IMG file
 # $@ is the FL2 file being inserted into
 define buildinfo_FL2
-    echo "Buildinfo: $(BUILDINFO)" >$@.report
-    echo "Built: `sha1sum $@`" >>$@.report
-    echo "" >>$@.report
-    cat $<.report >>$@.report
+    @echo "Buildinfo: $(BUILDINFO)" >$@.report
+    @echo "Built: `sha1sum $@`" >>$@.report
+    @echo "" >>$@.report
+    @cat $<.report >>$@.report
 endef
 
 # Add information about the ISO file to the current report
 # $< is the FL2 file
 # $@ is the ISO file being inserted into
 define buildinfo_ISO
-    cp $<.report $@.report
-    echo "" >>$@.report
-    echo "Description: `scripts/describe $@`" >>$@.report
+    @cp $<.report $@.report
+    @echo "" >>$@.report
+    @echo "Description: `scripts/describe $@`" >>$@.report
 endef
 
 # simple testing of images in an emulator
@@ -308,8 +308,8 @@ define rule_IMG_extract
     mec-tools/mec_encrypt -d $(subst .orig,.enc.tmp,$@) $@.tmp
     mec-tools/mec_csum_flasher -c $@.tmp
     mec-tools/mec_csum_boot -c $@.tmp
-    rm $(subst .orig,.enc.tmp,$@)
-    mv $@.tmp $@
+    @rm $(subst .orig,.enc.tmp,$@)
+    @mv $@.tmp $@
 endef
 rule_IMG_extract_DEPS = scripts/FL2_copyIMG mec-tools/mec_encrypt mec-tools/mec_csum_flasher mec-tools/mec_csum_boot
 
@@ -321,21 +321,21 @@ rule_IMG_extract_DEPS = scripts/FL2_copyIMG mec-tools/mec_encrypt mec-tools/mec_
 define rule_FL2_insert
     $(call buildinfo_ISO)
 
-    cp --reflink=auto $@.orig $@.tmp
+    @cp --reflink=auto $@.orig $@.tmp
 
-    cp --reflink=auto $< $<.tmp
-    cp --reflink=auto $@.report $@.report.tmp
-    cp --reflink=auto $@.bat $@.bat.tmp
-    touch -d @1 $<.tmp $@.report.tmp $@.bat.tmp
-    # TODO - datestamp here could be the lastcommitdatestamp
+    @cp --reflink=auto $< $<.tmp
+    @cp --reflink=auto $@.report $@.report.tmp
+    @cp --reflink=auto $@.bat $@.bat.tmp
+    @touch -d @1 $<.tmp $@.report.tmp $@.bat.tmp
+    @# TODO - datestamp here could be the lastcommitdatestamp
 
     ./scripts/ISO_copyFL2 to_iso $@.tmp $<.tmp $(1)
     mcopy -t -m -o -i $@.tmp@@$(FAT_OFFSET) $@.report.tmp ::report.txt
     mcopy -t -m -o -i $@.tmp@@$(FAT_OFFSET) $@.bat.tmp ::AUTOEXEC.BAT
     -mdel -i $@.tmp@@$(FAT_OFFSET) ::EFI/Boot/BootX64.efi
 
-    rm $<.tmp $@.report.tmp $@.bat.tmp
-    mv $@.tmp $@
+    @rm $<.tmp $@.report.tmp $@.bat.tmp
+    @mv $@.tmp $@
 endef
 rule_FL2_insert_DEPS = scripts/ISO_copyFL2 # TODO - bat file
 # TODO
@@ -353,10 +353,10 @@ rule_FL2_insert_DEPS = scripts/ISO_copyFL2 # TODO - bat file
 # $< is the IMG
 define rule_IMG_insert
     ./scripts/xx30.encrypt $< $<.enc.tmp
-    cp --reflink=auto $@.orig $@.tmp
+    @cp --reflink=auto $@.orig $@.tmp
     ./scripts/FL2_copyIMG to_fl2 $@.tmp $<.enc.tmp
-    rm $<.enc.tmp
-    mv $@.tmp $@
+    @rm $<.enc.tmp
+    @mv $@.tmp $@
     $(call buildinfo_FL2)
 endef
 rule_IMG_insert_DEPS = scripts/FL2_copyIMG scripts/xx30.encrypt
@@ -436,4 +436,4 @@ endef
 CLEAN_FILES += $(DEPSDIR)/generated.deps
 $(DEPSDIR)/generated.deps: scripts/generate_deps
 $(DEPSDIR)/generated.deps: Descriptions.txt
-	./scripts/generate_deps $< >$@
+	@./scripts/generate_deps $< >$@
