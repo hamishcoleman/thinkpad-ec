@@ -7,4 +7,4 @@ before_script:
 
 script:
     - make test
-    - make test.extracted
+    - make test.img.orig

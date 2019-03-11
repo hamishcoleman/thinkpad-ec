@@ -33,7 +33,7 @@ $(shell mkdir -p $(DEPSDIR))
 
 test: $(addsuffix .iso,$(LIST_PATCHED))
 
-test.extracted: $(addsuffix .orig,$(shell grep rule:IMG Descriptions.txt |cut -d" " -f1))
+test.img.orig: $(addsuffix .orig,$(shell grep rule:IMG Descriptions.txt |cut -d" " -f1))
 
 # TODO
 # - add tests for the non xx30 supported things
