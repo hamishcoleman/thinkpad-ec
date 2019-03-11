@@ -31,7 +31,7 @@ list_laptops:
 DEPSDIR := .d
 $(shell mkdir -p $(DEPSDIR))
 
-test: $(addsuffix .iso,$(LIST_PATCHED))
+test: $(addsuffix .iso,$(LIST_PATCHED)) $(addsuffix .img,$(LIST_PATCHED))
 
 test.img.orig: $(addsuffix .orig,$(shell grep rule:IMG Descriptions.txt |cut -d" " -f1))
 
