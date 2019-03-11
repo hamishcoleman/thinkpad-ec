@@ -429,6 +429,7 @@ rule_FL2multi2_insert_DEPS = $(rule_FL2_insert_DEPS)
 define rule_oldISO_extract
     xorriso -osirrox on -indev $< -extract $(shell xorriso -osirrox on -indev $< -ls '*$(1)*') $@
     chmod a-x,u+w $@
+    touch $@
 endef
 
 # Generate and include the rules that use the above macros
