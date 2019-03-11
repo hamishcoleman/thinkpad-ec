@@ -306,8 +306,8 @@ rule_FL2_extract_DEPS = scripts/ISO_copyFL2
 define rule_IMG_extract
     ./scripts/FL2_copyIMG from_fl2 $< $(subst .orig,.enc.tmp,$@)
     mec-tools/mec_encrypt -d $(subst .orig,.enc.tmp,$@) $@.tmp
-    mec-tools/mec_csum_flasher -c $@.tmp
-    mec-tools/mec_csum_boot -c $@.tmp
+    mec-tools/mec_csum_flasher -c $@.tmp >/dev/null
+    mec-tools/mec_csum_boot -c $@.tmp >/dev/null
     @rm $(subst .orig,.enc.tmp,$@)
     @mv $@.tmp $@
 endef
@@ -427,9 +427,9 @@ rule_FL2multi2_insert_DEPS = $(rule_FL2_insert_DEPS)
 # $< is the ISO file
 # $1 is the pattern to match FL2 file in ISO image
 define rule_oldISO_extract
-    xorriso -osirrox on -indev $< -extract $(shell xorriso -osirrox on -indev $< -ls '*$(1)*') $@
-    chmod a-x,u+w $@
-    touch $@
+    xorriso -osirrox on -indev $< -extract $(shell xorriso -osirrox on -indev $< -ls '*$(1)*' 2>/dev/null) $@ 2>/dev/null
+    @chmod a-x,u+w $@
+    @touch $@
 endef
 
 # Generate and include the rules that use the above macros
