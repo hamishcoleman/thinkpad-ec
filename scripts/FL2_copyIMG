@@ -626,15 +626,6 @@ sub detect_img {
 
     my $object;
     if (!defined($object)) {
-        $object = FL2::prefix_ff->new($fh);
-    }
-    if (!defined($object)) {
-        $object = FL2::prefix_garbage->new($fh);
-    }
-    if (!defined($object)) {
-        $object = FL2::prefix_nothing->new($fh);
-    }
-    if (!defined($object)) {
         $object = FL2::prefix_head_EC->new($fh);
     }
     if (!defined($object)) {
@@ -642,6 +633,18 @@ sub detect_img {
     }
     if (!defined($object)) {
         $object = FL2::prefix_head_NAPI->new($fh);
+    }
+
+    # these checks have very little in the way of signatures, so only
+    # check for them after everything else
+    if (!defined($object)) {
+        $object = FL2::prefix_ff->new($fh);
+    }
+    if (!defined($object)) {
+        $object = FL2::prefix_garbage->new($fh);
+    }
+    if (!defined($object)) {
+        $object = FL2::prefix_nothing->new($fh);
     }
 
     return $object;
