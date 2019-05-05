@@ -94,7 +94,12 @@ This is more a list of issues that the community has discovered as the
 patch was applied in different circumstances than a hard and fast set
 of requirements.
 
-* Ensure that you are seeing **two screens**, one with information about the patch, including which laptop type it was built for, and another **after reboot** which says "Flashing EC". If you don't see the second screen, your EC has not been flashed, and you should continue reading below to see what steps you can take to ensure the EC is properly flashed with the patched firmware.
+* Ensure that you are seeing **two screens**, one with information about
+  the patch, including which laptop type it was built for, and another
+  **after reboot** which says "Flashing EC". If you don't see the second
+  screen, your EC has not been flashed, and you should continue reading
+  below to see what steps you can take to ensure the EC is properly flashed
+  with the patched firmware.
 
 * For best results, ensure you have the power charger plugged in during
   the flashing process.
