@@ -94,27 +94,44 @@ This is more a list of issues that the community has discovered as the
 patch was applied in different circumstances than a hard and fast set
 of requirements.
 
-* Ensure that you are seeing **two screens**, one with information about
-  the patch, including which laptop type it was built for, and another
-  **after reboot** which says "Flashing EC". If you don't see the second
-  screen, your EC has not been flashed, and you should continue reading
-  below to see what steps you can take to ensure the EC is properly flashed
-  with the patched firmware.
+The flashing process takes place in two distinct steps (these are outlined
+below, but explained in more detail in docs/firmware_flashing.txt)
+
+1. Booting the USB stick:
+   * First shows a page with information about the patch, including
+     which laptop type it was built for.
+   * Then it hands the new EC update to the BIOS, "staging" it for
+     a future flashing into the EC hardware
+   * Finally it reboots the system.
+
+1. Under the BIOS control, during a bootup:
+   * During the boot, the BIOS notices that it has a new EC update staged
+   * It then checks if it is safe to flash this update to the EC.
+   * If everything is safe, it will show a screen saying "Flashing EC"
+   * The system will bootup normally with the new EC code running.
+
+If you don't see this second screen with the "Flashing EC" message,
+your EC has not been flashed, and you should continue reading below to
+see what steps you can take to ensure the EC is properly flashed with
+the patched firmware.  In this cases everything might look like it was
+successful but after the reboot the keys are not remapped.
 
 * For best results, ensure you have the power charger plugged in during
   the flashing process.
 
-* Some chargers seem to have issues with actually performing the flashing 
-  procedure after the flash process reboots. In this cases everything looks
-  like it was successful but after the reboot the "Flashing embedded controller"
-  message is missing and keys are not remapped.
+  * Some chargers seem to have issues with actually performing the flashing
+    procedure after the flash process reboots.  So, if you have - or can
+    borrow - other chargers, try that.
 
 * The firmware flash process generally requires you to have a charged
-  battery plugged in to the laptop before it will complete.  It may be
-  possible to bypass the requirement for a charged battery if you unplug
-  the battery completely.  Alternatively, it might be simply looking for
-  any battery /and/ the power charger plugged in.  Yes, this is
-  contradictory, but it is worth trying both options.
+  battery plugged in to the laptop before it will complete.
+
+  * It may be possible to bypass the requirement for a charged battery
+    if you unplug the battery completely.
+  * Alternatively, it might be simply looking for any battery /and/
+    the power charger plugged in.
+
+  Yes, this is contradictory, but it is worth trying both options.
 
 * An ultrabay battery is not considered by the update mechanism to be
   a suitable source of power - when trying different battery options,
