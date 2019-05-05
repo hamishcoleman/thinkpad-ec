@@ -92,7 +92,7 @@ g1uj42us.iso  sha1:FIXME                                    t430 BIOS 2.75 (G1ET
 g1uj43us.iso  sha1:FIXME                                    t430 BIOS 2.76 (G1ETB6WW) EC 1.13 (G1HT35WW)
 g1uj44us.iso  sha1:60c5a5302c978ae0da22f3bcc20cfcb7f8ecac78 t430 BIOS 2.77 (G1ETB7WW) EC 1.13 (G1HT35WW)
 g1uj45us.iso  sha1:1fc4b4485828648bc7a20b9eddfc2268c5f8f17e t430 BIOS 2.78 (G1ETB8WW) EC 1.13 (G1HT35WW)
-g1uj46us.iso  sha1:0dd2d139e1aa61a770e41f691f4fe911d59df1f0 t430 BIOS 2.79 (G1ETB8WW) EC 1.13 (G1HT35WW)
+g1uj46us.iso  sha1:0dd2d139e1aa61a770e41f691f4fe911d59df1f0 t430 BIOS 2.79 (G1ETB9WW) EC 1.13 (G1HT35WW)
 g2uj23us.iso  sha1:d4f9d597ea792f966257c01c3b5442354f0b3cc8 x230 BIOS 2.66 (G2ETA6WW) EC 1.14 (G2HT35WW)
 g2uj24us.iso  sha1:FIXME                                    x230 BIOS 2.67 (G2ETA7WW) EC 1.14 (G2HT35WW)
 g2uj25us.iso  sha1:6a457ffd04d47afd00bdac7c7dd43c6da076029e x230 BIOS 2.68 (G2ETA8WW) EC 1.14 (G2HT35WW)
