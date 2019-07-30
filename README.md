@@ -111,7 +111,7 @@ Your USB stick is now ready to boot and install the patched firmware.
    ```
 
 <details>
-  <summary>You might need to truncate the images (if the copied image is too big)</summary>
+  <summary>You might need to use truncate (if the copied image ends up beeing too big)</summary>
 
   ```
   truncate --reference patched.x230.img image-from-usb.img
