@@ -32,19 +32,27 @@ will not complete.
 1. Ensure you have installed the prerequisite packages
    On debian, this can be done with:
 
+    ```
     sudo apt-get install build-essential git mtools libssl-dev
+    ```
 
 2. Clone a copy of this repo on to your computer:
 
+    ```
     git clone https://github.com/hamishcoleman/thinkpad-ec
+    ```
 
 3. Change to the directory created by the clone:
 
+    ```
     cd thinkpad-ec
+    ```
 
 4. Show the list of laptops and USB image file names:
 
+    ```
     make list_laptops
+    ```
 
 5. Choose your laptop model name from the list shown.
    E.G. "patched.x230.img" for a x230 laptop.
@@ -53,14 +61,18 @@ will not complete.
    patched image for this laptop (this will download the original
    file from Lenovo and patch it):
 
+    ```
     make patched.x230.img
+    ```
 
 7. Insert your USB stick and determine what device name it has.
    (Note: chose a USB stick with nothing important on it, it will
    be erased in the next step) This command should help you find the
    right device:
 
+    ```
     lsblk -d -o NAME,SIZE,LABEL
+    ```
 
 8. Write the bootable patched image onto the USB stick device (replace
    the "sdx" in this command with the correct name for your usb stick)
@@ -68,9 +80,43 @@ will not complete.
    WARNING: if you do not have the right device name, you might overwrite
    your hard drive!
 
-   sudo dd if=patched.x230.img of=/dev/sdx
+   ```
+   sudo dd if=patched.x230.img of=/dev/sdx bs=4M status=progress && sync
+   ```
 
 Your USB stick is now ready to boot and install the patched firmware.
+
+9. Just for the sake of feeling safe you might want to check that your image was saved to the usb drive without problems.
+
+   when dd command was finished, you got something like this in the output:
+
+   ```
+   xx+0 records in
+   yy+0 records out
+   33554432 bytes (34 MB, 32 MiB) copied, 1,56631 s, 21,4 MB/s
+   ```
+
+   You need the number xx, which is the block count that went into usb drive. 
+   Now you can copy the data content from the usb stick and compare it with the original image:
+
+   ```
+   sudo if=/dev/sdx of=image-from-usb.img bs=4M count=xx
+   ```
+
+   Use the count number that is the number of blocks that were written to the usb stick.
+   Compare the images:
+
+   ```
+   diff -s image-from-usb.img patched.x230.img
+   ```
+
+<details>
+  <summary>You might need to truncate the images (if the copied image is too big)</summary>
+
+  ```
+  truncate --reference patched.x230.img image-from-usb.img
+  ```
+</details>
 
 Notes:
 ------
