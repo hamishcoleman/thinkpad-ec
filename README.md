@@ -30,11 +30,19 @@ large a difference between the BIOS and EC versions then the flash process
 will not complete.
 
 1. Ensure you have installed the prerequisite packages
-   On debian, this can be done with:
+   On Debian, this can be done with:
 
     ```
     sudo apt-get install build-essential git mtools libssl-dev
     ```
+
+   On Fedora, you could install it with dnf:
+
+    ```
+    sudo dnf install git mtools
+    sudo dnf group install "C Development Tools and Libraries"
+    ```
+    
 
 2. Clone a copy of this repo on to your computer:
 
