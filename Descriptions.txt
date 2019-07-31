@@ -144,7 +144,7 @@ gcuj28us.iso  sha1:FIXME
 gcuj29us.iso  sha1:FIXME
 gcuj30us.iso  sha1:FIXME
 gcuj31us.iso  sha1:FIXME
-gcuj32us.iso  sha1:FIXME
+gcuj32us.iso  sha1:1eb8a86936f534899ee95b7374be7ba4a1f1a2a3 x230t BIOS 2.73 (GCETB3WW) EC 1.14 (GCHT25WW)
 gcuj33us.iso  sha1:ebf7976fd1bda1287065f83ac7d980389b29692a x230t BIOS 2.74 (GCETB3WW) EC 1.14 (GCHT25WW)
 giuj26us.iso  sha1:c5a87023e977e17a15eca26e8027bd0f2eefd568 x240 BIOS 2.39 (GIET89WW) EC 1.17 (GIHT32WW)
 giuj29us.iso  sha1:6a87e3377140620130e154f488d9116e18f55ec4 x240 BIOS 2.42 (GIET92WW) EC 1.17 (GIHT32WW)
@@ -207,7 +207,7 @@ x1cg1.G6HT24WW.s01D7000.FL2 rule:FL2,dep:g6uj24us.iso,param:01D7000.FL2         
 x200.7XHT22WW.s01B9000.FL2  rule:FL2multi2,dep:6duj37uc.iso,depi:6duj37uc.iso.bat,param:01B9000.FL2;01B9100.FL2         x200 EC 1.04 Flash File
 x220.8DHT34WW.s01CB000.FL2  rule:FL2,dep:8duj27us.iso,param:01CB000.FL2                        x220 EC 1.24 Flash File
 x230.G2HT35WW.s01D3000.FL2  rule:FL2,dep:g2uj31us.iso,depi:g2uj31us.iso.bat,param:01D3000.FL2  x230 EC 1.14 Flash File
-x230t.GCHT25WW.s01DA000.FL2 rule:FL2,dep:gcuj24us.iso,depi:gcuj24us.iso.bat,param:01DA000.FL2  x230t EC 1.14 Flash File
+x230t.GCHT25WW.s01DA000.FL2 rule:FL2,dep:gcuj32us.iso,depi:gcuj32us.iso.bat,param:01DA000.FL2  x230t EC 1.14 Flash File
 x240.GIHT32WW.s01DE000.FL2  rule:FL2,dep:giuj26us.iso,param:01DE000.FL2                        x240 EC 1.17 Flash file
 x250.N10HT17W.s01E5000.FL2  rule:FL2,dep:n10ur10w.iso,param:01E5000.FL2                        x250 EC 1.16 Flash File
 x260.R02HT29W.s0AR0200.FL2  rule:FL2,dep:r02uj46d.iso,param:0AR0200.FL2                        x260 EC 1.11 Flash File
@@ -272,4 +272,4 @@ patched.t530.iso   rule:niceISO,dep:g4uj38us.iso,suffix:0,insert:0  for patching
 patched.t530i.iso  rule:niceISO,dep:g4uj38us.iso,suffix:0,insert:0  for patching Thinkpad T530i
 patched.w530.iso   rule:niceISO,dep:g5uj35us.iso,suffix:0,insert:0  for patching Thinkpad W530
 patched.x230.iso   rule:niceISO,dep:g2uj31us.iso,suffix:0,insert:0  for patching Thinkpad X230
-patched.x230t.iso  rule:niceISO,dep:gcuj24us.iso,suffix:0,insert:0  for patching Thinkpad X230t
+patched.x230t.iso  rule:niceISO,dep:gcuj32us.iso,suffix:0,insert:0  for patching Thinkpad X230t
