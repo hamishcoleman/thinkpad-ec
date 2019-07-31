@@ -193,8 +193,8 @@ h3uj04wd.iso  sha1:3bbf65b61d1e2ed806ea6cf40b97d24c090c00dc e330 and v480s
 l430.G3HT40WW.s01D4000.FL1  rule:FL2,dep:g3uj25us.iso,param:01D4000.FL1                        l430 BIOS 2.68 Flash File
 p51.N1UHT24W.s0AN1U00.FL2   rule:FL2,dep:n1uur12w.iso,param:0AN1U00.FL2                        p51 EC 1.07 Flash File
 t430.G1HT34WW.s01D2000.FL2  rule:FL2,dep:g1uj25us.iso,depi:g1uj25us.iso.bat,param:01D2000.FL2  t430 EC 1.12 Flash File
-t430.G1HT35WW.s01D2000.FL2  rule:FL2,dep:g1uj46us.iso,depi:g1uj46us.iso.bat,param:01D2000.FL2  t430 EC 1.13 Flash File
-t430s.G7HT39WW.s01D8000.FL2 rule:FL2,dep:g7uj25us.iso,depi:g7uj25us.iso.bat,param:01D8000.FL2  t430s EC 1.15 Flash File
+t430.G1HT35WW.s01D2000.FL2  rule:FL2,dep:g1uj48us.iso,depi:g1uj48us.iso.bat,param:01D2000.FL2  t430 EC 1.13 Flash File
+t430s.G7HT39WW.s01D8000.FL2 rule:FL2,dep:g7uj28us.iso,depi:g7uj28us.iso.bat,param:01D8000.FL2  t430s EC 1.15 Flash File
 t470.N1QHT57W.s0AN1Q00.FL2  rule:FL2,dep:n1qur08w.iso,depi:n1qur08w.iso.bat,param:0AN1Q00.FL2  t470 EC 1.32 Flash File
 t470p.R0FHT16W.s0AR0F00.FL2 rule:FL2,dep:r0fuj15wd.iso,depi:r0fuj15wd.iso.bat,param:0AR0F00.FL2 t470p EC 1.04 Flash File
 t480.N24HT23W.s0AN2400.FL2  rule:FL2,dep:n24ur04w.iso,depi:n24ur04w.iso.bat,param:0AN2400.FL2  t480 EC 1.08 Flash File
@@ -266,8 +266,8 @@ x61.7MHT25WW.img      rule:IMGnoenc,dep:x61.7MHT25WW.s01B2000.FL2   x61 EC 1.03
 
 
 # The end-user visible, nicely named iso images
-patched.t430.iso   rule:niceISO,dep:g1uj46us.iso,suffix:0,insert:0  for patching Thinkpad T430
-patched.t430s.iso  rule:niceISO,dep:g7uj25us.iso,suffix:0,insert:0  for patching Thinkpad T430s
+patched.t430.iso   rule:niceISO,dep:g1uj48us.iso,suffix:0,insert:0  for patching Thinkpad T430
+patched.t430s.iso  rule:niceISO,dep:g7uj28us.iso,suffix:0,insert:0  for patching Thinkpad T430s
 patched.t530.iso   rule:niceISO,dep:g4uj38us.iso,suffix:0,insert:0  for patching Thinkpad T530
 patched.t530i.iso  rule:niceISO,dep:g4uj38us.iso,suffix:0,insert:0  for patching Thinkpad T530i
 patched.w530.iso   rule:niceISO,dep:g5uj35us.iso,suffix:0,insert:0  for patching Thinkpad W530
