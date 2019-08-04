@@ -94,37 +94,6 @@ will not complete.
 
 Your USB stick is now ready to boot and install the patched firmware.
 
-9. Just for the sake of feeling safe you might want to check that your image was saved to the usb drive without problems.
-
-   when dd command was finished, you got something like this in the output:
-
-   ```
-   xx+0 records in
-   yy+0 records out
-   33554432 bytes (34 MB, 32 MiB) copied, 1,56631 s, 21,4 MB/s
-   ```
-
-   You need the number xx, which is the block count that went into usb drive. 
-   Now you can copy the data content from the usb stick and compare it with the original image:
-
-   ```
-   sudo if=/dev/sdx of=image-from-usb.img bs=4M count=xx
-   ```
-
-   Use the count number that is the number of blocks that were written to the usb stick.
-   Compare the images:
-
-   ```
-   diff -s image-from-usb.img patched.x230.img
-   ```
-
-<details>
-  <summary>You might need to use truncate (if the copied image ends up beeing too big)</summary>
-
-  ```
-  truncate --reference patched.x230.img image-from-usb.img
-  ```
-</details>
 
 Notes:
 ------
