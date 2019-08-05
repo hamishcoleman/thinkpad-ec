@@ -122,7 +122,7 @@ g5uj33us.iso  sha1:FIXME w530 BIOS 2.70 (G5ETB0WW) EC 1.13 (G4HT39WW)
 g5uj34us.iso  sha1:FIXME w530 BIOS 2.71 (G5ETB1WW) EC 1.13 (G4HT39WW)
 g5uj35us.iso  sha1:efc6a8473d1a6379b9ec1573cf54095db10d583c w530 BIOS 2.72 (G5ETB2WW) EC 1.13 (G4HT39WW)
 g5uj36us.iso  sha1:f0bd34614aed820d23d7f2ff86dddf93512f83d7 w530 BIOS 2.73 (G5ETB3WW) EC 1.13 (G4HT39WW)
-g5uj37us.iso  sha1:FIXME
+g5uj37us.iso  sha1:8e86b911a024b5e3f38d5165d12231dcd12695d5 w530 BIOS 2.74 (G5ETB4WW) EC 1.13 (G4HT39WW)
 g5uj38us.iso  sha1:2db9a0f4b94b6eba0fdf7d4d9b6589346b3ef125 w530 BIOS 2.75 (G5ETB5WW) EC 1.13 (G4HT39WW)
 g6uj24us.iso  sha1:9dba2945eff1eb387bc24f479e68eb401e3cc4ee x1 Carbon (Type 34xx - Gen1) BIOS 2.76 (G6ETB6WW) EC 1.06 (G6HT24WW)
 g7uj18us.iso  sha1:418bdab59ed0cf8da52078c1f2949f3fec441f0b t430s BIOS 2.64 (G7ETA4WW) EC 1.15 (G7HT39WW)
@@ -200,7 +200,7 @@ t470p.R0FHT16W.s0AR0F00.FL2 rule:FL2,dep:r0fuj15wd.iso,depi:r0fuj15wd.iso.bat,pa
 t480.N24HT23W.s0AN2400.FL2  rule:FL2,dep:n24ur04w.iso,depi:n24ur04w.iso.bat,param:0AN2400.FL2  t480 EC 1.08 Flash File
 t480s.N22HT22W.s0AN2200.FL2 rule:FL2,dep:n22ur04w.iso,depi:n22ur04w.iso.bat,param:0AN2200.FL2  t480s EC 1.07 Flash File
 t530.G4HT39WW.s01D5100.FL2  rule:FL2,dep:g4uj38us.iso,depi:g4uj38us.iso.bat,param:01D5100.FL2  t530 EC 1.13 Flash File
-w530.G4HT39WW.s01D5200.FL2  rule:FL2,dep:g5uj35us.iso,depi:g5uj35us.iso.bat,param:01D5200.FL2  w530 EC 1.13 Flash File
+w530.G4HT39WW.s01D5200.FL2  rule:FL2,dep:g5uj37us.iso,depi:g5uj37us.iso.bat,param:01D5200.FL2  w530 EC 1.13 Flash File
 x131e.G8HT52WW.s0AG8000.FL1 rule:FL2,dep:g8uj31us.iso,param:0AG8000.FL1                        x131e BIOS 2.98 Flash File
 #x131e.G8HT52WW.s0ag9000.FL1 rule:FL2,dep:g8uj31us.iso,param:0ag9000.FL1                        x131e g9 BIOS 2.98 Flash File
 x1cg1.G6HT24WW.s01D7000.FL2 rule:FL2,dep:g6uj24us.iso,param:01D7000.FL2                        x1c Gen 1 EC 1.06 Flash File
@@ -270,6 +270,6 @@ patched.t430.iso   rule:niceISO,dep:g1uj48us.iso,suffix:0,insert:0  for patching
 patched.t430s.iso  rule:niceISO,dep:g7uj28us.iso,suffix:0,insert:0  for patching Thinkpad T430s
 patched.t530.iso   rule:niceISO,dep:g4uj38us.iso,suffix:0,insert:0  for patching Thinkpad T530
 patched.t530i.iso  rule:niceISO,dep:g4uj38us.iso,suffix:0,insert:0  for patching Thinkpad T530i
-patched.w530.iso   rule:niceISO,dep:g5uj35us.iso,suffix:0,insert:0  for patching Thinkpad W530
+patched.w530.iso   rule:niceISO,dep:g5uj37us.iso,suffix:0,insert:0  for patching Thinkpad W530
 patched.x230.iso   rule:niceISO,dep:g2uj31us.iso,suffix:0,insert:0  for patching Thinkpad X230
 patched.x230t.iso  rule:niceISO,dep:gcuj32us.iso,suffix:0,insert:0  for patching Thinkpad X230t
