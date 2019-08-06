@@ -227,11 +227,13 @@ sub main() {
 
     my $binaryfile = shift @ARGV;
     if (!defined($binaryfile)) {
+        rm_on_fail($rm_on_fail,$binaryfile);
         usage();
     }
 
     my $fh = IO::File->new($binaryfile, O_RDWR);
     if (!defined($fh)) {
+        rm_on_fail($rm_on_fail,$binaryfile);
         warn("Could not open binaryfile\n");
         exit(1);
     }
