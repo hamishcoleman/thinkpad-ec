@@ -21,7 +21,9 @@ Behind the scenes
 -----------------
 
 Each hardware and EC firmware version combination needs its own set of
-patches, which are stored in directories called "*.img.d" - the disable
-commands are simply renaming the patch files to have a suffix of ".OFF"
-(or removing that suffix to enable)
+patches, which are stored in directories called "*.img.d".  The Makefile
+defines these patches into named groups ("KEYBOARD" and "BATTERY") which
+can be enabled or disabled via a config file.
 
+The enable and disable commands are simply updating the config file with
+the appropriate settings.
