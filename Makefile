@@ -263,9 +263,9 @@ endef
 # $< is the FL2 file
 # $@ is the ISO file being inserted into
 define buildinfo_ISO
-    @cp $<.report $@.report
+    @echo "Based on code from: `scripts/describe $@`" >$@.report
+    @cat $<.report >>$@.report
     @echo "" >>$@.report
-    @echo "Description: `scripts/describe $@`" >>$@.report
 endef
 
 # simple testing of images in an emulator
