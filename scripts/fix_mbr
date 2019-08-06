@@ -221,7 +221,7 @@ sub fixup_boot {
 
     if (ord(substr($buf,0,1)) == 0) {
         # No normal x86 boot instruction starts with a zero.
-        warn("Found corrupted bootcode in ISO from Lenovo - attempting fix\n");
+        warn("INFO: Original Lenovo ISO contains a zero in MBR bootcode - attempting fix\n");
         substr($buf,0,1) = chr(0xfa);
     }
 

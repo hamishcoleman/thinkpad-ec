@@ -7,7 +7,7 @@ latest versions.
 These pages provide the the description, checksum and binaries for the
 bootable BIOS update CD images for both the current and historical releases.
 
-e220    https://support.lenovo.com/hk/en/downloads/DS031908
+e330    https://support.lenovo.com/hk/en/downloads/DS031908
 l430    https://support.lenovo.com/hk/en/downloads/DS018887
 p51     https://support.lenovo.com/hk/en/downloads/DS121297
 t430    https://pcsupport.lenovo.com/gb/en/downloads/DS029252
