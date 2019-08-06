@@ -50,7 +50,7 @@ clean:
 
 # Also remove the large iso images downloaded from remote servers.
 really_clean: clean
-	rm -f *.iso.orig
+	rm -f *.iso.orig .config
 
 # TODO - whilst this could be added to the "pretty named" list, I think
 # that it is more useful to use the new generated rules framework to allow
