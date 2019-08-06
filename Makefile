@@ -238,15 +238,16 @@ GETELTORITO := ./scripts/geteltorito
 	$(GETELTORITO) -o $@.tmp $<
 	./scripts/fix_mbr $@.tmp
 	@mv $@.tmp $@
-	$(call build_info,$<.report)
+	$(call build_info,$<)
 
-# $1 is the bat file
+# $1 is the base name of the ISO file built
 define build_info
 	@echo
 	@echo
 	@echo Your build has completed with the following details:
         @echo
-	@cat $1
+	@echo "Built ISO: `sha1sum $1`"
+	@cat $1.report
 endef
 
 # Add information about the FL2 file to the current report
@@ -254,7 +255,7 @@ endef
 # $@ is the FL2 file being inserted into
 define buildinfo_FL2
     @echo "Buildinfo: $(BUILDINFO)" >$@.report
-    @echo "Built: `sha1sum $@`" >>$@.report
+    @echo "Built FL2: `sha1sum $@`" >>$@.report
     @echo "" >>$@.report
     @cat $<.report >>$@.report
 endef
@@ -368,7 +369,7 @@ rule_IMG_insert_DEPS = scripts/FL2_copyIMG scripts/xx30.encrypt
 define rule_niceISO_extract
     cp $< $@
     cp $<.report $@.report
-    $(call build_info,$@.report)
+    $(call build_info,$@)
 endef
 rule_niceISO_extract_DEPS = # no extra dependancies
 
