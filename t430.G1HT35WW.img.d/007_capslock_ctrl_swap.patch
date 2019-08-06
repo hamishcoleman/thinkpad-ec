@@ -5,6 +5,9 @@ Also, swapping your capslock and ctrl keys is something that your Operating
 System can do, so patching the EC firmware is quite an overkill for this
 task.
 
+To enable this patch, you will need to edit the PATCHES-* variable inside
+the Makefile
+
 --- t430.G1HT35WW.img.prepatched.hex	2019-01-15 03:40:49.758801095 +0000
 +++ t430.G1HT35WW.img.swapctrlcaps.hex	2019-01-15 03:41:10.240081095 +0000
 @@ -8505,7 +8505,7 @@

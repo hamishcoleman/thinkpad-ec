@@ -226,7 +226,7 @@ sub main() {
     }
 
     my $binaryfile = shift @ARGV;
-    if (!defined($binaryfile) or !defined($ARGV[0])) {
+    if (!defined($binaryfile)) {
         usage();
     }
 

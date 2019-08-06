@@ -1,3 +1,6 @@
+To enable this patch, you will need to edit the PATCHES-* variable inside
+the Makefile
+
 --- x230t.GCHT25WW.img.orig.hex	2017-07-12 12:51:57.975502349 -0400
 +++ x230t.GCHT25WW.img.hex	2017-07-12 12:52:03.703479675 -0400
 @@ -8657,8 +8657,8 @@

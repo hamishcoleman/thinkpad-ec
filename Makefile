@@ -112,46 +112,41 @@ install.radare.projects:
 	mkdir -p ~/.config/radare2/projects/x260.R02HT29W.d/
 	cp -fs $(PWD)/radare/x260.R02HT29W ~/.config/radare2/projects
 
+
+.config:
+	cp defconfig .config
+include .config
+
+PATCHES-$(CONFIG_KEYBOARD) += \
+    001_keysym.patch 002_dead_keys.patch 003_keysym_replacements.patch \
+    004_fn_keys.patch 005_fn_key_swap.patch
+
+PATCHES-$(CONFIG_BATTERY) += \
+    006_battery_validate.patch
+
+# To enable other misc patches:
+# - add a new CONFIG_something value to the defconfig and .config
+# - add a new PATCHES-$(CONFIG_something) line referencing the patch
+# - optionally, add a patch_enable/patch_disable stanza
+#   - however, that will get messy quickly, so perhaps a real config target
+
 #
 # These enable and disable targets change which patches are configured to be
-# applied
-
-PATCHES_KEYBOARD := 001_keysym.patch 002_dead_keys.patch \
-    003_keysym_replacements.patch 004_fn_keys.patch 005_fn_key_swap.patch
+# applied.
+# TODO - actually edit the .config, dont just keep appending new stuff to it
 
 patch_enable_battery:
-	$(call patch_enable,006_battery_validate.patch)
+	echo "CONFIG_BATTERY = y" >>.config
 
 patch_disable_battery:
-	$(call patch_disable,006_battery_validate.patch)
+	echo "CONFIG_BATTERY = n" >>.config
 
 patch_enable_keyboard:
-	for j in $(PATCHES_KEYBOARD); do \
-	 $(call patch_enable,$$j); \
-	done
+	echo "CONFIG_KEYBOARD = y" >>.config
 
 patch_disable_keyboard:
-	for j in $(PATCHES_KEYBOARD); do \
-	 $(call patch_disable,$$j); \
-	done
+	echo "CONFIG_KEYBOARD = n" >>.config
 
-# $1 is the old patch name
-# $2 is the new patch name
-define patch_mv
-	for i in *.img.d; do \
-	 if [ -e $$i/$1 ]; then mv $$i/$1 $$i/$2; fi; \
-	done
-endef
-
-# $1 is the patch name
-define patch_enable
-	$(call patch_mv,$1.OFF,$1)
-endef
-
-# $1 is the patch name
-define patch_disable
-	$(call patch_mv,$1,$1.OFF)
-endef
 
 # TODO - the scripts/describe output depends on Descriptions.txt -
 # could parse that file and create some deps
@@ -188,7 +183,7 @@ endef
 # Generate a working file with any known patches applied
 %.img: %.img.orig
 	@cp --reflink=auto $< $@
-	./scripts/hexpatch.pl --rm_on_fail --report $@.report $@ $@.d/*.patch
+	./scripts/hexpatch.pl --rm_on_fail --report $@.report $@ $(addprefix $@.d/,$(PATCHES-y))
 
 # using both __DIR and __FL2 is a hack to get around needing to quote the
 # DOS path separator.  It feels like there should be a better way if I put

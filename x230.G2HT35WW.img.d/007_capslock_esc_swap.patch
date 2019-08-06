@@ -1,5 +1,8 @@
 This swaps capslock and escape.
 
+To enable this patch, you will need to edit the PATCHES-* variable inside
+the Makefile
+
 @@ capslock_esc_swap @@
  000218b0  9e 9e 00 9f 9f 00 4a 4a  00 00 00 00 b2 00 00 00  |......JJ........|
  000218c0  b4 16 02 00 40 00 00 00  58 18 02 00 18 18 02 00  |....@...X.......|

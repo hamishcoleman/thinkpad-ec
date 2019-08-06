@@ -5,6 +5,9 @@ Also, swapping your capslock and ctrl keys is something that your Operating
 System can do, so patching the EC firmware is quite an overkill for this
 task.
 
+To enable this patch, you will need to edit the PATCHES-* variable inside
+the Makefile
+
 --- x230.G2HT35WW.img.dvorak.hex	2017-09-20 19:57:42.206883067 +0300
 +++ x230.G2HT35WW.img.prepatched.hex	2017-09-20 19:58:00.471897920 +0300
 @@ -8515,7 +8515,7 @@
