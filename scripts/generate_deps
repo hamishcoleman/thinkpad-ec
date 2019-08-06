@@ -11,6 +11,10 @@ use strict;
 #       $filename.orig from $depname.orig using macro rule_$rule_extract
 #       $depname from $filename using macro rule_$rule_insert
 #
+# TODO:
+# - this currently hardcods a dependancy on .config for every generated rule
+#   - which could be relaxed with some work
+#   - also, hardcoding it might not be the nicest method
 
 my @entries;
 
@@ -106,6 +110,7 @@ for my $entry (@entries) {
                     @deps,
                     @deps_extract,
                     $entry->{generator_file},
+                    '.config',
                 ),
                 '$('.$rule.'_DEPS)',
                 join(',',$rule,@params),
@@ -127,6 +132,7 @@ for my $entry (@entries) {
                     @deps,
                     @deps_insert,
                     $entry->{generator_file},
+                    '.config',
                 ),
                 '$('.$rule.'_DEPS)',
                 join(',',$rule,@params),
