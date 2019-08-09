@@ -89,7 +89,7 @@ will not complete.
    your hard drive!
 
    ```
-   sudo dd if=patched.x230.img of=/dev/sdx bs=4M status=progress && sync
+   sudo dd if=patched.x230.img of=/dev/sdx bs=4M status=progress conv=fsync
    ```
 
 Your USB stick is now ready to boot and install the patched firmware.
