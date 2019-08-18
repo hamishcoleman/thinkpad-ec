@@ -8,3 +8,6 @@ before_script:
 script:
     - make test
     - make test.img.orig
+
+after_success:
+    - make test.report

@@ -35,6 +35,21 @@ test: $(addsuffix .iso,$(LIST_PATCHED)) $(addsuffix .img,$(LIST_PATCHED))
 
 test.img.orig: $(addsuffix .orig,$(shell grep rule:IMG Descriptions.txt |cut -d" " -f1))
 
+# Generate a useful report
+test.report:
+	@echo
+	@echo Report summaries for generated images:
+	@echo
+	@for i in $(LIST_PATCHED); do \
+	    echo "Report for $$i\t- `scripts/describe $$i.iso`"; \
+	    cat $$i.iso.report; \
+	    echo; \
+	    echo; \
+	done
+	@echo Checksums for generated images:
+	@echo
+	@sha256sum *.iso *.img
+
 # TODO
 # - add tests for the non xx30 supported things
 
