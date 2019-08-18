@@ -29,6 +29,14 @@ have updated your BIOS to a recent version before starting.  If there is too
 large a difference between the BIOS and EC versions then the flash process
 will not complete.
 
+A little more detail about the BIOS versions:
+It is not so much a question about upgrading to a recent BIOS version, but
+more of ensuring you are using a compatible EC firmware version.  For
+safety, ensure that the EC version you are running is the same as the EC
+version used by the patched image you build.  The version used to build
+the patch is shown at the end of the build process and during the pre-flash
+warning message.
+
 1. Ensure you have installed the prerequisite packages
    On debian, this can be done with:
 
