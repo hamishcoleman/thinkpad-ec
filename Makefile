@@ -198,7 +198,7 @@ patch_disable_keyboard:
 # Generate a working file with any known patches applied
 %.img: %.img.orig
 	@cp --reflink=auto $< $@
-	./scripts/hexpatch.pl --rm_on_fail --report $@.report $@ $(addprefix $@.d/,$(PATCHES-y))
+	./scripts/hexpatch.pl --rm_on_fail --fail_on_missing --report $@.report $@ $(addprefix $@.d/,$(PATCHES-y))
 
 # using both __DIR and __FL2 is a hack to get around needing to quote the
 # DOS path separator.  It feels like there should be a better way if I put

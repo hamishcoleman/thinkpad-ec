@@ -5,6 +5,9 @@ use strict;
 # Apply a diff of two hexdumps as a binary patch
 #
 # Copyright (C) 2016-2019 Hamish Coleman
+#
+# TODO
+# - make parameter parsing more sane
 
 use IO::File;
 
@@ -20,7 +23,7 @@ sub usage() {
     print("patching the right file\n");
     print("\n");
     print("Usage:\n");
-    print("  hexpatch.pl [--rm_on_fail] [--report file] binaryfile patchfile [patchfile...]\n");
+    print("  hexpatch.pl [--rm_on_fail] [--fail_on_missing] [--report file] binaryfile patchfile [patchfile...]\n");
     print("\n");
     exit(1);
 }
@@ -219,6 +222,12 @@ sub main() {
         shift @ARGV;
     }
 
+    my $fail_on_missing;
+    if (defined($ARGV[0]) && $ARGV[0] eq "--fail_on_missing") {
+        $fail_on_missing=1;
+        shift @ARGV;
+    }
+
     my $reportfile;
     if (defined($ARGV[0]) && $ARGV[0] eq "--report") {
         shift @ARGV;
@@ -244,7 +253,7 @@ sub main() {
     while ($ARGV[0]) {
         my $patchfile = shift @ARGV;
 
-        if (!-e $patchfile) {
+        if (!$fail_on_missing && !-e $patchfile) {
             warn("Patchfile $patchfile not present, skipping\n");
             next;
         }
