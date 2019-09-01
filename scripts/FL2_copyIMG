@@ -674,6 +674,13 @@ sub main() {
         die("direction must be one of 'from_fl2' or 'to_fl2'");
     }
 
+    my $verbose = shift @ARGV;
+    if (defined($verbose) && $verbose eq 'verbose') {
+        $verbose = 1;
+    } else {
+        $verbose = 0;
+    }
+
     if ( ! -e $fl2file ) {
         die("FL2 file $fl2file must exist");
     }
@@ -690,8 +697,9 @@ sub main() {
         $fl2file,
     );
 
-    #if verbose
-    #    print(Dumper($object));
+    if ($verbose) {
+        print(Dumper($object));
+    }
 
     if ($cmd eq 'from_fl2') {
         if (!$object->can('extract')) {
