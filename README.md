@@ -1,3 +1,22 @@
+
+COMPATIBILTY WARNING:
+---------------------
+
+As the result of CVE-2019-6171, it looks like newer Lenovo firmware update
+files are adding a digital signature.  If you upgrade to a version using
+this, you will not be able to patch your EC.
+
+| laptop | last good | first locked verison |
+| ------ | --------- | -------------------- |
+| t430   | t430 BIOS 2.81 (G1ETC1WW) EC 1.13 (G1HT35WW) | t430 BIOS 2.82 (G1ETC2WW) EC 1.14 (G1HT36WW) |
+
+Basically, any BIOS update package where the changelog mentions CVE-2019-6171
+will have this lockdown.
+
+
+Intro
+-----
+
 The main purpose of this software is to patch the EC on xx30 series thinkpads
 to make the classic 7-row keyboards work.  There are also patches included (but
 disabled by default) to disable the authentic battery validation check.
