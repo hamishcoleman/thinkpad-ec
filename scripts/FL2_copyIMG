@@ -415,13 +415,14 @@ sub _check {
     }
 
     my @fields = qw(
-        signature filesize imgsize unk1
-        unk2 maybe_csum all_00_1 all_00_2
+        signature version filesize imgsize hash_algo sign_algo
+        hash_crc16 header_crc16 unk1
     );
-    my @values = unpack("a4VVVVVVV",$$buf);
+    my @values = unpack("a3CVVVVSSC",$$buf);
     map { $self->{header}{$fields[$_]} = $values[$_] } (0..scalar(@fields)-1);
 
-    return undef if ($self->{header}{signature} ne "_EC\x01");
+    return undef if ($self->{header}{signature} ne "_EC");
+    return undef if ($self->{header}{version} != 1);
     return undef if ($self->{header}{filesize} != $self->{filesize});
 
     if (!defined($known->{$self->{filesize}})) {
@@ -440,6 +441,7 @@ sub _check {
         # significantly larger in size
         $self->{flag}{trailer}="internal";
     } else {
+        warn("unexpected filesize/imgsize results");
         return undef;
     }
 
