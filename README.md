@@ -13,6 +13,8 @@ this, you will not be able to patch your EC.
 Basically, any BIOS update package where the changelog mentions CVE-2019-6171
 will have this lockdown.
 
+Lenovo is tracking their response to this CVE at:
+    https://support.lenovo.com/gb/en/solutions/len-27764
 
 Intro
 -----
