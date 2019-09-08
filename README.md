@@ -59,21 +59,37 @@ the patch is shown at the end of the build process and during the pre-flash
 warning message.
 
 1. Ensure you have installed the prerequisite packages
-   On debian, this can be done with:
+   On Debian, this can be done with:
 
+    ```
     sudo apt-get install build-essential git mtools libssl-dev
+    ```
+
+   On Fedora, you could install it with dnf:
+
+    ```
+    sudo dnf install git mtools
+    sudo dnf group install "C Development Tools and Libraries"
+    ```
+    
 
 2. Clone a copy of this repo on to your computer:
 
+    ```
     git clone https://github.com/hamishcoleman/thinkpad-ec
+    ```
 
 3. Change to the directory created by the clone:
 
+    ```
     cd thinkpad-ec
+    ```
 
 4. Show the list of laptops and USB image file names:
 
+    ```
     make list_laptops
+    ```
 
 5. Choose your laptop model name from the list shown.
    E.G. "patched.x230.img" for a x230 laptop.
@@ -82,14 +98,18 @@ warning message.
    patched image for this laptop (this will download the original
    file from Lenovo and patch it):
 
+    ```
     make patched.x230.img
+    ```
 
 7. Insert your USB stick and determine what device name it has.
    (Note: chose a USB stick with nothing important on it, it will
    be erased in the next step) This command should help you find the
    right device:
 
+    ```
     lsblk -d -o NAME,SIZE,LABEL
+    ```
 
 8. Write the bootable patched image onto the USB stick device (replace
    the "sdx" in this command with the correct name for your usb stick)
@@ -97,9 +117,12 @@ warning message.
    WARNING: if you do not have the right device name, you might overwrite
    your hard drive!
 
-   sudo dd if=patched.x230.img of=/dev/sdx
+   ```
+   sudo dd if=patched.x230.img of=/dev/sdx bs=4M status=progress conv=fsync
+   ```
 
 Your USB stick is now ready to boot and install the patched firmware.
+
 
 Notes:
 ------
