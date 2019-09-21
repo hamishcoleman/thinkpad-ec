@@ -6,6 +6,7 @@ before_script:
     - sudo make build-deps
 
 script:
+    - rm -f .config
     - make patch_enable_battery
     - make test
     - rm -f .config
