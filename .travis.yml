@@ -6,6 +6,9 @@ before_script:
     - sudo make build-deps
 
 script:
+    - make patch_enable_battery
+    - make test
+    - rm -f .config
     - make test
     - make test.img.orig
 
