@@ -6,9 +6,9 @@ As the result of CVE-2019-6171, it looks like newer Lenovo firmware update
 files are adding a digital signature.  If you upgrade to a version using
 this, you will not be able to patch your EC.
 
-| laptop | last good | first locked version |
-| ------ | --------- | -------------------- |
-| t430   | t430 BIOS 2.81 (G1ETC1WW) EC 1.13 (G1HT35WW) | t430 BIOS 2.82 (G1ETC2WW) EC 1.14 (G1HT36WW) |
+| laptop | last good | first locked version | Action |
+| ------ | --------- | -------------------- | ------ |
+| t430   | t430 BIOS 2.81 (G1ETC1WW) EC 1.13 (G1HT35WW) | t430 BIOS 2.82 (G1ETC2WW) EC 1.14 (G1HT36WW) | roll back to 2.81 (disable secure rollback prevention) |
 
 Basically, any BIOS update package where the changelog mentions CVE-2019-6171
 will have this lockdown.
