@@ -344,6 +344,7 @@ define rule_FL2_insert
     mcopy -t -m -o -i $@.tmp@@$(FAT_OFFSET) $@.report.tmp ::report.txt
     mcopy -t -m -o -i $@.tmp@@$(FAT_OFFSET) $@.bat.tmp ::AUTOEXEC.BAT
     -mdel -i $@.tmp@@$(FAT_OFFSET) ::EFI/Boot/BootX64.efi
+    -mdel -i $@.tmp@@$(FAT_OFFSET) ::EFI/FLASH/README.TXT
 
     @rm $<.tmp $@.report.tmp $@.bat.tmp
     @mv $@.tmp $@
