@@ -62,6 +62,7 @@ warning message.
    On Debian, this can be done with:
 
     ```
+    sudo apt-get update
     sudo apt-get install build-essential git mtools libssl-dev
     ```
 
