@@ -8,7 +8,11 @@ this, you will not be able to patch your EC.
 
 | laptop | last good | first locked version | Action |
 | ------ | --------- | -------------------- | ------ |
-| t430   | t430 BIOS 2.81 (G1ETC1WW) EC 1.13 (G1HT35WW) | t430 BIOS 2.82 (G1ETC2WW) EC 1.14 (G1HT36WW) | roll back to 2.81 (disable secure rollback prevention) |
+| t430   | BIOS 2.81 (G1ETC1WW) EC 1.13 (G1HT35WW) | BIOS 2.82 (G1ETC2WW) EC 1.14 (G1HT36WW) | roll back to 2.81 (disable secure rollback prevention) |
+| t530, t530i | BIOS 2.76 (G4ETB6WW) EC 1.13 (G4HT39WW) | BIOS 2.77 (G4ETB7WW) EC 1.14 (G4HT40WW) | |
+| w530   | BIOS 2.75 (G5ETB5WW) EC 1.13 (G4HT39WW) | BIOS 2.76 (G5ETB6WW) EC 1.14 (G4HT40WW) | |
+| x230   | BIOS 2.76 (G2ETB6WW) EC 1.14 (G2HT35WW) | BIOS 2.77 (G2ETB7WW) EC 1.15 (G2HT36WW) | |
+| x230t  | BIOS 2.74 (GCETB3WW) EC 1.14 (GCHT25WW) | BIOS 2.75 (GCETB5WW) EC 1.15 (GCHT26WW) | |
 
 Basically, any BIOS update package where the changelog mentions CVE-2019-6171
 will have this lockdown.
