@@ -40,8 +40,7 @@ and E330.
 * A full writeup of the hardware modifications needed can be found at:
     http://www.thinkwiki.org/wiki/Install_Classic_Keyboard_on_xx30_Series_ThinkPads
 
-* More information for hacking on this can be found in the docs/HACKING.txt
-  file.
+* More information for hacking on this can be found in the [HACKING doc](docs/HACKING.txt).
 
 * A video presenting how these thinkpad laptops were hacked is online:
     https://www.youtube.com/watch?v=Fzmm87oVQ6c
@@ -152,7 +151,7 @@ patch was applied in different circumstances than a hard and fast set
 of requirements.
 
 The flashing process takes place in two distinct steps (these are outlined
-below, but explained in more detail in docs/firmware_flashing.txt)
+below, but explained in more detail in [firmware_flashing doc](docs/firmware_flashing.txt))
 
 1. Booting the USB stick:
    * First shows a page with information about the patch, including
