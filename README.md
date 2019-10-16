@@ -134,7 +134,7 @@ Notes:
   a blank cd and boot it up, skipping steps 7 and 8.
 
 * To include the battery validation patch or to make a build that
-  reverts any EC changes, read the docs/CONFIG.txt and follow
+  reverts any EC changes, read the [CONFIG doc](docs/CONFIG.md) and follow
   the configuration instructions in it before running step 6.
 
 

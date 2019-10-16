@@ -1,7 +1,7 @@
 A collection of the information discovered about the embedded controllers
 used in the thinkpad laptops.
 
-CONFIG.txt
+CONFIG.md
     -   Steps to configure the optional parts of the patching
 
 HACKING.txt
