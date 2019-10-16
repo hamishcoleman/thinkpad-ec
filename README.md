@@ -69,7 +69,7 @@ warning message.
    On Fedora, you could install it with dnf:
 
     ```
-    sudo dnf install git mtools
+    sudo dnf install git mtools openssl-devel
     sudo dnf group install "C Development Tools and Libraries"
     ```
     
