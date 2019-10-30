@@ -33,7 +33,11 @@ $(shell mkdir -p $(DEPSDIR))
 
 test: $(addsuffix .iso,$(LIST_PATCHED)) $(addsuffix .img,$(LIST_PATCHED))
 
-test.img.orig: $(addsuffix .orig,$(shell grep rule:IMG Descriptions.txt |cut -d" " -f1))
+ALL_IMG_ORIG := $(addsuffix .orig,$(shell grep rule:IMG Descriptions.txt |cut -d" " -f1))
+test.img.orig: $(ALL_IMG_ORIG)
+
+.PHONY: test.pgm
+test.pgm: $(addsuffix .pgm,$(ALL_IMG_ORIG))
 
 # Generate a useful report
 test.report:
@@ -293,6 +297,9 @@ mec-tools/mec_encrypt: mec-tools/Makefile
 	git submodule update
 	make -C mec-tools
 
+# Simple Visualisation
+%.pgm: %
+	(echo "P5 256 $$(($(shell stat -c %s $<)/265)) 255" ; cat $< ) > $@
 
 # Extract the FL2 file from an ISO image
 #
