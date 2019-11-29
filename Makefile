@@ -12,6 +12,8 @@ all:    list_laptops
 
 QEMU_OPTIONS ?= -enable-kvm
 
+# FIXME - the date should be the date of the last commit, unless the repo is
+# dirty, in which case, it should be the date of the last change.
 GITVERSION = $(shell git describe --dirty --abbrev=6 ) ($(shell date +%Y%m%d))
 BUILDINFO = $(GITVERSION) $(MAKECMDGOALS)
 
