@@ -183,8 +183,20 @@ sub _check {
     $self->{flag}{encrypted}="yes";
     # All current examples of this format were encrypted
 
-    $self->set_offset_size(@{$known->{$self->{filesize}}});
-    return $self->_check_copyright();
+    # Loop through the known offset,size pairs for this filesize,
+    # looking for one that has a matching copyright
+    my $try_data = $known->{$self->{filesize}};
+    while (scalar(@{$try_data})) {
+        my $try_offset = shift @{$try_data};
+        my $try_size = shift @{$try_data};
+        $self->set_offset_size($try_offset, $try_size);
+
+        my $match = $self->_check_copyright();
+        if ($match) {
+            return $match;
+        }
+    }
+    return undef;
 }
 
 sub extract {
