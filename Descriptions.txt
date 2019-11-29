@@ -2,8 +2,8 @@
 # This file contains the text descriptions of the various iso, FL2, decrypted
 # EC files.
 #
-# The text is mostly for informational use, but is also used to add a
-# description line into the generated output.
+# The text is used to automatically create the Makefile dependancies needed.
+# Also it is used to add a text description line into the generated output.
 #
 # The sha1sums are used to confirm that the right files have been
 # downloaded.
