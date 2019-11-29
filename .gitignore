@@ -16,6 +16,7 @@
 *.bat
 *.report
 .d
+*.pgm
 
 # Temp are (should be) just junk
 *.tmp
