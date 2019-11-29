@@ -8,6 +8,9 @@ patches are disabled by default, but are easy to enable.
 Any combination of the two sets of patches can be enabled or disabled
 (even including a version with no patches at all - to revert all changes)
 
+After changing the configuration, you will need to build the patched EC
+image as normal.
+
 ### KEYBOARD patchset
 
 Applying this set of patches will adjust your Embedded Controller to support
