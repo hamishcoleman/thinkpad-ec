@@ -49,10 +49,11 @@ and E330.
 Step-by-step instructions:
 --------------------------
 
-This software expects to be run under Linux.  For best results, ensure you
-have updated your BIOS to a recent version before starting.  If there is too
-large a difference between the BIOS and EC versions then the flash process
-will not complete.
+This software expects to be run under Linux (real Linux, not Microsoft
+Windows Linux subsystem).  For best results, ensure you have updated your
+BIOS to a recent version before starting.  If there is too large a
+difference between the BIOS and EC versions then the flash process will
+not complete.
 
 A little more detail about the BIOS versions:
 It is not so much a question about upgrading to a recent BIOS version, but
