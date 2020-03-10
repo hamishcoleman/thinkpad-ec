@@ -21,6 +21,10 @@ will have this lockdown.
 Lenovo is tracking their response to this CVE at:
     https://support.lenovo.com/gb/en/solutions/len-27764
 
+If you upgraded your BIOS to the locked version:
+* Ensure that downgrading is possible in BIOS settings (Security/UEFI BIOS Update Option/Secure Rollback Prevention -> Disable)
+* Downgrade it to the latest supported version. EC will be automatically downgraded as well
+
 Intro
 -----
 
