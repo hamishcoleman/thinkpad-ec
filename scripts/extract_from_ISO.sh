@@ -54,7 +54,7 @@ if ! which mdir >/dev/null; then
     exit 16
 fi
 
-read -r FL1VERNUM FL1VER FL2VERNUM FL2VER < <(grep -E "^${ISO%%.iso*}" ../Descriptions.txt| \
+read -r FL1VERNUM FL1VER FL2VERNUM FL2VER < <(grep -E "^${ISO%%.iso*}" ${DESC}| \
                     grep BIOS| \
                     grep -v BROKEN| \
                     sed 's/.\+ BIOS //; s/ EC / /; s/[()]//g')
