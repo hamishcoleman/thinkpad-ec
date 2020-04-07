@@ -204,17 +204,27 @@ sub _check {
     my $check_size = 0x1000;
     my $buf = $self->get_block($check_offset, $check_size);
 
-    return undef if (!defined($buf));
-    return undef if (!defined($known->{$self->{filesize}}));
+    if (!defined($buf)) {
+        log::add("bad get_block");
+        return undef;
+    }
 
-    return undef if ($$buf ne "\xff"x$check_size);
+    my $try_data = $known->{$self->{filesize}};
+    if (!defined($try_data)) {
+        log::add("not in known sizes");
+        return undef;
+    }
+
+    if ($$buf ne "\xff"x$check_size) {
+        log::add("failed 0xff check");
+        return undef;
+    }
 
     $self->{flag}{encrypted}="yes";
     # All current examples of this format were encrypted
 
     # Loop through the known offset,size pairs for this filesize,
     # looking for one that has a matching copyright
-    my $try_data = $known->{$self->{filesize}};
     while (scalar(@{$try_data})) {
         my $try_offset = shift @{$try_data};
         my $try_size = shift @{$try_data};
@@ -225,6 +235,8 @@ sub _check {
             return $match;
         }
     }
+    log::add("no copyright message");
+
     return undef;
 }
 
@@ -262,15 +274,24 @@ sub _check {
     };
 
     # If the filesize is not in our known database, return no match
-    return undef if (!defined($known->{$self->{filesize}}));
     my $known_data = $known->{$self->{filesize}};
+    if (!defined($known_data)) {
+        log::add("not in known sizes");
+        return undef;
+    }
 
     my $check_size = 0x1000;
     my $buf = $self->get_block($known_data->[2], $check_size);
 
-    return undef if (!defined($buf));
+    if (!defined($buf)) {
+        log::add("bad get_block");
+        return undef;
+    }
 
-    return undef if ($$buf ne "\xff"x$check_size);
+    if ($$buf ne "\xff"x$check_size) {
+        log::add("failed 0xff check");
+        return undef;
+    }
 
     $self->{flag}{encrypted}="no";
     # All current examples of this format were not encrypted
@@ -324,13 +345,16 @@ sub _check {
     my $self = shift;
 
     my $header_offset = $self->_find_napi();
-    return undef if !defined($header_offset);
+    if (!defined($header_offset)) {
+        log::add("no NAPI header found");
+        return undef;
+    }
 
     my $header_size = 0x20;
     my $buf = $self->get_block($header_offset, $header_size);
 
     if (!defined($buf)) {
-        warn("Bad Read");
+        log::add("bad get_block");
         return undef;
     }
 
@@ -341,9 +365,18 @@ sub _check {
     my @values = unpack("a4vCa4vvva4vVVc",$$buf);
     map { $self->{header}{$fields[$_]} = $values[$_] } (0..scalar(@fields)-1);
 
-    return undef if ($self->{header}{signature1} ne "NAPI");
-    return undef if ($self->{header}{signature2} ne "ESCD");
-    return undef if ($self->{header}{signature3} ne "ACFG");
+    if ($self->{header}{signature1} ne "NAPI") {
+        log::add("failed signature");
+        return undef;
+    }
+    if ($self->{header}{signature2} ne "ESCD") {
+        log::add("failed signature");
+        return undef;
+    }
+    if ($self->{header}{signature3} ne "ACFG") {
+        log::add("failed signature");
+        return undef;
+    }
 
     # because I have no idea about the actual format of this header, we check
     # every field
@@ -358,6 +391,8 @@ sub _check {
         ($self->{header}{all_00} != 0x00)
         ) {
         die("Unexpected NAPI header data");
+        # die instead of simply logging, since we have matched a signature
+        # and dont want to let this fall through to another checker
     }
 
     # TODO
@@ -367,8 +402,15 @@ sub _check {
     my $check_size = 0x1000;
     $buf = $self->get_block($check_offset, $check_size);
 
-    return undef if (!defined($buf));
-    return undef if ($$buf ne "\xff"x$check_size);
+    if (!defined($buf)) {
+        log::add("bad get_block");
+        return undef;
+    }
+
+    if ($$buf ne "\xff"x$check_size) {
+        log::add("failed 0xff check");
+        return undef;
+    }
 
     $self->{flag}{encrypted}="no";
     # All current examples of this format were not encrypted
@@ -405,7 +447,10 @@ sub _check {
          196608 => [0, 0x30000],
     };
 
-    return undef if (!defined($known->{$self->{filesize}}));
+    if (!defined($known->{$self->{filesize}})) {
+        log::add("not in known sizes");
+        return undef;
+    }
 
     $self->{flag}{encrypted}="yes";
     # All current examples of this format were encrypted
@@ -451,7 +496,7 @@ sub _check {
     my $buf = $self->get_block($header_offset, $header_size);
 
     if (!defined($buf)) {
-        warn("Bad Read");
+        log::add("bad get_block");
         return undef;
     }
 
@@ -462,12 +507,21 @@ sub _check {
     my @values = unpack("a3CVVVVSSC",$$buf);
     map { $self->{header}{$fields[$_]} = $values[$_] } (0..scalar(@fields)-1);
 
-    return undef if ($self->{header}{signature} ne "_EC");
-    return undef if ($self->{header}{version} != 1);
-    return undef if ($self->{header}{filesize} != $self->{filesize});
+    if ($self->{header}{signature} ne "_EC") {
+        log::add("failed signature");
+        return undef;
+    }
+    if ($self->{header}{version} != 1) {
+        log::add("failed version");
+        return undef;
+    }
+    if ($self->{header}{filesize} != $self->{filesize}) {
+        log::add("failed header filesize");
+        return undef;
+    }
 
     if (!defined($known->{$self->{filesize}})) {
-        warn("filesize not in whitelist");
+        log::add("not in known sizes");
         return undef;
     }
 
@@ -482,7 +536,7 @@ sub _check {
         # significantly larger in size
         $self->{flag}{trailer}="internal";
     } else {
-        warn("unexpected filesize/imgsize results");
+        log::add("unexpected filesize/imgsize results");
         return undef;
     }
 
@@ -573,16 +627,25 @@ sub _check {
     };
 
     my $capsule_offset_hack = $self->_find_capsule_header() ||0;
+    log::add("capsule_offset_hack=",$capsule_offset_hack);
 
     my $header_offset = $self->_find_pfh();
-    return undef if (!defined($header_offset));
+    if (!defined($header_offset)) {
+        log::add("no PFH found");
+        return undef;
+    }
 
     my $header_size = 4+4+4+2+4+2+4+4;
 
     my $buf = $self->get_block($header_offset, $header_size);
 
-    return undef if (!defined($buf));
-    return undef if (!defined($known->{$self->{filesize}}));
+    if (!defined($buf)) {
+        log::add("bad get_block");
+        return undef;
+    }
+    if (!defined($known->{$self->{filesize}})) {
+        log::add("not in known sizes");
+    }
 
     my @fields = qw(
         signature version headersize headerchecksum
@@ -592,14 +655,20 @@ sub _check {
     my @values = unpack("a4VVvVvVV",$$buf);
     map { $self->{header}{$fields[$_]} = $values[$_] } (0..scalar(@fields)-1);
 
-    return undef if ($self->{header}{signature} ne '$PFH');
+    if ($self->{header}{signature} ne '$PFH') {
+        log::add("failed signature");
+        return undef;
+    }
 
     # now load the partition table
     $buf = $self->get_block(
         $self->{header}{imagetableoffset}+$capsule_offset_hack,
         (4+4+8+4)*$self->{header}{numberofimages}
     );
-    return undef if (!defined($buf));
+    if (!defined($buf)) {
+        log::add("bad get_block");
+        return undef;
+    }
 
     $buf = $$buf;
 
@@ -612,7 +681,10 @@ sub _check {
             $NameOffset+$capsule_offset_hack,
             32 # TODO - just a guess at the max name size
         );
-        return undef if (!defined($buf2));
+        if (!defined($buf2)) {
+            log::add("bad get_block");
+            return undef;
+        }
 
         my $name = unpack("Z*",$$buf2);
 
@@ -625,6 +697,7 @@ sub _check {
         }
     }
 
+    log::add("no subsection found with name 'Ec'");
     return undef;
 }
 
