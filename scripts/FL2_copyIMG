@@ -38,7 +38,8 @@ sub print {
         my $filename = shift @{$entry};
         my $line = shift @{$entry};
         printf("%s:%i %s ", $filename, $line, $package);
-        print(join(' ',@{$entry}),"\n");
+        printf(@{$entry});
+        print("\n");
     }
 }
 
@@ -120,7 +121,7 @@ sub _check_copyright {
         }
     }
 
-    log::add("no copyright, offset=",$self->offset());
+    log::add("no copyright (offset=0x%x)",$self->offset());
     return undef;
 }
 
@@ -593,6 +594,7 @@ sub _find_capsule_header {
         # TODO
         # - while I am reading the capsule signature, I dont understand
         #   why the magic offset doesnt match anything in the capsule header
+        log::add("capsule_uuid signature found (offset hack applied)");
         return 0x1d0;
     }
     return undef;
@@ -627,7 +629,6 @@ sub _check {
     };
 
     my $capsule_offset_hack = $self->_find_capsule_header() ||0;
-    log::add("capsule_offset_hack=",$capsule_offset_hack);
 
     my $header_offset = $self->_find_pfh();
     if (!defined($header_offset)) {
