@@ -16,6 +16,34 @@ use strict;
 # This script now supports extracting a couple of FL1 files, so its name
 # is starting to be wrong.
 
+package log;
+use warnings;
+use strict;
+#
+# Some simple logging
+#
+
+my @log;
+
+sub add {
+    my @entry = caller();
+    push @entry, @_;
+    push @log, \@entry;
+}
+
+sub print {
+    my $self = shift;
+    for my $entry (@log) {
+        my $package = shift @{$entry};
+        my $filename = shift @{$entry};
+        my $line = shift @{$entry};
+        printf("%s:%i %s ", $filename, $line, $package);
+        print(join(' ',@{$entry}),"\n");
+    }
+}
+
+1;
+
 package FL2::base;
 use warnings;
 use strict;
@@ -92,6 +120,7 @@ sub _check_copyright {
         }
     }
 
+    log::add("no copyright, offset=",$self->offset());
     return undef;
 }
 
@@ -700,6 +729,9 @@ sub main() {
     my $object = detect_img($fl2file);
     if (!defined($object)) {
         printf("Could not determine IMG details for %s\n", $fl2file);
+        if ($verbose) {
+            log::print();
+        }
         exit(1);
     }
     printf("IMG at offset 0x%x size 0x%x (%s %s)\n",
@@ -711,6 +743,7 @@ sub main() {
 
     if ($verbose) {
         print(Dumper($object));
+        log::print();
     }
 
     if ($cmd eq 'from_fl2') {
