@@ -626,7 +626,8 @@ sub _check {
 
     # List of known file sizes (basically a doublecheck on the signature)
     my $known = {
-         9437264 => 1,
+         4681808 => 1,  # l440
+         9437264 => 1,  # l430
         12587008 => 1,
     };
 
