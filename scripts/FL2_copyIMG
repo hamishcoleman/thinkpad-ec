@@ -610,12 +610,14 @@ sub _find_pfh {
         $buf = $$buf;
 
         if ($buf eq '$PFH') {
+            log::add("found PFH header signature at offset=0x%x", $offset);
             return $offset;
         }
 
-        $offset+=0x10;
+        $offset+=0x08;
     }
 
+    log::add("no PFH found");
     return undef; # not found
 }
 
@@ -631,10 +633,7 @@ sub _check {
     my $capsule_offset_hack = $self->_find_capsule_header() ||0;
 
     my $header_offset = $self->_find_pfh();
-    if (!defined($header_offset)) {
-        log::add("no PFH found");
-        return undef;
-    }
+    return undef if (!defined($header_offset));
 
     my $header_size = 4+4+4+2+4+2+4+4;
 
