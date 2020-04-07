@@ -661,6 +661,11 @@ sub _check {
         return undef;
     }
 
+    if ($self->{header}{version} ne 0x10002) {
+        log::add("failed version");
+        return undef;
+    }
+
     # now load the partition table
     $buf = $self->get_block(
         $self->{header}{imagetableoffset}+$capsule_offset_hack,
