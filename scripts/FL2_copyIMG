@@ -711,7 +711,8 @@ package EFI::Capsule::PFH_header;
 use warnings;
 use strict;
 #
-# Look for FL1 files that have a known EFI capsule prefix
+# Adjust the usual PFH loader to cope with an offset
+# (presumably caused by the Capsule wrappers)
 #
 
 use base qw(FL1::PFH_header);
