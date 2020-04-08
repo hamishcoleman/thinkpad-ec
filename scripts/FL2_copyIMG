@@ -732,6 +732,65 @@ sub _check {
 
 1;
 
+package EFI::Capsule::UNK_header;
+use warnings;
+use strict;
+#
+# Some FL1 files appear to have an unknown header after the EFI headers
+#
+
+use base qw(FL2::base);
+
+sub _check {
+    my $self = shift;
+
+    my $header3_offset
+        = $self->{header1}{HeaderSize} + $self->{header2}{HeaderLength};
+    my $header3_length = 0x30;
+
+    my $buf = $self->get_block($header3_offset, $header3_length);
+    if (!defined($buf)) {
+        log::add("bad get_block");
+        return undef;
+    }
+
+    # d95fe99c196ee7409a8febad7f78e0c5
+    my $maybe_uuid = "\xd9\x5f\xe9\x9c\x19\x6e\xe7\x40\x9a\x8f\xeb\xad\x7f\x78\xe0\xc5";
+
+    my @fields = qw(
+        all_ff
+        unk01
+        maybe_uuid
+        maybe_offset
+        unk02
+    );
+    my @values = unpack("a16a8a16VV",$$buf);
+    map { $self->{header3}{$fields[$_]} = $values[$_] } (0..scalar(@fields)-1);
+
+    if ($self->{header3}{maybe_uuid} ne $maybe_uuid) {
+        log::add("failed header3 maybe_uuid");
+        return undef;
+    }
+
+    # FIXME: This is just a guess
+    my $ec_size = 0x20000;
+
+    $self->set_offset_size(
+        $header3_offset + $header3_length + $self->{header3}{maybe_offset},
+        $ec_size
+    );
+
+    return $self;
+}
+
+sub extract {
+    return shift->_extract(shift);
+}
+
+# no insert() will work until we know how to generate the checksums
+
+1;
+
 package EFI::Capsule;
 use warnings;
 use strict;
@@ -832,9 +891,12 @@ sub _check {
         return $self->_check();
     }
 
-    print(Data::Dumper::Dumper($self));
+    if ($self->{header2}{Revision} == 2) {
+        # l440 has this
 
-    log::add("not using unfinished checker ");
+        bless $self, 'EFI::Capsule::UNK_header';
+        return $self->_check();
+    }
 
     return undef;
 }

@@ -193,12 +193,20 @@ r0iuj21wd.iso sha1:3765d1715f001ddae982682f0189b49c2b04bf3a x270 BIOS 1.28 (R0IE
 
 # no FL2 file (all in UEFI Capsule), FAT_OFFSET is 79872
 h3uj04wd.iso  sha1:3bbf65b61d1e2ed806ea6cf40b97d24c090c00dc e330 and v480s
+j4uj62wd.iso  sha1:4421bd4c21a1309f83c919bfffc1beaf67502334 L440, L540 BIOS 1.73 (J4ET73WW) EC 1.08 (J4EHT27WW)
+j4uj64wd.iso  sha1:4b2682bf11d31e0ff9e4cf4ec5e3372b715c7841 L440, L540 BIOS 1.78 (J4ET78WW) EC 1.09 (J4EHT28WW)
+j4uj65wd.iso  sha1:386353b39ec54f0feb5160cc6edc41b3def14dca L440, L540 BIOS 1.81 (J4ET81WW) EC 1.10 (J4EHT29WW, maybe J4HT29WW)
+j4uj75wd.iso  sha1:3ff5025a4a5f62f461467f7726e5b2c1fa119b5b L440, L540 BIOS 1.93 (J4ET93WW) EC 1.11 (J4EHT30WW, maybe J4HT30WW)
 
 # TODO
 # - update the tools to automatically determine the FAT_OFFSET
 
 # The firmware files from inside the ISO images
 l430.G3HT40WW.s01D4000.FL1  rule:FL2,dep:g3uj25us.iso,param:01D4000.FL1                        l430 BIOS 2.68 Flash File
+l440.J4HT27WW.s0AJ4000.FL1  rule:FL2,dep:j4uj62wd.iso,param:0AJ4000.FL1                        l440 BIOS 1.73 Flash File
+l440.J4HT28WW.s0AJ4000.FL1  rule:FL2,dep:j4uj64wd.iso,param:0AJ4000.FL1                        l440 BIOS 1.78 Flash File
+l440.J4HT29WW.s0AJ4000.FL1  rule:FL2,dep:j4uj65wd.iso,param:0AJ4000.FL1                        l440 BIOS 1.81 Flash File
+l440.J4HT30WW.s0AJ4000.FL1  rule:FL2,dep:j4uj75wd.iso,param:0AJ4000.FL1                        l440 BIOS 1.93 Flash File
 p51.N1UHT24W.s0AN1U00.FL2   rule:FL2,dep:n1uur12w.iso,param:0AN1U00.FL2                        p51 EC 1.07 Flash File
 t430.G1HT34WW.s01D2000.FL2  rule:FL2,dep:g1uj25us.iso,depi:g1uj25us.iso.bat,param:01D2000.FL2  t430 EC 1.12 Flash File
 t430.G1HT35WW.s01D2000.FL2  rule:FL2,dep:g1uj48us.iso,depi:g1uj48us.iso.bat,param:01D2000.FL2  t430 EC 1.13 Flash File
@@ -248,7 +256,9 @@ x61.7MHT25WW.s01B2000.FL2   rule:oldISO,dep:7nuj22uc.iso,param:01B2000.FL2      
 
 
 # The actual EC firmware extracted from the BIOS firmware file
-l430.G3HT40WW.img     rule:IMGnoenc,dep:l430.G3HT40WW.s01D4000.FL1  l430 EC 1.14 (may be wrong) (8052 cpu)
+l430.G3HT40WW.img     rule:IMGnoenc,dep:l430.G3HT40WW.s01D4000.FL1  l430 EC 1.14 (may be wrong)
+l440.J4HT29WW.img     rule:IMGnoenc,dep:l440.J4HT29WW.s0AJ4000.FL1  l440 EC 1.10
+l440.J4HT30WW.img     rule:IMGnoenc,dep:l440.J4HT30WW.s0AJ4000.FL1  l440 EC 1.11
 p51.N1UHT24W.img      rule:IMGnoenc,dep:p51.N1UHT24W.s0AN1U00.FL2   p51 EC 1.07
 t430.G1HT34WW.img     rule:IMG,dep:t430.G1HT34WW.s01D2000.FL2       t430 EC 1.12 (decrypted) (ARCompact cpu)
 t430.G1HT35WW.img     rule:IMG,dep:t430.G1HT35WW.s01D2000.FL2       t430 EC 1.13 (decrypted) (ARCompact cpu)

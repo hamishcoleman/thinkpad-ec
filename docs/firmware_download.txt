@@ -9,6 +9,7 @@ bootable BIOS update CD images for both the current and historical releases.
 
 e330    https://support.lenovo.com/hk/en/downloads/DS031908
 l430    https://support.lenovo.com/hk/en/downloads/DS018887
+l440    https://pcsupport.lenovo.com/gb/en/downloads/DS037264
 p51     https://support.lenovo.com/hk/en/downloads/DS121297
 t430    https://pcsupport.lenovo.com/gb/en/downloads/DS029252
 t430s   https://pcsupport.lenovo.com/gb/en/downloads/DS029724
