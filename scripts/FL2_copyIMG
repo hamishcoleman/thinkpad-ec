@@ -702,8 +702,12 @@ sub extract {
     return shift->_extract(shift);
 }
 
-# no insert() will work until we know how to generate the checksums
-
+sub insert {
+    # FIXME:
+    # - there is a "totalimagechecksum" field
+    #   (which we probably should be updating
+    return shift->_insert(shift);
+}
 
 1;
 
