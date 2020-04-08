@@ -104,8 +104,8 @@ sub _check_copyright {
     my $expect = "(C) Copyright IBM Corp. 2001, 2005 All Rights Reserved ";
     my $check_size = length($expect);
     my @offsets = (
-        0x268,
-        0x264,
+        0x268,  # ARCompact 32bit platforms
+        0x264,  # older 16bit platforms
     );
 
     while (@offsets) {
@@ -188,6 +188,9 @@ use strict;
 #
 # Look for FL2 files that consist entirely of 0xff up until the IMG
 #
+# All the files that used to match this pattern now match one of the checkers
+# with better signatures
+#
 
 use base qw(FL2::base);
 
@@ -196,8 +199,8 @@ sub _check {
 
     # List of known file sizes (basically a doublecheck on the signature)
     my $known = {
-         8523776 => [0x500000, 0x20000],
-        12718080 => [0x500000, 0x30000],
+         8523776 => [0x500000, 0x20000],    # x220 8DHT34WW
+        12718080 => [0x500000, 0x30000],    # xx30
         16912384 => [0x500000, 0x30000],
     };
 
@@ -270,8 +273,8 @@ sub _check {
     #  [1] size of EC firmware
     #  [2] offset of block to check for all 0xff as a signature check
     my $known = {
-         4213270 => [0x290000, 0x20000, 0x21000],  # Seen in X200
-         4240490 => [0x290000, 0x20000, 0x21000],
+         4213270 => [0x290000, 0x20000, 0x21000],   #
+         4240490 => [0x290000, 0x20000, 0x21000],   # at least two x200 images
     };
 
     # If the filesize is not in our known database, return no match
@@ -445,7 +448,7 @@ sub _check {
 
     # List of known file sizes (basically a doublecheck on the signature)
     my $known = {
-         196608 => [0, 0x30000],
+         196608 => [0, 0x30000],    # x240 GIHT32WW
     };
 
     if (!defined($known->{$self->{filesize}})) {
@@ -747,9 +750,13 @@ sub detect_img {
     }
 
     my $object;
+
+    # These checks have a good signature detection
     if (!defined($object)) {
         $object = FL2::prefix_head_EC->new($fh);
     }
+
+    # These checks always do a file search
     if (!defined($object)) {
         $object = FL1::PFH_header->new($fh);
     }
