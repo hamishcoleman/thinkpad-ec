@@ -263,7 +263,7 @@ t530.G4HT39WW.img     rule:IMG,dep:t530.G4HT39WW.s01D5100.FL2       t530 EC 1.13
 t530.G4HT40WW.img     rule:IMG,dep:t530.G4HT40WW.s01D5100.FL2       t530 EC 1.14 (decrypted) (ARCompact cpu)
 w530.G4HT39WW.img     rule:IMG,dep:w530.G4HT39WW.s01D5200.FL2       w530 EC 1.13 (decrypted) (ARCompact cpu)
 w530.G4HT40WW.img     rule:IMG,dep:w530.G4HT40WW.s01D5200.FL2       w530 EC 1.14 (decrypted) (ARCompact cpu)
-x1cg1.G6HT24WW.img    rule:IMG,dep:x1cg1.G6HT24WW.s01D7000.FL2        x1c Gen 1 EC 1.06 (decrypted) (ARCompact cpu)
+x1cg1.G6HT24WW.img    rule:IMG,dep:x1cg1.G6HT24WW.s01D7000.FL2      x1c Gen 1 EC 1.06 (decrypted) (ARCompact cpu)
 x200.7XHT22WW.img     rule:IMGnoenc,dep:x200.7XHT22WW.s01B9000.FL2  x200 EC 1.04 (not encrypted) (H8300 cpu)
 x200.7XHT24WW.img     rule:IMGnoenc,dep:x200.7XHT24WW.s01B9000.FL2  x200 EC 1.06 (not encrypted) (H8300 cpu)
 x220.8DHT34WW.img.enc rule:IMGnoenc,dep:x220.8DHT34WW.s01CB000.FL2  x220 EC 1.24 (encrypted) (H8300 cpu)
