@@ -682,12 +682,15 @@ sub _check {
     $buf = $$buf;
 
     while ($buf) {
-        my ($FileOffset, $Size, $FlashAddress, $NameOffset, $rest) =
-            unpack("VVQVa*",$buf);
-        $buf = $rest;
+        my $dir = {};
+        @fields = qw(FileOffset Size FlashAddress NameOffset _rest);
+        @values = unpack("VVQVa*",$buf);
+        map { $dir->{$fields[$_]} = $values[$_] } (0..scalar(@fields)-1);
+        $buf = $dir->{_rest};
+        delete $dir->{_rest};
 
         my $buf2 = $self->get_block(
-            $NameOffset+$capsule_offset_hack,
+            $dir->{NameOffset}+$capsule_offset_hack,
             32 # TODO - just a guess at the max name size
         );
         if (!defined($buf2)) {
@@ -696,11 +699,14 @@ sub _check {
         }
 
         my $name = unpack("Z*",$$buf2);
+        $dir->{Name} = $name;
+
+        push @{$self->{header}{dir}}, $dir;
 
         if ($name eq 'Ec') {
             $self->set_offset_size(
-                $FileOffset+$capsule_offset_hack,
-                $Size,
+                $dir->{FileOffset}+$capsule_offset_hack,
+                $dir->{Size},
             );
             return $self;
         }
