@@ -72,7 +72,7 @@ warning message.
 
     ```
     sudo apt-get update
-    sudo apt-get install build-essential git mtools libssl-dev
+    sudo apt-get install wget build-essential git mtools libssl-dev
     ```
 
    On Fedora, you could install it with dnf:
