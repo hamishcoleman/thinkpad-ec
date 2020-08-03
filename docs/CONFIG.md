@@ -42,6 +42,11 @@ configure as you want:
     make patch_enable_keyboard clean    # Uses the keyboard patches
     make patch_disable_keyboard clean   # Turns off the keyboard patches
 
+The selected commands from the above list simply need to be typed in exactly
+as shown, at the command prompt, before building the patched image, while
+following the Step-by-step instructions (This is step 6)
+
+
 Behind the scenes
 -----------------
 
