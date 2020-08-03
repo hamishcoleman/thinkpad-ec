@@ -104,6 +104,10 @@ warning message.
 5. Choose your laptop model name from the list shown.
    E.G. "patched.x230.img" for a x230 laptop.
 
+5. Optionally, the configuration can be changed from the defaults
+   at this point.  Read the [CONFIG doc](docs/CONFIG.md) for details
+   of the available config options.
+
 6. Using the name chosen in the previous step, make the fully
    patched image for this laptop (this will download the original
    file from Lenovo and patch it):
@@ -142,9 +146,9 @@ Notes:
   Then you can use your normal CDROM burning tools to put this image on
   a blank cd and boot it up, skipping steps 7 and 8.
 
-* To include the battery validation patch or to make a build that
-  reverts any EC changes, read the [CONFIG doc](docs/CONFIG.md) and follow
-  the configuration instructions in it before running step 6.
+* The configuration is applied during the building of the patched image.
+  If you wish to change the configuration, the patched image will need
+  to be rebuilt.
 
 
 Booting the stick and flashing the firmware:
