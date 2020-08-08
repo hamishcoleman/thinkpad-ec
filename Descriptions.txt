@@ -154,6 +154,7 @@ gcuj34us.iso  sha1:ba849e7343e4efc199e3a65ec6c701b42dae70c3 x230t BIOS 2.75 (GCE
 giuj26us.iso  sha1:c5a87023e977e17a15eca26e8027bd0f2eefd568 x240 BIOS 2.39 (GIET89WW) EC 1.17 (GIHT32WW)
 giuj29us.iso  sha1:6a87e3377140620130e154f488d9116e18f55ec4 x240 BIOS 2.42 (GIET92WW) EC 1.17 (GIHT32WW)
 gluj42us.iso  sha1:5d56eddac59df8b0fe2dda5f8f8d8ea540b85075 t440p BIOS 2.54 (GLETA0WW) EC 1.13 (GLHT30WW)
+gluj43us.iso  sha1:353f1f993743a1c4a1da96a098b61a77873aa024 t440p BIOS 2.55 (GLETA1WW) EC 1.13 (GLHT30WW)
 gruj26us.iso  sha1:89a3b3e364f37694bf514e01f9c3e2eda33a59e8 x1 Carbon (Type 20A7, 20A8) BIOS 1.29 (GRET52WW) EC 1.19 (GRHT38WW)
 n10ur10w.iso  sha1:0e4c4ffb99146e50867dc1345ee2ef88c60ea192 x250 BIOS 1.21 (N10ET42W) EC 1.16 (N10HT17W)
 n14ur15w.iso  sha1:e106b024b1d448234e5ea958b0e8e93bbda1a543 x1 Carbon (Type 20BS, 20BT) BIOS 1.16 (N14ET38W) EC 1.09 (N14HT36W)
@@ -212,7 +213,7 @@ t430.G1HT34WW.s01D2000.FL2  rule:FL2,dep:g1uj25us.iso,depi:g1uj25us.iso.bat,para
 t430.G1HT35WW.s01D2000.FL2  rule:FL2,dep:g1uj48us.iso,depi:g1uj48us.iso.bat,param:01D2000.FL2  t430 EC 1.13 Flash File
 t430.G1HT36WW.s01D2000.FL2  rule:FL2,dep:g1uj49us.iso,depi:g1uj49us.iso.bat,param:01D2000.FL2  t430 EC 1.14 Flash File (signed)
 t430s.G7HT39WW.s01D8000.FL2 rule:FL2,dep:g7uj28us.iso,depi:g7uj28us.iso.bat,param:01D8000.FL2  t430s EC 1.15 Flash File
-t440p.GLHT30WW.s01E0000.FL2 rule:FL2,dep:gluj42us.iso,depi:gluj42us.iso.bat,param:01E0000.FL2  t440p EC 1.13 Flash File
+t440p.GLHT30WW.s01E0000.FL2 rule:FL2,dep:gluj43us.iso,depi:gluj43us.iso.bat,param:01E0000.FL2  t440p EC 1.13 Flash File
 t470.N1QHT57W.s0AN1Q00.FL2  rule:FL2,dep:n1qur08w.iso,depi:n1qur08w.iso.bat,param:0AN1Q00.FL2  t470 EC 1.32 Flash File
 t470p.R0FHT16W.s0AR0F00.FL2 rule:FL2,dep:r0fuj15wd.iso,depi:r0fuj15wd.iso.bat,param:0AR0F00.FL2 t470p EC 1.04 Flash File
 t480.N24HT23W.s0AN2400.FL2  rule:FL2,dep:n24ur04w.iso,depi:n24ur04w.iso.bat,param:0AN2400.FL2  t480 EC 1.08 Flash File
