@@ -293,6 +293,7 @@ endef
 	qemu-system-x86_64 $(QEMU_OPTIONS) -hda $<
 
 mec-tools/Makefile:
+	@[ -e .git ] || (echo ERROR: This must be run on a git clone of the repository; false)
 	git submodule update --init --remote
 
 mec-tools/mec_encrypt: mec-tools/Makefile
