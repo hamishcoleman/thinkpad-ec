@@ -13,6 +13,7 @@ l440    https://pcsupport.lenovo.com/gb/en/downloads/DS037264
 p51     https://pcsupport.lenovo.com/us/en/downloads/DS121296
 t430    https://pcsupport.lenovo.com/gb/en/downloads/DS029252
 t430s   https://pcsupport.lenovo.com/gb/en/downloads/DS029724
+t430u   https://pcsupport.lenovo.com/gb/en/downloads/ds031725
 t440p   https://pcsupport.lenovo.com/gb/en/downloads/DS037575
 t470    https://pcsupport.lenovo.com/us/en/downloads/DS120429
 t470p   https://pcsupport.lenovo.com/us/en/downloads/DS120707
