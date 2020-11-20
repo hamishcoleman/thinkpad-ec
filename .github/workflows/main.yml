@@ -1,0 +1,20 @@
+---
+# CI config for https://github.com
+
+name: CI
+
+on: [push]
+
+jobs:
+    check:
+        name: make test
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+            - run: sudo make build-deps
+            - run: make patch_enable_battery
+            - run: make test
+            - run: rm -f .config
+            - run: make test
+            - run: make test.img.orig
+            - run: make test.report
