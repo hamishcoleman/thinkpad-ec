@@ -134,6 +134,8 @@ warning message.
    ```
    sudo dd if=patched.x230.img of=/dev/sdx bs=4M status=progress conv=fsync
    ```
+   
+   Properly unmount the USB stick.
 
 Your USB stick is now ready to boot and install the patched firmware.
 
