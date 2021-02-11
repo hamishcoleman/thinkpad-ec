@@ -154,19 +154,18 @@ PATCHES-$(CONFIG_BATTERY) += \
 #
 # These enable and disable targets change which patches are configured to be
 # applied.
-# TODO - actually edit the .config, dont just keep appending new stuff to it
 
 patch_enable_battery:
-	echo "CONFIG_BATTERY = y" >>.config
+	sed -E 's/CONFIG_BATTERY.+/CONFIG_BATTERY = y/'  --in-place .config
 
 patch_disable_battery:
-	echo "CONFIG_BATTERY = n" >>.config
+	sed -E 's/CONFIG_BATTERY.+/CONFIG_BATTERY = n/'  --in-place .config
 
 patch_enable_keyboard:
-	echo "CONFIG_KEYBOARD = y" >>.config
+	sed -E 's/CONFIG_KEYBOARD.+/CONFIG_KEYBOARD = y/'  --in-place .config
 
 patch_disable_keyboard:
-	echo "CONFIG_KEYBOARD = n" >>.config
+	sed -E 's/CONFIG_KEYBOARD.+/CONFIG_KEYBOARD = n/'  --in-place .config
 
 
 # TODO - the scripts/describe output depends on Descriptions.txt -
