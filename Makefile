@@ -289,7 +289,7 @@ endef
 	qemu-system-x86_64 $(QEMU_OPTIONS) -cdrom $<
 
 %.img.test: %.img
-	qemu-system-x86_64 $(QEMU_OPTIONS) -hda $<
+	qemu-system-x86_64 $(QEMU_OPTIONS) -drive index=0,media=disk,format=raw,file=$<
 
 mec-tools/Makefile:
 	@[ -e .git ] || (echo ERROR: This must be run on a git clone of the repository; false)
