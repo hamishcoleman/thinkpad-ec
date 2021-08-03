@@ -346,7 +346,7 @@ define rule_FL2_insert
     @cp --reflink=auto $< $<.tmp
     @cp --reflink=auto $@.report $@.report.tmp
     @cp --reflink=auto $@.bat $@.bat.tmp
-    @touch -d @1 $<.tmp $@.report.tmp $@.bat.tmp
+    @touch --date="1980-01-01 00:00:01Z" $<.tmp $@.report.tmp $@.bat.tmp
     @# TODO - datestamp here could be the lastcommitdatestamp
 
     ./scripts/ISO_copyFL2 to_iso $@.tmp $<.tmp $(1)
