@@ -40,6 +40,7 @@ ThinkPad xx30 series:
     write the firmware with an external programmer, which might help in
     the case of a bricked system.
     (see discussion: http://notebook1.ru/forma1/viewtopic.php?f=70&t=109179)
+    The procedure for doing this is documented here: https://github.com/taglour/x230-ec-jtag
 
 ThinkPad l430:
 --------------
