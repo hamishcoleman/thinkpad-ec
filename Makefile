@@ -63,7 +63,7 @@ test.report:
 # images) and any small downloads
 clean:
 	rm -f $(CLEAN_FILES) \
-            patched.*.iso patched.*.img *.FL2 *.FL2.orig *.img.enc \
+            patched.*.iso patched.*.img *.FL? *.FL?.orig *.img.enc \
             *.img.enc.orig *.img.orig *.bat *.report \
             *.img \
             *.txt.orig
@@ -213,6 +213,10 @@ patch_disable_keyboard:
 	@sed -e "s%__DIR%`mdir -/ -b -i $<@@$(FAT_OFFSET) |grep FL2 |head -1|cut -d/ -f3`%; s%__FL2%`mdir -/ -b -i $<@@$(FAT_OFFSET) |grep FL2 |head -1|cut -d/ -f4`%" autoexec.bat.template >$@.tmp
 	@mv $@.tmp $@
 
+%.iso.bat1: %.iso.orig autoexec.bat.template
+	@sed -e "s%__DIR%`mdir -/ -b -i $<@@$(FAT_OFFSET) |grep FL1 |head -1|cut -d/ -f3`%; s%__FL2%`mdir -/ -b -i $<@@$(FAT_OFFSET) |grep FL1 |head -1|cut -d/ -f4`%" autoexec.bat.template >$@.tmp
+	@mv $@.tmp $(subst .bat1,.bat,$@)
+
 # helper to write the ISO onto a cdrw
 %.iso.blank_burn: %.iso
 	wodim -eject -v speed=40 -tao gracetime=0 blank=fast $<
@@ -298,6 +302,10 @@ mec-tools/Makefile:
 mec-tools/mec_encrypt: mec-tools/Makefile
 	git submodule update
 	make -C mec-tools
+
+nuvoton-tools/npce885crc:
+	wget -O nuvoton-tools/npce885crc.c https://raw.githubusercontent.com/leecher1337/thinkpad-Lx30-ec/main/fwpat/util/npce885crc.c
+	gcc -o nuvoton-tools/npce885crc nuvoton-tools/npce885crc.c
 
 # Simple Visualisation
 %.pgm: %
@@ -417,6 +425,29 @@ define rule_IMGnoenc_insert
     $(call buildinfo_FL2)
 endef
 rule_IMGnoenc_insert_DEPS = scripts/FL2_copyIMG
+
+# Extract the IMG file from an FL1 file - special case, for NUVOTON controllers
+#
+# $@ is the IMG to create
+# $< is the FL2
+define rule_IMGnuvoton_extract
+    ./scripts/FL2_copyIMG from_fl2 $< $@
+endef
+rule_IMGnuvoton_extract_DEPS = scripts/FL2_copyIMG
+
+# Insert the new firmware into the FL2 file - special case, for NUVOTON controllers
+#
+# $@ is the FL1 to create
+# $< is the IMG
+define rule_IMGnuvoton_insert
+
+    ./nuvoton-tools/npce885crc -o 0x8000 -u $<
+    cp --reflink=auto $@.orig $@.tmp
+    ./scripts/FL2_copyIMG to_fl2 $@.tmp $<
+    mv $@.tmp $@
+    $(call buildinfo_FL2)
+endef
+rule_IMGnuvoton_insert_DEPS = scripts/FL2_copyIMG nuvoton-tools/npce885crc
 
 
 # Extract the FL2 file from an ISO image with two FL2 files
