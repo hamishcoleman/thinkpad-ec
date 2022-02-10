@@ -100,15 +100,6 @@ list_images:
 
 .PHONY: list_images
 
-# All the bios update iso images I have checked have had a fat16 filesystem
-# embedded in a dos mbr image as the el-torito ISO payload.  Most of them
-# had the same offset to this fat filesystem, so hardcode that offset here.
-# FIXME:
-# - checking the E330 image showed a different FAT_OFFSET, need to handle that
-
-# The offset value is bytes in decimal.
-FAT_OFFSET := 71680
-
 # Some versions of mtools need this flag set to allow them to work with the
 # dosfs images used by Lenovo - from my tests, it may be that Debian has
 # applied some patch
@@ -210,10 +201,12 @@ patch_disable_keyboard:
 # my mind to it..
 #
 %.iso.bat: %.iso.orig autoexec.bat.template
+	$(eval FAT_OFFSET := $(shell scripts/geteltorito -c $< 2>/dev/null))
 	@sed -e "s%__DIR%`mdir -/ -b -i $<@@$(FAT_OFFSET) |grep FL2 |head -1|cut -d/ -f3`%; s%__FL2%`mdir -/ -b -i $<@@$(FAT_OFFSET) |grep FL2 |head -1|cut -d/ -f4`%" autoexec.bat.template >$@.tmp
 	@mv $@.tmp $@
 
 %.iso.bat1: %.iso.orig autoexec.bat.template
+	$(eval FAT_OFFSET := $(shell scripts/geteltorito -c $< 2>/dev/null))
 	@sed -e "s%__DIR%`mdir -/ -b -i $<@@$(FAT_OFFSET) |grep FL1 |head -1|cut -d/ -f3`%; s%__FL2%`mdir -/ -b -i $<@@$(FAT_OFFSET) |grep FL1 |head -1|cut -d/ -f4`%" autoexec.bat.template >$@.tmp
 	@mv $@.tmp $(subst .bat1,.bat,$@)
 
@@ -237,12 +230,15 @@ patch_disable_keyboard:
 
 # If we ever want a copy of the dosflash.exe, just get it from the iso image
 %.dosflash.exe.orig: %.iso.orig
+	$(eval FAT_OFFSET := $(shell scripts/geteltorito -c $^ 2>/dev/null))
 	mcopy -m -i $^@@$(FAT_OFFSET) ::FLASH/DOSFLASH.EXE $@
 
 # Extract the "embedded" fat file system from a given iso.
 %.iso.extract: %.iso
+	$(eval FAT_OFFSET := $(shell scripts/geteltorito -c $^ 2>/dev/null))
 	mcopy -n -s -i $^@@$(FAT_OFFSET) :: $@
 %.iso.orig.extract: %.iso.orig
+	$(eval FAT_OFFSET := $(shell scripts/geteltorito -c $^ 2>/dev/null))
 	mcopy -n -s -i $^@@$(FAT_OFFSET) :: $@
 
 ## Use the system provided geteltorito script, if there is one
@@ -358,6 +354,7 @@ define rule_FL2_insert
     @# TODO - datestamp here could be the lastcommitdatestamp
 
     ./scripts/ISO_copyFL2 to_iso $@.tmp $<.tmp $(1)
+    $(eval FAT_OFFSET := $(shell scripts/geteltorito -c $@.orig 2>/dev/null))
     mcopy -t -m -o -i $@.tmp@@$(FAT_OFFSET) $@.report.tmp ::report.txt
     mcopy -t -m -o -i $@.tmp@@$(FAT_OFFSET) $@.bat.tmp ::AUTOEXEC.BAT
     -mdel -i $@.tmp@@$(FAT_OFFSET) ::EFI/Boot/BootX64.efi
