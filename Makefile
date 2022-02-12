@@ -337,15 +337,35 @@ define rule_IMG_extract
 endef
 rule_IMG_extract_DEPS = scripts/FL2_copyIMG mec-tools/mec_encrypt mec-tools/mec_csum_flasher mec-tools/mec_csum_boot
 
+define prepare_iso_from_tpl
+    $(eval FAT_OFFSET := $(shell scripts/geteltorito -c $(SRC).orig 2>/dev/null))
+    $(eval FAT_OFFSET_FL1SRC := $(shell scripts/geteltorito -c $@.orig 2>/dev/null))
+    $(eval FLASH_FILE := $(subst $$,\$$$$,$(shell mdir -/ -b -i $@.orig@@$(FAT_OFFSET_FL1SRC) | grep -i $(1) | head -1)))
+    $(eval DOSFLASH := $(shell mdir -/ -b -i $@.orig@@$(FAT_OFFSET_FL1SRC) | grep DOSFLASH | head -1))
+    $(eval FILE_DIR := $(shell basename $(dir $(FLASH_FILE:::%=%))))
+    mdeltree -i $@.tmp@@$(2) FLASH/
+    mmd -i $@.tmp@@$(2) FLASH FLASH/$(FILE_DIR)
+    -mkdir -p $@.orig.extract.tmp
+    mcopy -n -s -m -i $@.orig@@$(FAT_OFFSET_FL1SRC) $(FLASH_FILE) $(DOSFLASH) $@.orig.extract.tmp
+    mcopy -o -s -m -i $@.tmp@@$(2) $@.orig.extract.tmp/DOSFLASH.EXE ::/FLASH/
+    mcopy -o -s -m -i $@.tmp@@$(2) $@.orig.extract.tmp/$(subst $$,\$$,$(shell basename $(FLASH_FILE:::%=%))) ::/FLASH/$(FILE_DIR)/
+    rm -r $@.orig.extract.tmp
+endef
+
 # Create a new ISO image with patches applied
 #
 # $@ is the ISO to create
 # $< is the FL2
 # $1 is the pattern to match FL2 file in ISO image
+# $2 optional: Name of other ISO that should be taken as a template with a working DOS on it
 define rule_FL2_insert
     $(call buildinfo_ISO)
 
-    @cp --reflink=auto $@.orig $@.tmp
+    $(eval SRC := $(or $(2),$@))
+    @cp --reflink=auto $(SRC).orig $@.tmp
+    $(eval FAT_OFFSET := $(shell scripts/geteltorito -c $(SRC).orig 2>/dev/null))
+
+    $(if $(2),$(call prepare_iso_from_tpl,$(1),$(FAT_OFFSET)))
 
     @cp --reflink=auto $< $<.tmp
     @cp --reflink=auto $@.report $@.report.tmp
@@ -354,7 +374,6 @@ define rule_FL2_insert
     @# TODO - datestamp here could be the lastcommitdatestamp
 
     ./scripts/ISO_copyFL2 to_iso $@.tmp $<.tmp $(1)
-    $(eval FAT_OFFSET := $(shell scripts/geteltorito -c $@.orig 2>/dev/null))
     mcopy -t -m -o -i $@.tmp@@$(FAT_OFFSET) $@.report.tmp ::report.txt
     mcopy -t -m -o -i $@.tmp@@$(FAT_OFFSET) $@.bat.tmp ::AUTOEXEC.BAT
     -mdel -i $@.tmp@@$(FAT_OFFSET) ::EFI/Boot/BootX64.efi

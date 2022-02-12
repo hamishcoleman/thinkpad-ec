@@ -129,8 +129,8 @@ g3uj32us.iso  sha1:ae4bf2fc7441bfaa041ae3f1dff01a7d0d5142e6 l430,l530 BIOS 2.75 
 g3uj33us.iso  sha1:cd712f3ff97169f904ed298c1cc770f5064005a1 l430,l530 BIOS 2.76 (G3ETB6WW) EC 1.14 (G3HT40WW)
 h3uj52wd.iso  sha1:d5812f96df663ae2d5e86df50fdfe8b02145970a e330 BIOS 1.06 (H3ET69WW) EC 1.17 (H3EC34WW)
 h3uj54wd.iso  sha1:854e4bcd7d51036296b0182be39265269ff24816 e330 BIOS 1.09 (H3ET72WW) EC 1.17 (H3EC34WW)
-h3uj75wd.iso  sha1:7073a59aa52d8d2adc8da1f7097bdfc5c6b6a676 e330 BIOS 1.12 (H3ET75WW) EC 1.18 (H3EC34WW)
-h3uj76wd.iso  sha1:8c8f46e117ee5423b62e421423531e3c11d9a40c e330 BIOS 1.14 (H3ET76WW) EC 1.18 (H3EC34WW)
+h3uj75wd.iso  sha1:7073a59aa52d8d2adc8da1f7097bdfc5c6b6a676 e330 BIOS 1.12 (H3ET75WW) EC 1.18 (H3EC35WW)
+h3uj76wd.iso  sha1:8c8f46e117ee5423b62e421423531e3c11d9a40c e330 BIOS 1.14 (H3ET76WW) EC 1.18 (H3EC35WW)
 h3uj77wd.iso  sha1:079a1a3c77fd5ac6a59e68235d5e5e9b326deae2 e330 BIOS 1.14 (H3ET77WW) EC 1.18 (H3EC35WW)
 h3uj78wd.iso  sha1:d96a7c3c740eab23f7f1287b28c95df1d60467f2 e330 BIOS 1.15 (H3ET78WW) EC 1.18 (H3EC35WW)
 h3uj79wd.iso  sha1:f1404fd6724c0faa5b57aee0d81c60908b9917c6 e330 BIOS 1.16 (H3ET79WW) EC 1.18 (H3EC35WW)
@@ -230,7 +230,7 @@ j4uj75wd.iso  sha1:3ff5025a4a5f62f461467f7726e5b2c1fa119b5b L440, L540 BIOS 1.93
 # - update the tools to automatically determine the FAT_OFFSET
 
 # The firmware files from inside the ISO images
-e330.H3EC35WW.s01H3000.FL1  rule:FL2,dep:h3uj79wd.iso,depi:h3uj79wd.iso.bat1,param:01H3000.FL1 e330 BIOS 1.16 Flash File
+e330.H3EC35WW.s01H3000.FL1  rule:FL2,dep:h3uj76wd.iso,depi:h3uj76wd.iso.bat1;h3uj52wd.iso.orig,param:01H3000.FL1;h3uj52wd.iso e330 BIOS 1.16 Flash File
 l430.G3HT40WW.s01D4000.FL1  rule:FL2,dep:g3uj13us.iso,depi:g3uj13us.iso.bat1,param:01D4000.FL1 l430 BIOS 2.54 Flash File
 l440.J4HT27WW.s0AJ4000.FL1  rule:FL2,dep:j4uj62wd.iso,param:0AJ4000.FL1                        l440 BIOS 1.73 Flash File
 l440.J4HT28WW.s0AJ4000.FL1  rule:FL2,dep:j4uj64wd.iso,param:0AJ4000.FL1                        l440 BIOS 1.78 Flash File
@@ -339,4 +339,4 @@ patched.w530.iso   rule:niceISO,dep:g5uj37us.iso,suffix:0,insert:0  for patching
 patched.x230.iso   rule:niceISO,dep:g2uj31us.iso,suffix:0,insert:0  for patching Thinkpad X230
 patched.x230t.iso  rule:niceISO,dep:gcuj32us.iso,suffix:0,insert:0  for patching Thinkpad X230t
 patched.l430.iso   rule:niceISO,dep:g3uj13us.iso,suffix:0,insert:0  for patching Thinkpad L430, L530
-patched.e330.iso   rule:niceISO,dep:h3uj79wd.iso,suffix:0,insert:0  for patching Thinkpad E330
+patched.e330.iso   rule:niceISO,dep:h3uj76wd.iso,suffix:0,insert:0  for patching Thinkpad E330
