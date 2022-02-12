@@ -338,7 +338,6 @@ endef
 rule_IMG_extract_DEPS = scripts/FL2_copyIMG mec-tools/mec_encrypt mec-tools/mec_csum_flasher mec-tools/mec_csum_boot
 
 define prepare_iso_from_tpl
-    $(eval FAT_OFFSET := $(shell scripts/geteltorito -c $(SRC).orig 2>/dev/null))
     $(eval FAT_OFFSET_FL1SRC := $(shell scripts/geteltorito -c $@.orig 2>/dev/null))
     $(eval FLASH_FILE := $(subst $$,\$$$$,$(shell mdir -/ -b -i $@.orig@@$(FAT_OFFSET_FL1SRC) | grep -i $(1) | head -1)))
     $(eval DOSFLASH := $(shell mdir -/ -b -i $@.orig@@$(FAT_OFFSET_FL1SRC) | grep DOSFLASH | head -1))
