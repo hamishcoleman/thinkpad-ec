@@ -110,7 +110,7 @@ export MTOOLS_SKIP_CHECK=1
 export MTOOLS_LOWER_CASE=0
 
 build-deps:
-	apt -y install git mtools libssl-dev build-essential xorriso
+	apt -y install git mtools libssl-dev build-essential xorriso unzip innoextract
 
 #
 # Radare didnt seem to let me specify the directory to store the project file,
@@ -166,7 +166,9 @@ patch_disable_keyboard:
 # Download any ISO image that we have a checksum for
 # NOTE: makes an assumption about the Lenovo URL not changing
 .PRECIOUS: %.iso.orig
-%.iso.orig:
+.PRECIOUS: %.exe.orig
+.PRECIOUS: %.zip.orig
+%.iso.orig %.exe.orig %.zip.orig:
 	@echo -n "Downloading "
 	@scripts/describe $(basename $@)
 	@wget -nv -O $@ https://download.lenovo.com/pccbbs/mobiles/$(basename $@)
@@ -210,6 +212,10 @@ patch_disable_keyboard:
 	@sed -e "s%__DIR%`mdir -/ -b -i $<@@$(FAT_OFFSET) |grep FL1 |head -1|cut -d/ -f3`%; s%__FL2%`mdir -/ -b -i $<@@$(FAT_OFFSET) |grep FL1 |head -1|cut -d/ -f4`%" autoexec.bat.template >$@.tmp
 	@mv $@.tmp $(subst .bat1,.bat,$@)
 
+%.exe.bat: %.exe.orig autoexec.bat.template
+	@sed -e "s%__DIR%.%; s%__FL2%`basename \`innoextract -l $< | grep -i .CAP | cut -d'"' -f2\``%" autoexec.bat.template >$@.tmp
+	@mv $@.tmp $@
+
 # helper to write the ISO onto a cdrw
 %.iso.blank_burn: %.iso
 	wodim -eject -v speed=40 -tao gracetime=0 blank=fast $<
@@ -240,6 +246,15 @@ patch_disable_keyboard:
 %.iso.orig.extract: %.iso.orig
 	$(eval FAT_OFFSET := $(shell scripts/geteltorito -c $^ 2>/dev/null))
 	mcopy -n -s -i $^@@$(FAT_OFFSET) :: $@
+
+%.zip.extract: %.zip
+	unzip $^ -d $@
+%.zip.orig.extract: %.zip
+	unzip $^ -d $@
+%.exe.extract: %.exe
+	innoextract $^ -d $@
+%.exe.orig.extract: %.exe.orig
+	innoextract $^ -d $@
 
 ## Use the system provided geteltorito script, if there is one
 #GETELTORITO := $(shell if type geteltorito >/dev/null; then echo geteltorito; else echo ./geteltorito; fi)
@@ -391,6 +406,55 @@ rule_FL2_insert_DEPS = scripts/ISO_copyFL2 # TODO - bat file
 #   its contents here
 # - provide a simple mechanism for selecting the flash command to run, to
 #   allow for autoexec bat files that do not use dosflash
+
+# Extract the CAP file from an EXE image
+#
+# $@ is the CAP file to create
+# $< is the EXE file
+# $1 is the pattern to match CAP file in EXE file
+define rule_CAP_extract
+    mv `innoextract $< -I $(1) | grep -i $(1) | cut -d'"' -f2` $@
+endef
+rule_EXE_extract_DEPS = # add innoextract as dependency here?
+
+# Create a new ISO image with patches applied
+# This is specifically for B590 firmware where we have to combine a bootable DOS
+# ISO with the Flash-updater tool from an older .ZIP archive and a new capsule
+# from an Innosetup .EXE and combine it together into an ISO image
+#
+# $@ is the ISO to create
+# $< is the CAP
+# $1 is the pattern to match CAP file in EXE file
+# $2 Name of other ISO that should be taken as a template with a working DOS on it
+# $3 ZIP file where to take the DOS flash updater program from
+define rule_CAP_insert
+    $(call buildinfo_ISO)
+
+    @cp --reflink=auto $(2).orig $@.tmp
+    $(eval FAT_OFFSET := $(shell scripts/geteltorito -c $(2).orig 2>/dev/null))
+    -mkdir -p $@.orig.extract.tmp
+    unzip -o $(3) DOS/\* -x \*.cap \*.IMC \*.BAT -d $@.orig.extract.tmp/
+    -mattrib -i $@.tmp@@$(FAT_OFFSET) -r -/ ::FLASH/
+    mdeltree -i $@.tmp@@$(FAT_OFFSET) FLASH/
+    mmd -i $@.tmp@@$(FAT_OFFSET) FLASH
+    mcopy -o -s -m -i $@.tmp@@$(FAT_OFFSET) $@.orig.extract.tmp/DOS/* ::/FLASH/
+    @rm -r $@.orig.extract.tmp
+
+    @cp --reflink=auto $< $<.tmp
+    @cp --reflink=auto $@.report $@.report.tmp
+    @cp --reflink=auto $@.bat $@.bat.tmp
+    @touch --date="1980-01-01 00:00:01Z" $<.tmp $@.report.tmp $@.bat.tmp
+    @# TODO - datestamp here could be the lastcommitdatestamp
+
+    mcopy -t -m -o -i $@.tmp@@$(FAT_OFFSET) $<.tmp ::/FLASH/$<
+    mcopy -t -m -o -i $@.tmp@@$(FAT_OFFSET) $@.report.tmp ::report.txt
+    mcopy -t -m -o -i $@.tmp@@$(FAT_OFFSET) $@.bat.tmp ::AUTOEXEC.BAT
+
+    @rm $<.tmp $@.report.tmp $@.bat.tmp
+    @mv $@.tmp $@
+endef
+rule_EXE_insert_DEPS = 
+
 
 # Insert the new firmware into the FL2 file
 #
