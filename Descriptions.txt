@@ -215,8 +215,9 @@ r0iuj17wd.iso sha1:FIXME                                    x270 BIOS 1.24 (R0IE
 r0iuj19wd.iso sha1:FIXME                                    x270 BIOS 1.26 (R0IET48W) EC 1.15 (R0IHT35W)
 #    20?      sha1:FIXME                                    x270 BIOS 1.27 (R0IET49W) EC 1.17 (R0IHT35W) "Dropped"
 r0iuj21wd.iso sha1:3765d1715f001ddae982682f0189b49c2b04bf3a x270 BIOS 1.28 (R0IET50W) EC 1.15 (R0IHT35W)
-h9et75ww.zip  sha1:d81c145b371cf77abe6ae00d35d37491715feecd b590 BIOS ?.? (H9ET75WW) EC 1.01 (H9EC08WW)
-h9et92ww.exe  sha1:c1a3ba9282fe48a9e6f69e4dd32537c10a710e78 b590 BIOS ?.? (H9ET92WW) EC 1.02 (H9EC09WW)
+h9et75ww.zip  sha1:d81c145b371cf77abe6ae00d35d37491715feecd b590,b490 BIOS ?.? (H9ET75WW) EC 1.01 (H9EC08WW)
+h9et92ww.exe  sha1:c1a3ba9282fe48a9e6f69e4dd32537c10a710e78 b590,b490 BIOS ?.? (H9ET92WW) EC 1.02 (H9EC09WW)
+h1uj53us.exe  sha1:8056b5c5867a16797ae9e62e7cd968d09284ff42 b480,b580 BIOS 1.16 (H1ET73WW,H5ET73WW) EC 1.13 (H1EC33WW,H5EC33WW)
 
 # Next, sections for ISO images that do not follow a usable pattern
 # (and cannot be currently automatically extracted / examined)
@@ -233,6 +234,7 @@ j4uj75wd.iso  sha1:3ff5025a4a5f62f461467f7726e5b2c1fa119b5b L440, L540 BIOS 1.93
 
 # The firmware files from inside the ISO images
 H9ET92WW.CAP                rule:CAP,dep:h9et92ww.exe,depi:h9et92ww.exe.bat;g3uj13us.iso.orig;h9et75ww.zip.orig,param:H9ET92WW.CAP;g3uj13us.iso;h9et75ww.zip  b590 BIOS H9ET75WW Flash File
+b580.h1et73ww.s0AH1000.EXE  rule:EXE,dep:h1uj53us.exe,depi:h1uj53us.exe.bat1;g3uj13us.iso.orig,param:\\$$0AH1000.FL1;g3uj13us.iso  b580 BIOS H1ET73WW Flash File
 e330.H3EC35WW.s01H3000.FL1  rule:FL2,dep:h3uj76wd.iso,depi:h3uj76wd.iso.bat1;h3uj52wd.iso.orig,param:01H3000.FL1;h3uj52wd.iso e330 BIOS 1.16 Flash File
 l430.G3HT40WW.s01D4000.FL1  rule:FL2,dep:g3uj13us.iso,depi:g3uj13us.iso.bat1,param:01D4000.FL1 l430 BIOS 2.54 Flash File
 l440.J4HT27WW.s0AJ4000.FL1  rule:FL2,dep:j4uj62wd.iso,param:0AJ4000.FL1                        l440 BIOS 1.73 Flash File
@@ -290,6 +292,7 @@ x61.7MHT25WW.s01B2000.FL2   rule:oldISO,dep:7nuj22uc.iso,param:01B2000.FL2      
 
 # The actual EC firmware extracted from the BIOS firmware file
 b590.H9ET92WW.img     rule:IMGnuvoton,dep:H9ET92WW.CAP              b590 EC 1.02 (not encrypted) (CR16CPlus cpu)
+b580.H1ET73WW.img     rule:IMGnuvoton,dep:b580.h1et73ww.s0AH1000.EXE  b580 EC 1.13 (not encrypted) (CR16CPlus cpu)
 e330.H3EC35WW.img     rule:IMGnuvoton,dep:e330.H3EC35WW.s01H3000.FL1  e330 EC 1.18 (not encrypted) (CR16CPlus cpu)
 l430.G3HT40WW.img     rule:IMGnuvoton,dep:l430.G3HT40WW.s01D4000.FL1  l430 EC 1.14 (not encrypted) (CR16CPlus cpu)
 l440.J4HT29WW.img     rule:IMGnoenc,dep:l440.J4HT29WW.s0AJ4000.FL1  l440 EC 1.10
@@ -343,5 +346,6 @@ patched.w530.iso   rule:niceISO,dep:g5uj37us.iso,suffix:0,insert:0  for patching
 patched.x230.iso   rule:niceISO,dep:g2uj31us.iso,suffix:0,insert:0  for patching Thinkpad X230
 patched.x230t.iso  rule:niceISO,dep:gcuj32us.iso,suffix:0,insert:0  for patching Thinkpad X230t
 patched.l430.iso   rule:niceISO,dep:g3uj13us.iso,suffix:0,insert:0  for patching Thinkpad L430, L530
-patched.e330.iso   rule:niceISO,dep:h3uj76wd.iso,suffix:0,insert:0  for patching Thinkpad E330
-patched.b590.iso   rule:niceISO,dep:h9et92ww.exe,suffix:0,insert:0  for patching Thinkpad B590
+patched.e330.iso   rule:niceISO,dep:h3uj76wd.iso,suffix:0,insert:0  for patching Thinkpad E330, V480s
+patched.b590.iso   rule:niceISO,dep:h9et92ww.exe,suffix:0,insert:0  for patching Thinkpad B490, B590
+patched.b580.iso   rule:niceISO,dep:h1uj53us.exe,suffix:0,insert:0  for patching Thinkpad B480, B580, V480, V480c, V580, V580c

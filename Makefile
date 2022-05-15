@@ -216,6 +216,10 @@ patch_disable_keyboard:
 	@sed -e "s%__DIR%.%; s%__FL2%`basename \`innoextract -l $< | grep -i .CAP | cut -d'"' -f2\``%" autoexec.bat.template >$@.tmp
 	@mv $@.tmp $@
 
+%.exe.bat1: %.exe.orig autoexec.bat.template
+	@sed -e "s%__DIR%.%; s%__FL2%`basename \`innoextract -l $< | grep -i .FL1 | cut -d'"' -f2\``%" autoexec.bat.template >$@.tmp
+	@mv $@.tmp $@
+
 # helper to write the ISO onto a cdrw
 %.iso.blank_burn: %.iso
 	wodim -eject -v speed=40 -tao gracetime=0 blank=fast $<
@@ -315,6 +319,7 @@ mec-tools/mec_encrypt: mec-tools/Makefile
 	make -C mec-tools
 
 nuvoton-tools/npce885crc:
+	-mkdir nuvoton-tools
 	wget -O nuvoton-tools/npce885crc.c https://raw.githubusercontent.com/leecher1337/thinkpad-Lx30-ec/main/fwpat/util/npce885crc.c
 	gcc -o nuvoton-tools/npce885crc nuvoton-tools/npce885crc.c
 
@@ -352,6 +357,10 @@ define rule_IMG_extract
 endef
 rule_IMG_extract_DEPS = scripts/FL2_copyIMG mec-tools/mec_encrypt mec-tools/mec_csum_flasher mec-tools/mec_csum_boot
 
+# $@ is the ISO to create
+# $< is the FL2
+# $1 is the pattern to match FL2 file in ISO image
+# $2 FAT offset in ISO image
 define prepare_iso_from_tpl
     $(eval FAT_OFFSET_FL1SRC := $(shell scripts/geteltorito -c $@.orig 2>/dev/null))
     $(eval FLASH_FILE := $(subst $$,\$$$$,$(shell mdir -/ -b -i $@.orig@@$(FAT_OFFSET_FL1SRC) | grep -i $(1) | head -1)))
@@ -415,6 +424,11 @@ rule_FL2_insert_DEPS = scripts/ISO_copyFL2 # TODO - bat file
 define rule_CAP_extract
     mv `innoextract $< -I $(1) | grep -i $(1) | cut -d'"' -f2` $@
 endef
+rule_CAP_extract_DEPS = # add innoextract as dependency here?
+
+define rule_EXE_extract
+    mv `innoextract $< -I $(1) | grep -i $(1) | cut -d'"' -f2` $@
+endef
 rule_EXE_extract_DEPS = # add innoextract as dependency here?
 
 # Create a new ISO image with patches applied
@@ -433,7 +447,7 @@ define rule_CAP_insert
     @cp --reflink=auto $(2).orig $@.tmp
     $(eval FAT_OFFSET := $(shell scripts/geteltorito -c $(2).orig 2>/dev/null))
     -mkdir -p $@.orig.extract.tmp
-    unzip -o $(3) DOS/\* -x \*.cap \*.IMC \*.BAT -d $@.orig.extract.tmp/
+    unzip -o $(3).orig DOS/\* -x \*.cap \*.IMC \*.BAT -d $@.orig.extract.tmp/
     -mattrib -i $@.tmp@@$(FAT_OFFSET) -r -/ ::FLASH/
     mdeltree -i $@.tmp@@$(FAT_OFFSET) FLASH/
     mmd -i $@.tmp@@$(FAT_OFFSET) FLASH
@@ -447,6 +461,48 @@ define rule_CAP_insert
     @# TODO - datestamp here could be the lastcommitdatestamp
 
     mcopy -t -m -o -i $@.tmp@@$(FAT_OFFSET) $<.tmp ::/FLASH/$<
+    mcopy -t -m -o -i $@.tmp@@$(FAT_OFFSET) $@.report.tmp ::report.txt
+    mcopy -t -m -o -i $@.tmp@@$(FAT_OFFSET) $@.bat.tmp ::AUTOEXEC.BAT
+
+    @rm $<.tmp $@.report.tmp $@.bat.tmp
+    @mv $@.tmp $@
+endef
+rule_CAP_insert_DEPS = 
+
+# Create a new ISO image with patches applied
+# This is specifically for B580 firmware where we have to combine a bootable DOS
+# ISO with a patched FL2 together into an ISO image
+#
+# $@ is the ISO to create
+# $< is the CAP
+# $1 is the pattern to match FL1 file in EXE file
+# $2 Name of other ISO that should be taken as a template with DOS and DOSFLASH
+define rule_EXE_insert
+    $(call buildinfo_ISO)
+
+    @cp -f --reflink=auto $(2).orig $@.tmp
+    $(eval FAT_OFFSET := $(shell scripts/geteltorito -c $(2).orig 2>/dev/null))
+    $(eval DOSFLASH := $(shell mdir -/ -b -i $(2).orig@@$(FAT_OFFSET) | grep -i DOSFLASH | head -1))
+    $(eval FILE_DIR := $(shell dirname `innoextract -l $@.orig | grep -i $(1:::%=%) | cut -d'"' -f2 | cut -b5-`))
+
+    -rm -rf $@.orig.extract.tmp
+    mkdir $@.orig.extract.tmp
+    mcopy -n -s -m -i $@.tmp@@$(FAT_OFFSET) $(DOSFLASH) $@.orig.extract.tmp/
+    -mattrib -i $@.tmp@@$(FAT_OFFSET) -r -/ ::FLASH/
+    mdeltree -i $@.tmp@@$(FAT_OFFSET) FLASH/
+    mmd -i $@.tmp@@$(FAT_OFFSET) FLASH
+    mcopy -o -s -m -i $@.tmp@@$(FAT_OFFSET) $@.orig.extract.tmp/DOSFLASH.EXE ::/FLASH/
+    mcopy -o -s -m -i $@.tmp@@$(FAT_OFFSET) $< ::/FLASH/$(subst $$,\$$,$(subst \\,,$(1:::%=%)))
+    rm -r $@.orig.extract.tmp
+
+    cp --reflink=auto $< $<.tmp
+    cp --reflink=auto $@.report $@.report.tmp
+    cp --reflink=auto $@.bat1 $@.bat.tmp
+    touch --date="1980-01-01 00:00:01Z" $<.tmp $@.report.tmp $@.bat.tmp
+    @# TODO - datestamp here could be the lastcommitdatestamp
+
+    ./scripts/ISO_copyFL2 to_iso $@.tmp $<.tmp $(subst $$,\$$,$(subst \\,,$(1:::%=%)))
+    -mdel -i $@.tmp@@$(FAT_OFFSET) ::EFI/Boot/BootX64.efi
     mcopy -t -m -o -i $@.tmp@@$(FAT_OFFSET) $@.report.tmp ::report.txt
     mcopy -t -m -o -i $@.tmp@@$(FAT_OFFSET) $@.bat.tmp ::AUTOEXEC.BAT
 

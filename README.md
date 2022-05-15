@@ -40,7 +40,8 @@ There are a small number of thinkpads with a model number
 from the "xx30" series that are using a completely different EC CPU and
 a different BIOS update strategy.  
 The Nuvotron EC has been analyzed by the [thinkpad-Lx30-ec project](https://github.com/leecher1337/thinkpad-Lx30-ec).
-This is known to be the case for at least the L430, L530 and E330.
+This is known to be the case for at least the 
+L430, L530, B580, V480, V480c, V580, V580c and E330.
 Patches are included now, for documentation, please check the mentioned
 repository.
 
