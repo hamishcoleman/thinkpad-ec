@@ -6,7 +6,7 @@ As the result of CVE-2019-6171, newer Lenovo firmware update files have
 added a digital signature.  If you upgrade to locked version you will not
 be able to patch your EC without downgrading it.
 
-| laptop | last good | first locked version |
+| laptop | last modifiable | first protected version |
 | ------ | --------- | -------------------- |
 | t430   | BIOS 2.81 (G1ETC1WW) EC 1.13 (G1HT35WW) | BIOS 2.82 (G1ETC2WW) EC 1.14 (G1HT36WW) |
 | t430s  | BIOS 2.75 (G7ETB5WW) EC 1.16 (G7HT39WW) | BIOS 2.76 (G7ETB6WW) EC 1.16 (G7HT40WW) |
