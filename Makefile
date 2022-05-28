@@ -17,7 +17,8 @@ QEMU_OPTIONS ?= -enable-kvm
 GITVERSION = $(shell git describe --dirty --abbrev=6 ) ($(shell date +%Y%m%d))
 BUILDINFO = $(GITVERSION) $(MAKECMDGOALS)
 
-LIST_PATCHED = $(basename $(shell grep ^patched Descriptions.txt |cut -d" " -f1))
+LIST_PATCHED = $(basename $(shell grep ^patched Descriptions.txt |grep -v Battery |cut -d" " -f1))
+LIST_PATCHED_BO = $(basename $(shell grep ^patched Descriptions.txt |grep Battery |cut -d" " -f1))
 
 list_laptops:
 	$(info )
@@ -34,6 +35,7 @@ DEPSDIR := .d
 $(shell mkdir -p $(DEPSDIR))
 
 test: $(addsuffix .iso,$(LIST_PATCHED)) $(addsuffix .img,$(LIST_PATCHED))
+testbo: $(addsuffix .iso,$(LIST_PATCHED_BO)) $(addsuffix .img,$(LIST_PATCHED_BO))
 
 ALL_IMG_ORIG := $(addsuffix .orig,$(shell grep rule:IMG Descriptions.txt |cut -d" " -f1))
 test.img.orig: $(ALL_IMG_ORIG)

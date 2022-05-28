@@ -335,9 +335,9 @@ x61.7MHT25WW.img      rule:IMGnoenc,dep:x61.7MHT25WW.s01B2000.FL2   x61 EC 1.03
 
 
 # The end-user visible, nicely named iso images
-patched.b580.iso   rule:niceISO,dep:h1uj53us.exe,suffix:0,insert:0  for patching Thinkpad B480, B580, V480, V480c, V580, V580c
-patched.b590.iso   rule:niceISO,dep:h9et92ww.exe,suffix:0,insert:0  for patching Thinkpad B490, B590
-patched.e330.iso   rule:niceISO,dep:h3uj76wd.iso,suffix:0,insert:0  for patching Thinkpad E330, V480s
+patched.b580.iso   rule:niceISO,dep:h1uj53us.exe,suffix:0,insert:0  for patching Thinkpad B480, B580, V480, V480c, V580, V580c (Battery only)
+patched.b590.iso   rule:niceISO,dep:h9et92ww.exe,suffix:0,insert:0  for patching Thinkpad B490, B590 (Battery only)
+patched.e330.iso   rule:niceISO,dep:h3uj76wd.iso,suffix:0,insert:0  for patching Thinkpad E330, V480s (Battery only)
 patched.l430.iso   rule:niceISO,dep:g3uj13us.iso,suffix:0,insert:0  for patching Thinkpad L430, L530
 patched.t430.iso   rule:niceISO,dep:g1uj48us.iso,suffix:0,insert:0  for patching Thinkpad T430
 patched.t430s.iso  rule:niceISO,dep:g7uj28us.iso,suffix:0,insert:0  for patching Thinkpad T430s
