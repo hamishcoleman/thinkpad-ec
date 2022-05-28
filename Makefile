@@ -398,6 +398,7 @@ define rule_FL2_insert
 
     ./scripts/ISO_copyFL2 to_iso $@.tmp $<.tmp $(1)
     mcopy -t -m -o -i $@.tmp@@$(FAT_OFFSET) $@.report.tmp ::report.txt
+    -mattrib -i $@.tmp@@$(FAT_OFFSET) -r -s -h ::AUTOEXEC.BAT
     mcopy -t -m -o -i $@.tmp@@$(FAT_OFFSET) $@.bat.tmp ::AUTOEXEC.BAT
     -mdel -i $@.tmp@@$(FAT_OFFSET) ::EFI/Boot/BootX64.efi
     -mattrib -i $@.tmp@@$(FAT_OFFSET) -r ::FLASH/README.TXT
@@ -462,6 +463,7 @@ define rule_CAP_insert
 
     mcopy -t -m -o -i $@.tmp@@$(FAT_OFFSET) $<.tmp ::/FLASH/$<
     mcopy -t -m -o -i $@.tmp@@$(FAT_OFFSET) $@.report.tmp ::report.txt
+    -mattrib -i $@.tmp@@$(FAT_OFFSET) -r -s -h ::AUTOEXEC.BAT
     mcopy -t -m -o -i $@.tmp@@$(FAT_OFFSET) $@.bat.tmp ::AUTOEXEC.BAT
 
     @rm $<.tmp $@.report.tmp $@.bat.tmp
@@ -504,6 +506,7 @@ define rule_EXE_insert
     ./scripts/ISO_copyFL2 to_iso $@.tmp $<.tmp $(subst $$,\$$,$(subst \\,,$(1:::%=%)))
     -mdel -i $@.tmp@@$(FAT_OFFSET) ::EFI/Boot/BootX64.efi
     mcopy -t -m -o -i $@.tmp@@$(FAT_OFFSET) $@.report.tmp ::report.txt
+    -mattrib -i $@.tmp@@$(FAT_OFFSET) -r -s -h ::AUTOEXEC.BAT
     mcopy -t -m -o -i $@.tmp@@$(FAT_OFFSET) $@.bat.tmp ::AUTOEXEC.BAT
 
     @rm $<.tmp $@.report.tmp $@.bat.tmp
