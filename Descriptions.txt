@@ -186,6 +186,7 @@ h3uj79wd.iso  sha1:f1404fd6724c0faa5b57aee0d81c60908b9917c6 e330 BIOS 1.16 (H3ET
 h6uja0wd.iso  sha1:19a05355c793b3f776c3130caa5f10e371f530c0 T430u BIOS 2.18 (H6ETA0WW) EC 2.01 (H6HT54WW)
 h9et75ww.zip  sha1:d81c145b371cf77abe6ae00d35d37491715feecd b590,b490 BIOS ?.? (H9ET75WW) EC 1.01 (H9EC08WW)
 h9et92ww.exe  sha1:c1a3ba9282fe48a9e6f69e4dd32537c10a710e78 b590,b490 BIOS ?.? (H9ET92WW) EC 1.02 (H9EC09WW)
+heuj19wd.iso  sha1:0c060fa56828d09918ff51d61c26a5ec7f7bcff8 E431/E538 BIOS 1.33 (HEET52WW) EC 1.31 (HEHT50WW)
 n10ur10w.iso  sha1:0e4c4ffb99146e50867dc1345ee2ef88c60ea192 x250 BIOS 1.21 (N10ET42W) EC 1.16 (N10HT17W)
 n14ur15w.iso  sha1:e106b024b1d448234e5ea958b0e8e93bbda1a543 x1 Carbon (Type 20BS, 20BT) BIOS 1.16 (N14ET38W) EC 1.09 (N14HT36W)
 n1mur06w.iso  sha1:e2bed755c065daf83cabc130b8d65c08e6a6a391 x1 Carbon (Type 20HQ, 20HR, 20K3, 20K4) BIOS 1.20 (N1MET35W) EC 1.14 (N1MHT25W)
@@ -205,6 +206,7 @@ n24ur03w.iso  sha1:FIXME                                    t480 BIOS 1.11 (N24E
 n24ur04w.iso  sha1:134b239e4ce4c9c2d1f5f8f645f279c162fc5f3e t480 BIOS 1.12 (N24ET37W) EC 1.08 (N24HT23W)
 n2jur16w.iso  sha1:FIXME                                    T490s, X390 BIOS 1.51 (N2JET73W) EC 1.12 (N2JHT28W)
 n2jur17w.iso  sha1:be7598ac64e9c3f2aab60ca890175d0adac010b9 T490s, X390 BIOS 1.55 (N2JET77W) EC 1.13 (N2JHT29W)
+n30ur13w.iso  sha1:1b358b9485f3a42c226456ccb038a9e6f7cd6284 p15
 r02uj46d.iso  sha1:876a68add32d9c961cbdf80c74b88f92a66443cf x260 BIOS 1.19 (R02ET46W) EC 1.11 (R02HT29W)
 r0fuj15wd.iso sha1:bab0722d72375d1c9190b2c47ab7b4eb4c0dfde0 t470p BIOS 1.22 (R0FET42W) EC 1.04 (R0FHT16W)
 r0iuj09wd.iso sha1:21b3abf69b9ee7ecf12fe0880564312122b1ff75 x270 BIOS 1.16 (R0IET38W) EC 1.12 (R0IHT30W)
@@ -238,6 +240,7 @@ l440.J4HT27WW.s0AJ4000.FL1  rule:FL2,dep:j4uj62wd.iso,param:0AJ4000.FL1         
 l440.J4HT28WW.s0AJ4000.FL1  rule:FL2,dep:j4uj64wd.iso,param:0AJ4000.FL1                        l440 BIOS 1.78 Flash File
 l440.J4HT29WW.s0AJ4000.FL1  rule:FL2,dep:j4uj65wd.iso,param:0AJ4000.FL1                        l440 BIOS 1.81 Flash File
 l440.J4HT30WW.s0AJ4000.FL1  rule:FL2,dep:j4uj75wd.iso,param:0AJ4000.FL1                        l440 BIOS 1.93 Flash File
+p15.N30HT33W.s0AN3000.FL2   rule:FL2,dep:n30ur13w.iso,param:0AN3000.FL2                        p15
 p51.N1UHT24W.s0AN1U00.FL2   rule:FL2,dep:n1uur12w.iso,param:0AN1U00.FL2                        p51 EC 1.07 Flash File
 t430.G1HT34WW.s01D2000.FL2  rule:FL2,dep:g1uj25us.iso,depi:g1uj25us.iso.bat,param:01D2000.FL2  t430 EC 1.12 Flash File
 t430.G1HT35WW.s01D2000.FL2  rule:FL2,dep:g1uj48us.iso,depi:g1uj48us.iso.bat,param:01D2000.FL2  t430 EC 1.13 Flash File
@@ -294,6 +297,7 @@ e330.H3EC35WW.img     rule:IMGnuvoton,dep:e330.H3EC35WW.s01H3000.FL1  e330 EC 1.
 l430.G3HT40WW.img     rule:IMGnuvoton,dep:l430.G3HT40WW.s01D4000.FL1  l430 EC 1.14 (not encrypted) (CR16CPlus cpu)
 l440.J4HT29WW.img     rule:IMGnoenc,dep:l440.J4HT29WW.s0AJ4000.FL1  l440 EC 1.10
 l440.J4HT30WW.img     rule:IMGnoenc,dep:l440.J4HT30WW.s0AJ4000.FL1  l440 EC 1.11
+p15.N30HT33W.img      rule:IMGnoenc,dep:p15.N30HT33W.s0AN3000.FL2   p15 EC
 p51.N1UHT24W.img      rule:IMGnoenc,dep:p51.N1UHT24W.s0AN1U00.FL2   p51 EC 1.07
 t430.G1HT34WW.img     rule:IMG,dep:t430.G1HT34WW.s01D2000.FL2       t430 EC 1.12 (decrypted) (ARCompact cpu)
 t430.G1HT35WW.img     rule:IMG,dep:t430.G1HT35WW.s01D2000.FL2       t430 EC 1.13 (decrypted) (ARCompact cpu)

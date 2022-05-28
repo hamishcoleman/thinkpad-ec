@@ -106,6 +106,7 @@ sub _check_copyright {
     my @offsets = (
         0x268,  # ARCompact 32bit platforms
         0x264,  # older 16bit platforms
+        0x1480, # _EC file with second header (p15)
     );
 
     while (@offsets) {
@@ -489,6 +490,7 @@ sub _check {
     # We also store the encryption flag in here
     my $known = {
          196896 => 'yes',
+         229728 => 'unk', # p15
          262176 => 'no',
          286752 => 'no',
     };
@@ -497,7 +499,7 @@ sub _check {
     my $header_size = 0x20;
     my $trailer_size = 0x100;
 
-    my $buf = $self->get_block($header_offset, $header_size);
+    my $buf = $self->get_block($header_offset, $header_size+0x20);
 
     if (!defined($buf)) {
         log::add("bad get_block");
@@ -507,8 +509,9 @@ sub _check {
     my @fields = qw(
         signature version filesize imgsize hash_algo sign_algo
         hash_crc16 header_crc16 unk1
+        signature2 unk2 imgmax imgsize2
     );
-    my @values = unpack("a3CVVVVSSC",$$buf);
+    my @values = unpack("a3CVVVVSSa8a4a17VV",$$buf);
     map { $self->{header}{$fields[$_]} = $values[$_] } (0..scalar(@fields)-1);
 
     if ($self->{header}{signature} ne "_EC") {
@@ -529,16 +532,27 @@ sub _check {
         return undef;
     }
 
-    if ($self->{header}{imgsize}+$header_size+$trailer_size == $self->{filesize}) {
+    my $imgsize = $self->{header}{imgsize};
+
+    if ($self->{header}{signature2} eq "^M;*") {
+        # a second header with a different imgsize value in it !?
+        log::add("found signature2");
+        $header_size = 0x60;
+        $imgsize = $self->{header}{imgsize2};
+    }
+
+    if ($imgsize+$header_size+$trailer_size == $self->{filesize}) {
         # there is an additional block of 0x100 appended to the FL2, outside
         # of the header defined IMG file
         # - I expect this is the digital signature
         $self->{flag}{trailer}="external";
-    } elsif ($self->{header}{imgsize}+$header_size == $self->{filesize}) {
+        log::add("trailer external");
+    } elsif ($imgsize+$header_size == $self->{filesize}) {
         # the additional block still looks like it is there, but they have
         # changed the accounting to count it in the IMG - these files are also
         # significantly larger in size
         $self->{flag}{trailer}="internal";
+        log::add("trailer internal");
     } else {
         log::add("unexpected filesize/imgsize results");
         return undef;
@@ -549,7 +563,7 @@ sub _check {
 
     $self->{flag}{encrypted} = $known->{$self->{filesize}};
 
-    $self->set_offset_size($header_size, $self->{header}{imgsize});
+    $self->set_offset_size($header_size, $imgsize);
     return $self->_check_copyright();
 }
 
