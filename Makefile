@@ -423,14 +423,17 @@ rule_FL2_insert_DEPS = scripts/ISO_copyFL2 # TODO - bat file
 # $< is the EXE file
 # $1 is the pattern to match CAP file in EXE file
 define rule_CAP_extract
-    mv `innoextract $< -I $(1) | grep -i $(1) | cut -d'"' -f2` $@
+    innoextract $< -I $(1) -d tmp.inno
+    mv `find tmp.inno -type f` $@
+    touch $@
+    rm -rf tmp.inno
 endef
-rule_CAP_extract_DEPS = # add innoextract as dependency here?
+rule_CAP_extract_DEPS = # no extra local dependancies
 
 define rule_EXE_extract
-    mv `innoextract $< -I $(1) | grep -i $(1) | cut -d'"' -f2` $@
+    $(call rule_CAP_extract,$1)
 endef
-rule_EXE_extract_DEPS = # add innoextract as dependency here?
+rule_EXE_extract_DEPS = # no extra local dependancies
 
 # Create a new ISO image with patches applied
 # This is specifically for B590 firmware where we have to combine a bootable DOS

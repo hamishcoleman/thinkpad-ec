@@ -233,8 +233,8 @@ j4uj75wd.iso  sha1:3ff5025a4a5f62f461467f7726e5b2c1fa119b5b L440, L540 BIOS 1.93
 # - update the tools to automatically determine the FAT_OFFSET
 
 # The firmware files from inside the ISO images
-b590.H9ET92WW.CAP rule:CAP,dep:h9et92ww.exe,depi:h9et92ww.exe.bat;g3uj13us.iso.orig;h9et75ww.zip.orig,param:H9ET92WW.CAP;g3uj13us.iso;h9et75ww.zip  b590 BIOS H9ET75WW Flash File
-b580.h1et73ww.s0AH1000.EXE  rule:EXE,dep:h1uj53us.exe,depi:h1uj53us.exe.bat1;g3uj13us.iso.orig,param:\\$$0AH1000.FL1;g3uj13us.iso  b580 BIOS H1ET73WW Flash File
+b590.H9ET92WW.CAP           rule:CAP,dep:h9et92ww.exe,depi:h9et92ww.exe.bat;g3uj13us.iso.orig;h9et75ww.zip.orig,param:H9ET92WW.CAP;g3uj13us.iso;h9et75ww.zip  b590 BIOS H9ET75WW Flash File
+b580.h1et73ww.s0AH1000.EXE  rule:EXE,dep:h1uj53us.exe,depi:h1uj53us.exe.bat1;g3uj13us.iso.orig,param:\$$0AH1000.FL1;g3uj13us.iso  b580 BIOS H1ET73WW Flash File
 e330.H3EC35WW.s01H3000.FL1  rule:FL2,dep:h3uj76wd.iso,depi:h3uj76wd.iso.bat1;h3uj52wd.iso.orig,param:01H3000.FL1;h3uj52wd.iso e330 BIOS 1.16 Flash File
 l430.G3HT40WW.s01D4000.FL1  rule:FL2,dep:g3uj13us.iso,depi:g3uj13us.iso.bat1,param:01D4000.FL1 l430 BIOS 2.54 Flash File
 l440.J4HT27WW.s0AJ4000.FL1  rule:FL2,dep:j4uj62wd.iso,param:0AJ4000.FL1                        l440 BIOS 1.73 Flash File
