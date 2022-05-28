@@ -43,3 +43,11 @@ jobs:
 
             - name: Make a test report
                 make test.report
+
+            - name: Upload lenovo files
+              uses: actions/upload-artifact@v2
+              with:
+                name: lenovo-files
+                path: |
+                  *.iso.orig
+                  *.exe.orig
