@@ -28,6 +28,7 @@ w530    https://pcsupport.lenovo.com/gb/en/downloads/DS029169
 x131e   https://pcsupport.lenovo.com/us/en/downloads/DS029771
 x220    https://support.lenovo.com/hk/en/downloads/DS018807
 x230    https://pcsupport.lenovo.com/hk/en/downloads/DS029187
+x230i   https://pcsupport.lenovo.com/us/en/downloads/ds029187
 x230t   https://pcsupport.lenovo.com/gb/en/downloads/DS029683
 x240    https://pcsupport.lenovo.com/us/en/downloads/DS035950
 x250    https://pcsupport.lenovo.com/us/en/downloads/DS102288
