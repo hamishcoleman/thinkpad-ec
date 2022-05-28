@@ -587,9 +587,9 @@ use base qw(FL2::base);
 
 sub _find_pfh {
     my $self = shift;
-    my $offset = 0;
+    my $offset = $self->{filesize}-4;
 
-    while ($offset < $self->{filesize}) {
+    while ($offset > 0) {
         my $buf = $self->get_block($offset, 4);
         return undef if (!defined($buf));
         $buf = $$buf;
@@ -599,7 +599,7 @@ sub _find_pfh {
             return $offset;
         }
 
-        $offset+=0x08;
+        $offset-=0x04;
     }
 
     log::add("no PFH found");
@@ -613,6 +613,7 @@ sub _check {
     my $known = {
          4681808 => 1,  # l440
          9437264 => 1,  # l430
+        13631568 => 1,  # e330
         12587008 => 1,
     };
 

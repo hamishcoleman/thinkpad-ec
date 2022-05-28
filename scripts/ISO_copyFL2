@@ -5,14 +5,6 @@
 # Deal with copying the FL2 file from and to the ISO image
 #
 
-# All the bios update iso images I have checked have had a fat16 filesystem
-# embedded in a dos mbr image as the el-torito ISO payload.  They also all
-# had the same offset to this fat filesystem, so hardcode that offset here.
-# The offset value is bytes in decimal.
-# TODO - one day, this offset will be wrong.  (geteltorito could be taught
-# to output the starting sector it found as a starting point)
-FAT_OFFSET=71680
-
 DIR="$1"
 case "$DIR" in
     from_iso) ;;
@@ -35,6 +27,14 @@ shift
 if ! which mdir >/dev/null; then
     echo Fatal:  It looks like you have not installed the mtools package
     exit 1
+fi
+
+# All the bios update iso images I have checked have had a fat16 filesystem
+# embedded in a dos mbr image as the el-torito ISO payload.  
+# The offset value is bytes in decimal.
+FAT_OFFSET=$(scripts/geteltorito -c $ISO 2>/dev/null)
+if [ -z $FAT_OFFSET ]; then
+    FAT_OFFSET=71680
 fi
 
 # If we just want to look at the contents, do that

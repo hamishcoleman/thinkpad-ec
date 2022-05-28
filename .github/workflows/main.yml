@@ -20,6 +20,8 @@ jobs:
             - run: sudo make build-deps
             - run: make patch_enable_battery
             - run: make test
+            - run: make patch_disable_keyboard
+            - run: make test.batteryonly
             - run: rm -f .config
             - run: make test
             - run: make test.img.orig

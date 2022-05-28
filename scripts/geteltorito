@@ -94,6 +94,7 @@ sub usage{
 	    "the data extracted to STDOUT or to a file.\n",
 	    "   -h:        This help. \n",
 	    "   -v:        Print version of script and exit.\n",
+	    "   -c:        Calculate start of FAT in HDD image\n",
 	    "   -o <file>: Write extracted data to file <file> instead of STDOUT.\n",
 	    "\n\n";
 	exit 0;
@@ -101,7 +102,7 @@ sub usage{
 
 
 # ---------------------------------------------------------------------
-$ret=getopts('hvo:');
+$ret=getopts('hvco:');
 
 if( defined($opt_v) ){
  	warn "Version: $utilVersion \n";
@@ -214,6 +215,11 @@ print STDERR "\n";
 $cnt=$count==0?$sCount:$count;
 
 print STDERR "El Torito image starts at sector $imgStart and has $cnt sector(s) of $vSecSize Bytes\n";
+
+if( defined($opt_c) and $media == 4 ) {
+	print STDOUT ($imgStart * $secSize) + ($firstSector * $vSecSize);
+	exit
+}
 
 # We are there:
 # Now read the bootimage to stdout

@@ -36,12 +36,6 @@ With the patches included here, you can install the classic keyboard
 hardware on many xx30 series laptops and make almost every key work properly.
 The only keys that are not working are Fn+F3 (Battery) and Fn+F12 (Hibernate)
 
-Unfortunately, there are a small number of thinkpads with a model number
-from the "xx30" series that are using a completely different EC CPU and
-a different BIOS update strategy.  Thus they are not currently able to
-be patched.  This is known to be the case for at least the L430, L530
-and E330.
-
 * A full writeup of the hardware modifications needed can be found at:
     http://www.thinkwiki.org/wiki/Install_Classic_Keyboard_on_xx30_Series_ThinkPads
 
@@ -49,6 +43,12 @@ and E330.
 
 * A video presenting how these thinkpad laptops were hacked is online:
     https://www.youtube.com/watch?v=Fzmm87oVQ6c
+
+* Reverse engineering details for the L430, L530, B580, V480, V480c, V580,
+  V580c and E330 models can be found in the [thinkpad-Lx30-ec project](https://github.com/leecher1337/thinkpad-Lx30-ec).
+  Patches for patching the genuine battery check on these have been
+  contributed from that project.  (These all have an Nuvotron EC, with a
+  different architecture to the original "classic" thinkpad models).
 
 Step-by-step instructions:
 --------------------------

@@ -258,6 +258,14 @@ sub main() {
             next;
         }
 
+        if (-z $patchfile) {
+            warn("Patchfile $patchfile is zero bytes, skipping\n");
+            if ($fail_on_missing) {
+                exit(1);
+            }
+            next;
+        }
+
         my $db = read_patchfile($patchfile);
 
         if (!defined($db)) {
