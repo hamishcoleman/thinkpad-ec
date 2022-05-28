@@ -35,7 +35,7 @@ DEPSDIR := .d
 $(shell mkdir -p $(DEPSDIR))
 
 test: $(addsuffix .iso,$(LIST_PATCHED)) $(addsuffix .img,$(LIST_PATCHED))
-testbo: $(addsuffix .iso,$(LIST_PATCHED_BO)) $(addsuffix .img,$(LIST_PATCHED_BO))
+test.batteryonly: $(addsuffix .iso,$(LIST_PATCHED_BO)) $(addsuffix .img,$(LIST_PATCHED_BO))
 
 ALL_IMG_ORIG := $(addsuffix .orig,$(shell grep rule:IMG Descriptions.txt |cut -d" " -f1))
 test.img.orig: $(ALL_IMG_ORIG)
