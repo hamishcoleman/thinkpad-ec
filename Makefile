@@ -207,6 +207,11 @@ patch_disable_keyboard:
 	@sed -e "s%__DIR%`mdir -/ -b -i $<@@$(FAT_OFFSET) |grep FL2 |head -1|cut -d/ -f3`%; s%__FL2%`mdir -/ -b -i $<@@$(FAT_OFFSET) |grep FL2 |head -1|cut -d/ -f4`%" autoexec.bat.template >$@.tmp
 	@mv $@.tmp $@
 
+# FIXME:
+# - the following bat file generators are all basically duplicates of the
+#   above original one.  They should be deduplicated
+# - the "bat1" construct is ugly.  Find a nicer way to do this.
+
 %.iso.bat1: %.iso.orig autoexec.bat.template
 	$(eval FAT_OFFSET := $(shell scripts/geteltorito -c $< 2>/dev/null))
 	@sed -e "s%__DIR%`mdir -/ -b -i $<@@$(FAT_OFFSET) |grep FL1 |head -1|cut -d/ -f3`%; s%__FL2%`mdir -/ -b -i $<@@$(FAT_OFFSET) |grep FL1 |head -1|cut -d/ -f4`%" autoexec.bat.template >$@.tmp
@@ -318,6 +323,9 @@ mec-tools/mec_encrypt: mec-tools/Makefile
 	git submodule update
 	make -C mec-tools
 
+# FIXME:
+# - There is no version tracking in this wget, so it is basically an untrusted
+#   execution vector.  Either import this file to this repo or use a submodule.
 nuvoton-tools/npce885crc:
 	-mkdir nuvoton-tools
 	wget -O nuvoton-tools/npce885crc.c https://raw.githubusercontent.com/leecher1337/thinkpad-Lx30-ec/main/fwpat/util/npce885crc.c
@@ -357,6 +365,11 @@ define rule_IMG_extract
 endef
 rule_IMG_extract_DEPS = scripts/FL2_copyIMG mec-tools/mec_encrypt mec-tools/mec_csum_flasher mec-tools/mec_csum_boot
 
+# TODO:
+# - the prepare_iso_from_tpl looks like it is entirely needed due to some
+#   Lenovo images being broken.  Look into what is broken and see if it is
+#   patchable without a template.
+
 # $@ is the ISO to create
 # $< is the FL2
 # $1 is the pattern to match FL2 file in ISO image
@@ -374,6 +387,11 @@ define prepare_iso_from_tpl
     mcopy -o -s -m -i $@.tmp@@$(2) $@.orig.extract.tmp/$(subst $$,\$$,$(shell basename $(FLASH_FILE:::%=%))) ::/FLASH/$(FILE_DIR)/
     rm -r $@.orig.extract.tmp
 endef
+
+# FIXME:
+# - the logic using the optional $2 below feels really clunky, try and
+#   improve it.  See above for a related TODO for prepare_iso_from_tpl
+
 
 # Create a new ISO image with patches applied
 #
@@ -435,12 +453,16 @@ define rule_EXE_extract
 endef
 rule_EXE_extract_DEPS = # no extra local dependancies
 
-# Create a new ISO image with patches applied
+# TODO:
+# - the following two rule_CAP_insert and rule_EXE_insert replicate a lot of
+#   logic included in rule_FL2_insert.  See if we can refactor to share logic.
+
+# Create a new CAP image with patches applied
 # This is specifically for B590 firmware where we have to combine a bootable DOS
 # ISO with the Flash-updater tool from an older .ZIP archive and a new capsule
 # from an Innosetup .EXE and combine it together into an ISO image
 #
-# $@ is the ISO to create
+# $@ is the CAP to create
 # $< is the CAP
 # $1 is the pattern to match CAP file in EXE file
 # $2 Name of other ISO that should be taken as a template with a working DOS on it
@@ -474,11 +496,11 @@ define rule_CAP_insert
 endef
 rule_CAP_insert_DEPS = 
 
-# Create a new ISO image with patches applied
+# Create a new EXE image with patches applied
 # This is specifically for B580 firmware where we have to combine a bootable DOS
 # ISO with a patched FL2 together into an ISO image
 #
-# $@ is the ISO to create
+# $@ is the EXE to create
 # $< is the CAP
 # $1 is the pattern to match FL1 file in EXE file
 # $2 Name of other ISO that should be taken as a template with DOS and DOSFLASH
@@ -554,6 +576,10 @@ define rule_IMGnoenc_extract
     ./scripts/FL2_copyIMG from_fl2 $< $@
 endef
 rule_IMGnoenc_extract_DEPS = scripts/FL2_copyIMG
+
+# TODO:
+# - the rule_IMGnoenc_insert and rule_IMGnuvoton_insert share much of their
+#   logic.  See if we can refactor them to remove duplication.
 
 # Insert the new firmware into the FL2 file - special case, without encryption
 #
