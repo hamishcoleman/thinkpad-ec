@@ -42,6 +42,7 @@ jobs:
                 make test.img.orig
 
             - name: Make a test report
+              run: |
                 make test.report
 
             - name: Upload lenovo files
