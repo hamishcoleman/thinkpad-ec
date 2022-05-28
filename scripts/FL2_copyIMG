@@ -492,6 +492,7 @@ sub _check {
          196896 => 'yes',
          229728 => 'unk', # p15
          262176 => 'no',
+         #262432          # p15g2
          286752 => 'no',
     };
 
@@ -540,6 +541,10 @@ sub _check {
         $header_size = 0x60;
         $imgsize = $self->{header}{imgsize2};
     }
+
+    # p15g2 has a second _EC header, with what looks like the same fields
+    # as the first one (unlike the above ^M;* header) but it also has a
+    # ^M;* header slightly later in the file ...
 
     if ($imgsize+$header_size+$trailer_size == $self->{filesize}) {
         # there is an additional block of 0x100 appended to the FL2, outside
