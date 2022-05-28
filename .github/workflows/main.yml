@@ -16,13 +16,30 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v2
-            - run: touch .config
-            - run: sudo make build-deps
-            - run: make patch_enable_battery
-            - run: make test
-            - run: make patch_disable_keyboard
-            - run: make test.batteryonly
-            - run: rm -f .config
-            - run: make test
-            - run: make test.img.orig
-            - run: make test.report
+
+            - name: Prepare environment
+              run: |
+                touch .config
+                sudo make build-deps
+
+            - name: Test with both patches enabled
+              run: |
+                make patch_enable_battery
+                make test
+
+            - name: Test with batteryonly targets
+              run: |
+                make patch_disable_keyboard
+                make test.batteryonly
+
+            - name: Test with default build
+              run: |
+                rm -f .config
+                make test
+
+            - name: Test we can download all known Lenovo files
+              run: |
+                make test.img.orig
+
+            - name: Make a test report
+                make test.report
