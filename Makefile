@@ -496,6 +496,13 @@ define rule_CAP_insert
 endef
 rule_CAP_insert_DEPS = 
 
+# TODO:
+# - it is unclear if the dependancies for the $2 ISO image used below are
+#   handled
+# - Similar to the prepare_iso_from_tpl, this looks like it has a bunch of
+#   logic due to some Lenovo images being broken.  Look into what is broken
+#   and see if it is patchable without a template.
+
 # Create a new EXE image with patches applied
 # This is specifically for B580 firmware where we have to combine a bootable DOS
 # ISO with a patched FL2 together into an ISO image
@@ -510,7 +517,6 @@ define rule_EXE_insert
     @cp -f --reflink=auto $(2).orig $@.tmp
     $(eval FAT_OFFSET := $(shell scripts/geteltorito -c $(2).orig 2>/dev/null))
     $(eval DOSFLASH := $(shell mdir -/ -b -i $(2).orig@@$(FAT_OFFSET) | grep -i DOSFLASH | head -1))
-    $(eval FILE_DIR := $(shell dirname `innoextract -l $@.orig | grep -i $(1:::%=%) | cut -d'"' -f2 | cut -b5-`))
 
     -rm -rf $@.orig.extract.tmp
     mkdir $@.orig.extract.tmp
@@ -519,7 +525,7 @@ define rule_EXE_insert
     mdeltree -i $@.tmp@@$(FAT_OFFSET) FLASH/
     mmd -i $@.tmp@@$(FAT_OFFSET) FLASH
     mcopy -o -s -m -i $@.tmp@@$(FAT_OFFSET) $@.orig.extract.tmp/DOSFLASH.EXE ::/FLASH/
-    mcopy -o -s -m -i $@.tmp@@$(FAT_OFFSET) $< ::/FLASH/$(subst $$,\$$,$(subst \\,,$(1:::%=%)))
+    mcopy -o -s -m -i $@.tmp@@$(FAT_OFFSET) $< ::/FLASH/$(1)
     rm -r $@.orig.extract.tmp
 
     cp --reflink=auto $< $<.tmp
@@ -528,7 +534,7 @@ define rule_EXE_insert
     touch --date="1980-01-01 00:00:01Z" $<.tmp $@.report.tmp $@.bat.tmp
     @# TODO - datestamp here could be the lastcommitdatestamp
 
-    ./scripts/ISO_copyFL2 to_iso $@.tmp $<.tmp $(subst $$,\$$,$(subst \\,,$(1:::%=%)))
+    ./scripts/ISO_copyFL2 to_iso $@.tmp $<.tmp $(1)
     -mdel -i $@.tmp@@$(FAT_OFFSET) ::EFI/Boot/BootX64.efi
     mcopy -t -m -o -i $@.tmp@@$(FAT_OFFSET) $@.report.tmp ::report.txt
     -mattrib -i $@.tmp@@$(FAT_OFFSET) -r -s -h ::AUTOEXEC.BAT
