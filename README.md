@@ -72,7 +72,8 @@ warning message.
 
     ```
     sudo apt-get update
-    sudo apt-get install wget build-essential git mtools libssl-dev
+    sudo apt-get install make
+    sudo make build-deps
     ```
 
    On Fedora, you could install it with dnf:
@@ -86,13 +87,14 @@ warning message.
 2. Clone a copy of this repo on to your computer:
 
     ```
+    cd ~/
     git clone https://github.com/hamishcoleman/thinkpad-ec
     ```
 
 3. Change to the directory created by the clone:
 
     ```
-    cd thinkpad-ec
+    cd ~/thinkpad-ec
     ```
 
 4. Show the list of laptops and USB image file names:

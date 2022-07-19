@@ -29,7 +29,7 @@ jobs:
 
             - name: Test with batteryonly targets
               run: |
-                make patch_disable_keyboard
+                make patch_disable_keyboard patch_enable_battery
                 make test.batteryonly
 
             - name: Test with default build
