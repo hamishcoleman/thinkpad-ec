@@ -133,7 +133,6 @@ install.radare.projects:
 	mkdir -p ~/.config/radare2/projects/x260.R02HT29W.d/
 	cp -fs $(PWD)/radare/x260.R02HT29W ~/.config/radare2/projects
 
-
 .config:
 	cp defconfig .config
 include .config
@@ -151,21 +150,34 @@ PATCHES-$(CONFIG_BATTERY) += \
 # - optionally, add a patch_enable/patch_disable stanza
 #   - however, that will get messy quickly, so perhaps a real config target
 
+# Update the configuration
+# $1 is the Config option to edit
+# $2 is the new value
+define config_set
+    sed -E 's/$(1)\s*=.*//' --in-place .config
+    echo "$(1) = $(2)" >> .config
+endef
+
 #
 # These enable and disable targets change which patches are configured to be
 # applied.
+#
 
+.PHONY: patch_enable_battery
 patch_enable_battery:
-	sed -E 's/CONFIG_BATTERY.+/CONFIG_BATTERY = y/'  --in-place .config
+	$(call config_set,CONFIG_BATTERY,y)
 
+.PHONY: patch_disable_battery
 patch_disable_battery:
-	sed -E 's/CONFIG_BATTERY.+/CONFIG_BATTERY = n/'  --in-place .config
+	$(call config_set,CONFIG_BATTERY,n)
 
+.PHONY: patch_enable_keyboard
 patch_enable_keyboard:
-	sed -E 's/CONFIG_KEYBOARD.+/CONFIG_KEYBOARD = y/'  --in-place .config
+	$(call config_set,CONFIG_KEYBOARD,y)
 
+.PHONY: patch_disable_keyboard
 patch_disable_keyboard:
-	sed -E 's/CONFIG_KEYBOARD.+/CONFIG_KEYBOARD = n/'  --in-place .config
+	$(call config_set,CONFIG_KEYBOARD,n)
 
 
 # TODO - the scripts/describe output depends on Descriptions.txt -

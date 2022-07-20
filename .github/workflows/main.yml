@@ -30,15 +30,11 @@ jobs:
             - name: Test with both patches enabled
               run: |
                 make patch_enable_keyboard patch_enable_battery
-                ls -al .config
-                cat .config
                 make test
 
             - name: Test with batteryonly targets
               run: |
                 make patch_disable_keyboard patch_enable_battery
-                ls -al .config
-                cat .config
                 make test.batteryonly
 
             - name: Test with default build
