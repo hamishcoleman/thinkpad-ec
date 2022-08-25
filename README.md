@@ -67,13 +67,12 @@ version used by the patched image you build.  The version used to build
 the patch is shown at the end of the build process and during the pre-flash
 warning message.
 
-1. Ensure you have installed the prerequisite packages
+1. Ensure you have installed the minimum reuired packages
    On Debian, this can be done with:
 
     ```
     sudo apt-get update
-    sudo apt-get install make
-    sudo make build-deps
+    sudo apt-get install make git
     ```
 
    On Fedora, you could install it with dnf:
@@ -95,6 +94,12 @@ warning message.
 
     ```
     cd ~/thinkpad-ec
+    ```
+1. Install the prerequisite packages
+   On Debian, this can be done with:
+
+    ```
+    sudo make build-deps
     ```
 
 4. Show the list of laptops and USB image file names:
