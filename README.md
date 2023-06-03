@@ -71,7 +71,7 @@ version used by the patched image you build.  The version used to build
 the patch is shown at the end of the build process and during the pre-flash
 warning message.
 
-1. Ensure you have installed the minimum reuired packages
+1. Ensure you have installed the minimum required packages
    On Debian, this can be done with:
 
     ```
@@ -85,7 +85,11 @@ warning message.
     sudo dnf install git mtools openssl-devel
     sudo dnf group install "C Development Tools and Libraries"
     ```
-    
+
+   On OpenSUSE, try:
+    ```
+    sudo zypper in git mtools libressl-devel
+    ```
 
 2. Clone a copy of this repo on to your computer:
 
@@ -135,6 +139,11 @@ warning message.
     ```
     lsblk -d -o NAME,SIZE,LABEL
     ```
+
+   Note: Do not mount the USB stick.  If your desktop environment automatically
+   mounts devices for you, you will need to unmount the stick.  You may find
+   that using the "Eject" option does not work as it may turn the power off to
+   the stick, which will stop the next step from working.
 
 8. Write the bootable patched image onto the USB stick device (replace
    the "sdx" in this command with the correct name for your usb stick)
