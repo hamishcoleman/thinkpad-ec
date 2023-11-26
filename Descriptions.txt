@@ -200,6 +200,7 @@ n1uur12w.iso  sha1:82628c7b7ed2064f4c272440b72cbb38a88b18d8 P51 BIOS 1.20 (N1UET
 n20ur02w.iso  sha1:FIXME                                    x280 BIOS 1.08 (N20ET23W) EC 1.03 (N20HT16W)
 n20ur03w.iso  sha1:FIXME                                    x280 BIOS 1.12 (N20ET27W) EC 1.04 (N20HT17W)
 n20ur04w.iso  sha1:8ca1d873aeca5ce87d67f795739f8cc95f0c519f x280 BIOS 1.14 (N20ET29W) EC 1.04 (N20HT17W)
+n20ur36w.iso  sha1:34ec6464ef7519cab97306366a5445be385c0c38 x280 BIOS 1.51 (N20ET66W) EC 1.14 (N20HT28W)
 n22ur04w.iso  sha1:b557d7bbe881cc682b7504364097b64c0dec1c01 t480s BIOS 1.11 (N22ET34W) EC 1.07 (N22HT22W)
 n24ur01w.iso  sha1:FIXME                                    t480 BIOS 1.07 (N24ET32W) EC 1.06 (N24HT21W)
 n24ur03w.iso  sha1:FIXME                                    t480 BIOS 1.11 (N24ET36W) EC 1.08 (N24HT23W)
@@ -272,7 +273,8 @@ x240.GIHT32WW.s01DE000.FL2  rule:FL2,dep:giuj26us.iso,param:01DE000.FL2         
 x250.N10HT17W.s01E5000.FL2  rule:FL2,dep:n10ur10w.iso,param:01E5000.FL2                        x250 EC 1.16 Flash File
 x260.R02HT29W.s0AR0200.FL2  rule:FL2,dep:r02uj46d.iso,param:0AR0200.FL2                        x260 EC 1.11 Flash File
 x270.R0IHT50W.s0AR0I00.FL2  rule:FL2,dep:r0iuj21wd.iso,param:0AR0I00.FL2                       x270 EC 1.15 Flash File
-x280.N20HT29W.s0AN2000.FL2  rule:FL2,dep:n20ur04w.iso,param:0AN2000.FL2                        x280 EC 1.04 Flash File
+x280.N20HT17W.s0AN2000.FL2  rule:FL2,dep:n20ur04w.iso,param:0AN2000.FL2                        x280 EC 1.04 Flash File
+x280.N20HT28W.s0AN2000.FL2  rule:FL2,dep:n20ur36w.iso,param:P/.0AN2000.FL2                     x280 EC 1.15 Flash File
 x390.N2JET77P.s0AN2J00.FL2  rule:FL2,dep:n2jur17w.iso,param:P/.0AN2J00.FL2                     x390 EC 1.13 Flash File
 x60.7BHT28WW.s01A5000.FL2   rule:oldISO,dep:7buj01uc.iso,param:01A5000.FL2                     x60 EC 1.01 Flash File
 x60.7BHT29WW.s01A5000.FL2   rule:oldISO,dep:7buj02uc.iso,param:01A5000.FL2                     x60 EC 1.02 Flash File
@@ -326,7 +328,8 @@ x240.GIHT32WW.img.enc rule:IMGnoenc,dep:x240.GIHT32WW.s01DE000.FL2  x240 EC 1.17
 x250.N10HT17W.img.enc rule:IMGnoenc,dep:x250.N10HT17W.s01E5000.FL2  x250 EC 1.16 (encrypted) (ARCompact cpu)
 x260.R02HT29W.img     rule:IMGnoenc,dep:x260.R02HT29W.s0AR0200.FL2  x260 EC 1.11 (not encrypted) (ARCompact cpu)
 x270.R0IHT50W.img     rule:IMGnoenc,dep:x270.R0IHT50W.s0AR0I00.FL2  x270 EC 1.15 (not encrupted) (ARCompact cpu)
-x280.N20HT29W.img     rule:IMGnoenc,dep:x280.N20HT29W.s0AN2000.FL2  x280 EC 1.04 (not encrupted) (ARCompact cpu)
+x280.N20HT17W.img     rule:IMGnoenc,dep:x280.N20HT17W.s0AN2000.FL2  x280 EC 1.04 (not encrupted) (ARCompact cpu)
+x280.N20HT28W.img     rule:IMGnoenc,dep:x280.N20HT28W.s0AN2000.FL2  x280 EC 1.15 (not encrupted) (ARCompact cpu)
 x390.N2JET77P.img     rule:IMGnoenc,dep:x390.N2JET77P.s0AN2J00.FL2  x390 EC 1.13 (not encrypted) (ARCompact cpu)
 x60.7BHT28WW.img      rule:IMGnoenc,dep:x60.7BHT28WW.s01A5000.FL2   x60 EC 1.01
 x60.7BHT29WW.img      rule:IMGnoenc,dep:x60.7BHT29WW.s01A5000.FL2   x60 EC 1.02

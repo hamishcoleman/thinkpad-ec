@@ -34,6 +34,7 @@ x240    https://pcsupport.lenovo.com/us/en/downloads/DS035950
 x250    https://pcsupport.lenovo.com/us/en/downloads/DS102288
 x260    https://pcsupport.lenovo.com/us/en/downloads/DS105890
 x270    https://pcsupport.lenovo.com/us/en/downloads/DS120442
+x280    https://pcsupport.lenovo.com/us/en/downloads/ds502324
 x390    https://pcsupport.lenovo.com/us/en/downloads/ds539062
 x60     https://support.lenovo.com/hk/en/downloads/migr-63145
 x61     https://support.lenovo.com/hk/en/downloads/migr-67983
