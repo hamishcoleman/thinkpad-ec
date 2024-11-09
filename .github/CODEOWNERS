@@ -1,0 +1,4 @@
+*.nix @kreyren
+/tasks/ @kreyren
+.direnv @kreyren
+default.code-workspace @kreyren
