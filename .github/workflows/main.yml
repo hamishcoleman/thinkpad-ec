@@ -51,7 +51,7 @@ jobs:
                 make test.report
 
             - name: Upload lenovo files
-              uses: actions/upload-artifact@v2
+              uses: actions/upload-artifact@v3
               with:
                 name: lenovo-files
                 path: |
