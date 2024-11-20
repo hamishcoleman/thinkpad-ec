@@ -30,3 +30,4 @@ nuvoton-tools/
 
 # Temp are (should be) just junk
 *.tmp
+.direnv/
