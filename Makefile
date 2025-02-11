@@ -120,6 +120,7 @@ build-deps:
 	    xorriso \
 	    unzip \
 	    innoextract \
+	    wget \
 
 #
 # Radare didnt seem to let me specify the directory to store the project file,
