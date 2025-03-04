@@ -14,6 +14,7 @@ be able to patch your EC without downgrading it.
 | w530   | BIOS 2.75 (G5ETB5WW) EC 1.13 (G4HT39WW) | BIOS 2.76 (G5ETB6WW) EC 1.14 (G4HT40WW) |
 | x230   | BIOS 2.75 (G2ETB5WW) EC 1.14 (G2HT35WW) | BIOS 2.77 (G2ETB7WW) EC 1.15 (G2HT36WW) |
 | x230t  | BIOS 2.73 (GCETB3WW) EC 1.14 (GCHT25WW) | BIOS 2.75 (GCETB5WW) EC 1.15 (GCHT26WW) |
+| x131e  | BIOS 3.00 (G8ETB3WW) EC 2.02 (G8HT52WW) | BIOS 3.01 (G8ETB4WW) EC 2.03 (G8HT53WW) |
 
 Basically, any BIOS update package where the changelog mentions CVE-2019-6171
 will have this lockdown.
@@ -53,6 +54,9 @@ keyboard will never turn on the Indicator on any laptop.
   Patches for patching the genuine battery check on these have been
   contributed from that project.  (These all have an Nuvotron EC, with a
   different architecture to the original "classic" thinkpad models).
+
+* Informations about the IT8518E embedded Controller for Thinkpad X130e
+  can be found in [this thread](https://github.com/leecher1337/thinkpad-Lx30-ec/issues/5).
 
 Step-by-step instructions:
 --------------------------

@@ -158,7 +158,26 @@ g7uj25us.iso  sha1:e9ea2fbf3cbe3762a05e5a16d25227f1e64c0ee7 t430s BIOS 2.72 (G7E
 g7uj26us.iso  sha1:FIXME
 g7uj27us.iso  sha1:FIXME
 g7uj28us.iso  sha1:ace55c1a1fa87f3ca5140ef67d565ff9f863020a t430s BIOS 2.75 (G7ETB5WW) EC 1.15 (G7HT39WW)
-g8uj31us.iso  sha1:443bf6090f2d621369e4a4dce6ff7e151dcac901 x131e BIOS 2.98 (G8ETB1WW) EC 2.02 (G8HT52WW)
+g8uj10us.iso  sha1:1d3954cc794cb690cfc3fcca41363b4bd2965450 x131e BIOS 2.52 (G8ET92WW) EC 2.02 (G8HT52WW) | BIOS 2.52 (G9ET92WW) EC 2.01 (G9HT51WW)
+g8uj11us.iso  sha1:629ca161bd0115f221020e55d1d38f92ef1df338 x131e BIOS 2.52 (G8ET92WW) EC 2.02 (G8HT52WW) | BIOS 2.53 (G9ET93WW) EC 2.01 (G9HT51WW)
+g8uj12us.iso  sha1:34bbdcb1235edef4db59432fa99665bf8e8f6744 x131e BIOS 2.53 (G8ET93WW) EC 2.02 (G8HT52WW) | BIOS 2.54 (G9ET94WW) EC 2.01 (G9HT51WW)
+g8uj14us.iso  sha1:586e43f103ce767cce855c7d14d04644283f4bbf x131e BIOS 2.54 (G8ET94WW) EC 2.02 (G8HT52WW) | BIOS 2.54 (G9ET94WW) EC 2.01 (G9HT51WW)
+g8uj16us.iso  sha1:258f0c375ecf3ee9db6ca558631240aabaf61cdf x131e BIOS 2.55 (G8ET95WW) EC 2.02 (G8HT52WW) | BIOS 2.56 (G9ET96WW) EC 2.01 (G9HT51WW)
+g8uj17us.iso  sha1:3a89eeb2edc1e82cfb9f4fe6db7f9df0e7bc8627 x131e BIOS 2.56 (G8ET97WW) EC 2.02 (G8HT52WW) | BIOS 2.57 (G9ET97WW) EC 2.01 (G9HT51WW)
+g8uj18us.iso  sha1:bcc35d4efc296fd14d447bd5efdb920b6d159d1e x131e BIOS 2.57 (G8ET97WW) EC 2.02 (G8HT52WW) | BIOS 2.57 (G9ET97WW) EC 2.01 (G9HT51WW)
+g8uj19us.iso  sha1:da5bdabf8444b615a1fa0f1d69c8934a08f73fd8 x131e BIOS 2.58 (G8ET98WW) EC 2.02 (G8HT52WW) | BIOS 2.57 (G9ET97WW) EC 2.01 (G9HT51WW)
+g8uj20us.iso  sha1:5f53cd8a71f4cae7cad49026efe44829b2248404 x131e BIOS 2.59 (G8ET99WW) EC 2.02 (G8HT52WW) | BIOS 2.58 (G9ET98WW) EC 2.01 (G9HT51WW)
+g8uj21us.iso  sha1:a10a0afc8e4d58ec4e0f204104d5e0f4886f5eab x131e BIOS 2.60 (G8ETA0WW) EC 2.02 (G8HT52WW) | BIOS 2.59 (G9ET99WW) EC 2.01 (G9HT51WW)
+g8uj22us.iso  sha1:d52baf23c15f7c9dd321f51adfbc4d878c887b72 x131e BIOS 2.70 (G8ETA1WW) EC 2.02 (G8HT52WW) | BIOS 2.60 (G9ETA0WW) EC 2.01 (G9HT51WW)
+g8uj23us.iso  sha1:3c1de6aa798682e64bc108c1d90abb8198d9362f x131e BIOS 2.90 (G8ETA3WW) EC 2.02 (G8HT52WW) | BIOS 2.56 (G9ET96WW) EC 2.01 (G9HT51WW)
+g8uj24us.iso  sha1:736ad2181fe3bf8ba5434edf71d34865318a2cf6 x131e BIOS 2.91 (G8ETA4WW) EC 2.02 (G8HT52WW) | BIOS 2.57 (G9ET97WW) EC 2.01 (G9HT51WW)
+g8uj25us.iso  sha1:0bb754ac6e55b7b7d7e0578cb12073e6fa852f2e x131e BIOS 2.92 (G8ETA5WW) EC 2.02 (G8HT52WW) | BIOS 2.58 (G9ET98WW) EC 2.01 (G9HT51WW)
+g8uj26us.iso  sha1:a6451623f0d9461d0d1dc6e3983e54d58adaafdd x131e BIOS 2.93 (G8ETA6WW) EC 2.02 (G8HT52WW) | BIOS 2.59 (G9ET99WW) EC 2.01 (G9HT51WW)
+g8uj27us.iso  sha1:e55ae356344e58882e6f846b3695c327f2c5a5ff x131e BIOS 2.95 (G8ETA8WW) EC 2.02 (G8HT52WW) | BIOS 2.61 (G9ETA0WW) EC 2.01 (G9HT51WW)
+g8uj28us.iso  sha1:f5e16f87fa82288bbc56aceeff877f977e8c6f6b x131e BIOS 2.95 (G8ETA8WW) EC 2.02 (G8HT52WW) | BIOS 2.62 (G9ETA2WW) EC 2.01 (G9HT51WW)
+g8uj29us.iso  sha1:8edab34ee18f06cfaa7e6323361f06ccdd6a6882 x131e BIOS 2.96 (G8ETA9WW) EC 2.02 (G8HT52WW) | BIOS 2.63 (G9ETA3WW) EC 2.01 (G9HT51WW)
+g8uj30us.iso  sha1:17ea48132752aa48d7c848324559aa726c1466aa x131e BIOS 2.97 (G8ETB0WW) EC 2.02 (G8HT52WW) | BIOS 2.64 (G9ETA4WW) EC 2.01 (G9HT51WW)
+g8uj31us.iso  sha1:443bf6090f2d621369e4a4dce6ff7e151dcac901 x131e BIOS 2.98 (G8ETB1WW) EC 2.02 (G8HT52WW) | BIOS 2.65 (G9ETA5WW) EC 2.01 (G9HT51WW)
 gcuj24us.iso  sha1:468e70cf4253d216bfa877ac31cc2c4ae322ca16 x230t BIOS 2.64 (GCETA4WW) EC 1.14 (GCHT25WW)
 gcuj25us.iso  sha1:09c1a0b14ba443fe1ab252023106624401782461 x230t BIOS 2.65 (GCETA5WW) EC 1.14 (GCHT25WW)
 gcuj26us.iso  sha1:8b9ffa924c92df33fe673c64766501a8bd83d4cb x230t BIOS 2.66 (GCETA6WW) EC 1.14 (GCHT25WW)
@@ -259,8 +278,8 @@ t530.G4HT39WW.s01D5100.FL2  rule:FL2,dep:g4uj38us.iso,depi:g4uj38us.iso.bat,para
 t530.G4HT40WW.s01D5100.FL2  rule:FL2,dep:g4uj41us.iso,depi:g4uj41us.iso.bat,param:01D5100.FL2  t530 EC 1.14 Flash File (signed)
 w530.G4HT39WW.s01D5200.FL2  rule:FL2,dep:g5uj37us.iso,depi:g5uj37us.iso.bat,param:01D5200.FL2  w530 EC 1.13 Flash File
 w530.G4HT40WW.s01D5200.FL2  rule:FL2,dep:g5uj39us.iso,depi:g5uj39us.iso.bat,param:01D5200.FL2  w530 EC 1.14 Flash File (signed)
-x131e.G8HT52WW.s0AG8000.FL1 rule:FL2,dep:g8uj31us.iso,param:0AG8000.FL1                        x131e BIOS 2.98 Flash File
-#x131e.G8HT52WW.s0ag9000.FL1 rule:FL2,dep:g8uj31us.iso,param:0ag9000.FL1                        x131e g9 BIOS 2.98 Flash File
+x131e.G8HT52WW.s0AG8000.FL1 rule:FL2,dep:g8uj31us.iso,depi:g8uj31us.iso.bat1,param:0AG8000.FL1 x131e g8 BIOS 2.98 Flash File
+x131e.G9HT51WW.s0ag9000.FL1 rule:FL2,dep:g8uj30us.iso,depi:g8uj30us.iso.batag9000,param:0ag9000.fl1 x131e g9 BIOS 2.98 Flash File
 x1cg1.G6HT24WW.s01D7000.FL2 rule:FL2,dep:g6uj24us.iso,param:01D7000.FL2                        x1c Gen 1 EC 1.06 Flash File
 x200.7XHT22WW.s01B9000.FL2  rule:FL2multi2,dep:6duj37uc.iso,depi:6duj37uc.iso.bat,param:01B9000.FL2;01B9100.FL2         x200 EC 1.04 Flash File
 x200.7XHT24WW.s01B9000.FL2  rule:FL2multi2,dep:6duj47uc.iso,depi:6duj47uc.iso.bat,param:01B9000.FL2;01B9100.FL2         x200 EC 1.06 Flash File
@@ -341,6 +360,8 @@ x60.7BHT37WW.img      rule:IMGnoenc,dep:x60.7BHT37WW.s01A5000.FL2   x60 EC 1.10
 x60.7BHT40WW.img      rule:IMGnoenc,dep:x60.7BHT40WW.s01A5000.FL2   x60 EC 1.13
 x61.7MHT24WW.img      rule:IMGnoenc,dep:x61.7MHT24WW.s01B2000.FL2   x61 EC 1.02
 x61.7MHT25WW.img      rule:IMGnoenc,dep:x61.7MHT25WW.s01B2000.FL2   x61 EC 1.03
+x131e.G8HT52WW.img    rule:IMGnoenc,dep:x131e.G8HT52WW.s0AG8000.FL1 x131e EC 2.02 (not encrypted) (8085 cpu)
+x131e.G9HT51WW.img    rule:IMGnoenc,dep:x131e.G9HT51WW.s0ag9000.FL1 x131e EC 2.02 (not encrypted) (8085 cpu)
 
 
 # The end-user visible, nicely named iso images
@@ -355,3 +376,5 @@ patched.t530i.iso  rule:niceISO,dep:g4uj38us.iso,suffix:0,insert:0  for patching
 patched.w530.iso   rule:niceISO,dep:g5uj37us.iso,suffix:0,insert:0  for patching Thinkpad W530
 patched.x230.iso   rule:niceISO,dep:g2uj31us.iso,suffix:0,insert:0  for patching Thinkpad X230
 patched.x230t.iso  rule:niceISO,dep:gcuj32us.iso,suffix:0,insert:0  for patching Thinkpad X230t
+patched.x131e.intel.iso  rule:niceISO,dep:g8uj31us.iso,suffix:0,insert:0  for patching Thinkpad X131e Intel versions (Battery only)
+patched.x131e.amd.iso    rule:niceISO,dep:g8uj30us.iso,suffix:0,insert:0  for patching Thinkpad X131e AMD versions (Battery only)
