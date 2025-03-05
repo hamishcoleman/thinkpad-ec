@@ -239,7 +239,7 @@ patch_disable_keyboard:
 
 %.iso.bat1: %.iso.orig autoexec.bat.template
 	$(eval FAT_OFFSET := $(shell scripts/geteltorito -c $< 2>/dev/null))
-	@sed -e "s%__DIR%`mdir -/ -b -i $<@@$(FAT_OFFSET) |grep FL1 |head -1|cut -d/ -f3`%; s%__FL2%`mdir -/ -b -i $<@@$(FAT_OFFSET) |grep FL1 |head -1|cut -d/ -f4`%" autoexec.bat.template >$@.tmp
+	@sed -e "s%__DIR%`mdir -/ -b -i $<@@$(FAT_OFFSET) |grep FL1 |head -1|cut -d/ -f3`%; s%__FL2%`mdir -/ -b -i $<@@$(FAT_OFFSET) |grep FL1 |head -1|cut -d/ -f4`%; s%/sd %/sd /sn %" autoexec.bat.template >$@.tmp
 	@mv $@.tmp $(subst .bat1,.bat,$@)
 
 %.iso.batag9000: %.iso.orig autoexec.bat.template

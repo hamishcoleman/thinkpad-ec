@@ -202,6 +202,7 @@ h3uj76wd.iso  sha1:8c8f46e117ee5423b62e421423531e3c11d9a40c e330 BIOS 1.14 (H3ET
 h3uj77wd.iso  sha1:079a1a3c77fd5ac6a59e68235d5e5e9b326deae2 e330 BIOS 1.14 (H3ET77WW) EC 1.18 (H3EC35WW)
 h3uj78wd.iso  sha1:d96a7c3c740eab23f7f1287b28c95df1d60467f2 e330 BIOS 1.15 (H3ET78WW) EC 1.18 (H3EC35WW)
 h3uj79wd.iso  sha1:f1404fd6724c0faa5b57aee0d81c60908b9917c6 e330 BIOS 1.16 (H3ET79WW) EC 1.18 (H3EC35WW)
+h4uj15wd.iso  sha1:df8121ee9d52a3ec65bd0dd7fb704f18fb6dd3c0 e130 BIOS 2.60 (H4ETA0WW) EC 2.01 (H4HT51WW)
 h6uja0wd.iso  sha1:19a05355c793b3f776c3130caa5f10e371f530c0 T430u BIOS 2.18 (H6ETA0WW) EC 2.01 (H6HT54WW)
 h9et75ww.zip  sha1:d81c145b371cf77abe6ae00d35d37491715feecd b590,b490 BIOS ?.? (H9ET75WW) EC 1.01 (H9EC08WW)
 h9et92ww.exe  sha1:c1a3ba9282fe48a9e6f69e4dd32537c10a710e78 b590,b490 BIOS ?.? (H9ET92WW) EC 1.02 (H9EC09WW)
@@ -280,6 +281,7 @@ w530.G4HT39WW.s01D5200.FL2  rule:FL2,dep:g5uj37us.iso,depi:g5uj37us.iso.bat,para
 w530.G4HT40WW.s01D5200.FL2  rule:FL2,dep:g5uj39us.iso,depi:g5uj39us.iso.bat,param:01D5200.FL2  w530 EC 1.14 Flash File (signed)
 x131e.G8HT52WW.s0AG8000.FL1 rule:FL2,dep:g8uj31us.iso,depi:g8uj31us.iso.bat1,param:0AG8000.FL1 x131e g8 BIOS 2.98 Flash File
 x131e.G9HT51WW.s0ag9000.FL1 rule:FL2,dep:g8uj30us.iso,depi:g8uj30us.iso.batag9000,param:0ag9000.fl1 x131e g9 BIOS 2.98 Flash File
+e130.H4HT51WW.s0AH4000.FL1  rule:FL2,dep:h4uj15wd.iso,depi:h4uj15wd.iso.bat1,param:0AH4000.FL1 e130 EC 2.01 Flash File
 x1cg1.G6HT24WW.s01D7000.FL2 rule:FL2,dep:g6uj24us.iso,param:01D7000.FL2                        x1c Gen 1 EC 1.06 Flash File
 x200.7XHT22WW.s01B9000.FL2  rule:FL2multi2,dep:6duj37uc.iso,depi:6duj37uc.iso.bat,param:01B9000.FL2;01B9100.FL2         x200 EC 1.04 Flash File
 x200.7XHT24WW.s01B9000.FL2  rule:FL2multi2,dep:6duj47uc.iso,depi:6duj47uc.iso.bat,param:01B9000.FL2;01B9100.FL2         x200 EC 1.06 Flash File
@@ -362,6 +364,7 @@ x61.7MHT24WW.img      rule:IMGnoenc,dep:x61.7MHT24WW.s01B2000.FL2   x61 EC 1.02
 x61.7MHT25WW.img      rule:IMGnoenc,dep:x61.7MHT25WW.s01B2000.FL2   x61 EC 1.03
 x131e.G8HT52WW.img    rule:IMGnoenc,dep:x131e.G8HT52WW.s0AG8000.FL1 x131e EC 2.02 (not encrypted) (8085 cpu)
 x131e.G9HT51WW.img    rule:IMGnoenc,dep:x131e.G9HT51WW.s0ag9000.FL1 x131e EC 2.02 (not encrypted) (8085 cpu)
+e130.H4HT51WW.img     rule:IMGnoenc,dep:e130.H4HT51WW.s0AH4000.FL1  e130  EC 2.01 (not encrypted) (8085 cpu)
 
 
 # The end-user visible, nicely named iso images
@@ -378,3 +381,4 @@ patched.x230.iso   rule:niceISO,dep:g2uj31us.iso,suffix:0,insert:0  for patching
 patched.x230t.iso  rule:niceISO,dep:gcuj32us.iso,suffix:0,insert:0  for patching Thinkpad X230t
 patched.x131e.intel.iso  rule:niceISO,dep:g8uj31us.iso,suffix:0,insert:0  for patching Thinkpad X131e Intel versions (Battery only)
 patched.x131e.amd.iso    rule:niceISO,dep:g8uj30us.iso,suffix:0,insert:0  for patching Thinkpad X131e AMD versions (Battery only)
+patched.e130.iso  rule:niceISO,dep:h4uj15wd.iso,suffix:0,insert:0  for patching Thinkpad E130 (Battery only)
