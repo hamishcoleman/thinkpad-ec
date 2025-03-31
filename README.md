@@ -56,7 +56,7 @@ keyboard will never turn on the Indicator on any laptop.
   different architecture to the original "classic" thinkpad models).
 
 * Informations about the IT8518E embedded Controller for Thinkpad X130e
-  can be found in [this thread](https://github.com/leecher1337/thinkpad-Lx30-ec/issues/5).
+  can be found in the [thinkpad-E130-ec project](https://github.com/leecher1337/thinkpad-E130-ec).
 
 Step-by-step instructions:
 --------------------------
