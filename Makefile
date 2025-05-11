@@ -387,9 +387,10 @@ define prepare_iso_from_tpl
     $(eval FILE_DIR := $(shell basename $(dir $(FLASH_FILE:::%=%))))
     mdeltree -i $@.tmp@@$(2) FLASH/
     mmd -i $@.tmp@@$(2) FLASH FLASH/$(FILE_DIR)
-    mcopy -n -s -m -i $@.orig@@$(FAT_OFFSET_FL1SRC) $(FLASH_FILE) $(DOSFLASH) $@.dosflash.exe.orig
-    mcopy -o -s -m -i $@.tmp@@$(2) $@.dosflash.exe.orig ::/FLASH/
-    mcopy -o -s -m -i $@.tmp@@$(2) $@.orig.extract.tmp/$(subst $$,\$$,$(shell basename $(FLASH_FILE:::%=%))) ::/FLASH/$(FILE_DIR)/
+    mcopy -n -s -m -i $@.orig@@$(FAT_OFFSET_FL1SRC) $(DOSFLASH) $@.dosflash.exe.orig
+    mcopy -n -s -m -i $@.orig@@$(FAT_OFFSET_FL1SRC) $(FLASH_FILE) $@.FL.orig
+    mcopy -o -s -m -i $@.tmp@@$(2) $@.dosflash.exe.orig ::/FLASH/DOSFLASH.EXE
+    mcopy -o -s -m -i $@.tmp@@$(2) $@.FL.orig $(FLASH_FILE)
 endef
 
 # FIXME:
