@@ -337,14 +337,6 @@ mec-tools/mec_encrypt: mec-tools/Makefile
 	git submodule update
 	make -C mec-tools
 
-# FIXME:
-# - There is no version tracking in this wget, so it is basically an untrusted
-#   execution vector.  Either import this file to this repo or use a submodule.
-nuvoton-tools/npce885crc:
-	-mkdir nuvoton-tools
-	wget -O nuvoton-tools/npce885crc.c https://raw.githubusercontent.com/leecher1337/thinkpad-Lx30-ec/main/fwpat/util/npce885crc.c
-	gcc -o nuvoton-tools/npce885crc nuvoton-tools/npce885crc.c
-
 # Simple Visualisation
 %.pgm: %
 	(echo "P5 256 $$(($(shell stat -c %s $<)/265)) 255" ; cat $< ) > $@
@@ -635,7 +627,7 @@ define rule_IMGnuvoton_insert
     $(call buildinfo_FL2)
 endef
 rule_IMGnuvoton_insert_DEPS = scripts/FL2_copyIMG nuvoton-tools/npce885crc
-
+CLEAN_FILES += nuvoton-tools/npce885crc
 
 # Extract the FL2 file from an ISO image with two FL2 files
 #
