@@ -387,11 +387,9 @@ define prepare_iso_from_tpl
     $(eval FILE_DIR := $(shell basename $(dir $(FLASH_FILE:::%=%))))
     mdeltree -i $@.tmp@@$(2) FLASH/
     mmd -i $@.tmp@@$(2) FLASH FLASH/$(FILE_DIR)
-    -mkdir -p $@.orig.extract.tmp
-    mcopy -n -s -m -i $@.orig@@$(FAT_OFFSET_FL1SRC) $(FLASH_FILE) $(DOSFLASH) $@.orig.extract.tmp
-    mcopy -o -s -m -i $@.tmp@@$(2) $@.orig.extract.tmp/DOSFLASH.EXE ::/FLASH/
+    mcopy -n -s -m -i $@.orig@@$(FAT_OFFSET_FL1SRC) $(FLASH_FILE) $(DOSFLASH) $@.dosflash.exe.orig
+    mcopy -o -s -m -i $@.tmp@@$(2) $@.dosflash.exe.orig ::/FLASH/
     mcopy -o -s -m -i $@.tmp@@$(2) $@.orig.extract.tmp/$(subst $$,\$$,$(shell basename $(FLASH_FILE:::%=%))) ::/FLASH/$(FILE_DIR)/
-    rm -r $@.orig.extract.tmp
 endef
 
 # FIXME:
@@ -509,30 +507,27 @@ rule_CAP_insert_DEPS =
 #   logic due to some Lenovo images being broken.  Look into what is broken
 #   and see if it is patchable without a template.
 
-# Create a new EXE image with patches applied
+# Create a new ISO image using a second ISO as a template
 # This is specifically for B580 firmware where we have to combine a bootable DOS
 # ISO with a patched FL2 together into an ISO image
 #
-# $@ is the EXE to create
-# $< is the CAP
-# $1 is the pattern to match FL1 file in EXE file
+# $@ is the ISO to create
+# $< is the ROM file
+# $1 is the pattern to name ROM file in ISO file
 # $2 Name of other ISO that should be taken as a template with DOS and DOSFLASH
 define rule_EXE_insert
     $(call buildinfo_ISO)
 
-    @cp -f --reflink=auto $(2).orig $@.tmp
     $(eval FAT_OFFSET := $(shell scripts/geteltorito -c $(2).orig 2>/dev/null))
     $(eval DOSFLASH := $(shell mdir -/ -b -i $(2).orig@@$(FAT_OFFSET) | grep -i DOSFLASH | head -1))
+    cp -f --reflink=auto $(2).orig $@.tmp
 
-    -rm -rf $@.orig.extract.tmp
-    mkdir $@.orig.extract.tmp
-    mcopy -n -s -m -i $@.tmp@@$(FAT_OFFSET) $(DOSFLASH) $@.orig.extract.tmp/
+    mcopy -n -s -m -i $@.tmp@@$(FAT_OFFSET) $(DOSFLASH) $@.dosflash.exe.orig
     -mattrib -i $@.tmp@@$(FAT_OFFSET) -r -/ ::FLASH/
     mdeltree -i $@.tmp@@$(FAT_OFFSET) FLASH/
     mmd -i $@.tmp@@$(FAT_OFFSET) FLASH
-    mcopy -o -s -m -i $@.tmp@@$(FAT_OFFSET) $@.orig.extract.tmp/DOSFLASH.EXE ::/FLASH/
+    mcopy -o -s -m -i $@.tmp@@$(FAT_OFFSET) $@.dosflash.exe.orig ::/FLASH/DOSFLASH.EXE
     mcopy -o -s -m -i $@.tmp@@$(FAT_OFFSET) $< ::/FLASH/$(1)
-    rm -r $@.orig.extract.tmp
 
     cp --reflink=auto $< $<.tmp
     cp --reflink=auto $@.report $@.report.tmp
@@ -541,10 +536,12 @@ define rule_EXE_insert
     @# TODO - datestamp here could be the lastcommitdatestamp
 
     ./scripts/ISO_copyFL2 to_iso $@.tmp $<.tmp $(1)
-    -mdel -i $@.tmp@@$(FAT_OFFSET) ::EFI/Boot/BootX64.efi
     mcopy -t -m -o -i $@.tmp@@$(FAT_OFFSET) $@.report.tmp ::report.txt
     -mattrib -i $@.tmp@@$(FAT_OFFSET) -r -s -h ::AUTOEXEC.BAT
     mcopy -t -m -o -i $@.tmp@@$(FAT_OFFSET) $@.bat.tmp ::AUTOEXEC.BAT
+    -mdel -i $@.tmp@@$(FAT_OFFSET) ::EFI/Boot/BootX64.efi
+    -mattrib -i $@.tmp@@$(FAT_OFFSET) -r ::FLASH/README.TXT
+    -mdel -i $@.tmp@@$(FAT_OFFSET) ::FLASH/README.TXT
 
     @rm $<.tmp $@.report.tmp $@.bat.tmp
     @mv $@.tmp $@
