@@ -447,10 +447,10 @@ rule_FL2_insert_DEPS = scripts/ISO_copyFL2 # TODO - bat file
 # $< is the EXE file
 # $1 is the pattern to match CAP file in EXE file
 define rule_CAP_extract
-    innoextract $< -I $(1) -d tmp.inno
-    mv `find tmp.inno -type f` $@
+    innoextract $< -I $(1) -d $@.tmp
+    mv `find $@.tmp -type f |head -1` $@
     touch $@
-    rm -rf tmp.inno
+    rm -r $@.tmp
 endef
 rule_CAP_extract_DEPS = # no extra local dependancies
 
