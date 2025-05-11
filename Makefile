@@ -492,7 +492,7 @@ define rule_CAP_insert
     @touch --date="1980-01-01 00:00:01Z" $<.tmp $@.report.tmp $@.bat.tmp
     @# TODO - datestamp here could be the lastcommitdatestamp
 
-    mcopy -t -m -o -i $@.tmp@@$(FAT_OFFSET) $<.tmp ::/FLASH/$<
+    mcopy -t -m -o -i $@.tmp@@$(FAT_OFFSET) $<.tmp ::/FLASH/$(1)
     mcopy -t -m -o -i $@.tmp@@$(FAT_OFFSET) $@.report.tmp ::report.txt
     -mattrib -i $@.tmp@@$(FAT_OFFSET) -r -s -h ::AUTOEXEC.BAT
     mcopy -t -m -o -i $@.tmp@@$(FAT_OFFSET) $@.bat.tmp ::AUTOEXEC.BAT
