@@ -474,8 +474,9 @@ rule_EXE_extract_DEPS = # no extra local dependancies
 define rule_CAP_insert
     $(call buildinfo_ISO)
 
-    @cp --reflink=auto $(2).orig $@.tmp
     $(eval FAT_OFFSET := $(shell scripts/geteltorito -c $(2).orig 2>/dev/null))
+    @cp --reflink=auto $(2).orig $@.tmp
+
     -mkdir -p $@.orig.extract.tmp
     unzip -o $(3).orig DOS/\* -x \*.cap \*.IMC \*.BAT -d $@.orig.extract.tmp/
     -mattrib -i $@.tmp@@$(FAT_OFFSET) -r -/ ::FLASH/
@@ -494,6 +495,9 @@ define rule_CAP_insert
     mcopy -t -m -o -i $@.tmp@@$(FAT_OFFSET) $@.report.tmp ::report.txt
     -mattrib -i $@.tmp@@$(FAT_OFFSET) -r -s -h ::AUTOEXEC.BAT
     mcopy -t -m -o -i $@.tmp@@$(FAT_OFFSET) $@.bat.tmp ::AUTOEXEC.BAT
+    -mdel -i $@.tmp@@$(FAT_OFFSET) ::EFI/Boot/BootX64.efi
+    -mattrib -i $@.tmp@@$(FAT_OFFSET) -r ::FLASH/README.TXT
+    -mdel -i $@.tmp@@$(FAT_OFFSET) ::FLASH/README.TXT
 
     @rm $<.tmp $@.report.tmp $@.bat.tmp
     @mv $@.tmp $@
