@@ -81,14 +81,6 @@ really_clean: clean
 #patched.t430.257.iso: g1uj25us.iso
 #	$(call patched_iso,$<,$@)
 
-list_iso:
-	$(info )
-	$(info This list was a duplicate of the list_laptops list - please refer to that)
-	$(info )
-	@false
-
-.PHONY: list_iso
-
 # FIXME - need to automatically generate the iso image target list
 
 list_images:
