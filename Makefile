@@ -147,7 +147,7 @@ PATCHES-$(CONFIG_BATTERY) += \
 # $1 is the Config option to edit
 # $2 is the new value
 define config_set
-    sed -E 's/$(1)\s*=.*//' --in-place .config
+    sed -E '/$(1)\s*=.*/d' --in-place .config
     echo "$(1) = $(2)" >> .config
 endef
 
