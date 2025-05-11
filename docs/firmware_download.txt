@@ -7,7 +7,7 @@ latest versions.
 These pages provide the the description, checksum and binaries for the
 bootable BIOS update CD images for both the current and historical releases.
 
-b580    FIXME
+b580    https://support.lenovo.com/us/en/downloads/ds031954
 b590    FIXME
 e330    https://support.lenovo.com/hk/en/downloads/DS031908
 e531    FIXME
