@@ -27,6 +27,9 @@ list_laptops:
 	@for i in $(LIST_PATCHED); do \
             echo "$$i.img\t- `scripts/describe $$i.iso`"; \
 	done
+	@for i in $(LIST_PATCHED_BO); do \
+            echo "$$i.img\t- `scripts/describe $$i.iso`"; \
+	done
 	@echo
 
 .PHONY: list_laptops
@@ -228,8 +231,13 @@ patch_disable_keyboard:
 
 %.iso.bat1: %.iso.orig autoexec.bat.template
 	$(eval FAT_OFFSET := $(shell scripts/geteltorito -c $< 2>/dev/null))
-	@sed -e "s%__DIR%`mdir -/ -b -i $<@@$(FAT_OFFSET) |grep FL1 |head -1|cut -d/ -f3`%; s%__FL2%`mdir -/ -b -i $<@@$(FAT_OFFSET) |grep FL1 |head -1|cut -d/ -f4`%" autoexec.bat.template >$@.tmp
+	@sed -e "s%__DIR%`mdir -/ -b -i $<@@$(FAT_OFFSET) |grep FL1 |head -1|cut -d/ -f3`%; s%__FL2%`mdir -/ -b -i $<@@$(FAT_OFFSET) |grep FL1 |head -1|cut -d/ -f4`%; s%/sd %/sd /sn %" autoexec.bat.template >$@.tmp
 	@mv $@.tmp $(subst .bat1,.bat,$@)
+
+%.iso.batag9000: %.iso.orig autoexec.bat.template
+	$(eval FAT_OFFSET := $(shell scripts/geteltorito -c $< 2>/dev/null))
+	@sed -e "s%__DIR%`mdir -/ -b -i $<@@$(FAT_OFFSET) |grep 0ag9000.fl1 |head -1|cut -d/ -f3`%; s%__FL2%`mdir -/ -b -i $<@@$(FAT_OFFSET) |grep 0ag9000.fl1 |head -1|cut -d/ -f4`%; s%/sd %/sd /sn %" autoexec.bat.template >$@.tmp
+	@mv $@.tmp $(subst .batag9000,.bat,$@)
 
 %.exe.bat: %.exe.orig autoexec.bat.template
 	@sed -e "s%__DIR%.%; s%__FL2%`basename \`innoextract -l $< | grep -i .CAP | cut -d'"' -f2\``%" autoexec.bat.template >$@.tmp

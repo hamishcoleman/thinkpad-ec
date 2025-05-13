@@ -634,6 +634,7 @@ sub _check {
          9437264 => 1,  # l430
         13631568 => 1,  # e330
         12587008 => 1,
+        13107280 => 1   # x131e
     };
 
     my $capsule_offset_hack = $self->{capsule_offset_hack} || 0;
@@ -705,7 +706,7 @@ sub _check {
 
         push @{$self->{header}{dir}}, $dir;
 
-        if ($name eq 'Ec') {
+        if (lc($name) eq 'ec') {
             $self->set_offset_size(
                 $dir->{FileOffset}+$capsule_offset_hack,
                 $dir->{Size},
